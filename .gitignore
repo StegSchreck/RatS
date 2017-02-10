@@ -1,0 +1,4 @@
+.idea
+credentials.cfg
+ghostdriver.log
+*.pyc
