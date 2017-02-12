@@ -2,3 +2,5 @@
 credentials.cfg
 ghostdriver.log
 *.pyc
+exports/*.csv
+exports/*.json

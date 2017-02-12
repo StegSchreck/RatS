@@ -7,3 +7,12 @@ class MovieSource:
     url = ''
     my_rating = ''
     overall_rating = ''
+
+    def to_json(self):
+        json = {
+            'id': self.id,
+            'url': self.url,
+            'my_rating': self.my_rating,
+            'overall_rating': self.overall_rating
+        }
+        return json
