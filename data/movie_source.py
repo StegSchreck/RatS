@@ -16,3 +16,12 @@ class MovieSource:
             'overall_rating': self.overall_rating
         }
         return json
+
+    @staticmethod
+    def from_json(json):
+        movie_source = MovieSource()
+        movie_source.id = json['id']
+        movie_source.url = json['url']
+        movie_source.my_rating = json['my_rating']
+        movie_source.overall_rating = json['overall_rating']
+        return movie_source

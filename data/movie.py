@@ -24,3 +24,15 @@ class Movie:
             'rottentomato': self.rottentomato.to_json()
         }
         return movie_json
+
+    @staticmethod
+    def from_json(json):
+        movie = Movie()
+        movie.title = json['title']
+        movie.imdb = MovieSource.from_json(json['imdb'])
+        movie.trakt = MovieSource.from_json(json['trakt'])
+        movie.tmdb = MovieSource.from_json(json['tmdb'])
+        movie.movielense = MovieSource.from_json(json['movielense'])
+        movie.rottentomato = MovieSource.from_json(json['rottentomato'])
+        return movie
+
