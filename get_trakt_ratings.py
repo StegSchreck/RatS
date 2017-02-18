@@ -8,7 +8,7 @@ from data import file_handler
 from parsers.trakt_parser import TraktRatingsParser
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-EXPORTS_FOLDER = os.path.join(os.path.dirname(__file__), 'exports')
+EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'exports'))
 JSON_FILE = os.path.join(EXPORTS_FOLDER, TIMESTAMP + '_trakt.json')
 CSV_FILE = os.path.join(EXPORTS_FOLDER, TIMESTAMP + '_trakt.csv')
 
