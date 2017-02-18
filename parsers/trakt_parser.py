@@ -1,42 +1,38 @@
 from bs4 import BeautifulSoup
 
 from data.movie import Movie
-from parsers.base_parser import BaseParser
+from parsers.base_parser import Parser
+from sites.trakt import Trakt
 
 
-class TraktRatingsParser(BaseParser):
+class TraktRatingsParser(Parser):
     def __init__(self):
-        self.LOGIN_PAGE = 'https://trakt.tv/auth/signin'
-        super(TraktRatingsParser, self).__init__()
+        super(TraktRatingsParser, self).__init__(Trakt())
 
     def parse(self):
-        self.browser.get('https://trakt.tv/users/%s/ratings/movies/all/added' % self.config['Trakt']['USERNAME'])
+        self.browser.get(self.site.MY_RATINGS_URL)
         overview_page = BeautifulSoup(self.browser.page_source, 'html.parser')
         self._parse_html(overview_page)
         return self.movies
 
     def _parse_html(self, overview):
-        pages = overview.find(id='rating-items').find_all('li', class_='page')[-1].find('a').get_text()
-        for i in range(1, int(pages) + 1):
-            self.browser.get('https://trakt.tv/users/%s/ratings/movies/all/added?page=%i' % (self.config['Trakt']['USERNAME'], i))
+        pages_count = overview.find(id='rating-items').find_all('li', class_='page')[-1].find('a').get_text()
+        movies_count = overview.find('section', class_='subnav-wrapper').find('a', attrs={'data-title': 'Movies'}). \
+            find('span').get_text().strip().replace(',', '')
+
+        print('===== Parsing %s pages with %s movies in total =====' % (pages_count, movies_count))
+        # for i in range(1, 2):  # testing purpose
+        for i in range(1, int(pages_count) + 1):
+            self.browser.get(self.site.MY_RATINGS_URL + '?page=%i' % i)
             self._parse_movie_listing_page()
-
-    def _insert_login_credentials(self):
-        login_field_user = self.browser.find_element_by_xpath("//form[@id='new_user']//input[@id='user_login']")
-        login_field_user.send_keys(self.config['Trakt']['USERNAME'])
-        login_field_password = self.browser.find_element_by_xpath("//form[@id='new_user']//input[@id='user_password']")
-        login_field_password.send_keys(self.config['Trakt']['PASSWORD'])
-
-    def _click_login_button(self):
-        login_button = self.browser.find_element_by_xpath("//form[@id='new_user']//input[@type='submit']")
-        login_button.click()
 
     def _parse_movie_listing_page(self):
         movie_listing_page = BeautifulSoup(self.browser.page_source, 'html.parser')
         movies_tiles = movie_listing_page.find(class_='row posters').find_all('div', attrs={'data-type': 'movie'})
         for movie_tile in movies_tiles:
-            self.movies.append(self._parse_movie(movie_tile))
-            
+            movie = self._parse_movie(movie_tile)
+            self.movies.append(movie)
+
     def _parse_movie(self, movie_tile):
         movie = Movie()
         movie.trakt.id = movie_tile['data-movie-id']
@@ -48,7 +44,7 @@ class TraktRatingsParser(BaseParser):
 
         movie_page = BeautifulSoup(self.browser.page_source, 'html.parser')
 
-        movie.trakt.overall_rating = movie_page.find(id='summary-ratings-wrapper').find('ul', class_='ratings')\
+        movie.trakt.overall_rating = movie_page.find(id='summary-ratings-wrapper').find('ul', class_='ratings') \
             .find('li', attrs={'itemprop': 'aggregateRating'}).find('div', class_='rating').get_text()
 
         external_links = movie_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
@@ -60,6 +56,6 @@ class TraktRatingsParser(BaseParser):
                 movie.tmdb.url = link['href']
                 movie.tmdb.id = movie.tmdb.url.split('/')[-1]
 
-        print("Parsing movie: %s" % movie.title)
+        print("      Parsed movie: %s" % movie.title)
 
         return movie
