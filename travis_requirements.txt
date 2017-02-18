@@ -1,5 +1,7 @@
 pytest
+pytest-cov
 pytest-mccabe
 pytest-flakes
 pytest-pep8
 pytest-pylint
+coveralls
