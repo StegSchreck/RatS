@@ -56,4 +56,3 @@ class TraktParserTest(TestCase):
         self.assertEqual('http://www.imdb.com/title/tt2543164', movie.imdb.url)
         self.assertEqual('329865', movie.tmdb.id)
         self.assertEqual('https://www.themoviedb.org/movie/329865', movie.tmdb.url)
-
