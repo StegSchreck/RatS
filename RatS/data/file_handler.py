@@ -1,7 +1,7 @@
 import csv
 import json
 
-from RatS.data import Movie
+from RatS.data.movie import Movie
 
 
 def load_movies_json(filename):

@@ -1,4 +1,4 @@
-from RatS.data import MovieSource
+from RatS.data.movie_source import MovieSource
 
 
 class Movie:

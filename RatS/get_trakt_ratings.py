@@ -3,8 +3,7 @@ import datetime
 import os
 import time
 
-from data import file_handler
-
+from RatS.data import file_handler
 from RatS.parsers.trakt_parser import TraktRatingsParser
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')

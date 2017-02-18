@@ -1,10 +1,10 @@
 import time
 
 from bs4 import BeautifulSoup
-from data.movie import Movie
-from sites.trakt import Trakt
 
+from RatS.data.movie import Movie
 from RatS.parsers.base_parser import Parser
+from RatS.sites.trakt import Trakt
 
 
 class TraktRatingsParser(Parser):
