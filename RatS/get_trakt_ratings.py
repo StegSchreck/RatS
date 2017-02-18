@@ -17,4 +17,3 @@ if __name__ == "__main__":
     file_handler.save_movies_json(movies, JSON_FILE)
     print('===== saved parsed movies to %s =====' % JSON_FILE)
     # loaded_movies = file_handler.load_movies_json(JSON_FILE)
-    # file_handler.save_movies_to_csv(loaded_movies, CSV_FILE)
