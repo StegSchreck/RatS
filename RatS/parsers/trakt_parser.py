@@ -12,12 +12,12 @@ class TraktRatingsParser(Parser):
         super(TraktRatingsParser, self).__init__(Trakt())
 
     def parse(self):
-        self.browser.get(self.site.MY_RATINGS_URL)
         try:
             self._parse_ratings()
         except AttributeError:
             time.sleep(0.5)  # wait a little bit for page to load and try again
             self._parse_ratings()
+        self.kill_browser()
         return self.movies
 
     def _parse_ratings(self):
