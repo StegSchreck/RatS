@@ -5,7 +5,7 @@ from unittest import TestCase
 from RatS.data import file_handler
 from RatS.data.movie import Movie
 
-TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'assets', 'exports'))
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets', 'exports'))
 
 
 class MovieTest(TestCase):
