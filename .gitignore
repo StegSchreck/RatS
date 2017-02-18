@@ -1,6 +1,6 @@
 .idea
-credentials.cfg
+RatS/credentials.cfg
 ghostdriver.log
 *.pyc
-exports/*.csv
-exports/*.json
+RatS/exports/*.csv
+RatS/exports/*.json

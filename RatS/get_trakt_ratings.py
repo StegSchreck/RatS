@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-import os
-
 import datetime
+import os
 import time
 
 from data import file_handler
-from parsers.trakt_parser import TraktRatingsParser
+
+from RatS.parsers.trakt_parser import TraktRatingsParser
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'exports'))

@@ -2,7 +2,7 @@ import json
 import os
 from unittest import TestCase
 
-from data.movie import Movie
+from RatS.data import Movie
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'assets', 'exports'))
 
