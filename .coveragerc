@@ -1,0 +1,14 @@
+[report]
+omit =  
+    */python?.?/*
+    */tests/*
+    *__init__*
+    *settings*
+    credentials.cfg
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass

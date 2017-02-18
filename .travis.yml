@@ -1,0 +1,18 @@
+language: python
+python:
+- '3.6'
+install:
+- pip install -r requirements.txt
+- pip install coveralls
+script:
+- py.test --flakes
+- py.test --pep8
+- py.test --mccabe -m mccabe
+- py.test --pylint -m pylint
+notifications:
+  email:
+    recipients:
+    - stegschreck@gmail.com
+    on_success: change
+    on_failure: always
+after_success: coveralls
