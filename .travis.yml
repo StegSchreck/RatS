@@ -5,7 +5,7 @@ install:
 - pip install -r requirements.txt
 - pip install -r travis_requirements.txt
 script:
-- pytest --cov RatS --cov-report term-missing
+- pytest --cov-report term-missing
 - pytest --flakes
 - pytest --pep8
 - pytest --mccabe -m mccabe
