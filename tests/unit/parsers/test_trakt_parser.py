@@ -49,7 +49,7 @@ class TraktParserTest(TestCase):
         browser_mock.page_source = self.detail_page
         movie = Movie()
 
-        parser._parse_movie_details_page(movie)
+        parser._parse_movie_details_page(movie)  # pylint: disable=W0212
 
         self.assertEqual('75%', movie.trakt.overall_rating)
         self.assertEqual('tt2543164', movie.imdb.id)
