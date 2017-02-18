@@ -5,3 +5,4 @@ pytest-flakes
 pytest-pep8
 pytest-pylint
 coveralls
+coverage
