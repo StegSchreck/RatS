@@ -6,3 +6,6 @@ class Movielense(Site):
         self.LOGIN_PAGE = 'https://movielens.org/login'
         self.MY_RATINGS_URL = 'https://movielens.org/explore/your-ratings'
         super(Movielense, self).__init__()
+
+    def login(self, browser):
+        pass

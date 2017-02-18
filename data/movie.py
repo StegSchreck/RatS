@@ -41,4 +41,3 @@ class Movie:
         movie.movielense = MovieSource.from_json(json['movielense'])
         movie.rottentomato = MovieSource.from_json(json['rottentomato'])
         return movie
-
