@@ -6,10 +6,11 @@ install:
 - pip install -r travis_requirements.txt
 - pip install coveralls
 script:
-- py.test --flakes
-- py.test --pep8
-- py.test --mccabe -m mccabe
-- py.test --pylint -m pylint
+- pytest
+- pytest --flakes
+- pytest --pep8
+- pytest --mccabe -m mccabe
+- pytest --pylint -m pylint
 notifications:
   email:
     recipients:
