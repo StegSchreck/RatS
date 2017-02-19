@@ -3,6 +3,7 @@ import os
 from unittest import TestCase
 
 from RatS.data.movie import Movie
+from RatS.data.movie_source import MovieSource
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets', 'exports'))
 
@@ -59,6 +60,14 @@ class MovieTest(TestCase):
         movie2.tmdb.url = 'https://www.themoviedb.org/movie/550'
         self.assertNotEqual(self.movie, movie2)
 
+    def test_not_equals_type(self):
+        movie_source2 = MovieSource()
+        movie_source2.id = '432'
+        movie_source2.url = 'https://trakt.tv/movies/fight-club-1999'
+        movie_source2.my_rating = '10'
+        movie_source2.overall_rating = '89%'
+        self.assertNotEqual(self.movie, movie_source2)
+
     def test_json_serializing(self):
         movie_json = self.movie.to_json()
         with open(os.path.join(TESTDATA_PATH, 'trakt.json'), encoding='utf8') as json_file:
@@ -69,3 +78,8 @@ class MovieTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'trakt.json'), encoding='utf8') as json_file:
             movie_from_json = self.movie.from_json(json.load(json_file)[0])
             self.assertEqual(self.movie, movie_from_json)
+
+    def test_string_representation(self):
+        actual_movie_string = str(self.movie)
+        expected_movie_string = "Fight Club (Trakt:[432] URL:https://trakt.tv/movies/fight-club-1999 ME:10 OVERALL:89%) (IMDB:[tt0137523] URL:http://www.imdb.com/title/tt0137523 ME: OVERALL:) (TMDB:[550] URL:https://www.themoviedb.org/movie/550 ME: OVERALL:) (MovieLense:[] URL: ME: OVERALL:) (RottenTomato:[] URL: ME: OVERALL:)"
+        self.assertEqual(expected_movie_string, actual_movie_string)

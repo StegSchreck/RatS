@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from RatS.data.movie import Movie
 from RatS.parsers.trakt_parser import TraktRatingsParser
+from RatS.sites.trakt import Trakt
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
@@ -16,7 +17,14 @@ class TraktParserTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'trakt.html'), encoding='utf8') as detail_page:
             self.detail_page = detail_page.read()
 
-    @patch('RatS.parsers.trakt_parser.TraktRatingsParser._parse_movie_details_page')
+    @patch('RatS.parsers.base_parser.Parser.__init__')
+    @patch('RatS.parsers.base_parser.PhantomJS')
+    def test_init(self, browser_mock, base_init_mock):
+        TraktRatingsParser()
+
+        self.assertTrue(base_init_mock.called)
+
+    @patch('RatS.parsers.trakt_parser.TraktRatingsParser.parse_movie_details_page')
     @patch('RatS.parsers.base_parser.PhantomJS')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.trakt_parser.Trakt')
@@ -49,7 +57,7 @@ class TraktParserTest(TestCase):
         browser_mock.page_source = self.detail_page
         movie = Movie()
 
-        parser._parse_movie_details_page(movie)  # pylint: disable=W0212
+        parser.parse_movie_details_page(movie)
 
         self.assertEqual('75%', movie.trakt.overall_rating)
         self.assertEqual('tt2543164', movie.imdb.id)

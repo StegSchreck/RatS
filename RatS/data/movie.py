@@ -14,7 +14,7 @@ class Movie:
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__
-        return True
+        return False
 
     def __str__(self):
         return "%s (Trakt:%s) (IMDB:%s) (TMDB:%s) (MovieLense:%s) (RottenTomato:%s)" % \

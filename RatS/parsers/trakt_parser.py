@@ -49,16 +49,16 @@ class TraktRatingsParser(Parser):
         self.browser.get(movie.trakt.url)
 
         try:
-            self._parse_movie_details_page(movie)
+            self.parse_movie_details_page(movie)
         except AttributeError:
             time.sleep(0.5)  # wait a little bit for page to load and try again
-            self._parse_movie_details_page(movie)
+            self.parse_movie_details_page(movie)
 
         print("      Parsed movie: %s" % movie.title)
 
         return movie
 
-    def _parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.browser.page_source, 'html.parser')
         movie.trakt.overall_rating = self._get_overall_rating(movie_details_page)
         self._parse_external_links(movie, movie_details_page)

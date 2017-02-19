@@ -8,7 +8,7 @@ class MovieSource:
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__
-        return True
+        return False
 
     def __str__(self):
         return "[%s] URL:%s ME:%s OVERALL:%s" % \
