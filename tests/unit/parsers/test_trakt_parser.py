@@ -4,7 +4,6 @@ from unittest.mock import patch
 
 from RatS.data.movie import Movie
 from RatS.parsers.trakt_parser import TraktRatingsParser
-from RatS.sites.trakt import Trakt
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
