@@ -81,5 +81,9 @@ class MovieTest(TestCase):
 
     def test_string_representation(self):
         actual_movie_string = str(self.movie)
-        expected_movie_string = "Fight Club (Trakt:[432] URL:https://trakt.tv/movies/fight-club-1999 ME:10 OVERALL:89%) (IMDB:[tt0137523] URL:http://www.imdb.com/title/tt0137523 ME: OVERALL:) (TMDB:[550] URL:https://www.themoviedb.org/movie/550 ME: OVERALL:) (MovieLense:[] URL: ME: OVERALL:) (RottenTomato:[] URL: ME: OVERALL:)"
+        expected_movie_string = "Fight Club " \
+                                "(Trakt:[432] URL:https://trakt.tv/movies/fight-club-1999 ME:10 OVERALL:89%) " \
+                                "(IMDB:[tt0137523] URL:http://www.imdb.com/title/tt0137523 ME: OVERALL:) " \
+                                "(TMDB:[550] URL:https://www.themoviedb.org/movie/550 ME: OVERALL:) " \
+                                "(MovieLense:[] URL: ME: OVERALL:) (RottenTomato:[] URL: ME: OVERALL:)"
         self.assertEqual(expected_movie_string, actual_movie_string)
