@@ -23,7 +23,8 @@ class TraktRatingsParser(Parser):
 
     def _parse_ratings(self):
         movie_ratings_page = BeautifulSoup(self.browser.page_source, 'html.parser')
-        pages_count = int(movie_ratings_page.find(id='rating-items').find_all('li', class_='page')[-1].find('a').get_text())
+        pages_count = int(movie_ratings_page.find(id='rating-items').
+                          find_all('li', class_='page')[-1].find('a').get_text())
         self.movies_count = int(movie_ratings_page.find('section', class_='subnav-wrapper').
                                 find('a', attrs={'data-title': 'Movies'}).find('span').
                                 get_text().strip().replace(',', ''))

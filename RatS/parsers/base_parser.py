@@ -7,6 +7,7 @@ class Parser:
         self.site = site
 
         self.movies = []
+        self.movies_count = 0
 
         self.browser = PhantomJS()
         self.site.login(self.browser)
@@ -21,7 +22,7 @@ class Parser:
         self.browser.quit()
 
     @staticmethod
-    def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+    def print_progress(iteration, total, prefix='', suffix='', bar_length=100):
         """
         Call in a loop to create terminal progress bar
         @params:
@@ -32,12 +33,11 @@ class Parser:
             decimals    - Optional  : positive number of decimals in percent complete (Int)
             bar_length  - Optional  : character length of bar (Int)
         """
-        str_format = "{0:." + str(decimals) + "f}"
-        percents = str_format.format(100 * (iteration / float(total)))
+        percents = "{0:.1f}".format(100 * (iteration / float(total)))
         filled_length = int(round(bar_length * iteration / float(total)))
-        bar = '#' * filled_length + '-' * (bar_length - filled_length)
+        filled_bar = '#' * filled_length + '-' * (bar_length - filled_length)
 
-        sys.stdout.write('\r%s [%s] %s%% %s' % (prefix, bar, percents, suffix)),
+        sys.stdout.write('\r%s [%s] %s%% %s' % (prefix, filled_bar, percents, suffix))
 
         if iteration == total:
             sys.stdout.write('\n')
