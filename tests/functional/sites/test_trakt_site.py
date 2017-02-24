@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from selenium.webdriver import PhantomJS
 
-from RatS.sites.trakt import Trakt
+from RatS.sites.trakt_site import Trakt
 
 
 class TraktSiteTest(TestCase):

@@ -15,6 +15,16 @@ class Site:
             self.PASSWORD = os.environ.get(site_name.upper() + '_PASSWORD')
         else:
             self.PASSWORD = self.config[site_name]['PASSWORD']
+        self.LOGIN_PAGE = self.config[site_name]['LOGIN_PAGE']
 
     def login(self, browser):
+        browser.get(self.LOGIN_PAGE)
+
+        self._insert_login_credentials(browser)
+        self._click_login_button(browser)
+
+    def _insert_login_credentials(self, browser):
+        raise NotImplementedError("Should have implemented this")
+
+    def _click_login_button(self, browser):
         raise NotImplementedError("Should have implemented this")

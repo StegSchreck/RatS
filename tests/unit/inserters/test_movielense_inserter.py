@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from RatS.inserters.movielense_inserter import MovielenseInserter
-from RatS.sites.movielense import Movielense
+from RatS.sites.movielense_site import Movielense
 
 
 class MovielenseInserterTest(TestCase):

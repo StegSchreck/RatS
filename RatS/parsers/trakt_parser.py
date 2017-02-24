@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 from RatS.data.movie import Movie
 from RatS.parsers.base_parser import Parser
-from RatS.sites.trakt import Trakt
+from RatS.sites.trakt_site import Trakt
 
 
 class TraktRatingsParser(Parser):

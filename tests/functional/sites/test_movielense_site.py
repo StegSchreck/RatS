@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from selenium.webdriver import PhantomJS
 
-from RatS.sites.movielense import Movielense
+from RatS.sites.movielense_site import Movielense
 
 
 class TraktSiteTest(TestCase):

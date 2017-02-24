@@ -1,5 +1,5 @@
 from RatS.inserters.base_inserter import Inserter
-from RatS.sites.movielense import Movielense
+from RatS.sites.movielense_site import Movielense
 
 
 class MovielenseInserter(Inserter):

@@ -16,8 +16,8 @@ RatS/parsers/base_parser.py
 RatS/parsers/trakt_parser.py
 RatS/sites/__init__.py
 RatS/sites/base_site.py
-RatS/sites/movielense.py
-RatS/sites/trakt.py
+RatS/sites/movielense_site.py
+RatS/sites/trakt_site.py
 tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_movielense_site.py
