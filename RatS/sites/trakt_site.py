@@ -5,7 +5,6 @@ class Trakt(Site):
     def __init__(self):
         super(Trakt, self).__init__()
         self.MY_RATINGS_URL = 'https://trakt.tv/users/%s/ratings/movies/all/added' % self.USERNAME
-        self.LOGIN_BUTTON_SELECTOR = "//form[@id='new_user']//input[@type='submit']"
 
     def _insert_login_credentials(self, browser):
         login_field_user = browser.find_element_by_xpath("//form[@id='new_user']//input[@id='user_login']")

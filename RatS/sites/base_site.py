@@ -16,6 +16,7 @@ class Site:
         else:
             self.PASSWORD = self.config[site_name]['PASSWORD']
         self.LOGIN_PAGE = self.config[site_name]['LOGIN_PAGE']
+        self.LOGIN_BUTTON_SELECTOR = self.config[site_name]['LOGIN_BUTTON_SELECTOR']
 
     def login(self, browser):
         browser.get(self.LOGIN_PAGE)
@@ -27,4 +28,5 @@ class Site:
         raise NotImplementedError("Should have implemented this")
 
     def _click_login_button(self, browser):
-        raise NotImplementedError("Should have implemented this")
+        login_button = browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
+        login_button.click()
