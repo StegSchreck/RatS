@@ -31,7 +31,7 @@ class FileHandlerTest(TestCase):
     def test_save_empty_movies_to_file(self):
         movies = []
         filename = os.path.join(TESTDATA_PATH, 'TEST_empty_movies.json')
-        file_handler.save_movies_json(movies, filename)
+        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_empty_movies.json')
         with open(filename) as file:
             self.assertEqual(movies, json.load(file))
         os.remove(filename)
@@ -40,7 +40,7 @@ class FileHandlerTest(TestCase):
         movies = [self.movie]
         movies_json = [m.to_json() for m in movies]
         filename = os.path.join(TESTDATA_PATH, 'TEST_single_movie.json')
-        file_handler.save_movies_json(movies, filename)
+        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_single_movie.json')
         with open(filename) as file:
             self.assertEqual(movies_json, json.load(file))
         os.remove(filename)
@@ -58,7 +58,7 @@ class FileHandlerTest(TestCase):
         movies = [self.movie, movie2]
         movies_json = [m.to_json() for m in movies]
         filename = os.path.join(TESTDATA_PATH, 'TEST_multiple_movies.json')
-        file_handler.save_movies_json(movies, filename)
+        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_multiple_movies.json')
         with open(filename) as file:
             self.assertEqual(movies_json, json.load(file))
         os.remove(filename)

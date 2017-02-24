@@ -1,5 +1,6 @@
 import time
 
+import sys
 from bs4 import BeautifulSoup
 
 from RatS.data.movie import Movie
@@ -22,11 +23,13 @@ class TraktRatingsParser(Parser):
 
     def _parse_ratings(self):
         movie_ratings_page = BeautifulSoup(self.browser.page_source, 'html.parser')
-        pages_count = movie_ratings_page.find(id='rating-items').find_all('li', class_='page')[-1].find('a').get_text()
-        movies_count = movie_ratings_page.find('section', class_='subnav-wrapper').\
-            find('a', attrs={'data-title': 'Movies'}).find('span').get_text().strip().replace(',', '')
+        pages_count = int(movie_ratings_page.find(id='rating-items').find_all('li', class_='page')[-1].find('a').get_text())
+        self.movies_count = int(movie_ratings_page.find('section', class_='subnav-wrapper').
+                                find('a', attrs={'data-title': 'Movies'}).find('span').
+                                get_text().strip().replace(',', ''))
 
-        print('===== Parsing %s pages with %s movies in total =====' % (pages_count, movies_count))
+        sys.stdout.write('===== Parsing %i pages with %i movies in total =====\r\n' % (pages_count, self.movies_count))
+        sys.stdout.flush()
         # for i in range(1, 2):  # testing purpose
         for i in range(1, int(pages_count) + 1):
             self.browser.get(self.site.MY_RATINGS_URL + '?page=%i' % i)
@@ -54,7 +57,7 @@ class TraktRatingsParser(Parser):
             time.sleep(0.5)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
-        print("      Parsed movie: %s" % movie.title)
+        self.print_progress(len(self.movies), self.movies_count, bar_length=25, prefix="Progress:")
 
         return movie
 

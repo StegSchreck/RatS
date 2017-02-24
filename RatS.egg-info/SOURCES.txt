@@ -1,6 +1,5 @@
 setup.py
 RatS/__init__.py
-RatS/get_trakt_ratings.py
 RatS.egg-info/PKG-INFO
 RatS.egg-info/SOURCES.txt
 RatS.egg-info/dependency_links.txt
@@ -19,13 +18,17 @@ RatS/sites/__init__.py
 RatS/sites/base_site.py
 RatS/sites/movielense.py
 RatS/sites/trakt.py
-tests/integration/__init__.py
-tests/integration/sites/__init__.py
-tests/integration/sites/test_trakt_site.py
+tests/functional/__init__.py
+tests/functional/sites/__init__.py
+tests/functional/sites/test_movielense_site.py
+tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
 tests/unit/data/__init__.py
 tests/unit/data/test_file_handler.py
 tests/unit/data/test_movie.py
 tests/unit/data/test_movie_source.py
+tests/unit/inserters/__init__.py
+tests/unit/inserters/test_movielense_inserter.py
 tests/unit/parsers/__init__.py
+tests/unit/parsers/test_base_parser.py
 tests/unit/parsers/test_trakt_parser.py
