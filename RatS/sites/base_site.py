@@ -5,6 +5,7 @@ from configparser import ConfigParser
 class Site:
     def __init__(self):
         self.config = ConfigParser()
+        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
         site_name = type(self).__name__
         if os.environ.get(site_name.upper() + '_USERNAME'):
