@@ -2,6 +2,7 @@ import os
 import time
 from configparser import ConfigParser
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import PhantomJS
 
 
@@ -31,8 +32,14 @@ class Site:
         self.browser.set_script_timeout(10)
         time.sleep(1)
 
-        self._insert_login_credentials()
-        self._click_login_button()
+        try:
+            self._insert_login_credentials()
+            self._click_login_button()
+        except NoSuchElementException:
+            time.sleep(2)
+            self._insert_login_credentials()
+            self._click_login_button()
+
         self.browser.set_page_load_timeout(10)
         self.browser.set_script_timeout(10)
 

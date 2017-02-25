@@ -19,9 +19,9 @@ class MovielenseInserter(Inserter):
         failed_movies = []
 
         for movie in movies:
-            movielense_entry = self.find_movie(movie)
+            movielense_entry = self._find_movie(movie)
             if movielense_entry:
-                self.post_movie_rating(movielense_entry, movie.trakt.my_rating)
+                self._post_movie_rating(movielense_entry, movie.trakt.my_rating)
             else:
                 failed_movies.append(movie)
             counter += 1
@@ -35,7 +35,7 @@ class MovielenseInserter(Inserter):
 
         self.site.kill_browser()
 
-    def find_movie(self, movie):
+    def _find_movie(self, movie):
         self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie.title)
         time.sleep(1)
         try:
@@ -44,7 +44,7 @@ class MovielenseInserter(Inserter):
             time.sleep(2)
             search_results = self.get_json_from_html()
         for search_result in search_results:
-            if self.is_requested_movie(movie, search_result['movie']):
+            if self._is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']
 
     def get_json_from_html(self):
@@ -53,13 +53,13 @@ class MovielenseInserter(Inserter):
         return json_data['data']['searchResults']
 
     @staticmethod
-    def is_requested_movie(movie, param):
+    def _is_requested_movie(movie, param):
         if movie.movielense.id != '':
             return movie.movielense.id == param['movieId']
         else:
             return movie.imdb.id.replace('tt', '') == param['imdbMovieId'].replace('tt', '')
 
-    def post_movie_rating(self, movielense_entry, my_rating):
+    def _post_movie_rating(self, movielense_entry, my_rating):
         # paste_ratings_url = 'https://movielens.org/api/users/me/ratings'
         # data = {
         #     'movieId': movielense_entry['movieId'],
@@ -71,12 +71,12 @@ class MovielenseInserter(Inserter):
         self.site.browser.get(movie_page_url + str(movielense_entry['movieId']))
         time.sleep(1)
         try:
-            self.click_rating(my_rating)
+            self._click_rating(my_rating)
         except ElementNotVisibleException:
             time.sleep(2)
-            self.click_rating(my_rating)
+            self._click_rating(my_rating)
 
-    def click_rating(self, my_rating):
+    def _click_rating(self, my_rating):
         stars = self.site.browser.find_element_by_class_name('rating').find_elements_by_tag_name('span')
         star_index = 10 - int(my_rating)
         stars[star_index].click()
