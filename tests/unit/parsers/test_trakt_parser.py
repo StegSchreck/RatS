@@ -28,7 +28,7 @@ class TraktParserTest(TestCase):
     @patch('RatS.sites.base_site.PhantomJS')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.trakt_parser.Trakt')
-    def test_parser(self, trakt_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):
+    def test_parser(self, trakt_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
         parser = TraktRatingsParser()
         parser.movies = []

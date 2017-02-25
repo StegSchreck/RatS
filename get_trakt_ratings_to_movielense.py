@@ -20,7 +20,8 @@ if __name__ == "__main__":
     sys.stdout.write('\r\n===== saved %i parsed movies to %s/%s =====\r\n' % (len(movies), EXPORTS_FOLDER, JSON_FILE))
     sys.stdout.flush()
     # movies = file_handler.load_movies_json(os.path.join(EXPORTS_FOLDER, '20170224211816_trakt.json'))
-    # sys.stdout.write('\r\n===== loaded %i movies from %s/%s =====\r\n' % (len(movies), EXPORTS_FOLDER, '20170224211816_trakt.json'))
+    # sys.stdout.write('\r\n===== loaded %i movies from %s/%s =====\r\n' %
+    #                  (len(movies), EXPORTS_FOLDER, '20170224211816_trakt.json'))
     # sys.stdout.flush()
     movielense_inserter = MovielenseInserter()
     movielense_inserter.insert(movies)
