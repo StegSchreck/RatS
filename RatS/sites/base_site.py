@@ -36,7 +36,7 @@ class Site:
             self._insert_login_credentials()
             self._click_login_button()
         except NoSuchElementException:
-            time.sleep(2)
+            time.sleep(2)  # wait for page to load and try again
             self._insert_login_credentials()
             self._click_login_button()
 
@@ -51,7 +51,7 @@ class Site:
         login_button.click()
         self.browser.set_page_load_timeout(10)
         self.browser.set_script_timeout(10)
-        time.sleep(2)
+        time.sleep(2)  # wait for page to load
 
     def kill_browser(self):
         self.browser.stop_client()
