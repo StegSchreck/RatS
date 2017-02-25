@@ -38,20 +38,19 @@ class MovielenseInserter(Inserter):
     def find_movie(self, movie):
         self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie.title)
         time.sleep(1)
-        data = ''
         try:
-            data = self.get_json_from_html(data)
-        except NoSuchElementException:
+            search_results = self.get_json_from_html()
+        except (NoSuchElementException, KeyError):
             time.sleep(2)
-            data = self.get_json_from_html(data)
-        for search_result in data['data']['searchResults']:
+            search_results = self.get_json_from_html()
+        for search_result in search_results:
             if self.is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']
 
-    def get_json_from_html(self, data):
+    def get_json_from_html(self):
         response = self.site.browser.find_element_by_tag_name("pre").text
-        data = json.loads(response)
-        return data
+        json_data = json.loads(response)
+        return json_data['data']['searchResults']
 
     @staticmethod
     def is_requested_movie(movie, param):

@@ -27,6 +27,9 @@ class Site:
 
     def login(self):
         self.browser.get(self.LOGIN_PAGE)
+        self.browser.set_page_load_timeout(10)
+        self.browser.set_script_timeout(10)
+        time.sleep(1)
 
         self._insert_login_credentials()
         self._click_login_button()
