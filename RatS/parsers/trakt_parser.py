@@ -1,11 +1,12 @@
+import sys
 import time
 
-import sys
 from bs4 import BeautifulSoup
 
 from RatS.data.movie import Movie
 from RatS.parsers.base_parser import Parser
 from RatS.sites.trakt_site import Trakt
+from RatS.utils.command_line import print_progress
 
 
 class TraktRatingsParser(Parser):
@@ -58,7 +59,7 @@ class TraktRatingsParser(Parser):
             time.sleep(0.5)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
-        self.print_progress(len(self.movies), self.movies_count, prefix="Trakt:")
+        print_progress(len(self.movies), self.movies_count, prefix="Trakt:")
 
         return movie
 
