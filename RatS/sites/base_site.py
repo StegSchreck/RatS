@@ -1,7 +1,8 @@
 import os
+import time
 from configparser import ConfigParser
 
-import time
+from selenium.webdriver import PhantomJS
 
 
 class Site:
@@ -21,18 +22,28 @@ class Site:
         self.LOGIN_PAGE = self.config[site_name]['LOGIN_PAGE']
         self.LOGIN_BUTTON_SELECTOR = self.config[site_name]['LOGIN_BUTTON_SELECTOR']
 
-    def login(self, browser):
-        browser.get(self.LOGIN_PAGE)
+        self.browser = PhantomJS()
+        self.login()
 
-        self._insert_login_credentials(browser)
-        self._click_login_button(browser)
+    def login(self):
+        self.browser.get(self.LOGIN_PAGE)
 
-    def _insert_login_credentials(self, browser):
+        self._insert_login_credentials()
+        self._click_login_button()
+        self.browser.set_page_load_timeout(10)
+        self.browser.set_script_timeout(10)
+
+    def _insert_login_credentials(self):
         raise NotImplementedError("Should have implemented this")
 
-    def _click_login_button(self, browser):
-        login_button = browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
+    def _click_login_button(self):
+        login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
-        browser.set_page_load_timeout(10)
-        browser.set_script_timeout(10)
+        self.browser.set_page_load_timeout(10)
+        self.browser.set_script_timeout(10)
         time.sleep(2)
+
+    def kill_browser(self):
+        self.browser.stop_client()
+        self.browser.close()
+        self.browser.quit()

@@ -17,22 +17,23 @@ class TraktParserTest(TestCase):
             self.detail_page = detail_page.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')
-    @patch('RatS.parsers.base_parser.PhantomJS')
+    @patch('RatS.sites.base_site.PhantomJS')
     def test_init(self, browser_mock, base_init_mock):
         TraktRatingsParser()
 
         self.assertTrue(base_init_mock.called)
 
+    @patch('RatS.parsers.trakt_parser.print_progress')
     @patch('RatS.parsers.trakt_parser.TraktRatingsParser.parse_movie_details_page')
-    @patch('RatS.parsers.base_parser.PhantomJS')
+    @patch('RatS.sites.base_site.PhantomJS')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.trakt_parser.Trakt')
-    def test_parser(self, trakt_mock, base_init_mock, browser_mock, parse_movie_mock):
+    def test_parser(self, trakt_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):
         browser_mock.page_source = self.my_ratings
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = trakt_mock
-        parser.browser = browser_mock
+        parser.site.browser = browser_mock
 
         parser.parse()
 
@@ -44,7 +45,7 @@ class TraktParserTest(TestCase):
         self.assertEqual('https://trakt.tv/movies/arrival-2016', parser.movies[0].trakt.url)
         self.assertEqual('7', parser.movies[0].trakt.my_rating)
 
-    @patch('RatS.parsers.base_parser.PhantomJS')
+    @patch('RatS.sites.base_site.PhantomJS')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.trakt_parser.Trakt')
     def test_parser_single_movie(self, trakt_mock, base_init_mock, browser_mock):
@@ -52,7 +53,7 @@ class TraktParserTest(TestCase):
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = trakt_mock
-        parser.browser = browser_mock
+        parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
         movie = Movie()
 

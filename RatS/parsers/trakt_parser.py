@@ -19,11 +19,11 @@ class TraktRatingsParser(Parser):
         except AttributeError:
             time.sleep(0.5)  # wait a little bit for page to load and try again
             self._parse_ratings()
-        self.kill_browser()
+        self.site.kill_browser()
         return self.movies
 
     def _parse_ratings(self):
-        movie_ratings_page = BeautifulSoup(self.browser.page_source, 'html.parser')
+        movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         pages_count = int(movie_ratings_page.find(id='rating-items').
                           find_all('li', class_='page')[-1].find('a').get_text())
         self.movies_count = int(movie_ratings_page.find('section', class_='subnav-wrapper').
@@ -34,8 +34,8 @@ class TraktRatingsParser(Parser):
         sys.stdout.flush()
         # for i in range(1, 2):  # testing purpose
         for i in range(1, int(pages_count) + 1):
-            self.browser.get(self.site.MY_RATINGS_URL + '?page=%i' % i)
-            movie_listing_page = BeautifulSoup(self.browser.page_source, 'html.parser')
+            self.site.browser.get(self.site.MY_RATINGS_URL + '?page=%i' % i)
+            movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
 
     def _parse_movie_listing_page(self, movie_listing_page):
@@ -51,7 +51,7 @@ class TraktRatingsParser(Parser):
         movie.title = movie_tile.find('h3').get_text()
         movie.trakt.my_rating = movie_tile.find_all('h4')[1].get_text().strip()
 
-        self.browser.get(movie.trakt.url)
+        self.site.browser.get(movie.trakt.url)
 
         try:
             self.parse_movie_details_page(movie)
@@ -64,7 +64,7 @@ class TraktRatingsParser(Parser):
         return movie
 
     def parse_movie_details_page(self, movie):
-        movie_details_page = BeautifulSoup(self.browser.page_source, 'html.parser')
+        movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         movie.trakt.overall_rating = self._get_overall_rating(movie_details_page)
         self._parse_external_links(movie, movie_details_page)
 
