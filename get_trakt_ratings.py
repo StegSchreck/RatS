@@ -16,6 +16,6 @@ if __name__ == "__main__":
     trakt_parser = TraktRatingsParser()
     movies = trakt_parser.parse()
     file_handler.save_movies_json(movies, EXPORTS_FOLDER, JSON_FILE)
-    sys.stdout.write('\r\n===== saved parsed movies to %s =====' % JSON_FILE)
+    sys.stdout.write('\r\n===== saved parsed movies to %s/%s =====' % (EXPORTS_FOLDER, JSON_FILE))
     sys.stdout.flush()
     # loaded_movies = file_handler.load_movies_json(JSON_FILE)

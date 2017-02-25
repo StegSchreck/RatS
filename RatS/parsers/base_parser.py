@@ -1,3 +1,4 @@
+import os
 import sys
 from selenium.webdriver import PhantomJS
 
@@ -22,7 +23,7 @@ class Parser:
         self.browser.quit()
 
     @staticmethod
-    def print_progress(iteration, total, prefix='', suffix='', bar_length=100):
+    def print_progress(iteration, total, prefix='', suffix=''):
         """
         Call in a loop to create terminal progress bar
         @params:
@@ -33,6 +34,10 @@ class Parser:
             decimals    - Optional  : positive number of decimals in percent complete (Int)
             bar_length  - Optional  : character length of bar (Int)
         """
+        tty_rows, tty_columns = os.popen('stty size', 'r').read().split()
+        length_of_percentage_output = 12
+
+        bar_length = int(tty_columns) - len(prefix) - len(suffix) - length_of_percentage_output
         percents = "{0:.1f}".format(100 * (iteration / float(total)))
         filled_length = int(round(bar_length * iteration / float(total)))
         filled_bar = '#' * filled_length + '-' * (bar_length - filled_length)

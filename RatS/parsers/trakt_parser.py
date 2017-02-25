@@ -58,7 +58,7 @@ class TraktRatingsParser(Parser):
             time.sleep(0.5)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
-        self.print_progress(len(self.movies), self.movies_count, bar_length=25, prefix="Progress:")
+        self.print_progress(len(self.movies), self.movies_count, prefix="Trakt:")
 
         return movie
 
