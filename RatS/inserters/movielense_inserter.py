@@ -65,7 +65,7 @@ class MovielenseInserter(Inserter):
         time.sleep(1)
         try:
             self._click_rating(my_rating)
-        except ElementNotVisibleException:
+        except (ElementNotVisibleException, NoSuchElementException):
             time.sleep(2)
             self._click_rating(my_rating)
 
