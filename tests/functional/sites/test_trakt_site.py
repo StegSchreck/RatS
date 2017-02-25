@@ -11,4 +11,4 @@ class TraktSiteTest(TestCase):
         self.assertIn(self.site.USERNAME, self.site.browser.page_source)
 
     def tearDown(self):
-        self.site.browser.quit()
+        self.site.kill_browser()

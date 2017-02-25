@@ -14,7 +14,7 @@ def print_progress(iteration, total, prefix='', suffix=''):
         decimals    - Optional  : positive number of decimals in percent complete (Int)
         bar_length  - Optional  : character length of bar (Int)
     """
-    _, tty_columns = os.popen('stty size', 'r').read().split()
+    _, tty_columns = get_command_line_dimensions()
     length_of_percentage_output = 12
 
     bar_length = int(tty_columns) - len(prefix) - len(suffix) - length_of_percentage_output
@@ -27,3 +27,7 @@ def print_progress(iteration, total, prefix='', suffix=''):
     if iteration == total:
         sys.stdout.write('\n')
     sys.stdout.flush()
+
+
+def get_command_line_dimensions():
+    return os.popen('stty size', 'r').read().split()

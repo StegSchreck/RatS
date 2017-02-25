@@ -39,15 +39,15 @@ class MovielenseInserter(Inserter):
         self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie.title)
         time.sleep(1)
         try:
-            search_results = self.get_json_from_html()
+            search_results = self._get_json_from_html()
         except (NoSuchElementException, KeyError):
             time.sleep(2)
-            search_results = self.get_json_from_html()
+            search_results = self._get_json_from_html()
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']
 
-    def get_json_from_html(self):
+    def _get_json_from_html(self):
         response = self.site.browser.find_element_by_tag_name("pre").text
         json_data = json.loads(response)
         return json_data['data']['searchResults']
@@ -60,15 +60,8 @@ class MovielenseInserter(Inserter):
             return movie.imdb.id.replace('tt', '') == param['imdbMovieId'].replace('tt', '')
 
     def _post_movie_rating(self, movielense_entry, my_rating):
-        # paste_ratings_url = 'https://movielens.org/api/users/me/ratings'
-        # data = {
-        #     'movieId': movielense_entry['movieId'],
-        #     'predictedRating': my_rating,
-        #     'rating': my_rating
-        # }
-        # self.site.browser.request('POST', str(paste_ratings_url), data=data)
-        movie_page_url = 'https://movielens.org/movies/'
-        self.site.browser.get(movie_page_url + str(movielense_entry['movieId']))
+        movie_page_url = 'https://movielens.org/movies/%s' % str(movielense_entry['movieId'])
+        self.site.browser.get(movie_page_url)
         time.sleep(1)
         try:
             self._click_rating(my_rating)
