@@ -24,4 +24,3 @@ class MovielenseInserterTest(TestCase):
         MovielenseInserter()
 
         self.assertTrue(base_init_mock.called)
-
