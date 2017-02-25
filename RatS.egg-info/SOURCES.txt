@@ -18,6 +18,8 @@ RatS/sites/__init__.py
 RatS/sites/base_site.py
 RatS/sites/movielense_site.py
 RatS/sites/trakt_site.py
+RatS/utils/__init__.py
+RatS/utils/command_line.py
 tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_movielense_site.py

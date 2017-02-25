@@ -5,6 +5,7 @@ import sys
 import time
 
 from RatS.data import file_handler
+from RatS.inserters.movielense_inserter import MovielenseInserter
 from RatS.parsers.trakt_parser import TraktRatingsParser
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
@@ -16,6 +17,10 @@ if __name__ == "__main__":
     trakt_parser = TraktRatingsParser()
     movies = trakt_parser.parse()
     file_handler.save_movies_json(movies, EXPORTS_FOLDER, JSON_FILE)
-    sys.stdout.write('\r\n===== saved parsed movies to %s/%s =====' % (EXPORTS_FOLDER, JSON_FILE))
+    sys.stdout.write('\r\n===== saved %i parsed movies to %s/%s =====\r\n' % (len(movies), EXPORTS_FOLDER, JSON_FILE))
     sys.stdout.flush()
-    # loaded_movies = file_handler.load_movies_json(JSON_FILE)
+    # movies = file_handler.load_movies_json(os.path.join(EXPORTS_FOLDER, '20170224211816_trakt.json'))
+    # sys.stdout.write('\r\n===== loaded %i movies from %s/%s =====\r\n' % (len(movies), EXPORTS_FOLDER, '20170224211816_trakt.json'))
+    # sys.stdout.flush()
+    movielense_inserter = MovielenseInserter()
+    movielense_inserter.insert(movies)

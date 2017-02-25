@@ -1,6 +1,8 @@
 import os
 from configparser import ConfigParser
 
+import time
+
 
 class Site:
     def __init__(self):
@@ -31,3 +33,6 @@ class Site:
     def _click_login_button(self, browser):
         login_button = browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
+        browser.set_page_load_timeout(10)
+        browser.set_script_timeout(10)
+        time.sleep(2)

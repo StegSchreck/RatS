@@ -11,7 +11,3 @@ class Trakt(Site):
         login_field_user.send_keys(self.USERNAME)
         login_field_password = browser.find_element_by_xpath("//form[@id='new_user']//input[@id='user_password']")
         login_field_password.send_keys(self.PASSWORD)
-
-    def _click_login_button(self, browser):
-        login_button = browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
-        login_button.click()
