@@ -10,7 +10,6 @@ from selenium.webdriver import PhantomJS
 class Site:
     def __init__(self):
         self.config = ConfigParser()
-        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'sites.cfg')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
         self.site_name = type(self).__name__
@@ -29,7 +28,7 @@ class Site:
     def login(self):
         sys.stdout.write('===== %s: performing login' % type(self).__name__)
         sys.stdout.flush()
-        self.browser.get(self.config[self.site_name]['LOGIN_PAGE'])
+        self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
 
         try:
@@ -41,14 +40,13 @@ class Site:
             self._click_login_button()
 
     def _insert_login_credentials(self):
-        login_field_user = self.browser.find_element_by_xpath(self.config[self.site_name]['LOGIN_USERNAME_SELECTOR'])
+        login_field_user = self.browser.find_element_by_xpath(self.LOGIN_USERNAME_SELECTOR)
         login_field_user.send_keys(self.USERNAME)
-        login_field_password = self.browser.\
-            find_element_by_xpath(self.config[self.site_name]['LOGIN_PASSWORD_SELECTOR'])
+        login_field_password = self.browser.find_element_by_xpath(self.LOGIN_PASSWORD_SELECTOR)
         login_field_password.send_keys(self.PASSWORD)
 
     def _click_login_button(self):
-        login_button = self.browser.find_element_by_xpath(self.config[self.site_name]['LOGIN_BUTTON_SELECTOR'])
+        login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
         time.sleep(2)  # wait for page to load
 
