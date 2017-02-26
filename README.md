@@ -19,10 +19,13 @@ This project is currently still under development. Please be patient, as I'm onl
     This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielense an put your rating there.
     
     This will take some minutes. Relax. You can follow the progress in console output.
+
+### Trying again with former export data
+You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, die folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `get_trakt_ratings_to_movielense.py` script and comment in the file loader part, where you just have to adjust the filename.
    
 ## Problem shooting
 ### Script aborts because of Timeouts
-It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielense. The only advice I can give you for now is to increase the timeouts in the scripts. I will try to come up with a better solution in the future.
+It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielense. The only advice I can give you for now is to increase the time.sleep() in the scripts. I will try to come up with a better solution in the future.
 
 ## Where does the name come from?
 The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple.
