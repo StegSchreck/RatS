@@ -13,7 +13,8 @@ This project is currently still under development. Please be patient, as I'm onl
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
 2. Install the requirements
     `pip install -r requirements.txt`
-3. Execute the script
+3. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
+4. Execute the script
     `python get_trakt_ratings_to_movielense.py`
     
     This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielense an put your rating there.
