@@ -26,15 +26,15 @@ def main():
 def parse_data_from_source(parser):
     movies = parser.parse()
     file_handler.save_movies_json(movies, EXPORTS_FOLDER, JSON_FILE)
-    sys.stdout.write('\r\n===== saved %i parsed movies from %s to %s/%s =====\r\n' %
-                     (len(movies), type(parser.site).__name__, EXPORTS_FOLDER, JSON_FILE))
+    sys.stdout.write('\r\n===== %s: saved %i parsed movies to %s/%s\r\n' %
+                     (type(parser.site).__name__, len(movies), EXPORTS_FOLDER, JSON_FILE))
     sys.stdout.flush()
     return movies
 
 
 def load_data_from_file(filename):
     movies = file_handler.load_movies_json(os.path.join(EXPORTS_FOLDER, filename))
-    sys.stdout.write('\r\n===== loaded %i movies from %s/%s =====\r\n' % (len(movies), EXPORTS_FOLDER, filename))
+    sys.stdout.write('\r\n===== loaded %i movies from %s/%s\r\n' % (len(movies), EXPORTS_FOLDER, filename))
     sys.stdout.flush()
     return movies
 

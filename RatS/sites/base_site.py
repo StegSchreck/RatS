@@ -10,6 +10,7 @@ from selenium.webdriver import PhantomJS
 class Site:
     def __init__(self):
         self.config = ConfigParser()
+        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'sites.cfg')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
         site_name = type(self).__name__
@@ -28,7 +29,7 @@ class Site:
         self.login()
 
     def login(self):
-        sys.stdout.write('===== %s: login =====\r\n' % type(self).__name__)
+        sys.stdout.write('===== %s: performing login' % type(self).__name__)
         sys.stdout.flush()
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
