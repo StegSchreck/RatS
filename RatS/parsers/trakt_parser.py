@@ -30,7 +30,7 @@ class TraktRatingsParser(Parser):
                                 find('a', attrs={'data-title': 'Movies'}).find('span').
                                 get_text().strip().replace(',', ''))
 
-        sys.stdout.write('===== %s: Parsing %i pages with %i movies in total\r\n' %
+        sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
                          (type(self.site).__name__, pages_count, self.movies_count))
         sys.stdout.flush()
         # for i in range(1, 2):  # testing purpose

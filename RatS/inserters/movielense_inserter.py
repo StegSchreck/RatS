@@ -17,6 +17,8 @@ class MovielenseInserter(Inserter):
     def insert(self, movies):
         counter = 0
         failed_movies = []
+        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (type(self.site).__name__, len(movies)))
+        sys.stdout.flush()
 
         for movie in movies:
             movielense_entry = self._find_movie(movie)
@@ -28,7 +30,7 @@ class MovielenseInserter(Inserter):
             print_progress(counter, len(movies), prefix=type(self.site).__name__)
 
         success_number = len(movies) - len(failed_movies)
-        sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies =====\r\n' %
+        sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
                          (type(self.site).__name__, success_number, len(movies)))
         for failed_movie in failed_movies:
             sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s\r\n' % (failed_movie.imdb.id, failed_movie.title))
