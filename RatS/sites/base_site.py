@@ -13,17 +13,15 @@ class Site:
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'sites.cfg')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
-        site_name = type(self).__name__
-        if os.environ.get(site_name.upper() + '_USERNAME'):
-            self.USERNAME = os.environ.get(site_name.upper() + '_USERNAME')
+        self.site_name = type(self).__name__
+        if os.environ.get(self.site_name.upper() + '_USERNAME'):
+            self.USERNAME = os.environ.get(self.site_name.upper() + '_USERNAME')
         else:
-            self.USERNAME = self.config[site_name]['USERNAME']
-        if os.environ.get(site_name.upper() + '_PASSWORD'):
-            self.PASSWORD = os.environ.get(site_name.upper() + '_PASSWORD')
+            self.USERNAME = self.config[self.site_name]['USERNAME']
+        if os.environ.get(self.site_name.upper() + '_PASSWORD'):
+            self.PASSWORD = os.environ.get(self.site_name.upper() + '_PASSWORD')
         else:
-            self.PASSWORD = self.config[site_name]['PASSWORD']
-        self.LOGIN_PAGE = self.config[site_name]['LOGIN_PAGE']
-        self.LOGIN_BUTTON_SELECTOR = self.config[site_name]['LOGIN_BUTTON_SELECTOR']
+            self.PASSWORD = self.config[self.site_name]['PASSWORD']
 
         self.browser = PhantomJS()
         self.login()
@@ -31,7 +29,7 @@ class Site:
     def login(self):
         sys.stdout.write('===== %s: performing login' % type(self).__name__)
         sys.stdout.flush()
-        self.browser.get(self.LOGIN_PAGE)
+        self.browser.get(self.config[self.site_name]['LOGIN_PAGE'])
         time.sleep(1)
 
         try:
@@ -43,10 +41,14 @@ class Site:
             self._click_login_button()
 
     def _insert_login_credentials(self):
-        raise NotImplementedError("Should have implemented this")
+        login_field_user = self.browser.find_element_by_xpath(self.config[self.site_name]['LOGIN_USERNAME_SELECTOR'])
+        login_field_user.send_keys(self.USERNAME)
+        login_field_password = self.browser.\
+            find_element_by_xpath(self.config[self.site_name]['LOGIN_PASSWORD_SELECTOR'])
+        login_field_password.send_keys(self.PASSWORD)
 
     def _click_login_button(self):
-        login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
+        login_button = self.browser.find_element_by_xpath(self.config[self.site_name]['LOGIN_BUTTON_SELECTOR'])
         login_button.click()
         time.sleep(2)  # wait for page to load
 
