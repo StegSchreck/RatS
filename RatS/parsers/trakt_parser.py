@@ -30,7 +30,8 @@ class TraktRatingsParser(Parser):
                                 find('a', attrs={'data-title': 'Movies'}).find('span').
                                 get_text().strip().replace(',', ''))
 
-        sys.stdout.write('===== Parsing %i pages with %i movies in total =====\r\n' % (pages_count, self.movies_count))
+        sys.stdout.write('===== %s: Parsing %i pages with %i movies in total =====\r\n' %
+                         (type(self.site).__name__, pages_count, self.movies_count))
         sys.stdout.flush()
         # for i in range(1, 2):  # testing purpose
         for i in range(1, int(pages_count) + 1):
@@ -59,7 +60,7 @@ class TraktRatingsParser(Parser):
             time.sleep(1)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
-        print_progress(len(self.movies), self.movies_count, prefix="Trakt:")
+        print_progress(len(self.movies), self.movies_count, prefix=type(self.site).__name__)
 
         return movie
 

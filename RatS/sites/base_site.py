@@ -2,6 +2,7 @@ import os
 import time
 from configparser import ConfigParser
 
+import sys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import PhantomJS
 
@@ -27,6 +28,8 @@ class Site:
         self.login()
 
     def login(self):
+        sys.stdout.write('===== %s: login =====\r\n' % type(self).__name__)
+        sys.stdout.flush()
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
 
