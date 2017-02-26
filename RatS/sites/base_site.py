@@ -28,8 +28,6 @@ class Site:
 
     def login(self):
         self.browser.get(self.LOGIN_PAGE)
-        self.browser.set_page_load_timeout(10)
-        self.browser.set_script_timeout(10)
         time.sleep(1)
 
         try:
@@ -40,17 +38,12 @@ class Site:
             self._insert_login_credentials()
             self._click_login_button()
 
-        self.browser.set_page_load_timeout(10)
-        self.browser.set_script_timeout(10)
-
     def _insert_login_credentials(self):
         raise NotImplementedError("Should have implemented this")
 
     def _click_login_button(self):
         login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
-        self.browser.set_page_load_timeout(10)
-        self.browser.set_script_timeout(10)
         time.sleep(2)  # wait for page to load
 
     def kill_browser(self):

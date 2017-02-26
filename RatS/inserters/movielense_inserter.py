@@ -41,7 +41,7 @@ class MovielenseInserter(Inserter):
         try:
             search_results = self._get_json_from_html()
         except (NoSuchElementException, KeyError):
-            time.sleep(2)
+            time.sleep(3)
             search_results = self._get_json_from_html()
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result['movie']):
@@ -66,7 +66,7 @@ class MovielenseInserter(Inserter):
         try:
             self._click_rating(my_rating)
         except (ElementNotVisibleException, NoSuchElementException):
-            time.sleep(2)
+            time.sleep(3)
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):

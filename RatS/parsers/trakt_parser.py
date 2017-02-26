@@ -17,7 +17,7 @@ class TraktRatingsParser(Parser):
         try:
             self._parse_ratings()
         except AttributeError:
-            time.sleep(0.5)  # wait a little bit for page to load and try again
+            time.sleep(1)  # wait a little bit for page to load and try again
             self._parse_ratings()
         self.site.kill_browser()
         return self.movies
@@ -56,7 +56,7 @@ class TraktRatingsParser(Parser):
         try:
             self.parse_movie_details_page(movie)
         except AttributeError:
-            time.sleep(0.5)  # wait a little bit for page to load and try again
+            time.sleep(1)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
         print_progress(len(self.movies), self.movies_count, prefix="Trakt:")
