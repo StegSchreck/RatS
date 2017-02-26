@@ -30,7 +30,10 @@ tests/unit/data/test_file_handler.py
 tests/unit/data/test_movie.py
 tests/unit/data/test_movie_source.py
 tests/unit/inserters/__init__.py
+tests/unit/inserters/test_base_inserter.py
 tests/unit/inserters/test_movielense_inserter.py
 tests/unit/parsers/__init__.py
 tests/unit/parsers/test_base_parser.py
 tests/unit/parsers/test_trakt_parser.py
+tests/unit/utils/__init__.py
+tests/unit/utils/test_command_line.py
