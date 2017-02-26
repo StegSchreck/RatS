@@ -17,7 +17,7 @@ This project is currently still under development. Please be patient, as I'm onl
 4. Execute the script
     `python get_trakt_ratings_to_movielense.py`
     
-    This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielense an put your rating there.
+    This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielense an put your rating there. This will also overwrite whatever rating you already did set there.
     
     This will take some minutes. Relax. You can follow the progress in console output.
 
