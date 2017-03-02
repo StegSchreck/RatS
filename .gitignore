@@ -2,5 +2,4 @@
 RatS/credentials.cfg
 ghostdriver.log
 *.pyc
-RatS/exports/*.csv
-RatS/exports/*.json
+RatS/exports/*
