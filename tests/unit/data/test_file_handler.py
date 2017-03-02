@@ -22,7 +22,7 @@ class FileHandlerTest(TestCase):
         self.movie.tmdb.url = 'https://www.themoviedb.org/movie/550'
 
     def test_load_movies_from_file(self):
-        movies = file_handler.load_movies_json(os.path.join(TESTDATA_PATH, 'trakt.json'))
+        movies = file_handler.load_movies_json(folder=TESTDATA_PATH, filename='trakt.json')
         self.assertEqual(1, len(movies))
         self.assertEqual(list, type(movies))
         self.assertEqual(Movie, type(movies[0]))
