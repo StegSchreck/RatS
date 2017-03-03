@@ -13,7 +13,7 @@ from RatS.sites.movielense_site import Movielense
 from RatS.utils.command_line import print_progress
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
+EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
 FAILED_MOVIES_FILE = TIMESTAMP + '_movielense_failed.json'
 
 

@@ -1,11 +1,15 @@
+import datetime
 import json
 import os
+import time
 from unittest import TestCase
 
 from RatS.data import file_handler
 from RatS.data.movie import Movie
 
+TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets', 'exports'))
+TESTDATA_NEW_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets', TIMESTAMP))
 
 
 class FileHandlerTest(TestCase):
@@ -32,6 +36,14 @@ class FileHandlerTest(TestCase):
         movies = []
         filename = os.path.join(TESTDATA_PATH, 'TEST_empty_movies.json')
         file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_empty_movies.json')
+        with open(filename) as file:
+            self.assertEqual(movies, json.load(file))
+        os.remove(filename)
+
+    def test_save_empty_movies_to_file_in_new_folder(self):
+        movies = []
+        filename = os.path.join(TESTDATA_NEW_PATH, 'TEST_empty_movies.json')
+        file_handler.save_movies_json(movies, TESTDATA_NEW_PATH, 'TEST_empty_movies.json')
         with open(filename) as file:
             self.assertEqual(movies, json.load(file))
         os.remove(filename)

@@ -24,3 +24,19 @@ class MovielenseInserterTest(TestCase):
         MovielenseInserter()
 
         self.assertTrue(base_init_mock.called)
+
+    @patch('RatS.inserters.movielense_inserter.print_progress')
+    @patch('RatS.inserters.movielense_inserter.MovielenseInserter._get_json_from_html')
+    @patch('RatS.inserters.movielense_inserter.Movielense')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.PhantomJS')
+    def test_init(self, browser_mock, base_init_mock, site_mock, json_mock, progress_prrint_mock):
+        site_mock.browser = browser_mock
+        inserter = MovielenseInserter()
+        inserter.site = site_mock
+
+        inserter.insert([self.movie])
+
+        self.assertTrue(base_init_mock.called)
+        self.assertTrue(json_mock.called)
+        self.assertTrue(progress_prrint_mock.called)
