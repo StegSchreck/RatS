@@ -30,7 +30,7 @@ class MovielenseInserterTest(TestCase):
     @patch('RatS.inserters.movielense_inserter.Movielense')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.PhantomJS')
-    def test_init(self, browser_mock, base_init_mock, site_mock, json_mock, progress_prrint_mock):
+    def test_insert(self, browser_mock, base_init_mock, site_mock, json_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = MovielenseInserter()
         inserter.site = site_mock
@@ -39,4 +39,4 @@ class MovielenseInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(json_mock.called)
-        self.assertTrue(progress_prrint_mock.called)
+        self.assertTrue(progress_print_mock.called)
