@@ -5,6 +5,7 @@ from configparser import ConfigParser
 import sys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import PhantomJS
+# from selenium.webdriver import Chrome
 
 
 class Site:
