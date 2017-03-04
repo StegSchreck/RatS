@@ -47,6 +47,7 @@ class FileHandlerTest(TestCase):
         with open(filename) as file:
             self.assertEqual(movies, json.load(file))
         os.remove(filename)
+        os.removedirs(TESTDATA_NEW_PATH)
 
     def test_save_single_movie_to_file(self):
         movies = [self.movie]
