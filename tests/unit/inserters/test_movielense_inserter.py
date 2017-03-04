@@ -24,7 +24,6 @@ class MovielenseInserterTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'movielense.json'), encoding='utf8') as search_result:
             self.search_result_json = json.loads(search_result.read())['data']['searchResults']
 
-
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.PhantomJS')
     def test_init(self, browser_mock, base_init_mock):
