@@ -1,15 +1,14 @@
+import datetime
 import json
 import os
+import sys
 import time
 
-import sys
-
-import datetime
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
 
-from RatS.data import file_handler
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.movielense_site import Movielense
+from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
@@ -41,7 +40,7 @@ class MovielenseInserter(Inserter):
                          (type(self.site).__name__, success_number, len(movies)))
         for failed_movie in failed_movies:
             sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s\r\n' % (failed_movie.imdb.id, failed_movie.title))
-        file_handler.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
+        file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
         sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
                          (type(self.site).__name__, len(failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
         sys.stdout.flush()

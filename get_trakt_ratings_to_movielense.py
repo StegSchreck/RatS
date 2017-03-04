@@ -4,9 +4,9 @@ import os
 import sys
 import time
 
-from RatS.data import file_handler
 from RatS.inserters.movielense_inserter import MovielenseInserter
 from RatS.parsers.trakt_parser import TraktRatingsParser
+from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
@@ -25,7 +25,7 @@ def main():
 
 def parse_data_from_source(parser):
     movies = parser.parse()
-    file_handler.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=JSON_FILE)
+    file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=JSON_FILE)
     sys.stdout.write('\r\n===== %s: saved %i parsed movies to %s/%s\r\n' %
                      (type(parser.site).__name__, len(movies), EXPORTS_FOLDER, JSON_FILE))
     sys.stdout.flush()
@@ -33,7 +33,7 @@ def parse_data_from_source(parser):
 
 
 def load_data_from_file(filename):
-    movies = file_handler.load_movies_json(folder=EXPORTS_FOLDER, filename=filename)
+    movies = file_impex.load_movies_json(folder=EXPORTS_FOLDER, filename=filename)
     sys.stdout.write('\r\n===== loaded %i movies from %s/%s\r\n' % (len(movies), EXPORTS_FOLDER, filename))
     sys.stdout.flush()
     return movies

@@ -4,8 +4,8 @@ import os
 import time
 from unittest import TestCase
 
-from RatS.data import file_handler
 from RatS.data.movie import Movie
+from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets', 'exports'))
@@ -26,7 +26,7 @@ class FileHandlerTest(TestCase):
         self.movie.tmdb.url = 'https://www.themoviedb.org/movie/550'
 
     def test_load_movies_from_file(self):
-        movies = file_handler.load_movies_json(folder=TESTDATA_PATH, filename='trakt.json')
+        movies = file_impex.load_movies_json(folder=TESTDATA_PATH, filename='trakt.json')
         self.assertEqual(1, len(movies))
         self.assertEqual(list, type(movies))
         self.assertEqual(Movie, type(movies[0]))
@@ -35,7 +35,7 @@ class FileHandlerTest(TestCase):
     def test_save_empty_movies_to_file(self):
         movies = []
         filename = os.path.join(TESTDATA_PATH, 'TEST_empty_movies.json')
-        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_empty_movies.json')
+        file_impex.save_movies_json(movies, TESTDATA_PATH, 'TEST_empty_movies.json')
         with open(filename) as file:
             self.assertEqual(movies, json.load(file))
         os.remove(filename)
@@ -43,7 +43,7 @@ class FileHandlerTest(TestCase):
     def test_save_empty_movies_to_file_in_new_folder(self):
         movies = []
         filename = os.path.join(TESTDATA_NEW_PATH, 'TEST_empty_movies.json')
-        file_handler.save_movies_json(movies, TESTDATA_NEW_PATH, 'TEST_empty_movies.json')
+        file_impex.save_movies_json(movies, TESTDATA_NEW_PATH, 'TEST_empty_movies.json')
         with open(filename) as file:
             self.assertEqual(movies, json.load(file))
         os.remove(filename)
@@ -53,7 +53,7 @@ class FileHandlerTest(TestCase):
         movies = [self.movie]
         movies_json = [m.to_json() for m in movies]
         filename = os.path.join(TESTDATA_PATH, 'TEST_single_movie.json')
-        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_single_movie.json')
+        file_impex.save_movies_json(movies, TESTDATA_PATH, 'TEST_single_movie.json')
         with open(filename) as file:
             self.assertEqual(movies_json, json.load(file))
         os.remove(filename)
@@ -71,7 +71,7 @@ class FileHandlerTest(TestCase):
         movies = [self.movie, movie2]
         movies_json = [m.to_json() for m in movies]
         filename = os.path.join(TESTDATA_PATH, 'TEST_multiple_movies.json')
-        file_handler.save_movies_json(movies, TESTDATA_PATH, 'TEST_multiple_movies.json')
+        file_impex.save_movies_json(movies, TESTDATA_PATH, 'TEST_multiple_movies.json')
         with open(filename) as file:
             self.assertEqual(movies_json, json.load(file))
         os.remove(filename)
