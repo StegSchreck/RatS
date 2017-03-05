@@ -3,3 +3,4 @@ RatS/credentials.cfg
 ghostdriver.log
 *.pyc
 RatS/exports/*
+geckodriver.log

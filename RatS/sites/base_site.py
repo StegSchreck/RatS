@@ -1,11 +1,11 @@
 import os
+import sys
 import time
 from configparser import ConfigParser
 
-import sys
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import PhantomJS
-# from selenium.webdriver import Chrome
+from selenium.webdriver import Firefox
+from xvfbwrapper import Xvfb
 
 
 class Site:
@@ -23,7 +23,13 @@ class Site:
         else:
             self.PASSWORD = self.config[self.site_name]['PASSWORD']
 
-        self.browser = PhantomJS()
+        self._init_browser()
+
+    def _init_browser(self):
+        self.display = Xvfb()
+        self.display.start()
+
+        self.browser = Firefox()
         self.login()
 
     def login(self):
@@ -55,3 +61,5 @@ class Site:
         self.browser.stop_client()
         self.browser.close()
         self.browser.quit()
+
+        self.display.stop()
