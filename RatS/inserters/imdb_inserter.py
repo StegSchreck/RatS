@@ -26,12 +26,12 @@ class IMDBInserter(Inserter):
         sys.stdout.flush()
 
         for movie in movies:
-            imdb_entry = self._find_movie(movie)
-            time.sleep(1)
-            if imdb_entry:
-                self._post_movie_rating(movie, movie.trakt.my_rating)
-            else:
-                failed_movies.append(movie)
+            # imdb_entry = self._find_movie(movie)
+            # time.sleep(1)
+            # if imdb_entry:
+            self._post_movie_rating(movie, movie.trakt.my_rating)
+            # else:
+            #     failed_movies.append(movie)
             counter += 1
             print_progress(counter, len(movies), prefix=type(self.site).__name__)
 
@@ -65,6 +65,8 @@ class IMDBInserter(Inserter):
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):
+        self.site.browser.find_element_by_class_name('star-rating-button').find_element_by_tag_name('button').click()
+        time.sleep(0.5)
         stars = self.site.browser.find_element_by_class_name('star-rating-stars').find_elements_by_tag_name('a')
         star_index = 10 - int(my_rating)
         stars[star_index].click()
