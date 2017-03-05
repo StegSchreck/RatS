@@ -21,6 +21,8 @@ deploy:
   provider: releases
   api_key:
     secure: 2yLw0RPjJx6aQr8bc63HGv0q7RH8xwTviHt2caEge+fC9OvLiz/PNIIaKimt3uVKp2xalyojxJVEx2QHLbbjHLFI4vtXJnSW9Zng45N89tMKpuKuLqbwcOE9ika3Y+GxBm9Wk3FIjjDAS6B+2vdBSOaD331b+nyjqQY+qhxsUf/lh/QouPP7Q7YTswjOfDog45RSoGUexHsXqVcuvpEYhGIR3BxCk1IW4OCZ0qDcjrSEs+4FHnOcfxtHC+3V+Rr6rLezYSCAt5m/2dPb/GLON4vr96ildHu+y5Qa6csbcUD7MDKnJamRHpLY5hC5OMEJC6yACnLl5etLaN2d1lkdPJTZxi1lyPqTV4vxaWrXJaxT50VMbS9ekRWBw4I0lnUW2h1XoEveCJBKZ2c6O2+YlnUu1YNKmK488OPPQbidD1lgN5Q1P/KtTJCV0rRevb9DhOSqc5sszX8yBLLm8uLWn8jY4O3wnP50kHdMpg5vMJFd9OWiUS46ZIPe7suyZ/0jmOMRN6UBnMDZOF94R6GzjltrZAGshk3QD3ojLnzpYL7k754XcBv0mrvebt754YxMlT7IAGFMBqHlJuUK8rGdDy1U5d4m42y3yA2wsXQ+1XGSVG7bo0/AAFuxE/7SSgSiQY6lIRL0zr5WWDN2ItsJ35lsz5hbcX+8mHpLIuWx2H8=
-  file: ''
   on:
     repo: StegSchreck/RatS
+  skip_cleanup: true
+  on:
+    tags: true
