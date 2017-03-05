@@ -19,7 +19,7 @@ class IMDBInserterTest(TestCase):
         self.movie.tmdb.url = 'https://www.themoviedb.org/movie/550'
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
-    @patch('RatS.sites.base_site.PhantomJS')
+    @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         IMDBInserter()
 
@@ -28,7 +28,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.inserters.imdb_inserter.print_progress')
     @patch('RatS.inserters.imdb_inserter.IMDB')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
-    @patch('RatS.sites.base_site.PhantomJS')
+    @patch('RatS.sites.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = IMDBInserter()

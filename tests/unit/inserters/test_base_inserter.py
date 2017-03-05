@@ -6,7 +6,7 @@ from RatS.inserters.base_inserter import Inserter
 
 class BaseInserterTest(TestCase):
 
-    @patch('RatS.sites.base_site.PhantomJS')
+    @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock):
         with patch('RatS.sites.base_site.Site') as site_mock:
             inserter = Inserter(site_mock)

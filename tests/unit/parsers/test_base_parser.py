@@ -6,7 +6,7 @@ from RatS.parsers.base_parser import Parser
 
 class BaseParserTest(TestCase):
 
-    @patch('RatS.sites.base_site.PhantomJS')
+    @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock):
         with patch('RatS.sites.base_site.Site') as site_mock:
             parser = Parser(site_mock)
