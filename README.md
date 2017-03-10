@@ -43,5 +43,8 @@ You can use the data you parsed before again without parsing again. The parser t
 ### Script aborts because of Timeouts
 It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielense. The only advice I can give you for now is to increase the time.sleep() in the scripts. I will try to come up with a better solution in the future.
 
+## You are missing a feature or noticed something is wrong?
+Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new), I will have a look as soon as I can.
+
 ## Where does the name come from?
 The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple.
