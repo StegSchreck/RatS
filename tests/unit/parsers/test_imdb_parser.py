@@ -22,7 +22,7 @@ class IMDBParserTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.imdb_parser.IMDB')
-    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):
+    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):  # pylint: disable=too-many-arguments
         parser = IMDBRatingsParser()
         parser.movies = []
         parser.site = site_mock
