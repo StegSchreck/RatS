@@ -26,7 +26,7 @@ def save_movies_json(movies, folder=EXPORTS_FOLDER, filename='export.json'):
 def wait_for_file_to_exist(filepath, seconds=30):
     for i in range(seconds):  # pylint: disable=unused-variable
         try:
-            with open(filepath, 'rb') as _:  # NOQA
+            with open(filepath, 'rb') as file:  # pylint: disable=unused-variable
                 break
         except IOError:
             time.sleep(1)
