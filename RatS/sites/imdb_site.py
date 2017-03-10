@@ -1,3 +1,7 @@
+import time
+
+from selenium.common.exceptions import NoSuchElementException
+
 from RatS.sites.base_site import Site
 
 
@@ -8,5 +12,15 @@ class IMDB(Site):
         self.LOGIN_PASSWORD_SELECTOR = "//form[@name='signIn']//input[@id='ap_password']"
         self.LOGIN_BUTTON_SELECTOR = "//form[@name='signIn']//input[@type='submit']"
         super(IMDB, self).__init__()
-        self.USERID = self.browser.current_url.replace('http://www.imdb.com/user/', '').split('/')[0]
+        time.sleep(1)
+        try:
+            self._get_ratings_url()
+        except NoSuchElementException:
+            time.sleep(1)
+            self._get_ratings_url()
+
+    def _get_ratings_url(self):
+        account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \
+            .get_attribute('href')
+        self.USERID = account_link.replace('http://www.imdb.com/user/', '').split('/')[0]
         self.MY_RATINGS_URL = 'http://www.imdb.com/user/%s/ratings' % self.USERID

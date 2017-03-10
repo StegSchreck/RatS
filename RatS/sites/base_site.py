@@ -5,7 +5,10 @@ from configparser import ConfigParser
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Firefox
+from selenium.webdriver import FirefoxProfile
 from xvfbwrapper import Xvfb
+
+EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
 
 
 class Site:
@@ -28,9 +31,16 @@ class Site:
     def _init_browser(self):
         self.display = Xvfb()
         self.display.start()
+        profile = FirefoxProfile()
+        profile.set_preference("browser.download.folderList", 2)
+        profile.set_preference("browser.download.manager.showWhenStarting", False)
+        profile.set_preference("browser.download.dir", EXPORTS_FOLDER)
+        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv")
+        profile.set_preference("browser.helperApps.alwaysAsk.force", False)
 
-        self.browser = Firefox()
+        self.browser = Firefox(firefox_profile=profile)
         self.login()
+        time.sleep(1)
 
     def login(self):
         sys.stdout.write('===== %s: performing login' % type(self).__name__)

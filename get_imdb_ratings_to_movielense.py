@@ -4,22 +4,22 @@ import os
 import sys
 import time
 
-from RatS.inserters.imdb_inserter import IMDBInserter
-from RatS.parsers.trakt_parser import TraktRatingsParser
 from RatS.utils import file_impex
+from RatS.inserters.movielense_inserter import MovielenseInserter
+from RatS.parsers.imdb_parser import IMDBRatingsParser
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
-JSON_FILE = TIMESTAMP + '_trakt.json'
+JSON_FILE = TIMESTAMP + '_imdb.json'
 
 
 def main():
     # PARSING DATA
-    movies = parse_data_from_source(TraktRatingsParser())
+    movies = parse_data_from_source(IMDBRatingsParser())
     # FILE LOADING
-    # movies = load_data_from_file('20170304153725_trakt.json')
+    # movies = load_data_from_file('20170224211816_imdb.json')
     # POSTING THE DATA
-    insert_movie_ratings(IMDBInserter(), movies)
+    insert_movie_ratings(MovielenseInserter(), movies)
 
 
 def parse_data_from_source(parser):

@@ -11,7 +11,6 @@ from RatS.utils import file_impex
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 JSON_FILE = TIMESTAMP + '_trakt.json'
-CSV_FILE = TIMESTAMP + '_trakt.csv'
 
 
 def main():

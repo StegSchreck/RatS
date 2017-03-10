@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 from RatS.data.movie import Movie
 
@@ -20,3 +21,14 @@ def save_movies_json(movies, folder=EXPORTS_FOLDER, filename='export.json'):
         movies_json = [movie.to_json() for movie in movies]
         file.write(json.dumps(movies_json))
         file.close()
+
+
+def wait_for_file_to_exist(filepath, seconds=30):
+    for i in range(seconds):
+        try:
+            with open(filepath, 'rb') as _:
+                break
+        except IOError:
+            time.sleep(1)
+    else:
+        raise IOError('Could not access {} after {} seconds'.format(filepath, str(seconds)))
