@@ -30,11 +30,11 @@ This project is currently still under development. Please be patient, as I'm onl
 
 #### Currently Available Parsers <a name="parsers"></a>
 * Trakt
-* IMDB
+* IMDB (with IMDB account)
 
 #### Currently Available Inserters <a name="inserters"></a>
 * Movielense
-* IMDB
+* IMDB (with IMDB account)
 
 ### Trying again with former export data
 You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `get_trakt_ratings_to_movielense.py` script and comment in the file loader part, where you just have to adjust the filename.
