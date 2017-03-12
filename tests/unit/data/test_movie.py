@@ -85,5 +85,5 @@ class MovieTest(TestCase):
                                 "(Trakt:[432] URL:https://trakt.tv/movies/fight-club-1999 ME:10 OVERALL:89%) " \
                                 "(IMDB:[tt0137523] URL:http://www.imdb.com/title/tt0137523 ME: OVERALL:) " \
                                 "(TMDB:[550] URL:https://www.themoviedb.org/movie/550 ME: OVERALL:) " \
-                                "(MovieLens:[] URL: ME: OVERALL:) (RottenTomato:[] URL: ME: OVERALL:)"
+                                "(MovieLens:[] URL: ME: OVERALL:)"
         self.assertEqual(expected_movie_string, actual_movie_string)

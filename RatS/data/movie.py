@@ -9,7 +9,6 @@ class Movie:
         self.trakt = MovieSource()
         self.tmdb = MovieSource()
         self.movielens = MovieSource()
-        self.rottentomato = MovieSource()
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -17,8 +16,8 @@ class Movie:
         return False
 
     def __str__(self):
-        return "%s (Trakt:%s) (IMDB:%s) (TMDB:%s) (MovieLens:%s) (RottenTomato:%s)" % \
-               (self.title, self.trakt, self.imdb, self.tmdb, self.movielens, self.rottentomato)
+        return "%s (Trakt:%s) (IMDB:%s) (TMDB:%s) (MovieLens:%s)" % \
+               (self.title, self.trakt, self.imdb, self.tmdb, self.movielens)
 
     def to_json(self):
         movie_json = {
@@ -26,8 +25,7 @@ class Movie:
             'imdb': self.imdb.to_json(),
             'trakt': self.trakt.to_json(),
             'tmdb': self.tmdb.to_json(),
-            'movielens': self.movielens.to_json(),
-            'rottentomato': self.rottentomato.to_json()
+            'movielens': self.movielens.to_json()
         }
         return movie_json
 
@@ -39,5 +37,4 @@ class Movie:
         movie.trakt = MovieSource.from_json(json['trakt'])
         movie.tmdb = MovieSource.from_json(json['tmdb'])
         movie.movielens = MovieSource.from_json(json['movielens'])
-        movie.rottentomato = MovieSource.from_json(json['rottentomato'])
         return movie
