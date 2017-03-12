@@ -7,18 +7,18 @@ import time
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
 
 from RatS.inserters.base_inserter import Inserter
-from RatS.sites.movielense_site import Movielense
+from RatS.sites.movielens_site import Movielens
 from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-FAILED_MOVIES_FILE = TIMESTAMP + '_movielense_failed.json'
+FAILED_MOVIES_FILE = TIMESTAMP + '_movielens_failed.json'
 
 
-class MovielenseInserter(Inserter):
+class MovielensInserter(Inserter):
     def __init__(self):
-        super(MovielenseInserter, self).__init__(Movielense())
+        super(MovielensInserter, self).__init__(Movielens())
 
     def insert(self, movies):
         counter = 0
@@ -27,9 +27,9 @@ class MovielenseInserter(Inserter):
         sys.stdout.flush()
 
         for movie in movies:
-            movielense_entry = self._find_movie(movie)
-            if movielense_entry:
-                self._post_movie_rating(movielense_entry, movie.trakt.my_rating)
+            entry = self._find_movie(movie)
+            if entry:
+                self._post_movie_rating(entry, movie.trakt.my_rating)
             else:
                 failed_movies.append(movie)
             counter += 1
@@ -67,13 +67,13 @@ class MovielenseInserter(Inserter):
 
     @staticmethod
     def _is_requested_movie(movie, param):
-        if movie.movielense.id != '':
-            return movie.movielense.id == param['movieId']
+        if movie.movielens.id != '':
+            return movie.movielens.id == param['movieId']
         else:
             return movie.imdb.id.replace('tt', '') == param['imdbMovieId'].replace('tt', '')
 
-    def _post_movie_rating(self, movielense_entry, my_rating):
-        movie_page_url = 'https://movielens.org/movies/%s' % str(movielense_entry['movieId'])
+    def _post_movie_rating(self, entry, my_rating):
+        movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])
         self.site.browser.get(movie_page_url)
         time.sleep(1)
         try:

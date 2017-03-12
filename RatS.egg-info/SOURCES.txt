@@ -10,7 +10,7 @@ RatS/data/movie_source.py
 RatS/inserters/__init__.py
 RatS/inserters/base_inserter.py
 RatS/inserters/imdb_inserter.py
-RatS/inserters/movielense_inserter.py
+RatS/inserters/movielens_inserter.py
 RatS/parsers/__init__.py
 RatS/parsers/base_parser.py
 RatS/parsers/imdb_parser.py
@@ -18,7 +18,7 @@ RatS/parsers/trakt_parser.py
 RatS/sites/__init__.py
 RatS/sites/base_site.py
 RatS/sites/imdb_site.py
-RatS/sites/movielense_site.py
+RatS/sites/movielens_site.py
 RatS/sites/trakt_site.py
 RatS/utils/__init__.py
 RatS/utils/command_line.py
@@ -26,7 +26,7 @@ RatS/utils/file_impex.py
 tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_imdb_site.py
-tests/functional/sites/test_movielense_site.py
+tests/functional/sites/test_movielens_site.py
 tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
 tests/unit/data/__init__.py
@@ -35,7 +35,7 @@ tests/unit/data/test_movie_source.py
 tests/unit/inserters/__init__.py
 tests/unit/inserters/test_base_inserter.py
 tests/unit/inserters/test_imdb_inserter.py
-tests/unit/inserters/test_movielense_inserter.py
+tests/unit/inserters/test_movielens_inserter.py
 tests/unit/parsers/__init__.py
 tests/unit/parsers/test_base_parser.py
 tests/unit/parsers/test_imdb_parser.py

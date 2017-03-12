@@ -3,7 +3,7 @@ import transfer_ratings
 
 
 def main():
-    transfer_ratings.main([__file__, 'trakt', 'movielense'])
+    transfer_ratings.main([__file__, 'trakt', 'movielens'])
 
 if __name__ == "__main__":
     main()

@@ -1,13 +1,13 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.movielense_site import Movielense
+from RatS.sites.movielens_site import Movielens
 
 
-@skip('movielense not working from travis')
-class MovielenseSiteTest(TestCase):
+@skip('movielens not working from travis')
+class MovielensSiteTest(TestCase):
     def setUp(self):
-        self.site = Movielense()
+        self.site = Movielens()
 
     def test_login(self):
         self.assertEqual('https://movielens.org/home', self.site.browser.current_url)

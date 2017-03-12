@@ -17,9 +17,9 @@ This project is currently still under development. Please be patient, as I'm onl
     `sudo ./InstallSelenium.sh`
 4. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
 5. Execute the script
-    `python transfer_ratings.py trakt movielense`
+    `python transfer_ratings.py trakt movielens`
     
-    This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielense an put your rating there. Notice: This will also overwrite rating you already did set there before.
+    This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
     
     This script will take some minutes. Relax. You can follow the progress in console output.
 6. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a json, so you can easily try them again (see below).
@@ -28,20 +28,22 @@ This project is currently still under development. Please be patient, as I'm onl
 1. the first argument is the site where the ratings are parsed from (see [Available Parsers](#parsers))
 2. the second argument is the site where the ratings should be posted (inserted) to (see [Available Inserters](#inserters))
 
-#### Currently Available Parsers <a name="parsers"></a>
+<a name="parsers"></a>
+#### Currently Available Parsers
 * Trakt
 * IMDB (with IMDB account)
 
-#### Currently Available Inserters <a name="inserters"></a>
-* Movielense
+<a name="inserters"></a>
+#### Currently Available Inserters
+* Movielens
 * IMDB (with IMDB account)
 
 ### Trying again with former export data
-You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `get_trakt_ratings_to_movielense.py` script and comment in the file loader part, where you just have to adjust the filename.
+You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `transfer_ratings.py` script and comment in the file loader part, where you just have to adjust the filename.
    
 ## Problem shooting
 ### Script aborts because of Timeouts
-It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielense. The only advice I can give you for now is to increase the time.sleep() in the scripts. I will try to come up with a better solution in the future.
+It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielens. The only advice I can give you for now is to increase the time.sleep() in the scripts. I will try to come up with a better solution in the future.
 
 ## You are missing a feature or noticed something is wrong?
 Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new), I will have a look as soon as I can.

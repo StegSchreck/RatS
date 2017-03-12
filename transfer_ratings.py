@@ -5,7 +5,7 @@ import sys
 import time
 
 from RatS.inserters.imdb_inserter import IMDBInserter
-from RatS.inserters.movielense_inserter import MovielenseInserter
+from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.parsers.imdb_parser import IMDBRatingsParser
 from RatS.parsers.trakt_parser import TraktRatingsParser
 from RatS.utils import file_impex
@@ -13,20 +13,18 @@ from RatS.utils import file_impex
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
-PARSERS = ['TRAKT', 'IMDB']
-INSERTERS = ['IMDB', 'MOVIELENSE']
-PARSERS_DICT = {'TRAKT': TraktRatingsParser, 'IMDB': IMDBRatingsParser}
-INSERTERS_DICT = {'IMDB': IMDBInserter, 'MOVIELENSE': MovielenseInserter}
+PARSERS = {'TRAKT': TraktRatingsParser, 'IMDB': IMDBRatingsParser}
+INSERTERS = {'IMDB': IMDBInserter, 'MOVIELENS': MovielensInserter}
 
 
 def main(argv):
     if len(argv) != 3:
         print_help(argv)
         return
-    if argv[1].upper() not in PARSERS_DICT:
+    if argv[1].upper() not in PARSERS:
         print('Parser %s not available' % argv[1])
         return
-    if argv[2].upper() not in INSERTERS_DICT:
+    if argv[2].upper() not in INSERTERS:
         print('Inserter %s not available' % argv[2])
         return
 
@@ -36,22 +34,22 @@ def main(argv):
 def print_help(argv):
     sys.stdout.write('''\r\nThe number of arguments was not correct!
         \r\nExample call:
-        \r\n   python %s imdb movielense
-        \r\nThis would parse your ratings from IMDB and insert them to your Movielense account
+        \r\n   python %s imdb movielens
+        \r\nThis would parse your ratings from IMDB and insert them to your Movielens account
         \r\n''' % argv[0])
     sys.stdout.flush()
 
 
 def get_parser_from_arg(param):
     try:
-        return PARSERS_DICT[param.upper()]
+        return PARSERS[param.upper()]
     except KeyError:
         return None
 
 
 def get_inserter_from_arg(param):
     try:
-        return INSERTERS_DICT[param.upper()]
+        return INSERTERS[param.upper()]
     except KeyError:
         return None
 
