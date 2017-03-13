@@ -3,7 +3,6 @@ import time
 
 from bs4 import BeautifulSoup
 
-from RatS.data.movie import Movie
 from RatS.parsers.base_parser import Parser
 from RatS.sites.trakt_site import Trakt
 from RatS.utils.command_line import print_progress
@@ -46,13 +45,14 @@ class TraktRatingsParser(Parser):
             self.movies.append(movie)
 
     def _parse_movie_tile(self, movie_tile):
-        movie = Movie()
-        movie.trakt.id = movie_tile['data-movie-id']
-        movie.trakt.url = 'https://trakt.tv%s' % movie_tile['data-url']
-        movie.title = movie_tile.find('h3').get_text()
-        movie.trakt.my_rating = movie_tile.find_all('h4')[1].get_text().strip()
+        movie = dict()
+        movie['title'] = movie_tile.find('h3').get_text()
+        movie['trakt'] = dict()
+        movie['trakt']['id'] = movie_tile['data-movie-id']
+        movie['trakt']['url'] = 'https://trakt.tv%s' % movie_tile['data-url']
+        movie['trakt']['my_rating'] = movie_tile.find_all('h4')[1].get_text().strip()
 
-        self.site.browser.get(movie.trakt.url)
+        self.site.browser.get(movie['trakt']['url'])
 
         try:
             self.parse_movie_details_page(movie)
@@ -66,7 +66,9 @@ class TraktRatingsParser(Parser):
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        movie.trakt.overall_rating = self._get_overall_rating(movie_details_page)
+        if 'trakt' not in movie:
+            movie['trakt'] = dict()
+        movie['trakt']['overall_rating'] = self._get_overall_rating(movie_details_page)
         self._parse_external_links(movie, movie_details_page)
 
     @staticmethod
@@ -74,11 +76,13 @@ class TraktRatingsParser(Parser):
         external_links = movie_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
         for link in external_links:
             if 'imdb.com' in link['href']:
-                movie.imdb.url = link['href']
-                movie.imdb.id = movie.imdb.url.split('/')[-1]
+                movie['imdb'] = dict()
+                movie['imdb']['url'] = link['href']
+                movie['imdb']['id'] = movie['imdb']['url'].split('/')[-1]
             if 'themoviedb.org' in link['href']:
-                movie.tmdb.url = link['href']
-                movie.tmdb.id = movie.tmdb.url.split('/')[-1]
+                movie['tmdb'] = dict()
+                movie['tmdb']['url'] = link['href']
+                movie['tmdb']['id'] = movie['tmdb']['url'].split('/')[-1]
 
     @staticmethod
     def _get_overall_rating(movie_page):

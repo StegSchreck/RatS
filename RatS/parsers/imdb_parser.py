@@ -1,17 +1,14 @@
 import csv
+import datetime
 import os
 import sys
 import time
 
-import datetime
-
 from selenium.common.exceptions import TimeoutException
 
-from RatS.data.movie import Movie
 from RatS.parsers.base_parser import Parser
 from RatS.sites.imdb_site import IMDB
 from RatS.utils import file_impex
-
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
@@ -66,10 +63,11 @@ class IMDBRatingsParser(Parser):
 
     @staticmethod
     def _convert_csv_row_to_movie(row):
-        movie = Movie()
-        movie.title = row[5]
-        movie.imdb.id = row[1]
-        movie.imdb.url = row[15]
-        movie.imdb.my_rating = row[8]
-        movie.imdb.overall_rating = row[9]
+        movie = dict()
+        movie['title'] = row[5]
+        movie['imdb'] = dict()
+        movie['imdb']['id'] = row[1]
+        movie['imdb']['url'] = row[15]
+        movie['imdb']['my_rating'] = row[8]
+        movie['imdb']['overall_rating'] = row[9]
         return movie

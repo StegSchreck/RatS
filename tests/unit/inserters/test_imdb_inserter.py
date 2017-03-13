@@ -1,22 +1,24 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from RatS.data.movie import Movie
 from RatS.inserters.imdb_inserter import IMDBInserter
 
 
 class IMDBInserterTest(TestCase):
     def setUp(self):
-        self.movie = Movie()
-        self.movie.title = 'Fight Club'
-        self.movie.imdb.id = 'tt0137523'
-        self.movie.imdb.url = 'http://www.imdb.com/title/tt0137523'
-        self.movie.trakt.id = '432'
-        self.movie.trakt.url = 'https://trakt.tv/movies/fight-club-1999'
-        self.movie.trakt.my_rating = '10'
-        self.movie.trakt.overall_rating = '89%'
-        self.movie.tmdb.id = '550'
-        self.movie.tmdb.url = 'https://www.themoviedb.org/movie/550'
+        self.movie = dict()
+        self.movie['title'] = 'Fight Club'
+        self.movie['imdb'] = dict()
+        self.movie['imdb']['id'] = 'tt0137523'
+        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['trakt'] = dict()
+        self.movie['trakt']['id'] = '432'
+        self.movie['trakt']['url'] = 'https://trakt.tv/movies/fight-club-1999'
+        self.movie['trakt']['my_rating'] = '10'
+        self.movie['trakt']['overall_rating'] = '89%'
+        self.movie['tmdb'] = dict()
+        self.movie['tmdb']['id'] = '550'
+        self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -34,7 +36,7 @@ class IMDBInserterTest(TestCase):
         inserter = IMDBInserter()
         inserter.site = site_mock
 
-        inserter.insert([self.movie])
+        inserter.insert([self.movie], 'trakt')
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)

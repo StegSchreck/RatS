@@ -20,7 +20,7 @@ class MovielensInserter(Inserter):
     def __init__(self):
         super(MovielensInserter, self).__init__(Movielens())
 
-    def insert(self, movies):
+    def insert(self, movies, source):
         counter = 0
         failed_movies = []
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (type(self.site).__name__, len(movies)))
@@ -29,7 +29,7 @@ class MovielensInserter(Inserter):
         for movie in movies:
             entry = self._find_movie(movie)
             if entry:
-                self._post_movie_rating(entry, movie.trakt.my_rating)
+                self._post_movie_rating(entry, movie[source.lower()]['my_rating'])
             else:
                 failed_movies.append(movie)
             counter += 1
@@ -39,7 +39,7 @@ class MovielensInserter(Inserter):
         sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
                          (type(self.site).__name__, success_number, len(movies)))
         for failed_movie in failed_movies:
-            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s\r\n' % (failed_movie.imdb.id, failed_movie.title))
+            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s\r\n' % (failed_movie.imdb.id, failed_movie['title']))
         if len(failed_movies) > 0:
             file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
@@ -49,7 +49,7 @@ class MovielensInserter(Inserter):
         self.site.kill_browser()
 
     def _find_movie(self, movie):
-        self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie.title)
+        self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
         time.sleep(1)
         try:
             search_results = self._get_json_from_html()
@@ -67,10 +67,10 @@ class MovielensInserter(Inserter):
 
     @staticmethod
     def _is_requested_movie(movie, param):
-        if movie.movielens.id != '':
-            return movie.movielens.id == param['movieId']
+        if 'movielens' in movie and movie['movielens']['id'] != '':
+            return movie['movielens']['id'] == param['movieId']
         else:
-            return movie.imdb.id.replace('tt', '') == param['imdbMovieId'].replace('tt', '')
+            return movie['imdb']['id'].replace('tt', '') == param['imdbMovieId'].replace('tt', '')
 
     def _post_movie_rating(self, entry, my_rating):
         movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])

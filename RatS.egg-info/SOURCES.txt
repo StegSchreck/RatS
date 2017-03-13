@@ -4,9 +4,6 @@ RatS.egg-info/PKG-INFO
 RatS.egg-info/SOURCES.txt
 RatS.egg-info/dependency_links.txt
 RatS.egg-info/top_level.txt
-RatS/data/__init__.py
-RatS/data/movie.py
-RatS/data/movie_source.py
 RatS/inserters/__init__.py
 RatS/inserters/base_inserter.py
 RatS/inserters/imdb_inserter.py
@@ -29,9 +26,6 @@ tests/functional/sites/test_imdb_site.py
 tests/functional/sites/test_movielens_site.py
 tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
-tests/unit/data/__init__.py
-tests/unit/data/test_movie.py
-tests/unit/data/test_movie_source.py
 tests/unit/inserters/__init__.py
 tests/unit/inserters/test_base_inserter.py
 tests/unit/inserters/test_imdb_inserter.py

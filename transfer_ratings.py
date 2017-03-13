@@ -62,7 +62,7 @@ def execute(argv):
     # movies = load_data_from_file(filename)
     # POSTING THE DATA
     inserter = get_inserter_from_arg(argv[2])()
-    insert_movie_ratings(inserter, movies)
+    insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
 def parse_data_from_source(parser):
@@ -82,8 +82,8 @@ def load_data_from_file(filename):
     return movies
 
 
-def insert_movie_ratings(inserter, movies):
-    inserter.insert(movies)
+def insert_movie_ratings(inserter, movies, source):
+    inserter.insert(movies, source)
 
 
 if __name__ == "__main__":

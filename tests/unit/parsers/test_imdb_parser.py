@@ -2,7 +2,6 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
-from RatS.data.movie import Movie
 from RatS.parsers.imdb_parser import IMDBRatingsParser
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
@@ -45,8 +44,8 @@ class IMDBParserTest(TestCase):
         parsed_movies = parser.parse_ratings_from_csv(os.path.join(TESTDATA_PATH, 'my_ratings', 'imdb.csv'))
 
         self.assertEqual(2, len(parsed_movies))
-        self.assertEqual(Movie, type(parsed_movies[0]))
-        self.assertEqual('Arrival', parsed_movies[0].title)
-        self.assertEqual('tt2543164', parsed_movies[0].imdb.id)
-        self.assertEqual('http://www.imdb.com/title/tt2543164/', parsed_movies[0].imdb.url)
-        self.assertEqual('8', parsed_movies[0].imdb.my_rating)
+        self.assertEqual(dict, type(parsed_movies[0]))
+        self.assertEqual('Arrival', parsed_movies[0]['title'])
+        self.assertEqual('tt2543164', parsed_movies[0]['imdb']['id'])
+        self.assertEqual('http://www.imdb.com/title/tt2543164/', parsed_movies[0]['imdb']['url'])
+        self.assertEqual('8', parsed_movies[0]['imdb']['my_rating'])
