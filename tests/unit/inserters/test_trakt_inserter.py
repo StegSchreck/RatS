@@ -31,7 +31,8 @@ class TraktInserterTest(TestCase):
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
-    def test_insert(self, browser_mock, base_init_mock, site_mock, overview_page_mock, eq_check_mock, progress_print_mock):  # pylint: disable=too-many-arguments
+    def test_insert(self, browser_mock, base_init_mock, site_mock, overview_page_mock,  # pylint: disable=too-many-arguments
+                    eq_check_mock, progress_print_mock):
         overview_page_mock.return_value = self.search_result
         eq_check_mock.return_value = True
         site_mock.browser = browser_mock
