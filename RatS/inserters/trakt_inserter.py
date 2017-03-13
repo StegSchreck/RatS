@@ -1,24 +1,24 @@
 import datetime
-import json
 import os
 import sys
 import time
 
+from bs4 import BeautifulSoup
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
 
 from RatS.inserters.base_inserter import Inserter
-from RatS.sites.movielens_site import Movielens
+from RatS.sites.trakt_site import Trakt
 from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-FAILED_MOVIES_FILE = TIMESTAMP + '_movielens_failed.json'
+FAILED_MOVIES_FILE = TIMESTAMP + '_trakt_failed.json'
 
 
-class MovielensInserter(Inserter):
+class TraktInserter(Inserter):
     def __init__(self):
-        super(MovielensInserter, self).__init__(Movielens())
+        super(TraktInserter, self).__init__(Trakt())
 
     def insert(self, movies, source):
         counter = 0
@@ -27,9 +27,13 @@ class MovielensInserter(Inserter):
         sys.stdout.flush()
 
         for movie in movies:
-            entry = self._find_movie(movie)
-            if entry:
-                self._post_movie_rating(entry, movie[source.lower()]['my_rating'])
+            if 'trakt' in movie and movie['trakt']['url'] != '':
+                self.site.browser.get(movie['trakt']['url'])
+                success = True
+            else:
+                success = self._find_movie(movie)
+            if success:
+                self._post_movie_rating(movie[source.lower()]['my_rating'])
             else:
                 failed_movies.append(movie)
             counter += 1
@@ -49,33 +53,36 @@ class MovielensInserter(Inserter):
         self.site.kill_browser()
 
     def _find_movie(self, movie):
-        self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
+        self.site.browser.get('https://trakt.tv/search/?query=%s' % movie['title'])
         time.sleep(1)
         try:
-            search_results = self._get_json_from_html()
+            movie_tiles = self._get_movie_tiles(self.site.browser.page_source)
         except (NoSuchElementException, KeyError):
             time.sleep(3)
-            search_results = self._get_json_from_html()
-        for search_result in search_results:
-            if self._is_requested_movie(movie, search_result['movie']):
-                return search_result['movie']
-
-    def _get_json_from_html(self):
-        response = self.site.browser.find_element_by_tag_name("pre").text
-        json_data = json.loads(response)
-        return json_data['data']['searchResults']
+            movie_tiles = self._get_movie_tiles(self.site.browser.page_source)
+        for tile in movie_tiles:
+            if self._is_requested_movie(movie, tile):
+                return True
+        return False
 
     @staticmethod
-    def _is_requested_movie(movie, param):
-        if 'movielens' in movie and movie['movielens']['id'] != '':
-            return movie['movielens']['id'] == param['movieId']
-        else:
-            return movie['imdb']['id'].replace('tt', '') == param['imdbMovieId'].replace('tt', '')
+    def _get_movie_tiles(overview_page):
+        search_result_page = BeautifulSoup(overview_page, 'html.parser')
+        return search_result_page.find_all('div', attrs={'data-type': 'movie'})
 
-    def _post_movie_rating(self, entry, my_rating):
-        movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])
-        self.site.browser.get(movie_page_url)
-        time.sleep(1)
+    def _is_requested_movie(self, movie, tile):
+        if 'trakt' in movie and movie['trakt']['id'] != '':
+            return movie['trakt']['id'] == tile['data-movie-id']
+        else:
+            self.site.browser.get('https://trakt.tv' + tile['data-url'])
+            time.sleep(1)
+            movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
+            external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
+            for link in external_links:
+                if 'imdb.com' in link['href']:
+                    return movie['imdb']['id'] == link['href'].split('/')[-1]
+
+    def _post_movie_rating(self, my_rating):
         try:
             self._click_rating(my_rating)
         except (ElementNotVisibleException, NoSuchElementException):
@@ -83,6 +90,7 @@ class MovielensInserter(Inserter):
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):
-        stars = self.site.browser.find_element_by_class_name('rating').find_elements_by_tag_name('span')
+        self.site.browser.find_element_by_class_name('summary-user-rating').click()
+        time.sleep(1)
         star_index = 10 - int(my_rating)
-        stars[star_index].click()
+        self.site.browser.execute_script("$('.rating-hearts').find('label')[%i].click()" % star_index)

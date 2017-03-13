@@ -37,6 +37,7 @@ This project is currently still under development. Please be patient, as I'm onl
 #### Currently Available Inserters
 * Movielens
 * IMDB (with IMDB account)
+* Trakt
 
 ### Trying again with former export data
 You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `transfer_ratings.py` script and comment in the file loader part, where you just have to adjust the filename.
