@@ -8,13 +8,14 @@ from RatS.inserters.imdb_inserter import IMDBInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.inserters.trakt_inserter import TraktInserter
 from RatS.parsers.imdb_parser import IMDBRatingsParser
+from RatS.parsers.movielens_parser import MovielensRatingsParser
 from RatS.parsers.trakt_parser import TraktRatingsParser
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
-PARSERS = {'TRAKT': TraktRatingsParser, 'IMDB': IMDBRatingsParser}
+PARSERS = {'TRAKT': TraktRatingsParser, 'IMDB': IMDBRatingsParser, 'MOVIELENS': MovielensRatingsParser}
 INSERTERS = {'IMDB': IMDBInserter, 'MOVIELENS': MovielensInserter, 'TRAKT': TraktInserter}
 
 

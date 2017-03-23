@@ -10,7 +10,7 @@ class Movielens(Site):
         self.LOGIN_PASSWORD_SELECTOR = "//form//input[@id='inputPassword']"
         self.LOGIN_BUTTON_SELECTOR = "//form//button[@type='submit']"
         super(Movielens, self).__init__()
-        self.MY_RATINGS_URL = 'https://movielens.org/explore/your-ratings'
+        self.MY_RATINGS_URL = 'https://movielens.org/api/movies/explore?hasRated=yes&sortBy=userRatedDate'
 
     def get_json_from_html(self):
         response = self.browser.find_element_by_tag_name("pre").text
