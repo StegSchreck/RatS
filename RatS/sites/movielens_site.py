@@ -1,3 +1,5 @@
+import json
+
 from RatS.sites.base_site import Site
 
 
@@ -9,3 +11,8 @@ class Movielens(Site):
         self.LOGIN_BUTTON_SELECTOR = "//form//button[@type='submit']"
         super(Movielens, self).__init__()
         self.MY_RATINGS_URL = 'https://movielens.org/explore/your-ratings'
+
+    def get_json_from_html(self):
+        response = self.browser.find_element_by_tag_name("pre").text
+        json_data = json.loads(response)
+        return json_data['data']

@@ -24,7 +24,7 @@ class MovielensInserterTest(TestCase):
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'movielens.json'), encoding='utf8') as search_result:
-            self.search_result_json = json.loads(search_result.read())['data']['searchResults']
+            self.search_result_json = json.loads(search_result.read())['data']
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -34,7 +34,7 @@ class MovielensInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.inserters.movielens_inserter.print_progress')
-    @patch('RatS.inserters.movielens_inserter.MovielensInserter._get_json_from_html')
+    @patch('RatS.inserters.movielens_inserter.Movielens.get_json_from_html')
     @patch('RatS.inserters.movielens_inserter.Movielens')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')

@@ -1,5 +1,4 @@
 import datetime
-import json
 import os
 import sys
 import time
@@ -43,7 +42,7 @@ class MovielensInserter(Inserter):
         if len(failed_movies) > 0:
             file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (type(self.site).__name__, len(failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
+                             (type(self.site).__name__, len(failed_movies), EXPORTS_FOLDER, FAILED_MOVIES_FILE))
         sys.stdout.flush()
 
         self.site.kill_browser()
@@ -52,18 +51,13 @@ class MovielensInserter(Inserter):
         self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
         time.sleep(1)
         try:
-            search_results = self._get_json_from_html()
+            search_results = self.site.get_json_from_html()['searchResults']
         except (NoSuchElementException, KeyError):
             time.sleep(3)
-            search_results = self._get_json_from_html()
+            search_results = self.site.get_json_from_html()['searchResults']
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']
-
-    def _get_json_from_html(self):
-        response = self.site.browser.find_element_by_tag_name("pre").text
-        json_data = json.loads(response)
-        return json_data['data']['searchResults']
 
     @staticmethod
     def _is_requested_movie(movie, param):
