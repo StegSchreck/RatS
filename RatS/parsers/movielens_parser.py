@@ -25,7 +25,7 @@ class MovielensRatingsParser(Parser):
         sys.stdout.flush()
 
         self._parse_ratings_json(ratings)
-        for i in range(2, pages_count+1):
+        for i in range(2, pages_count + 1):
             self.site.browser.get('%s&page=%i' % (self.site.MY_RATINGS_URL, i))
             json_data = self.site.get_json_from_html()
             ratings = json_data['searchResults']
