@@ -32,6 +32,7 @@ This project is currently still under development. Please be patient, as I'm onl
 #### Currently Available Parsers
 * Trakt
 * IMDB (with IMDB account)
+* Movielens
 
 <a name="inserters"></a>
 #### Currently Available Inserters
