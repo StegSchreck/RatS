@@ -31,6 +31,7 @@ class MovielensParserTest(TestCase):
         parser = MovielensRatingsParser()
         parser.movies = []
         parser.site = site_mock
+        parser.site.site_name = 'movielense'
         parser.site.browser = browser_mock
 
         parser.parse()

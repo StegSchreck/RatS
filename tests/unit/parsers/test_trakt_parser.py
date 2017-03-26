@@ -32,6 +32,7 @@ class TraktParserTest(TestCase):
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = site_mock
+        parser.site.site_name = 'trakt'
         parser.site.browser = browser_mock
 
         parser.parse()
@@ -42,7 +43,7 @@ class TraktParserTest(TestCase):
         self.assertEqual('Arrival', parser.movies[0]['title'])
         self.assertEqual('210803', parser.movies[0]['trakt']['id'])
         self.assertEqual('https://trakt.tv/movies/arrival-2016', parser.movies[0]['trakt']['url'])
-        self.assertEqual('7', parser.movies[0]['trakt']['my_rating'])
+        self.assertEqual(7, parser.movies[0]['trakt']['my_rating'])
 
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -52,6 +53,7 @@ class TraktParserTest(TestCase):
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = site_mock
+        parser.site.site_name = 'trakt'
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
         movie = dict()

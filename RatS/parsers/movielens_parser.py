@@ -35,7 +35,7 @@ class MovielensRatingsParser(Parser):
         for movie_json in ratings_json:
             movie = self._parse_movie_json(movie_json)
             self.movies.append(movie)
-            print_progress(len(self.movies), self.movies_count, prefix=type(self.site).__name__)
+            print_progress(len(self.movies), self.movies_count, prefix=self.site.site_name)
 
     @staticmethod
     def _parse_movie_json(movie_json):

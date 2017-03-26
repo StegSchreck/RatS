@@ -22,6 +22,7 @@ class IMDBParserTest(TestCase):
         parser = IMDBRatingsParser()
         parser.movies = []
         parser.site = site_mock
+        parser.site.site_name = 'imdb'
         parser.site.browser = browser_mock
 
         parser.parse()

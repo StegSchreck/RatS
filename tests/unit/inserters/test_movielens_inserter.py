@@ -43,8 +43,8 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
+        inserter.site.site_name = 'movielens'
         inserter.failed_movies = []
-        inserter.site_name = 'movielens'
 
         inserter.insert([self.movie], 'trakt')
 
