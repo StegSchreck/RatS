@@ -39,7 +39,8 @@ class Site:
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
 
         self.browser = Firefox(firefox_profile=profile)
-        self.browser._is_remote = False
+        # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
+        self.browser._is_remote = False  # pylint: disable=protected-access
         self.login()
         time.sleep(1)
 
