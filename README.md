@@ -33,6 +33,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * Trakt
 * IMDB (with IMDB account)
 * Movielens
+* TMDB (The Movie Database)
 
 <a name="inserters"></a>
 #### Currently Available Inserters

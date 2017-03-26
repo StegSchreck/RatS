@@ -701,6 +701,7 @@ Description: <p align="center">
         * Trakt
         * IMDB (with IMDB account)
         * Movielens
+        * TMDB (The Movie Database)
         
         <a name="inserters"></a>
         #### Currently Available Inserters

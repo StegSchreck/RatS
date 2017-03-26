@@ -1,0 +1,1441 @@
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba no-hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths k-ff k-ff52" style="" lang="de"><head>
+    <title>StegSchreck — The Movie Database (TMDb)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cleartype" content="on">
+    <meta charset="utf-8">
+    <meta name="msapplication-TileColor" content="#00d573">
+    <meta name="msapplication-TileImage" content="https://www.themoviedb.org/assets/static_cache/bbbc36f5620f0c7d852a8d51495fdecd/images/icons/v4/mstile-144x144.png">
+    <meta name="keywords" content="Movies, TV Shows, Reviews, API, Actors, Actresses, Photos, User Ratings, Synopsis, Trailers, Teasers, Credits, Cast">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=1120">
+
+    <meta name="theme-color" content="#00d573">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00d474">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link rel="preconnect" href="https://image.tmdb.org/" crossorigin="">
+    <link rel="preconnect" href="https://api.themoviedb.org/" crossorigin="">
+    <link rel="canonical" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie">
+    <link rel="search" type="application/opensearchdescription+xml" title="TMDb Search" href="/opensearch.xml">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700&amp;subset=latin" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.themoviedb.org/multi_assets/static_cache/stylesheets/53f0af10ccedeb55c8d9072281b2cbd6.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/b6f61a1b662875aa5efdf6f7ace1c31c/stylesheets/v2/glyphicons.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/b8a2bc7c7aa68ed76af0c00964263ed5/stylesheets/v2/glyphicons-social.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/efa6598e6e4cd49bf76b45cf3326348f/stylesheets/v4/consensus_numbers.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/86347c45fa1d77636e6a2b9102190988/stylesheets/kendo-2017-1.223/kendo.common-material.min.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/8b785a88152b95ae738099ce7e5799d1/stylesheets/kendo-2017-1.223/kendo.material.min.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/92e173c6041519055c5d68f698c7ca08/stylesheets/v2/kendo.material.override.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/16da25dd5205e2c2c01d16d710639e48/stylesheets/v2/account.css">
+
+      <link rel="stylesheet" href="https://www.themoviedb.org/assets/static_cache/a0ed9c4c2249fd136ccd8e017a4d38b1/stylesheets/v4/media_list.css">
+
+
+    <meta name="description" content="The Movie Database (TMDb) is a popular, user editable database for movies and TV shows.">
+
+
+    <link rel="alternate" hreflang="x-default" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie">
+<link rel="alternate" hreflang="en" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/en">
+<link rel="alternate" hreflang="bg" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/bg">
+<link rel="alternate" hreflang="bn" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/bn">
+<link rel="alternate" hreflang="ca" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ca">
+<link rel="alternate" hreflang="ch" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ch">
+<link rel="alternate" hreflang="cs" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/cs">
+<link rel="alternate" hreflang="da" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/da">
+<link rel="alternate" hreflang="de" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/de">
+<link rel="alternate" hreflang="el" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/el">
+<link rel="alternate" hreflang="es" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/es">
+<link rel="alternate" hreflang="eu" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/eu">
+<link rel="alternate" hreflang="fa" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/fa">
+<link rel="alternate" hreflang="fi" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/fi">
+<link rel="alternate" hreflang="fr" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/fr">
+<link rel="alternate" hreflang="he" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/he">
+<link rel="alternate" hreflang="hi" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/hi">
+<link rel="alternate" hreflang="hu" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/hu">
+<link rel="alternate" hreflang="id" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/id">
+<link rel="alternate" hreflang="it" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/it">
+<link rel="alternate" hreflang="ja" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ja">
+<link rel="alternate" hreflang="ka" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ka">
+<link rel="alternate" hreflang="ko" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ko">
+<link rel="alternate" hreflang="nb" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/nb">
+<link rel="alternate" hreflang="nl" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/nl">
+<link rel="alternate" hreflang="no" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/no">
+<link rel="alternate" hreflang="pl" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/pl">
+<link rel="alternate" hreflang="pt" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/pt">
+<link rel="alternate" hreflang="ro" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ro">
+<link rel="alternate" hreflang="ru" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ru">
+<link rel="alternate" hreflang="sk" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/sk">
+<link rel="alternate" hreflang="sl" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/sl">
+<link rel="alternate" hreflang="sr" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/sr">
+<link rel="alternate" hreflang="sv" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/sv">
+<link rel="alternate" hreflang="ta" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/ta">
+<link rel="alternate" hreflang="th" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/th">
+<link rel="alternate" hreflang="tr" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/tr">
+<link rel="alternate" hreflang="uk" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/uk">
+<link rel="alternate" hreflang="vi" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/vi">
+<link rel="alternate" hreflang="zh" href="https://www.themoviedb.org/account/StegSchreck/discover/rated/movie/zh">
+
+
+    <script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vfldOJ-Ud/www-widgetapi.js" async=""></script><script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/linkid.js"></script><script src="//www.youtube.com/iframe_api"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5QWVXV"></script><script src="https://www.themoviedb.org/assets/static_cache/08bc2b82385dfd23a787f85d2b706d93/javascripts/lazysizes.min.js" async=""></script>
+    <script src="https://www.themoviedb.org/assets/static_cache/4f252523d4af0b478c810c2547a63e19/javascripts/jquery-1.12.4.min.js"></script>
+    <script src="https://www.themoviedb.org/multi_assets/static_cache/javascripts/280601a1f23ee202f0df609898b8e5b9.js"></script>
+
+
+    <script>dataLayer = [{ 'userId': '589e4634c3a3684bb4000708' }];</script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5QWVXV');</script>
+  </head>
+<body class="de v4">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QWVXV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="page_wrap _wrap">
+
+<header class="normal">
+  <div class="content">
+    <div class="sub_media">
+
+        <ul class="small right">
+          <li><a href="/apps">Anwendungen</a></li>
+          <li><a href="/discuss">Foren</a></li>
+          <li><a href="/leaderboard">Top Mitwirkende</a></li>
+          <li><a href="/contribute">Mitwirken</a></li>
+          <li><a href="/documentation/api">API</a></li>
+          <li><a href="/talk">Support</a></li>
+
+        </ul>
+
+
+      <div class="left">
+        <ul class="primary">
+
+            <li class="logo">
+              <a href="/">
+                <img src="https://www.themoviedb.org/assets/static_cache/41bdcf10bbf6f84c0fc73f27b2180b95/images/v4/logos/91x81.png" srcset="https://www.themoviedb.org/assets/static_cache/41bdcf10bbf6f84c0fc73f27b2180b95/images/v4/logos/91x81.png 1x, https://www.themoviedb.org/assets/static_cache/8ce4f6ee3ea26190a7f21d1f9e7e9be2/images/v4/logos/182x162.png 2x, https://www.themoviedb.org/assets/static_cache/fe24da13912db728dbce09807b10832e/images/v4/logos/273x243.png 3x" height="81" width="91">
+              </a>
+            </li>
+            <li>
+              <a href="/discover">Entdecken</a>
+              <ul class="sub_menu discover hide">
+                <li><a href="/discover/movie">Filme</a></li>
+                <li><a href="/discover/tv">Serien</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/movie">Filme</a>
+              <ul class="sub_menu movie hide">
+                <li><a href="/movie">Beliebt</a></li>
+                <li><a href="/movie/top-rated">Bestbewertet</a></li>
+                <li><a href="/movie/upcoming">Kommend</a></li>
+                <li><a href="/movie/now-playing">Im Kino</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/tv">Serien</a>
+              <ul class="sub_menu tv hide">
+                <li><a href="/tv">Beliebt</a></li>
+                <li><a href="/tv/top-rated">Bestbewertet</a></li>
+                <li><a href="/tv/on-the-air">Im TV</a></li>
+                <li><a href="/tv/airing-today">Heute im TV</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/person">Personen</a>
+              <ul class="sub_menu person hide">
+                <li><a href="/person">Beliebte Personen</a></li>
+              </ul>
+            </li>
+
+        </ul>
+      </div>
+
+
+        <div class="right">
+          <ul class="primary">
+            <li>
+              <div class="glyph_wrapper">
+                <a class="glyph new_icon no_click" href="#">
+                  <span class="glyphicons glyphicons-plus"></span>
+                  </a><div class="rollover"><a class="glyph new_icon no_click" href="#">
+
+                      </a><a class="plus_icon button rounded white upcase" href="/movie/new">Film hinzufügen</a>
+                      <a class="plus_icon button rounded white upcase" href="/tv/new">Serie hinzufügen</a>
+
+                  </div>
+
+              </div>
+            </li>
+            <li class="glyph translate" data-role="tooltip"></li>
+
+              <li class="glyph notifications" data-role="tooltip">
+                <a class="no_click" href="/account/StegSchreck/notifications"><span class="glyphicons glyphicons-bell"></span></a>
+                <div class="badge hide"><div class="count">0</div></div>
+              </li>
+              <li class="user">
+                <p><a href="/account/StegSchreck">StegSchreck</a></p>
+                <a class="no_clickk" href="/account/StegSchreck">
+
+                    <span>S</span>
+
+                </a>
+              </li>
+
+          </ul>
+        </div>
+
+    </div>
+  </div>
+  <div class="search_bar">
+    <section class="search">
+      <div class="sub_media">
+        <form id="search_form" action="/search" method="get" accept-charset="utf-8">
+
+          <span tabindex="-1" role="presentation" style="" class="k-widget k-autocomplete k-header k-state-default"><input dir="auto" id="search_v4" name="query" tabindex="2" autocorrect="off" autofill="off" autocomplete="off" spellcheck="false" placeholder="Suche nach Film, Serie, Person..." value="" data-role="autocomplete" style="width: 100%;" class="k-input" role="textbox" aria-haspopup="true" aria-disabled="false" aria-readonly="false" aria-owns="search_v4_listbox" aria-autocomplete="list" type="text"><span unselectable="on" class="k-icon k-clear-value k-i-close" title="clear" role="button" tabindex="-1"></span><span class="k-icon k-i-loading" style="display:none"></span></span>
+          <input type="submit">
+        </form>
+      </div>
+    </section>
+  </div>
+<div class="k-list-container k-popup k-group k-reset" id="search_v4-list" data-role="popup" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="search_v4_listbox" aria-live="polite" data-role="staticlist" role="listbox"></ul></div><div class="k-nodata" style="display:none"><div></div></div></div></header>
+
+<main id="main" class="">
+
+  <div class="media">
+    <section class="main_content account">
+  <nav>
+    <div class="account_information">
+      <span class="avatar">
+        <a href="/account/StegSchreck">
+
+            <span>S</span>
+
+          <div style="clear: both;"></div>
+        </a>
+      </span>
+
+      <h2>StegSchreck</h2>
+      <h3 data-role="tooltip">Dabei seit 2017</h3>
+      <h3 class="change_count" data-role="tooltip"><a href="/account/StegSchreck/changes">0 Beiträge</a></h3>
+
+    </div>
+
+    <ul>
+
+      <li>
+        <a class="account" href="/account/StegSchreck" title="Account">Konto</a>
+        <ul class="sub_nav hide">
+          <li><a href="/account/StegSchreck/details"><span class="glyphicons glyphicons-edit x1"></span>Details</a></li>
+          <li><a href="/account/StegSchreck/notifications"><span class="glyphicons glyphicons-bell x1"></span>Benachrichtigungen</a></li>
+          <li><a href="/account/StegSchreck/discussions"><span class="glyphicons glyphicons-chat x1"></span>Diskussionen</a></li>
+          <li><a href="/account/StegSchreck/blocked-users"><span class="glyphicons glyphicons-user-remove x1"></span>Blocked Users</a></li>
+          <li><a href="/account/StegSchreck/import"><span class="glyphicons glyphicons-file-import x1"></span>Liste importieren</a></li>
+          <li><a href="/account/StegSchreck/share/settings"><span class="glyphicons glyphicons-share-alt x1"></span>Teilen</a></li>
+          <li><a href="/account/StegSchreck/social/settings"><span class="glyphicons glyphicons-handshake x1"></span>Social</a></li>
+          <li><a href="/account/StegSchreck/apps"><span class="glyphicons glyphicons-user-key x1"></span>Anwendungen</a></li>
+          <li>
+            <a href="/account/StegSchreck/api"><span class="glyphicons glyphicons-cluster x1"></span>API</a>
+            <ul class="sub_sub_nav hide">
+
+              <li><a href="/account/StegSchreck/api/details"><span class="glyphicons glyphicons-edit x05"></span>Details</a></li>
+              <li><a href="/account/StegSchreck/api/directory"><span class="glyphicons glyphicons-folder-closed x05"></span>App Directory</a></li>
+              <li><a href="/account/StegSchreck/api/sessions"><span class="glyphicons glyphicons-user-lock x05"></span>Sessions</a></li>
+              <li><a href="/account/StegSchreck/api/stats"><span class="glyphicons glyphicons-charts x05"></span>Statistiken</a></li>
+
+            </ul>
+          </li>
+          <li><a href="/account/StegSchreck/changes"><span class="glyphicons glyphicons-list-alt x1"></span>Änderungen</a></li>
+          <li><a href="/logout?_dc=1490544036"><span class="glyphicons glyphicons-exit x1"></span>Abmelden</a></li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a class="recommendations" href="/account/StegSchreck/discover/recommendations/movie" title="Recommendations">Empfehlungen</a>
+        <ul class="sub_nav hide">
+          <li><a href="/account/StegSchreck/discover/recommendations/movie"><span class="glyphicons glyphicons-film x1"></span>Filme</a></li>
+          <li><a href="/account/StegSchreck/discover/recommendations/tv"><span class="glyphicons glyphicons-tv x1"></span>Serien</a></li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a class="favorites" href="/account/StegSchreck/discover/favorites/movie" title="Favorites">Favoriten</a>
+        <ul class="sub_nav hide">
+          <li><a href="/account/StegSchreck/discover/favorites/movie"><span class="glyphicons glyphicons-film x1"></span>Filme</a></li>
+          <li><a href="/account/StegSchreck/discover/favorites/tv"><span class="glyphicons glyphicons-tv x1"></span>Serien</a></li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a class="rated active" href="/account/StegSchreck/discover/rated/movie" title="Rated">Bewertet</a>
+        <ul class="sub_nav show">
+          <li><a href="/account/StegSchreck/discover/rated/movie"><span class="glyphicons glyphicons-film x1"></span>Filme (1000)</a></li>
+          <li><a href="/account/StegSchreck/discover/rated/tv"><span class="glyphicons glyphicons-tv x1"></span>Serien (1)</a></li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a class="watchlists" href="/account/StegSchreck/discover/watchlist/movie" title="Watchlists">Watchlisten</a>
+        <ul class="sub_nav hide">
+          <li><a href="/account/StegSchreck/discover/watchlist/movie"><span class="glyphicons glyphicons-film x1"></span>Filme</a></li>
+          <li><a href="/account/StegSchreck/discover/watchlist/tv"><span class="glyphicons glyphicons-tv x1"></span>Serien</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="" href="/account/StegSchreck/lists" title="Lists">Listen</a>
+
+        <ul class="sub_nav hide">
+          <li><a href="/list/new"><span class="glyphicons glyphicons-plus-sign x1"></span>Neu</a></li>
+          <li><a href="/account/StegSchreck/lists"><span class="glyphicons glyphicons-list-alt x1"></span>Alle Anzeigen</a></li>
+        </ul>
+
+      </li>
+      <li>
+        <a class="" href="/account/StegSchreck/reviews" title="Reviews">Rezensionen</a>
+
+        <ul class="sub_nav hide">
+          <li><a href="/account/StegSchreck/reviews"><span class="glyphicons glyphicons-list-alt x1"></span>Alle Anzeigen</a></li>
+        </ul>
+
+      </li>
+    </ul>
+  </nav>
+
+  <section id="main_column" class="content scroll">
+
+      <div class="card notice">
+        <h2>We're working on it!</h2>
+        <p>These account pages need a renovation, we know. This is the very next thing we're working on and if you can hold on for a week or two it will be worth the wait.</p>
+      </div>
+
+    <h2 class="breadcrumb"><a href="/account/StegSchreck">Konto</a> <span class="glyphicons glyphicons-chevron-right x1 breadcrumb"></span> <a href="/account/StegSchreck/discover/rated/movie">Bewertete Filme</a></h2>
+
+  <style>
+  table {
+    margin: 10px 0 0 0;
+  }
+
+  th input {
+    font-weight: normal;
+  }
+
+  div.results {
+    margin-top: 16px;
+  }
+</style>
+
+<table id="table_grid" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="filters">
+    <th class="transparent">
+      <form id="account_movies_form" class="edit" name="account_movies_form" method="post" accept-charset="utf-8" style="padding-bottom: 20px;">
+        <input id="account_title_search" style="margin-bottom: 14px !important;" name="query" value="" tabindex="2" autocorrect="off" autocomplete="off" autofill="off" placeholder="Suche bewertete Filme..." type="text">
+        <p class="right" style="font-size: 12px !important; padding: 0; margin: 0;"><a class="advanced_search" href="#">Erweiterte Suche</a></p>
+
+        <div class="advanced_search_panel hide" style="padding-top: 8px;">
+          <span style="float: left; box-sizing: border-box; width: 33%; padding-right: 20px;">
+            <label for="primary_release_date.gte">Nach Veröffentlichungsdatum filtern (Min)</label>
+            <span style="width: 100%;" class="k-widget k-datepicker k-header"><span class="k-picker-wrap k-state-default"><input id="min_primary_release_date" name="primary_release_date.gte" style="width: 100%;" placeholder="Min Date" data-role="datepicker" class="k-input" role="combobox" aria-expanded="false" aria-owns="min_primary_release_date_dateview" aria-disabled="false" type="text"><span unselectable="on" class="k-select" aria-label="select" role="button" aria-controls="min_primary_release_date_dateview"><span class="k-icon k-i-calendar"></span></span></span></span>
+          </span>
+
+          <span style="float: left; box-sizing: border-box; width: 33%; padding-right: 10px;">
+            <label for="primary_release_date.lte">Nach Veröffentlichungsdatum filtern (Max)</label>
+            <span style="width: 100%;" class="k-widget k-datepicker k-header"><span class="k-picker-wrap k-state-default"><input id="max_primary_release_date" name="primary_release_date.lte" style="width: 100%;" placeholder="Max Date" data-role="datepicker" class="k-input" role="combobox" aria-expanded="false" aria-owns="max_primary_release_date_dateview" aria-disabled="false" type="text"><span unselectable="on" class="k-select" aria-label="select" role="button" aria-controls="max_primary_release_date_dateview"><span class="k-icon k-i-calendar"></span></span></span></span>
+          </span>
+
+          <span style="float: right; box-sizing: border-box; width: 33%;">
+            <label for="sort_by">Sortieren nach</label>
+            <span style="width: 100%;" title="" class="k-widget k-dropdown k-header" unselectable="on" role="listbox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-owns="sort_items_by_listbox" aria-disabled="false" aria-busy="false" aria-activedescendant="d7c95708-bed6-4fcf-8857-cbb2a5d5074e"><span unselectable="on" class="k-dropdown-wrap k-state-default"><span unselectable="on" class="k-input">Veröffentlichungsdatum absteigend</span><span unselectable="on" class="k-select" aria-label="select"><span class="k-icon k-i-arrow-60-down"></span></span></span><select id="sort_items_by" name="sort_by" style="width: 100%; display: none;" data-role="dropdownlist"><option value="default">Beste Treffer</option><option value="popularity.desc">Beliebtheit absteigend</option><option value="popularity.asc">Beliebtheit aufsteigend</option><option value="vote_average.desc">Bewertung absteigend</option><option value="vote_average.asc">Bewertung aufsteigend</option><option value="primary_release_date.desc" selected="selected">Veröffentlichungsdatum absteigend</option><option value="primary_release_date.asc">Veröffentlichungsdatum aufsteigend</option><option value="title.asc">Titel (A-Z)</option><option value="title.desc">Titel (Z-A)</option></select></span>
+          </span>
+          <div style="clear: both;"></div>
+
+          <label for="with_genres">Nach Genre filtern</label>
+          <div class="k-widget k-multiselect k-header" deselectable="on" style="" title=""><div class="k-multiselect-wrap k-floatwrap" deselectable="on"><ul role="listbox" deselectable="on" class="k-reset" id="with_genres_taglist"></ul><input class="k-input k-readonly" style="width: 181px;" accesskey="" autocomplete="off" role="listbox" title="" aria-expanded="false" tabindex="0" aria-owns="with_genres_taglist with_genres_listbox" aria-disabled="false" aria-activedescendant="2eee6e54-676c-4c16-b22a-9ff3958a826e" aria-busy="false"><span deselectable="on" class="k-icon k-clear-value k-i-close" title="clear" role="button" tabindex="-1"></span><span class="k-icon k-i-loading k-loading-hidden"></span></div><select id="with_genres" name="with_genres[]" multiple="multiple" data-role="multiselect" style="display: none;" aria-disabled="false"><option value="12">Abenteuer</option><option value="28">Action</option><option value="16">Animation</option><option value="99">Dokumentarfilm</option><option value="18">Drama</option><option value="10751">Familie</option><option value="14">Fantasy</option><option value="36">Historie</option><option value="27">Horror</option><option value="35">Komödie</option><option value="10752">Kriegsfilm</option><option value="80">Krimi</option><option value="10749">Lovestory</option><option value="10402">Musik</option><option value="9648">Mystery</option><option value="878">Science Fiction</option><option value="10770">TV-Film</option><option value="53">Thriller</option><option value="37">Western</option></select><span style="font-family: &quot;Source Sans Pro&quot;,&quot;Arial&quot;,sans-serif; font-size: 14.4px; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; text-transform: none; line-height: 18.8667px; position: absolute; visibility: hidden; top: -3333px; left: -3333px;">Suche nach einem Genre...</span></div>
+        </div>
+      </form>
+    </th>
+  </tr>
+</tbody></table>
+
+<div class="results">
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/263115">
+
+    <img class="poster fade lazyautosizes lazyloaded" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg" data-srcset="https://image.tmdb.org/t/p/w185/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg 1x, https://image.tmdb.org/t/p/w370/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg 2x" alt="Logan" sizes="42px" srcset="https://image.tmdb.org/t/p/w185/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg 1x, https://image.tmdb.org/t/p/w370/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg 2x" src="https://image.tmdb.org/t/p/w185/jZWO5XQreKbkQ5NGXSZ27nBKMpt.jpg">
+
+
+        <div class="meta">
+          <span class="release_date">2017-02-28</span>
+          <span class="vote_average">7.6<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/263115">Logan</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/274870">
+
+    <img class="poster fade lazyautosizes lazyloaded" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg" data-srcset="https://image.tmdb.org/t/p/w185/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg 1x, https://image.tmdb.org/t/p/w370/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg 2x" alt="Passengers" sizes="76px" srcset="https://image.tmdb.org/t/p/w185/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg 1x, https://image.tmdb.org/t/p/w370/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg 2x" src="https://image.tmdb.org/t/p/w185/7zpmWcDKBDDEr7SsfFBFl6dOvAU.jpg">
+
+
+        <div class="meta">
+          <span class="release_date">2016-12-21</span>
+          <span class="vote_average">6.5<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/274870">Passengers</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/330459">
+
+    <img class="poster fade lazyautosizes lazyloaded" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg" data-srcset="https://image.tmdb.org/t/p/w185/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg 1x, https://image.tmdb.org/t/p/w370/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg 2x" alt="Rogue One: A Star Wars Story" sizes="158px" srcset="https://image.tmdb.org/t/p/w185/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg 1x, https://image.tmdb.org/t/p/w370/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg 2x" src="https://image.tmdb.org/t/p/w185/3iC1Ac7baFgA0Mz4RrE81uZvKOl.jpg">
+
+
+        <div class="meta">
+          <span class="release_date">2016-12-14</span>
+          <span class="vote_average">7.3<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/330459">Rogue One: A Star Wars Story</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/383788">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/90Z9nVGNKldXOQ0I5u4YrbwfH52.jpg" data-srcset="https://image.tmdb.org/t/p/w185/90Z9nVGNKldXOQ0I5u4YrbwfH52.jpg 1x, https://image.tmdb.org/t/p/w370/90Z9nVGNKldXOQ0I5u4YrbwfH52.jpg 2x" alt="Angriff der Lederhosenzombies">
+
+
+        <div class="meta">
+          <span class="release_date">2016-12-01</span>
+          <span class="vote_average">5.3<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/383788">Angriff der Lederhosenzombies</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/310307">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/hObklnmPtL0rHskXq7B3ShMV5D3.jpg" data-srcset="https://image.tmdb.org/t/p/w185/hObklnmPtL0rHskXq7B3ShMV5D3.jpg 1x, https://image.tmdb.org/t/p/w370/hObklnmPtL0rHskXq7B3ShMV5D3.jpg 2x" alt="The Founder">
+
+
+        <div class="meta">
+          <span class="release_date">2016-11-24</span>
+          <span class="vote_average">7.2<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/310307">The Founder</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/338964">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/kv4EcZbQK7ZNjhJcaM7stiyUntw.jpg" data-srcset="https://image.tmdb.org/t/p/w185/kv4EcZbQK7ZNjhJcaM7stiyUntw.jpg 1x, https://image.tmdb.org/t/p/w370/kv4EcZbQK7ZNjhJcaM7stiyUntw.jpg 2x" alt="Bad Santa 2">
+
+
+        <div class="meta">
+          <span class="release_date">2016-11-23</span>
+          <span class="vote_average">4.9<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/338964">Bad Santa 2</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/339396">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/lUPyWxmYcia2jUjykgEEl5h4EgG.jpg" data-srcset="https://image.tmdb.org/t/p/w185/lUPyWxmYcia2jUjykgEEl5h4EgG.jpg 1x, https://image.tmdb.org/t/p/w370/lUPyWxmYcia2jUjykgEEl5h4EgG.jpg 2x" alt="Die wahren Memoiren eines internationalen Killers">
+
+
+        <div class="meta">
+          <span class="release_date">2016-11-11</span>
+          <span class="vote_average">5.8<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/339396">Die wahren Memoiren eines internationalen Killers</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/329865">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/x9DnIgHVWbW3uIJIQ2KeqeW0n2u.jpg" data-srcset="https://image.tmdb.org/t/p/w185/x9DnIgHVWbW3uIJIQ2KeqeW0n2u.jpg 1x, https://image.tmdb.org/t/p/w370/x9DnIgHVWbW3uIJIQ2KeqeW0n2u.jpg 2x" alt="Arrival">
+
+
+        <div class="meta">
+          <span class="release_date">2016-11-10</span>
+          <span class="vote_average">6.9<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/329865">Arrival</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/284052">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/xxpEI8ni1SANIPKV3MA0BXwZcxo.jpg" data-srcset="https://image.tmdb.org/t/p/w185/xxpEI8ni1SANIPKV3MA0BXwZcxo.jpg 1x, https://image.tmdb.org/t/p/w370/xxpEI8ni1SANIPKV3MA0BXwZcxo.jpg 2x" alt="Doctor Strange">
+
+
+        <div class="meta">
+          <span class="release_date">2016-10-25</span>
+          <span class="vote_average">6.9<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/284052">Doctor Strange</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/335796">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/ilENjY9sHi5tMYr2Bv3BbOARMj0.jpg" data-srcset="https://image.tmdb.org/t/p/w185/ilENjY9sHi5tMYr2Bv3BbOARMj0.jpg 1x, https://image.tmdb.org/t/p/w370/ilENjY9sHi5tMYr2Bv3BbOARMj0.jpg 2x" alt="Ouija - Ursprung des Bösen">
+
+
+        <div class="meta">
+          <span class="release_date">2016-10-20</span>
+          <span class="vote_average">5.7<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/335796">Ouija - Ursprung des Bösen</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/343611">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/1oNJR9gxwLxO6lfi8rPnhmoWf16.jpg" data-srcset="https://image.tmdb.org/t/p/w185/1oNJR9gxwLxO6lfi8rPnhmoWf16.jpg 1x, https://image.tmdb.org/t/p/w370/1oNJR9gxwLxO6lfi8rPnhmoWf16.jpg 2x" alt="Jack Reacher - Kein Weg zurück">
+
+
+        <div class="meta">
+          <span class="release_date">2016-10-19</span>
+          <span class="vote_average">5.0<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/343611">Jack Reacher - Kein Weg zurück</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/296524">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/rJaaVKJxqF10nSBUjKbNNIr2P6N.jpg" data-srcset="https://image.tmdb.org/t/p/w185/rJaaVKJxqF10nSBUjKbNNIr2P6N.jpg 1x, https://image.tmdb.org/t/p/w370/rJaaVKJxqF10nSBUjKbNNIr2P6N.jpg 2x" alt="Deepwater Horizon">
+
+
+        <div class="meta">
+          <span class="release_date">2016-09-29</span>
+          <span class="vote_average">6.2<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/296524">Deepwater Horizon</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/333484">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/jKtQlPQImHO2gj2bK1kfocJbzH1.jpg" data-srcset="https://image.tmdb.org/t/p/w185/jKtQlPQImHO2gj2bK1kfocJbzH1.jpg 1x, https://image.tmdb.org/t/p/w370/jKtQlPQImHO2gj2bK1kfocJbzH1.jpg 2x" alt="Die glorreichen Sieben">
+
+
+        <div class="meta">
+          <span class="release_date">2016-09-14</span>
+          <span class="vote_average">5.5<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/333484">Die glorreichen Sieben</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/363676">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/2PhwbBy5rr68URLrsZWTVwr622m.jpg" data-srcset="https://image.tmdb.org/t/p/w185/2PhwbBy5rr68URLrsZWTVwr622m.jpg 1x, https://image.tmdb.org/t/p/w370/2PhwbBy5rr68URLrsZWTVwr622m.jpg 2x" alt="Sully">
+
+
+        <div class="meta">
+          <span class="release_date">2016-09-07</span>
+          <span class="vote_average">6.8<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/363676">Sully</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/308266">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/f51QOoqeC0yidRi3i8caFI6L8oX.jpg" data-srcset="https://image.tmdb.org/t/p/w185/f51QOoqeC0yidRi3i8caFI6L8oX.jpg 1x, https://image.tmdb.org/t/p/w370/f51QOoqeC0yidRi3i8caFI6L8oX.jpg 2x" alt="War Dogs">
+
+
+        <div class="meta">
+          <span class="release_date">2016-08-17</span>
+          <span class="vote_average">6.8<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/308266">War Dogs</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/297761">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/yMh9286IjPYUujpeaCFMsJj3NeL.jpg" data-srcset="https://image.tmdb.org/t/p/w185/yMh9286IjPYUujpeaCFMsJj3NeL.jpg 1x, https://image.tmdb.org/t/p/w370/yMh9286IjPYUujpeaCFMsJj3NeL.jpg 2x" alt="Suicide Squad">
+
+
+        <div class="meta">
+          <span class="release_date">2016-08-02</span>
+          <span class="vote_average">5.9<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/297761">Suicide Squad</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/390989">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/jcP3HFXF1BIW9LmBrDusbbDZjBG.jpg" data-srcset="https://image.tmdb.org/t/p/w185/jcP3HFXF1BIW9LmBrDusbbDZjBG.jpg 1x, https://image.tmdb.org/t/p/w370/jcP3HFXF1BIW9LmBrDusbbDZjBG.jpg 2x" alt="Sharknado 4: The 4th Awakens">
+
+
+        <div class="meta">
+          <span class="release_date">2016-07-31</span>
+          <span class="vote_average">4.4<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/390989">Sharknado 4: The 4th Awakens</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/328387">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/nMAu7v9Ixv8f9ih0nHBNS8WrFwe.jpg" data-srcset="https://image.tmdb.org/t/p/w185/nMAu7v9Ixv8f9ih0nHBNS8WrFwe.jpg 1x, https://image.tmdb.org/t/p/w370/nMAu7v9Ixv8f9ih0nHBNS8WrFwe.jpg 2x" alt="Nerve">
+
+
+        <div class="meta">
+          <span class="release_date">2016-07-27</span>
+          <span class="vote_average">7.0<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/328387">Nerve</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/324668">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/aU1PY270BTBUXwAZhgRR2TMUX4u.jpg" data-srcset="https://image.tmdb.org/t/p/w185/aU1PY270BTBUXwAZhgRR2TMUX4u.jpg 1x, https://image.tmdb.org/t/p/w370/aU1PY270BTBUXwAZhgRR2TMUX4u.jpg 2x" alt="Jason Bourne">
+
+
+        <div class="meta">
+          <span class="release_date">2016-07-27</span>
+          <span class="vote_average">5.8<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/324668">Jason Bourne</a></p>
+  </div>
+
+  <div class="item poster">
+    <div class="image_content">
+      <a href="/movie/382322">
+
+    <img class="poster lazyload fade" data-sizes="auto" data-src="https://image.tmdb.org/t/p/w185/zm0ODjtfJfJW0W269LqsQl5OhJ8.jpg" data-srcset="https://image.tmdb.org/t/p/w185/zm0ODjtfJfJW0W269LqsQl5OhJ8.jpg 1x, https://image.tmdb.org/t/p/w370/zm0ODjtfJfJW0W269LqsQl5OhJ8.jpg 2x" alt="Batman: The Killing Joke">
+
+
+        <div class="meta">
+          <span class="release_date">2016-07-21</span>
+          <span class="vote_average">6.0<span class="glyphicons glyphicons-star x1"></span></span>
+        </div>
+      </a>
+    </div>
+    <p><a href="/movie/382322">Batman: The Killing Joke</a></p>
+  </div>
+
+  <div style="clear: both;"></div>
+
+
+    <div class="pagination">
+      <p class="left">Currently on page: 1 of 1 <span class="total_results grey">(1000 Ergebnisse)</span></p>
+
+        <p class="right pagination"><a href="/account/StegSchreck/discover/rated/movie?page=2&amp;query=&amp;primary_release_date.gte=&amp;primary_release_date.lte=&amp;sort_by=primary_release_date.desc"><span class="glyphicons glyphicons-circle-arrow-right x1"></span></a></p>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+      return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var page_param = getParameterByName('page');
+    var primary_release_date_gte_param = getParameterByName('primary_release_date.gte');
+    var primary_release_date_lte_param = getParameterByName('primary_release_date.lte')
+    var query_param = getParameterByName('query');
+    var sort_by_param = getParameterByName('sort_by');
+    var with_genres_param = getParameterByName('with_genres[]');
+
+    $("#with_genres").kendoMultiSelect({
+      minLength: 1,
+      placeholder: "Suche nach einem Genre...",
+      change: submitForm
+    });
+
+    function openAdvancedSearchPanel(obj) {
+      $(obj).remove();
+      $('div.advanced_search_panel').removeClass('hide');
+    }
+
+    if ( query_param != '' && sort_by_param == 'default' ) {
+    } else if ( sort_by_param != '' && sort_by_param != 'primary_release_date.desc' ||
+             primary_release_date_gte_param != '' ||
+             primary_release_date_lte_param != '' ||
+             with_genres_param != '' ) {
+
+          openAdvancedSearchPanel($('a.advanced_search'));
+    }
+
+    $('a.advanced_search').on('click', function(e){
+      e.preventDefault();
+
+      openAdvancedSearchPanel(this);
+    });
+
+    $("#sort_items_by").kendoDropDownList({
+      change: function() {
+        if (this.value() != sort_by_param) {
+          submitForm();
+        }
+      }
+    });
+
+    function minDateChange(){
+      submitForm();
+    };
+
+    function maxDateChange(){
+      submitForm();
+    };
+
+    $("#min_primary_release_date").kendoDatePicker({
+      depth: 'year',
+      start: 'year',
+      format: "MMMM yyyy",
+      change: minDateChange,
+      value: ''
+    }).data("kendoDatePicker");
+
+    $("#max_primary_release_date").kendoDatePicker({
+      depth: 'year',
+      start: 'year',
+      format: "MMMM yyyy",
+      change: maxDateChange,
+      value: ''
+    }).data("kendoDatePicker");
+
+    function submitForm(){
+      $.ajax({
+        url: '/account/StegSchreck/remote/discover/rated/movie',
+        type: 'POST',
+        data: $('#account_movies_form').serialize(),
+        dataType: 'html'
+      }).error(function() {
+        toastr.error('There was a problem executing your search.', 'Failure')
+      }).done(function(response) {
+        $('div.results').empty();
+        $('div.results').html(response);
+      });
+    };
+
+    function querySearch(){
+      var sort_by_dropdown = $("#sort_items_by").data("kendoDropDownList");
+      sort_by_dropdown.select(0);
+      submitForm();
+    }
+
+    $("#account_title_search").on("input", null, null, querySearch);
+
+  });
+</script>
+
+
+  </section>
+
+  <div class="clear"></div>
+</section>
+
+<div class="veteran_status tooltip hide">
+  <p>StegSchreck has made more than 1.000 edits in the past 2 months!</p>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+  $(document).ready(function() {
+
+
+    $("div.account_information h3").kendoTooltip({
+      filter: "span.glyphicons",
+      width: 160,
+      callout: true,
+      animation: {
+        open: {
+          effects: "fade:in",
+          duration: 200
+        },
+        close: {
+          effects: "fade:out",
+          duration: 200
+        }
+      },
+      content: function(e) {
+        return $("div.veteran_status").text();
+      }
+    }).data("kendoTooltip");
+  });
+
+</script>
+  </div>
+
+    </main> <!-- opened in header -->
+</div> <!-- page_wrap opened in html_head -->
+
+<style>
+  footer {
+
+      background-image: url('https://www.themoviedb.org/assets/static_cache/7355ab13599d61dcb50047a04b5aefae/images/v4/footers_v2/Alien.jpg');
+
+  }
+</style>
+
+<footer class="single_column   lazyload">
+  <nav>
+    <div class="join">
+      <img src="https://www.themoviedb.org/assets/static_cache/02a9430b88975cae16fcfcc9cf7b5799/images/v4/logos/primary-green.svg" height="116" width="130">
+
+
+        <a class="rounded logged_in" href="/account">Hallo StegSchreck!</a>
+
+    </div>
+
+    <div>
+      <h3>Das Wesentliche</h3>
+      <ul>
+        <li><a href="/about">Über TMDb</a></li>
+        <li><a href="/about/staying-in-touch">Kontakt</a></li>
+        <li><a href="/talk">Support Forums</a></li>
+        <li><a href="/documentation/api">API</a></li>
+        <li><a href="https://blog.themoviedb.org/" target="_blank">Blog</a></li>
+        <li><a href="/documentation/editing">Hilfe</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Mitwirken</h3>
+      <ul>
+        <li><a href="/apps">Drittanbieter Anwendungen</a></li>
+        <li><a href="/movie/new">Film hinzufügen</a></li>
+        <li><a href="/tv/new">Serie hinzufügen</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Community</h3>
+      <ul>
+        <li><a href="/leaderboard">Top Mitwirkende</a></li>
+        <li><a href="/discuss">Foren</a></li>
+        <li><a href="https://twitter.com/themoviedb" target="_blank">Twitter</a></li>
+        <li><a href="https://www.facebook.com/themoviedb" target="_blank">Facebook</a></li>
+        <li><a href="https://plus.google.com/+TheMovieDBorgTMDb" target="_blank">Google+</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Rechtliches</h3>
+      <ul>
+        <li><a href="/documentation/website/terms-of-use">Nutzungsbedingungen</a></li>
+        <li><a href="/privacy-policy">Datenschutzerklärung</a></li>
+      </ul>
+    </div>
+  </nav>
+</footer>
+
+<script src="https://www.themoviedb.org/assets/static_cache/f2a4edddc779f8741bf46ed558f8ff48/javascripts/pusher.min.js"></script>
+
+<script>
+
+
+  $(window).load(function() {
+    $("body").removeClass("preload");
+  });
+
+  function appendStyle(styles) {
+    var css = document.createElement('style');
+    css.type = 'text/css';
+
+    if (css.styleSheet) {
+      css.styleSheet.cssText = styles;
+    } else {
+      css.appendChild(document.createTextNode(styles));
+    }
+
+    document.getElementsByTagName("head")[0].appendChild(css);
+  }
+
+
+
+
+</script>
+
+  <div id="settings_tooltip" class="hide">
+    <div class="settings_content">
+      <div class="group">
+        <h2>StegSchreck</h2>
+      </div>
+      <div class="group">
+        <p><a href="/u/StegSchreck/discussions">Discussions</a></p>
+        <p><a href="/u/StegSchreck/lists">Lists</a></p>
+        <p><a href="/u/StegSchreck/watchlist">Watchlist</a></p>
+      </div>
+      <div class="group">
+        <p><a href="/settings/profile">Edit Profile</a></p>
+        <p><a href="/settings/account">Settings</a></p>
+      </div>
+      <div class="group">
+        <p><a href="/logout">Logout</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.themoviedb.org/assets/static_cache/93777a10152b07d7f7c83936e03a245a/javascripts/kendo-2017-1.223/kendo.calendar.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/73d922d3888f08ba588a6dd1198df630/javascripts/kendo-2017-1.223/kendo.color.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/57d6ed35f380e1490efa724490b0d008/javascripts/kendo-2017-1.223/kendo.upload.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/bf439caa54e3bd75ecd0f41975ecbab4/javascripts/kendo-2017-1.223/kendo.datepicker.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/29cbaf82e9ac5761fb66235052a4c850/javascripts/kendo-2017-1.223/kendo.timepicker.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/ea473494a260463a8932959b8215c9be/javascripts/kendo-2017-1.223/kendo.datetimepicker.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/5025481263773319a76f2a7b376eb3ed/javascripts/kendo-2017-1.223/kendo.list.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/6df1987bcf698a00f43e3b9352fd739c/javascripts/kendo-2017-1.223/kendo.slider.min.js"></script>
+  <script src="https://www.themoviedb.org/assets/static_cache/86ecf024fec083839ea556164ebc4ddf/javascripts/kendo-2017-1.223/kendo.colorpicker.min.js"></script>
+<script src="https://www.themoviedb.org/assets/static_cache/d1058d071a78bf79cdcdaaaacdbc55a6/javascripts/jquery.timeago.min.js"></script>
+<script src="https://www.themoviedb.org/assets/static_cache/4537736a7110fd28d15af050dce1a82e/javascripts/kendo-2017-1.223/cultures/kendo.culture.de-DE.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+  kendo.culture("de-DE");
+
+  Chart.defaults.global.responsive = true;
+  Chart.defaults.global.tooltipFontFamily = 'Source Sans Pro, Arial, sans-serif';
+  Chart.defaults.global.tooltipTitleFontFamily = 'Source Sans Pro, Arial, sans-serif';
+
+  $(document).ready(function(){
+    jQuery.timeago.settings.allowFuture = true;
+    $("time.timeago").timeago();
+
+    $('li.user a.no_click').kendoTooltip({
+      autoHide: false,
+      content: function() {
+        return $("#settings_tooltip").html();
+      },
+      showOn: 'click',
+      width: 'auto',
+      position: "bottom",
+      show: function(e) {
+        $("div.k-tooltip-button").addClass('hide');
+        this.popup.element.addClass("tmdb_theme_white no_pad");
+      }
+    });
+
+    $('li.translate').kendoTooltip({
+      autoHide: false,
+      content: {
+        url: "/translation_popup?language=de-DE&media_type=&media_id=&referral=%2Faccount%2FStegSchreck%2Fdiscover%2Frated%2Fmovie",
+        cache: true,
+        headers: {
+          'Accept-Language': 'de-DE',
+          'Content-Type': 'text/html;charset=utf-8'
+        }
+      },
+      showOn: 'click',
+      width: 300,
+      position: "bottom",
+      show: function(e) {
+        $("div.k-tooltip-button").addClass('hide');
+        this.popup.element.addClass("tmdb_theme_light");
+        this.popup.element.addClass("min_100px_height");
+
+        var loading_div = $('div.k-loading-mask');
+        loading_div.html('<div class="loading_wrapper"><div class="ball-scale-multiple white"><div></div><div></div><div></div></div></div>')
+      }
+    });
+
+    $('li.new').kendoTooltip({
+      autoHide: false,
+      showOn: 'click',
+      width: 240,
+      position: "bottom",
+      content: function() {
+        return $("div.new_buttons");
+      },
+      show: function(e) {
+        this.popup.element.addClass("tmdb_theme_light");
+        $("div.k-tooltip-button").addClass('hide');
+        $("div.new_buttons").toggleClass('hide');
+      },
+      hide: function(e) {
+        $("div.new_buttons").toggleClass('hide');
+      }
+    });
+
+
+
+    $("body").on('click', 'a.no_click', function(e) {
+      e.preventDefault();
+    });
+
+    $("ul > li").hover(function() {
+      $(this).find("ul.sub_nav.hide").toggle();
+    });
+
+
+      $("header ul.primary li").hover(function(e) {
+        if ($('header').hasClass('normal')) {
+          $(this).find("ul.hide").toggle();
+        }
+      });
+
+
+
+      function init() {
+        window.addEventListener('scroll', function(e){
+          var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+            shrinkOn = 80,
+            header = document.querySelector("header");
+          if (distanceY > shrinkOn) {
+            $('header').removeClass("normal").removeClass("regular").addClass("smaller");
+          } else {
+            if ($('header').hasClass("smaller")) {
+              $('header').addClass("normal").addClass("regular").removeClass("smaller");
+            }
+          }
+        });
+      }
+      window.onload = init();
+
+
+    showSuccess = function(message, title) {
+      if (title === undefined) {
+        title = 'Erledigt';
+      }
+
+      showNotification({
+        title: title,
+        message: message
+      }, "success");
+    };
+
+    showError = function(message, title) {
+      if (title === undefined) {
+        title = 'Fehler';
+      }
+
+      showNotification({
+        title: title,
+        message: message
+      }, "error");
+    };
+
+    var showNotification = (function() {
+      var notification = $("span#notification").kendoNotification({
+
+          position: {
+            pinned: true,
+            top: 20,
+            left: null,
+            bottom: null,
+            right: 20
+          },
+
+        autoHideAfter: 5000,
+        show: function(e) {
+          e.element.parent().css({
+            zIndex: 99999
+          });
+        },
+        templates: [{
+          type: "error",
+          template: $("#errorTemplate").html()
+        },{
+          type: "success",
+          template: $("#successTemplate").html()
+        }]
+      }).data("kendoNotification");
+
+      return function(msg, type) {
+        notification.show(msg, type);
+      };
+    })();
+
+    $("#search_v4").kendoAutoComplete({
+      minLength: 1,
+      dataTextField: "title",
+      template: kendo.template($("#multi_search_template").html()),
+      ignoreCase: false,
+      placeholder: 'Suche nach Film, Serie, Person...',
+      dataSource: {
+        type: "json",
+        serverFiltering: true,
+        transport: {
+          read: 'https://api.themoviedb.org/3/search/multi?api_key=d272326e467344029e68e3c4ff0b4059&language=de-DE',
+          parameterMap: function() {
+            return { query: $("#search_v4").data("kendoAutoComplete").value() };
+          }
+        },
+        schema: {
+          data: "results"
+        }
+      },
+      popup: {
+        appendTo: $("header")
+      },
+      select: function(e) {
+        var dataItem = this.dataItem(e.item.index());
+        setSelectedItem(dataItem);
+      },
+      change: function(e) {
+        checkSelectedItem(e.sender._last);
+      }
+    });
+
+    selectedItem = null;
+    function setSelectedItem(item) {
+      selectedItem = item;
+    }
+
+    function checkSelectedItem(key) {
+      if (selectedItem) {
+        window.location = '/' + selectedItem.media_type + '/' + selectedItem.id
+      } else {
+        if (key == 13 && $('#search_v4').val().length > 0) {
+          $("#search_form").submit();
+        }
+      }
+    }
+
+
+
+    $('header span.k-i-close[title="clear"]').on('click', function(e) {
+      $('#search_v4').data("kendoAutoComplete").focus();
+    });
+
+
+      var notificationTooltip = $("header li.notifications, div.left_column li.notifications").kendoTooltip({
+        autoHide: false,
+        content: {
+          url: "/notifications?referrer=/account/StegSchreck/discover/rated/movie",
+          cache: true,
+          headers: {
+            'Accept-Language': 'de-DE',
+            'Content-Type': 'text/html;charset=utf-8'
+          }
+        },
+        showOn: 'click',
+        width: 300,
+        position: 'bottom',
+        show: function(e) {
+          this.refresh();
+
+          $("div.k-tooltip-button").addClass('hide');
+          this.popup.element.addClass("tmdb_theme_light wow_star");
+          this.popup.element.addClass("min_100px_height");
+
+          var loading_div = $('div.k-loading-mask');
+          loading_div.html('<div class="loading_wrapper"><div class="ball-scale-multiple white"><div></div><div></div><div></div></div></div>')
+        }
+      });
+
+      var pusher = new Pusher('8961361d6e18d951b539', {
+        encrypted: true
+      });
+
+      var channel = pusher.subscribe('private-account_589e4634c3a3684bb4000708');
+      channel.bind('discussion-reply', function(data) {
+        if (data.unread_count == 0) {
+          $('li.notifications a span').removeClass('on');
+          $('li.notifications div.badge').addClass('hide');
+        } else {
+          $('li.notifications div.badge div.count').html(data.unread_count);
+          $('li.notifications a span').addClass('on');
+          $('li.notifications div.badge').removeClass('hide');
+        }
+      });
+      channel.bind('general', function(data) {
+        if (data.unread_count == 0) {
+          $('li.notifications a span').removeClass('on');
+          $('li.notifications div.badge').addClass('hide');
+        } else {
+          $('li.notifications div.badge div.count').html(data.unread_count);
+          $('li.notifications a span').addClass('on');
+          $('li.notifications div.badge').removeClass('hide');
+        }
+      });
+
+      delete_window = $("<div />").kendoWindow({
+        title: "Bestätigung",
+        width: "240px",
+        resizable: false,
+        modal: true,
+        pinned: true,
+        animation: {
+          open: {
+            effects: "fade:in"
+          },
+          close: {
+            effects: "fade:out"
+          }
+        },
+        open: function() {
+          $('body').addClass('blur');
+        },
+        close: function() {
+          $('body').removeClass('blur');
+        }
+      });
+
+  });
+</script>
+
+<script id="person_template_with_known_for" type="text/x-kendo-tmpl">
+  <div class="item profile list_item known_for">
+    <div class="image_content profile">
+      # if (data.profile_path) { #
+        <img class="lazyload fade" data-src="https://image.tmdb.org/t/p/w45_and_h45_bestv2${data.profile_path}" alt="${data.name}" width="45" height="45" data-srcset="https://image.tmdb.org/t/p/w45_and_h45_bestv2${data.profile_path} 1x, https://image.tmdb.org/t/p/w90_and_h90_bestv2${data.profile_path} 2x">
+      # } else { #
+        <div class="no_image_holder w45_and_h45 profile circle"></div>
+      # } #
+    </div>
+
+    <div class="content">
+      <p class="name">${data.name}</p>
+      # if (data.known_for) { #
+        <p class="sub">${data.known_for}</p>
+      # } else { #
+        <p class="sub">No known credits.</p>
+      # } #
+    </div>
+    <div class="clear"></div>
+  </div>
+</script>
+
+<script id="person_result_template" type="text/x-kendo-tmpl">
+  <div class="ac_item profile list_item known_for">
+    <div class="image_content profile">
+      # if (data.profile_path) { #
+        <img class="lazyload fade" data-src="https://image.tmdb.org/t/p/w45_and_h45_bestv2${data.profile_path}" alt="${data.name}" width="45" height="45" data-srcset="https://image.tmdb.org/t/p/w45_and_h45_bestv2${data.profile_path} 1x, https://image.tmdb.org/t/p/w90_and_h90_bestv2${data.profile_path} 2x">
+      # } else { #
+        <div class="no_image_holder w45_and_h45 profile circle"></div>
+      # } #
+    </div>
+
+    <div class="content">
+      <p class="name">${data.name}</p>
+      # if (data.known_for) { #
+        <p class="sub">
+          # for (var i = 0; i < data.known_for.length; i++) { #
+          <span class="comma">#= data.known_for[i].title ? data.known_for[i].title : data.known_for[i].name #</span>
+          # } #
+        </p>
+      # } else { #
+        <p class="sub">No known credits.</p>
+      # } #
+    </div>
+
+    <p><span class="media_type person">#= data.media_type #</span></p>
+  </div>
+</script>
+
+<script id="movie_result_template" type="text/x-kendo-tmpl">
+  <div class="ac_item poster list_item">
+    <div class="image_content poster">
+      # if (data.poster_path) { #
+        <img class="lazyload fade" data-src="https://image.tmdb.org/t/p/w45_and_h67_bestv2${data.poster_path}" alt="${data.title}" width="45" height="67" data-srcset="https://image.tmdb.org/t/p/w45_and_h67_bestv2${data.poster_path} 1x, https://image.tmdb.org/t/p/w90_and_h134_bestv2${data.poster_path} 2x">
+      # } else { #
+        <div class="no_image_holder w45_and_h67"></div>
+      # } #
+    </div>
+
+    <div class="content">
+      <p class="name">${data.title}</p>
+      <p class="sub">
+        # if (data.original_title !== data.title) { #
+          <span class="comma"><span class="original_title">#= data.original_title #</span></span>
+        # } #
+        # if (data.release_date) { #
+          <span class="comma"><span class="release_date">#= data.release_date #</span></span>
+        # } #
+      </p>
+    </div>
+
+    <p><span class="media_type movie">#= data.media_type #</span></p>
+  </div>
+</script>
+
+<script id="tv_show_result_template" type="text/x-kendo-tmpl">
+  <div class="ac_item poster list_item">
+    <div class="image_content poster">
+      # if (data.poster_path) { #
+        <img class="lazyload fade" data-src="https://image.tmdb.org/t/p/w45_and_h67_bestv2${data.poster_path}" alt="${data.title}" width="45" height="67" data-srcset="https://image.tmdb.org/t/p/w45_and_h67_bestv2${data.poster_path} 1x, https://image.tmdb.org/t/p/w90_and_h134_bestv2${data.poster_path} 2x">
+      # } else { #
+        <div class="no_image_holder w45_and_h67"></div>
+      # } #
+    </div>
+
+    <div class="content">
+      <p class="name">${data.name}</p>
+      <p class="sub">
+        # if (data.original_name !== data.name) { #
+          <span class="comma"><span class="original_title">#= data.original_name #</span></span>
+        # } #
+        # if (data.first_air_date) { #
+          <span class="comma"><span class="release_date">#= data.first_air_date #</span></span>
+        # } #
+      </p>
+    </div>
+
+    <p><span class="media_type tv">#= data.media_type #</span></p>
+  </div>
+</script>
+
+<script id="multi_search_template" type="text/x-kendo-tmpl">
+  <div class="ac_results">
+    # if (data.media_type == 'movie') { #
+      #= kendo.render(kendo.template($("\\#movie_result_template").html()), [data]) #
+    # } else if (data.media_type == 'tv') { #
+      #= kendo.render(kendo.template($("\\#tv_show_result_template").html()), [data]) #
+    # } else if (data.media_type == 'person') { #
+      #= kendo.render(kendo.template($("\\#person_result_template").html()), [data]) #
+    # } #
+  </div>
+</script>
+
+<script id="delete-confirmation" type="text/x-kendo-template">
+  <section class="window_content">
+    <p class="delete-message">Bist du dir sicher?</p>
+
+    <button class="delete-cancel k-button">Nein</button>
+    <button class="delete-confirm k-button">Ja</button>
+  </section>
+</script>
+
+<div id="dialog_window"></div>
+
+<span id="notification" class="hide" data-role="notification" style="display: none;"></span>
+<script id="errorTemplate" type="text/x-kendo-template">
+  <div class="notification error">
+    <span class="glyphicons glyphicons-exclamation-sign x1"></span>
+    <span class="left">
+      <h2>#= title #</h2>
+      # if (message instanceof Array) { #
+        <ul>
+          # for (var i = 0; i < message.length; i++) { #
+            <li>#= message[i] #</li>
+          # } #
+        </ul>
+      # } else { #
+        <p>#= message #</p>
+      # } #
+    </span>
+    <div class="clear"></div>
+  </div>
+</script>
+
+<script id="successTemplate" type="text/x-kendo-template">
+  <div class="notification success">
+    <span class="glyphicons glyphicons-ok x1"></span>
+    <span class="left">
+      <h2>#= title #</h2>
+      <p>#= message #</p>
+    </span>
+    <div class="clear"></div>
+  </div>
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "The Movie Database",
+    "alternateName": "TMDb",
+    "url": "https://www.themoviedb.org"
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+     "@context": "http://schema.org",
+     "@type": "WebSite",
+     "url": "https://www.themoviedb.org/",
+     "potentialAction": {
+       "@type": "SearchAction",
+       "target": "https://www.themoviedb.org/search?query={search_term_string}",
+       "query-input": "required name=search_term_string"
+     }
+  }
+</script>
+
+
+<div class="k-list-container k-popup k-group k-reset" id="with_genres-list" data-role="popup" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="with_genres_listbox" aria-live="polite" data-role="staticlist" role="listbox"><li tabindex="-1" role="option" unselectable="on" class="k-item k-state-focused" data-offset-index="0" id="2eee6e54-676c-4c16-b22a-9ff3958a826e">Abenteuer</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="1">Action</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="2">Animation</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="3">Dokumentarfilm</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="4">Drama</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="5">Familie</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="6">Fantasy</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="7">Historie</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="8">Horror</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="9">Komödie</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="10">Kriegsfilm</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="11">Krimi</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="12">Lovestory</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="13">Musik</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="14">Mystery</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="15">Science Fiction</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="16">TV-Film</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="17">Thriller</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="18">Western</li></ul></div><div class="k-nodata" style="display:none"><div>No data found.</div></div></div><div class="k-list-container k-popup k-group k-reset" id="sort_items_by-list" data-role="popup" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="sort_items_by_listbox" aria-live="off" data-role="staticlist" role="listbox"><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="0">Beste Treffer</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="1">Beliebtheit absteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="2">Beliebtheit aufsteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="3">Bewertung absteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="4">Bewertung aufsteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item k-state-selected k-state-focused" aria-selected="true" data-offset-index="5" id="d7c95708-bed6-4fcf-8857-cbb2a5d5074e">Veröffentlichungsdatum absteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="6">Veröffentlichungsdatum aufsteigend</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="7">Titel (A-Z)</li><li tabindex="-1" role="option" unselectable="on" class="k-item" data-offset-index="8">Titel (Z-A)</li></ul></div><div class="k-nodata" style="display:none"><div>No data found.</div></div></div><div aria-hidden="true" class="k-calendar-container k-popup k-group k-reset" id="min_primary_release_date_dateview" data-role="popup" style="display: none; position: absolute;"></div><div aria-hidden="true" class="k-calendar-container k-popup k-group k-reset" id="max_primary_release_date_dateview" data-role="popup" style="display: none; position: absolute;"></div><div class="k-widget k-window" style="padding-top: 43px; min-width: 90px; min-height: 50px; width: 240px; display: none; top: 0px; left: 0px; position: fixed;" data-role="draggable"><div class="k-window-titlebar k-header" style="margin-top: -43px;">&nbsp;<span class="k-window-title">Bestätigung</span><div class="k-window-actions"><a role="button" href="#" class="k-window-action k-link" aria-label="Close"><span class="k-icon k-i-close"></span></a></div></div><div data-role="window" style="display: block;" class="k-window-content k-content" tabindex="0"></div></div><script type="text/javascript" id="gtm-youtube-tracking">(function(h,f,k){function m(){var b=[].slice.call(h.getElementsByTagName("iframe")).concat([].slice.call(h.getElementsByTagName("embed"))),a;for(a=0;a<b.length;a++){var d=n(b[a]);if(d){var d=b[a],e=f.location,c=h.createElement("a");c.href=d.src;c.hostname="www.youtube.com";c.protocol=e.protocol;var g="/"===c.pathname.charAt(0)?c.pathname:"/"+c.pathname;-1<c.search.indexOf("enablejsapi")||(c.search=(0<c.search.length?c.search+"\x26":"")+"enablejsapi\x3d1");if(!(-1<c.search.indexOf("origin"))&&-1===
+e.hostname.indexOf("localhost")){var w=e.port?":"+e.port:"",e=e.protocol+"%2F%2F"+e.hostname+w;c.search=c.search+"\x26origin\x3d"+e}"application/x-shockwave-flash"===d.type&&(e=h.createElement("iframe"),e.height=d.height,e.width=d.width,g=g.replace("/v/","/embed/"),d.parentNode.parentNode.replaceChild(e,d.parentNode),d=e);c.pathname=g;d.src!==c.href+c.hash&&(d.src=c.href+c.hash);p(d)}}"addEventListener"in h&&h.addEventListener("load",x,!0)}function n(b){b=b.src||"";return-1<b.indexOf("youtube.com/embed/")||
+-1<b.indexOf("youtube.com/v/")?!0:!1}function p(b){var a=YT.get(b.id);a||(a=new YT.Player(b,{}));"undefined"===typeof b.pauseFlag&&(b.pauseFlag=!1,a.addEventListener("onStateChange",function(a){y(a,b)}))}function z(b){var a={};g.events["Watch to End"]&&(a["Watch to End"]=Math.min(b-3,Math.floor(.99*b)));if(g.percentageTracking){var d=[],e;g.percentageTracking.each&&(d=d.concat(g.percentageTracking.each));if(g.percentageTracking.every){var c=parseInt(g.percentageTracking.every,10),f=100/c;for(e=1;e<
+f;e++)d.push(e*c)}for(e=0;e<d.length;e++)f=d[e],c=f+"%",f=b*f/100,a[c]=Math.floor(f)}return a}function y(b,a){var d=b.data,e=b.target,c=e.getVideoUrl(),c=c.match(/[?&]v=([^&#]*)/)[1],f=e.getPlayerState(),g=Math.floor(e.getDuration()),h=z(g),g={1:"Play",2:"Pause"},g=g[d];a.playTracker=a.playTracker||{};1!==f||a.timer?(clearInterval(a.timer),a.timer=!1):(clearInterval(a.timer),a.timer=setInterval(function(){var b=e,d=h,c=a.videoId,g=b.getCurrentTime(),f;b[c]=b[c]||{};for(f in d)d[f]<=g&&!b[c][f]&&(b[c][f]=
+!0,q(c,f))},1E3));1===d&&(a.playTracker[c]=!0,a.videoId=c,a.pauseFlag=!1);if(!a.playTracker[a.videoId])return!1;if(2===d){if(a.pauseFlag)return!1;a.pauseFlag=!0}r[g]&&q(a.videoId,g)}function q(b,a){var d="https://www.youtube.com/watch?v\x3d"+b,e=f.GoogleAnalyticsObject;if("undefined"===typeof f[t]||g.forceSyntax)if("function"===typeof f[e]&&"function"===typeof f[e].getAll&&2!==g.forceSyntax)f[e]("send","event","Videos",a,d);else"undefined"!==typeof f._gaq&&1!==A&&f._gaq.push(["_trackEvent","Videos",
+a,d]);else f[t].push({event:"youTubeTrack",attributes:{videoUrl:d,videoAction:a}})}function u(b,a,d){if(b.addEventListener)b.addEventListener(a,d);else if(b.attachEvent)b.attachEvent("on"+a,function(a){a.target=a.target||a.srcElement;d.call(b,a)});else if("undefined"===typeof b["on"+a]||null===b["on"+a])b["on"+a]=function(a){a.target=a.target||a.srcElement;d.call(b,a)}}function x(b){b=b.target||b.srcElement;var a=n(b);"IFRAME"===b.tagName&&a&&-1<b.src.indexOf("enablejsapi")&&-1<b.src.indexOf("origin")&&
+p(b)}var g=k||{},A=g.forceSyntax||0,t=g.dataLayerName||"dataLayer",r={Play:!0,Pause:!0,"Watch to End":!0},l;k=h.createElement("script");k.src="//www.youtube.com/iframe_api";var v=h.getElementsByTagName("script")[0];v.parentNode.insertBefore(k,v);for(l in g.events)g.events.hasOwnProperty(l)&&(r[l]=g.events[l]);f.onYouTubeIframeAPIReady=function(){var b=f.onYouTubeIframeAPIReady;return function(){b&&b.apply(this,arguments);navigator.userAgent.match(/MSIE [67]\./gi)||("loading"!==h.readyState?m():h.addEventListener?
+u(h,"DOMContentLoaded",m):u(f,"load",m))}}()})(document,window,{events:{Play:!0,Pause:!0,"Watch to End":!0},percentageTracking:{every:25,each:[10,90]}});</script></body></html>
