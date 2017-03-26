@@ -27,7 +27,7 @@ class IMDBRatingsParser(Parser):
     def _parse_ratings(self):
         self._download_ratings_csv()
         self._rename_csv_file()
-        self.movies = self.parse_ratings_from_csv(os.path.join(EXPORTS_FOLDER, CSV_FILENAME))
+        self.movies = file_impex.load_movies_from_csv(os.path.join(EXPORTS_FOLDER, CSV_FILENAME))
 
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % type(self.site).__name__)
@@ -51,23 +51,3 @@ class IMDBRatingsParser(Parser):
         except FileNotFoundError:
             sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % type(self.site).__name__)
             sys.stdout.flush()
-
-    def parse_ratings_from_csv(self, filepath):
-        sys.stdout.write('===== %s: converting CSV to JSON\r\n' % type(self.site).__name__)
-        sys.stdout.flush()
-        file_impex.wait_for_file_to_exist(filepath)
-        with open(filepath, newline='') as csv_file:
-            reader = csv.reader(csv_file, delimiter=',')
-            next(reader, None)  # ignore csv header
-            return [self._convert_csv_row_to_movie(row) for row in reader]
-
-    @staticmethod
-    def _convert_csv_row_to_movie(row):
-        movie = dict()
-        movie['title'] = row[5]
-        movie['imdb'] = dict()
-        movie['imdb']['id'] = row[1]
-        movie['imdb']['url'] = row[15]
-        movie['imdb']['my_rating'] = row[8]
-        movie['imdb']['overall_rating'] = row[9]
-        return movie
