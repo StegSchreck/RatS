@@ -8,6 +8,7 @@ RatS/inserters/__init__.py
 RatS/inserters/base_inserter.py
 RatS/inserters/imdb_inserter.py
 RatS/inserters/movielens_inserter.py
+RatS/inserters/tmdb_uploader.py
 RatS/inserters/trakt_inserter.py
 RatS/parsers/__init__.py
 RatS/parsers/base_parser.py
@@ -18,6 +19,7 @@ RatS/sites/__init__.py
 RatS/sites/base_site.py
 RatS/sites/imdb_site.py
 RatS/sites/movielens_site.py
+RatS/sites/tmdb_site.py
 RatS/sites/trakt_site.py
 RatS/utils/__init__.py
 RatS/utils/command_line.py
@@ -26,6 +28,7 @@ tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_imdb_site.py
 tests/functional/sites/test_movielens_site.py
+tests/functional/sites/test_tmdb_site.py
 tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
 tests/unit/inserters/__init__.py

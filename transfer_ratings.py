@@ -6,6 +6,7 @@ import time
 
 from RatS.inserters.imdb_inserter import IMDBInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
+from RatS.inserters.tmdb_uploader import TMDBUploader
 from RatS.inserters.trakt_inserter import TraktInserter
 from RatS.parsers.imdb_parser import IMDBRatingsParser
 from RatS.parsers.movielens_parser import MovielensRatingsParser
@@ -16,7 +17,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
 PARSERS = {'TRAKT': TraktRatingsParser, 'IMDB': IMDBRatingsParser, 'MOVIELENS': MovielensRatingsParser}
-INSERTERS = {'IMDB': IMDBInserter, 'MOVIELENS': MovielensInserter, 'TRAKT': TraktInserter}
+INSERTERS = {'IMDB': IMDBInserter, 'MOVIELENS': MovielensInserter, 'TRAKT': TraktInserter, 'TMDB': TMDBUploader}
 
 
 def main(argv):
@@ -70,7 +71,7 @@ def execute(argv):
 def parse_data_from_source(parser):
     movies = parser.parse()
     json_filename = '%s_%s.json' % (TIMESTAMP, type(parser.site).__name__)
-    file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
+    file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
     sys.stdout.write('\r\n===== %s: saved %i parsed movies to %s/%s\r\n' %
                      (type(parser.site).__name__, len(movies), EXPORTS_FOLDER, json_filename))
     sys.stdout.flush()
@@ -78,7 +79,7 @@ def parse_data_from_source(parser):
 
 
 def load_data_from_file(filename):
-    movies = file_impex.load_movies_json(folder=EXPORTS_FOLDER, filename=filename)
+    movies = file_impex.load_movies_from_json(folder=EXPORTS_FOLDER, filename=filename)
     sys.stdout.write('\r\n===== loaded %i movies from %s/%s\r\n' % (len(movies), EXPORTS_FOLDER, filename))
     sys.stdout.flush()
     return movies

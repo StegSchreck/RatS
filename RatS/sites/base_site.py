@@ -39,6 +39,7 @@ class Site:
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
 
         self.browser = Firefox(firefox_profile=profile)
+        self.browser._is_remote = False
         self.login()
         time.sleep(1)
 
