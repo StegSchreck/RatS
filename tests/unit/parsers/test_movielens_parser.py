@@ -38,6 +38,7 @@ class MovielensParserTest(TestCase):
         self.assertEqual(24, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
         self.assertEqual('Les Misérables', parser.movies[0]['title'])
+        self.assertEqual(2012, parser.movies[0]['year'])
 
         self.assertEqual(99149, parser.movies[0]['movielens']['id'])
         self.assertEqual('https://movielens.org/movies/99149', parser.movies[0]['movielens']['url'])

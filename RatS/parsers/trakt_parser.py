@@ -66,9 +66,9 @@ class TraktRatingsParser(Parser):
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
+        movie['year'] = int(movie_details_page.find(class_='year').get_text())
         if 'trakt' not in movie:
             movie['trakt'] = dict()
-        movie['trakt']['overall_rating'] = self._get_overall_rating(movie_details_page)
         self._parse_external_links(movie, movie_details_page)
 
     @staticmethod
@@ -83,8 +83,3 @@ class TraktRatingsParser(Parser):
                 movie['tmdb'] = dict()
                 movie['tmdb']['url'] = link['href']
                 movie['tmdb']['id'] = movie['tmdb']['url'].split('/')[-1]
-
-    @staticmethod
-    def _get_overall_rating(movie_page):
-        return movie_page.find(id='summary-ratings-wrapper').find('ul', class_='ratings') \
-            .find('li', attrs={'itemprop': 'aggregateRating'}).find('div', class_='rating').get_text()

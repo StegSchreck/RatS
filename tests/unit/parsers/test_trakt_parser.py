@@ -58,7 +58,7 @@ class TraktParserTest(TestCase):
 
         parser.parse_movie_details_page(movie)
 
-        self.assertEqual('75%', movie['trakt']['overall_rating'])
+        self.assertEqual(2016, movie['year'])
         self.assertEqual('tt2543164', movie['imdb']['id'])
         self.assertEqual('http://www.imdb.com/title/tt2543164', movie['imdb']['url'])
         self.assertEqual('329865', movie['tmdb']['id'])

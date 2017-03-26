@@ -41,6 +41,7 @@ class MovielensRatingsParser(Parser):
     def _parse_movie_json(movie_json):
         movie = dict()
         movie['title'] = movie_json['movie']['title']
+        movie['year'] = int(movie_json['movie']['releaseYear'])
 
         movie['movielens'] = dict()
         movie['movielens']['id'] = movie_json['movie']['movieId']
