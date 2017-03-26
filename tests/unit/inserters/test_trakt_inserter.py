@@ -38,6 +38,8 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
+        inserter.failed_movies = []
+        inserter.site_name = 'trakt'
 
         inserter.insert([self.movie], 'imdb')
 

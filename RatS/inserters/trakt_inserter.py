@@ -22,12 +22,12 @@ class TraktInserter(Inserter):
 
     def insert(self, movies, source):
         counter = 0
-        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (type(self.site).__name__, len(movies)))
+        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site_name, len(movies)))
         sys.stdout.flush()
 
         for movie in movies:
-            if type(self.site).__name__.lower() in movie and movie[type(self.site).__name__.lower()]['url'] != '':
-                self.site.browser.get(movie[type(self.site).__name__.lower()]['url'])
+            if self.site_name.lower() in movie and movie[self.site_name.lower()]['url'] != '':
+                self.site.browser.get(movie[self.site_name.lower()]['url'])
                 success = True
             else:
                 success = self._find_movie(movie)
@@ -36,18 +36,18 @@ class TraktInserter(Inserter):
             else:
                 self.failed_movies.append(movie)
             counter += 1
-            print_progress(counter, len(movies), prefix=type(self.site).__name__)
+            print_progress(counter, len(movies), prefix=self.site_name)
 
         success_number = len(movies) - len(self.failed_movies)
         sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
-                         (type(self.site).__name__, success_number, len(movies)))
+                         (self.site_name, success_number, len(movies)))
         for failed_movie in self.failed_movies:
             sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s (%i)\r\n' %
                              (failed_movie['imdb']['id'], failed_movie['title'], failed_movie['year']))
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (type(self.site).__name__, len(self.failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
+                             (self.site_name, len(self.failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
         sys.stdout.flush()
 
         self.site.kill_browser()
@@ -71,8 +71,8 @@ class TraktInserter(Inserter):
         return search_result_page.find_all('div', attrs={'data-type': 'movie'})
 
     def _is_requested_movie(self, movie, tile):
-        if type(self.site).__name__.lower() in movie and movie[type(self.site).__name__.lower()]['id'] != '':
-            return movie[type(self.site).__name__.lower()]['id'] == tile['data-movie-id']
+        if self.site_name.lower() in movie and movie[self.site_name.lower()]['id'] != '':
+            return movie[self.site_name.lower()]['id'] == tile['data-movie-id']
         else:
             self.site.browser.get('https://trakt.tv' + tile['data-url'])
             time.sleep(1)

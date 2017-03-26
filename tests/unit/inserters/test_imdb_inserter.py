@@ -35,6 +35,8 @@ class IMDBInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBInserter()
         inserter.site = site_mock
+        inserter.failed_movies = []
+        inserter.site_name = 'imdb'
 
         inserter.insert([self.movie], 'trakt')
 
