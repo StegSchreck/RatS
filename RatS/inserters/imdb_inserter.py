@@ -21,7 +21,6 @@ class IMDBInserter(Inserter):
 
     def insert(self, movies, source):
         counter = 0
-        failed_movies = []
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (type(self.site).__name__, len(movies)))
         sys.stdout.flush()
 
@@ -30,21 +29,22 @@ class IMDBInserter(Inserter):
             counter += 1
             print_progress(counter, len(movies), prefix=type(self.site).__name__)
 
-        success_number = len(movies) - len(failed_movies)
+        success_number = len(movies) - len(self.failed_movies)
         sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
                          (type(self.site).__name__, success_number, len(movies)))
-        for failed_movie in failed_movies:
-            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s\r\n' % (failed_movie['imdb']['id'], failed_movie['title']))
-        if len(failed_movies) > 0:
-            file_impex.save_movies_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
+        for failed_movie in self.failed_movies:
+            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s (%i)\r\n' %
+                             (failed_movie['imdb']['id'], failed_movie['title'], failed_movie['year']))
+        if len(self.failed_movies) > 0:
+            file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (type(self.site).__name__, len(failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
+                             (type(self.site).__name__, len(self.failed_movies), EXPORTS_FOLDER, EXPORTS_FOLDER))
         sys.stdout.flush()
 
         self.site.kill_browser()
 
     def _post_movie_rating(self, movie, my_rating):
-        self.site.browser.get(movie['imdb']['url'])
+        self.site.browser.get(movie[type(self.site).__name__.lower()]['url'])
         time.sleep(1)
         try:
             self._click_rating(my_rating)
