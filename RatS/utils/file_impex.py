@@ -74,7 +74,7 @@ def convert_movie_to_csv(movies, index, rating_source):
                 movies[index]['title'] + ',' + \
                 'Feature Film,' + \
                 ',' + \
-                movies[index][rating_source]['my_rating'] + ',' + \
+                str(movies[index][rating_source]['my_rating']) + ',' + \
                 ',' + \
                 ',' + \
                 str(movies[index]['year']) + ',' + \
