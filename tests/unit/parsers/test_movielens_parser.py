@@ -43,7 +43,7 @@ class MovielensParserTest(TestCase):
 
         self.assertEqual(99149, parser.movies[0]['movielens']['id'])
         self.assertEqual('https://movielens.org/movies/99149', parser.movies[0]['movielens']['url'])
-        self.assertEqual(3, parser.movies[0]['movielens']['my_rating'])
+        self.assertEqual(6, parser.movies[0]['movielens']['my_rating'])
 
         self.assertEqual('tt1707386', parser.movies[0]['imdb']['id'])
         self.assertEqual('http://www.imdb.com/title/tt1707386', parser.movies[0]['imdb']['url'])

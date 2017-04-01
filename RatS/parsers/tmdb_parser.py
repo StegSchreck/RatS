@@ -46,16 +46,18 @@ class TMDBRatingsParser(Parser):
     def _parse_movie_tile(self, movie_tile):
         movie = dict()
         movie['title'] = movie_tile.find('p').find('a').get_text()
-        movie[self.site.site_name] = dict()
-        movie[self.site.site_name]['id'] = movie_tile.find('p').find('a')['href'].split('/')[-1]
-        movie[self.site.site_name]['url'] = 'https://www.themoviedb.org/movie/%s' % movie[self.site.site_name]['id']
+        movie[self.site.site_name.lower()] = dict()
+        movie[self.site.site_name.lower()]['id'] = movie_tile.find('p').find('a')['href'].split('/')[-1]
+        movie[self.site.site_name.lower()]['url'] = 'https://www.themoviedb.org/movie/%s' % \
+                                                    movie[self.site.site_name.lower()]['id']
 
-        self.site.browser.get(movie[self.site.site_name]['url'])
+        self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+        time.sleep(1)
 
         try:
             self.parse_movie_details_page(movie)
         except AttributeError:
-            time.sleep(1)  # wait a little bit for page to load and try again
+            time.sleep(3)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
 
         print_progress(len(self.movies), self.movies_count, prefix=self.site.site_name)
@@ -65,6 +67,7 @@ class TMDBRatingsParser(Parser):
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         movie['year'] = int(movie_details_page.find(class_='release_date').get_text().replace('(', '').replace(')', ''))
-        if self.site.site_name not in movie:
-            movie[self.site.site_name] = dict()
-        movie[self.site.site_name]['my_rating'] = int(float(movie_details_page.find(id='rating_input')['value']) * 2)
+        if self.site.site_name.lower() not in movie:
+            movie[self.site.site_name.lower()] = dict()
+        movie[self.site.site_name.lower()]['my_rating'] = \
+            int(float(movie_details_page.find(id='rating_input')['value']) * 2)

@@ -21,7 +21,7 @@ class MovielensRatingsParser(Parser):
         ratings = json_data['searchResults']
 
         sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
-                         (type(self.site).__name__, pages_count, self.movies_count))
+                         (self.site.site_name, pages_count, self.movies_count))
         sys.stdout.flush()
 
         self._parse_ratings_json(ratings)
@@ -46,7 +46,7 @@ class MovielensRatingsParser(Parser):
         movie['movielens'] = dict()
         movie['movielens']['id'] = movie_json['movie']['movieId']
         movie['movielens']['url'] = 'https://movielens.org/movies/%s' % movie['movielens']['id']
-        movie['movielens']['my_rating'] = movie_json['movieUserData']['rating']
+        movie['movielens']['my_rating'] = int(movie_json['movieUserData']['rating'] * 2)
 
         movie['imdb'] = dict()
         movie['imdb']['id'] = movie_json['movie']['imdbMovieId']

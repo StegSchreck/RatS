@@ -30,7 +30,7 @@ class TraktRatingsParser(Parser):
                                 get_text().strip().replace(',', ''))
 
         sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
-                         (type(self.site).__name__, pages_count, self.movies_count))
+                         (self.site.site_name, pages_count, self.movies_count))
         sys.stdout.flush()
 
         for i in range(1, int(pages_count) + 1):
@@ -47,12 +47,12 @@ class TraktRatingsParser(Parser):
     def _parse_movie_tile(self, movie_tile):
         movie = dict()
         movie['title'] = movie_tile.find('h3').get_text()
-        movie[self.site.site_name] = dict()
-        movie[self.site.site_name]['id'] = movie_tile['data-movie-id']
-        movie[self.site.site_name]['url'] = 'https://trakt.tv%s' % movie_tile['data-url']
-        movie[self.site.site_name]['my_rating'] = int(movie_tile.find_all('h4')[1].get_text().strip())
+        movie[self.site.site_name.lower()] = dict()
+        movie[self.site.site_name.lower()]['id'] = movie_tile['data-movie-id']
+        movie[self.site.site_name.lower()]['url'] = 'https://trakt.tv%s' % movie_tile['data-url']
+        movie[self.site.site_name.lower()]['my_rating'] = int(movie_tile.find_all('h4')[1].get_text().strip())
 
-        self.site.browser.get(movie[self.site.site_name]['url'])
+        self.site.browser.get(movie[self.site.site_name.lower()]['url'])
 
         try:
             self.parse_movie_details_page(movie)
@@ -67,8 +67,8 @@ class TraktRatingsParser(Parser):
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         movie['year'] = int(movie_details_page.find(class_='year').get_text())
-        if self.site.site_name not in movie:
-            movie[self.site.site_name] = dict()
+        if self.site.site_name.lower() not in movie:
+            movie[self.site.site_name.lower()] = dict()
         self._parse_external_links(movie, movie_details_page)
 
     @staticmethod
