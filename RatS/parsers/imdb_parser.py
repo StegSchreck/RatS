@@ -10,13 +10,14 @@ from RatS.sites.imdb_site import IMDB
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-CSV_FILENAME = TIMESTAMP + '_imdb.csv'
 
 
 class IMDBRatingsParser(Parser):
     def __init__(self):
         super(IMDBRatingsParser, self).__init__(IMDB())
+        self.exports_folder = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+        self.csv_filename = TIMESTAMP + '_imdb.csv'
 
     def parse(self):
         self._parse_ratings()
@@ -26,7 +27,7 @@ class IMDBRatingsParser(Parser):
     def _parse_ratings(self):
         self._download_ratings_csv()
         self._rename_csv_file()
-        self.movies = file_impex.load_movies_from_csv(os.path.join(EXPORTS_FOLDER, CSV_FILENAME))
+        self.movies = file_impex.load_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
@@ -39,13 +40,13 @@ class IMDBRatingsParser(Parser):
             time.sleep(1)
 
     def _rename_csv_file(self):
-        filepath = os.path.join(EXPORTS_FOLDER, 'ratings.csv')
+        filepath = os.path.join(self.exports_folder, 'ratings.csv')
         file_impex.wait_for_file_to_exist(filepath)
 
         try:
-            os.rename(filepath, os.path.join(EXPORTS_FOLDER, CSV_FILENAME))
+            os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
             sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_name, EXPORTS_FOLDER, CSV_FILENAME))
+                             (self.site.site_name, self.exports_folder, self.csv_filename))
             sys.stdout.flush()
         except FileNotFoundError:
             sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_name)

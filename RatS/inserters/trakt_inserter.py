@@ -56,8 +56,8 @@ class TraktInserter(Inserter):
             movie_tiles = self._get_movie_tiles(self.site.browser.page_source)
         for tile in movie_tiles:
             if self._is_requested_movie(movie, tile):
-                return True
-        return False
+                return True  # Found
+        return False  # Not Found
 
     @staticmethod
     def _get_movie_tiles(overview_page):
@@ -70,16 +70,17 @@ class TraktInserter(Inserter):
         else:
             self.site.browser.get('https://trakt.tv' + tile['data-url'])
             time.sleep(1)
-            movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             if 'imdb' in movie and movie['imdb']['id'] != '':
-                return self._compare_external_links(movie_details_page, movie, 'imdb.com', 'imdb')
+                return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
             elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-                return self._compare_external_links(movie_details_page, movie, 'themoviedb.org', 'tmdb')
+                return self._compare_external_links(self.site.browser.page_source, movie, 'themoviedb.org', 'tmdb')
             else:
+                movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
                 return movie['year'] == int(movie_details_page.find(class_='year').get_text())
 
     @staticmethod
-    def _compare_external_links(movie_details_page, movie, external_url_base, site_name):
+    def _compare_external_links(page_source, movie, external_url_base, site_name):
+        movie_details_page = BeautifulSoup(page_source, 'html.parser')
         external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
         for link in external_links:
             if external_url_base in link['href']:

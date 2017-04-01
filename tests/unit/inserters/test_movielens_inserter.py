@@ -51,3 +51,37 @@ class MovielensInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
         self.assertTrue(json_mock.called)
         self.assertTrue(progress_print_mock.called)
+
+    @patch('RatS.inserters.movielens_inserter.Movielens')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_is_requested_movie_success(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        inserter = MovielensInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'movielens'
+        inserter.failed_movies = []
+        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+
+        result = inserter._is_requested_movie(self.movie, movie_to_test)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.inserters.movielens_inserter.Movielens')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_is_requested_movie_fail(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        inserter = MovielensInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'movielens'
+        inserter.failed_movies = []
+        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+
+        movie2 = dict()
+        movie2['title'] = 'Arrival'
+        movie2['year'] = 2006
+
+        result = inserter._is_requested_movie(movie2, movie_to_test)  # pylint: disable=protected-access
+
+        self.assertFalse(result)

@@ -49,7 +49,7 @@ def convert_csv_row_to_movie(row):
     movie['imdb'] = dict()
     movie['imdb']['id'] = row[1]
     movie['imdb']['url'] = row[15]
-    movie['imdb']['my_rating'] = row[8]
+    movie['imdb']['my_rating'] = int(row[8])
     movie['imdb']['overall_rating'] = row[9]
     return movie
 
@@ -74,7 +74,7 @@ def convert_movie_to_csv(movies, index, rating_source):
                 movies[index]['title'] + ',' + \
                 'Feature Film,' + \
                 ',' + \
-                str(movies[index][rating_source]['my_rating']) + ',' + \
+                str(movies[index][rating_source.lower()]['my_rating']) + ',' + \
                 ',' + \
                 ',' + \
                 str(movies[index]['year']) + ',' + \

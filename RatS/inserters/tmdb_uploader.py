@@ -5,10 +5,10 @@ import time
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.tmdb_site import TMDB
-from RatS.utils import file_impex
+from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-CSV_FILE_NAME = TIMESTAMP + '_tmdb.csv'
+CSV_FILE_NAME = TIMESTAMP + '.csv'
 
 
 class TMDBUploader(Inserter):
@@ -19,7 +19,7 @@ class TMDBUploader(Inserter):
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))
         sys.stdout.flush()
 
-        file_impex.save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
+        save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
         self.site.browser.get('https://www.themoviedb.org/account/StegSchreck/import')
         time.sleep(1)
         self.site.browser.find_element_by_id('csv_file').send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))

@@ -36,6 +36,7 @@ tests/unit/inserters/__init__.py
 tests/unit/inserters/test_base_inserter.py
 tests/unit/inserters/test_imdb_inserter.py
 tests/unit/inserters/test_movielens_inserter.py
+tests/unit/inserters/test_tmdb_uploader.py
 tests/unit/inserters/test_trakt_inserter.py
 tests/unit/parsers/__init__.py
 tests/unit/parsers/test_base_parser.py
