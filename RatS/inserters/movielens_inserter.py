@@ -1,5 +1,3 @@
-import datetime
-import os
 import sys
 import time
 
@@ -9,10 +7,6 @@ from RatS.inserters.base_inserter import Inserter
 from RatS.sites.movielens_site import Movielens
 from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
-
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-FAILED_MOVIES_FILE = TIMESTAMP + '_movielens_failed.json'
 
 
 class MovielensInserter(Inserter):
@@ -39,9 +33,10 @@ class MovielensInserter(Inserter):
         for failed_movie in self.failed_movies:
             sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
         if len(self.failed_movies) > 0:
-            file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
+            file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (self.site.site_name, len(self.failed_movies), EXPORTS_FOLDER, FAILED_MOVIES_FILE))
+                             (self.site.site_name, len(self.failed_movies),
+                              self.exports_folder, self.failed_movies_filename))
         sys.stdout.flush()
 
         self.site.kill_browser()
