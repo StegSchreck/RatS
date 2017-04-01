@@ -37,8 +37,7 @@ class MovielensInserter(Inserter):
         sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
                          (self.site.site_name, success_number, len(movies)))
         for failed_movie in self.failed_movies:
-            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s (%i)\r\n' %
-                             (failed_movie['imdb']['id'], failed_movie['title'], failed_movie['year']))
+            sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
@@ -63,8 +62,12 @@ class MovielensInserter(Inserter):
     def _is_requested_movie(movie, param):
         if 'movielens' in movie and movie['movielens']['id'] != '':
             return movie['movielens']['id'] == param['movieId']
-        else:
+        elif 'imdb' in movie and movie['imdb']['id'] != '':
             return movie['imdb']['id'].replace('tt', '') == param['imdbMovieId'].replace('tt', '')
+        elif 'tmdb' in movie and movie['tmdb']['id'] != '':
+            return movie['tmdb']['id'] == param['tmdbMovieId']
+        else:
+            return movie['year'] == param['releaseYear']
 
     def _post_movie_rating(self, entry, my_rating):
         movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])

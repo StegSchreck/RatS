@@ -42,8 +42,7 @@ class TraktInserter(Inserter):
         sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
                          (self.site.site_name, success_number, len(movies)))
         for failed_movie in self.failed_movies:
-            sys.stdout.write('FAILED TO FIND: [IMDB:%s] %s (%i)\r\n' %
-                             (failed_movie['imdb']['id'], failed_movie['title'], failed_movie['year']))
+            sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=FAILED_MOVIES_FILE)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
@@ -78,9 +77,16 @@ class TraktInserter(Inserter):
             time.sleep(1)
             movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
-            for link in external_links:
-                if 'imdb.com' in link['href']:
-                    return movie['imdb']['id'] == link['href'].split('/')[-1]
+            if 'imdb' in movie and movie['imdb']['id'] != '':
+                for link in external_links:
+                    if 'imdb.com' in link['href']:
+                        return movie['imdb']['id'] == link['href'].split('/')[-1]
+            elif 'tmdb' in movie and movie['tmdb']['id'] != '':
+                for link in external_links:
+                    if 'themoviedb.org' in link['href']:
+                        return movie['tmdb']['id'] == link['href'].split('/')[-1]
+            else:
+                return movie['year'] == int(movie_details_page.find(class_='year').get_text())
 
     def _post_movie_rating(self, my_rating):
         try:
