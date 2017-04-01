@@ -76,7 +76,7 @@ class IMDBInserter(Inserter):
     @staticmethod
     def _is_requested_movie(movie, result):
         result_annotation = result.find(class_='result_text').get_text()
-        result_year = re.findall('\((\d{4})\)', result_annotation)[-1]
+        result_year = re.findall(r'\((\d{4})\)', result_annotation)[-1]
         if int(result_year) == movie['year']:
             return True
         return False

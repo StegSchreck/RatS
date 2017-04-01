@@ -76,17 +76,19 @@ class TraktInserter(Inserter):
             self.site.browser.get('https://trakt.tv' + tile['data-url'])
             time.sleep(1)
             movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-            external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
             if 'imdb' in movie and movie['imdb']['id'] != '':
-                for link in external_links:
-                    if 'imdb.com' in link['href']:
-                        return movie['imdb']['id'] == link['href'].split('/')[-1]
+                return self._compare_external_links(movie_details_page, movie, 'imdb.com', 'imdb')
             elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-                for link in external_links:
-                    if 'themoviedb.org' in link['href']:
-                        return movie['tmdb']['id'] == link['href'].split('/')[-1]
+                return self._compare_external_links(movie_details_page, movie, 'themoviedb.org', 'tmdb')
             else:
                 return movie['year'] == int(movie_details_page.find(class_='year').get_text())
+
+    @staticmethod
+    def _compare_external_links(movie_details_page, movie, external_url_base, site_name):
+        external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
+        for link in external_links:
+            if external_url_base in link['href']:
+                return movie[site_name]['id'] == link['href'].split('/')[-1]
 
     def _post_movie_rating(self, my_rating):
         try:
