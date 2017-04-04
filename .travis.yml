@@ -16,6 +16,9 @@ notifications:
     - stegschreck@gmail.com
     on_success: change
     on_failure: always
+addons:
+    code_climate:
+        repo_token: bc76716a804f41269be39e1cc8855f2f1d39d9c0a33f503191e5a30b7d2414f8
 after_success: coveralls
 deploy:
   provider: releases
