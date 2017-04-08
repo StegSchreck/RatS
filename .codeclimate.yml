@@ -1,0 +1,27 @@
+---
+engines:
+  pep8:
+    enabled: true
+  shellcheck:
+    enabled: true
+  markdownlint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+ratings:
+  paths:
+  - "**.sh"
+  - "**.md"
+  - "**.module"
+  - "**.py"
+exclude_paths:
+- "*/tests/*"
+- "*/test*.py"
+- "*/test/*.py"
