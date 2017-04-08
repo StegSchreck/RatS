@@ -20,8 +20,8 @@ class TraktInserterTest(TestCase):
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt.html'), encoding='utf8') as search_result:
             self.search_result = search_result.read()
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt_tile.html'), encoding='utf8') as search_result_tile:
-            self.search_result_tile_list = [search_result_tile.read()]
+        with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt_tile.html'), encoding='utf8') as result_tile:
+            self.search_result_tile_list = [result_tile.read()]
         with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'trakt.html'), encoding='utf8') as movie_detail_page:
             self.movie_detail_page = movie_detail_page.read()
 
