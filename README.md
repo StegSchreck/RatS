@@ -2,7 +2,10 @@
   <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS.png" width="250px">
 </p>
 
-# RatS [![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS) [![Coverage Status](https://coveralls.io/repos/github/StegSchreck/RatS/badge.svg?branch=master)](https://coveralls.io/github/StegSchreck/RatS?branch=master)
+# RatS
+[![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
+[![Coverage Status](https://coveralls.io/repos/github/StegSchreck/RatS/badge.svg?branch=master)](https://coveralls.io/github/StegSchreck/RatS?branch=master)
+[![Code Climate](https://codeclimate.com/github/StegSchreck/RatS/badges/gpa.svg)](https://codeclimate.com/github/StegSchreck/RatS)
 
 This project serves for parsing your ratings from one movie tracking / rating website to another.
 
