@@ -66,13 +66,17 @@ class IMDBInserter(Inserter):
             for result in search_results:
                 if self._is_requested_movie(movie, result):
                     return "http://www.imdb.com" + result.find('a')['href']
+            return None
+        return None
 
     @staticmethod
     def _is_requested_movie(movie, result):
         result_annotation = result.find(class_='result_text').get_text()
-        result_year = re.findall(r'\((\d{4})\)', result_annotation)[-1]
-        if int(result_year) == movie['year']:
-            return True
+        result_year_list = re.findall(r'\((\d{4})\)', result_annotation)
+        if len(result_year_list) > 0:
+            result_year = result_year_list[-1]
+            if int(result_year) == movie['year']:
+                return True
         return False
 
     def _click_rating(self, my_rating):

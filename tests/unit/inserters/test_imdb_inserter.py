@@ -86,3 +86,57 @@ class IMDBInserterTest(TestCase):
         result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)
+
+    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_is_requested_movie_no_movie_with_that_year(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        inserter = IMDBInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'imdb'
+        inserter.failed_movies = []
+        search_result_page = BeautifulSoup(self.search_result, 'html.parser')
+        search_result = search_result_page.find(class_='findList').find_all(class_='findResult')[0]
+
+        movie2 = dict()
+        movie2['title'] = 'SomeMovie'
+        movie2['year'] = 1995
+
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
+
+        self.assertFalse(result)
+
+    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_success(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_result
+        inserter = IMDBInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'imdb'
+        inserter.failed_movies = []
+
+        result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
+
+        self.assertIsNotNone(result)
+
+    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_result
+        inserter = IMDBInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'imdb'
+        inserter.failed_movies = []
+
+        movie2 = dict()
+        movie2['title'] = 'The Matrix'
+        movie2['year'] = 1995
+
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
+
+        self.assertIsNone(result)
