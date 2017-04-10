@@ -2,7 +2,6 @@
   <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS.png" width="250px">
 </p>
 
-
 # RatS
 
 [![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
@@ -10,7 +9,6 @@
 [![Code Climate](https://codeclimate.com/github/StegSchreck/RatS/badges/gpa.svg)](https://codeclimate.com/github/StegSchreck/RatS)
 
 This project serves for parsing your ratings from one movie tracking / rating website to another.
-
 
 ## How do I use this?
 
@@ -31,31 +29,32 @@ This project is currently still under development. Please be patient, as I'm onl
     This script will take some minutes. Relax. You can follow the progress in console output.
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a json, so you can easily try them again (see below).
 
-
 ### Command line call parameters
 
 1. the first argument is the site where the ratings are parsed from (see [Available Parsers](#parsers))
 1. the second argument is the site where the ratings should be posted (inserted) to (see [Available Inserters](#inserters))
 
-#### Currently Available Parsers <a name="parsers"></a>
+<a name="parsers"></a>
+
+#### Currently Available Parsers
 
 * Trakt
 * IMDB (with IMDB account)
 * Movielens
 * TMDB (The Movie Database)
 
-#### Currently Available Inserters <a name="inserters"></a>
+<a name="inserters"></a>
+
+#### Currently Available Inserters
 
 * Movielens
 * IMDB (with IMDB account)
 * Trakt
 * TMDB (The Movie Database)
-
 
 ### Trying again with former export data
 
 You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `transfer_ratings.py` script and comment in the file loader part, where you just have to adjust the filename.
-
 
 ## Problem shooting
 
