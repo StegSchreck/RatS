@@ -2,6 +2,9 @@
 engines:
   pep8:
     enabled: true
+    checks:
+      E501:
+        enabled: false
   shellcheck:
     enabled: true
   markdownlint:

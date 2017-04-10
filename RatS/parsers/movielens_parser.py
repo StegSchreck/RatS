@@ -9,11 +9,6 @@ class MovielensRatingsParser(Parser):
     def __init__(self):
         super(MovielensRatingsParser, self).__init__(Movielens())
 
-    def parse(self):
-        self._parse_ratings()
-        self.site.kill_browser()
-        return self.movies
-
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
         self.movies_count = json_data['pager']['totalItems']

@@ -12,15 +12,6 @@ class TMDBRatingsParser(Parser):
     def __init__(self):
         super(TMDBRatingsParser, self).__init__(TMDB())
 
-    def parse(self):
-        try:
-            self._parse_ratings()
-        except AttributeError:
-            time.sleep(1)  # wait a little bit for page to load and try again
-            self._parse_ratings()
-        self.site.kill_browser()
-        return self.movies
-
     def _parse_ratings(self):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         pages_count = int(movie_ratings_page.find(class_='results').find(class_='pagination').
@@ -33,7 +24,7 @@ class TMDBRatingsParser(Parser):
         sys.stdout.flush()
 
         for i in range(1, int(pages_count) + 1):
-            self.site.browser.get(self.site.MY_RATINGS_URL + '?page=%i' % i)
+            self.site.browser.get('%s?page=%i' % (self.site.MY_RATINGS_URL, i))
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
 

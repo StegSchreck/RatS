@@ -6,7 +6,6 @@ from selenium.common.exceptions import ElementNotVisibleException, NoSuchElement
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.trakt_site import Trakt
-from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
 
 
@@ -32,18 +31,8 @@ class TraktInserter(Inserter):
             counter += 1
             print_progress(counter, len(movies), prefix=self.site.site_name)
 
-        success_number = len(movies) - len(self.failed_movies)
-        sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
-                         (self.site.site_name, success_number, len(movies)))
-        for failed_movie in self.failed_movies:
-            sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
-        if len(self.failed_movies) > 0:
-            file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
-            sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (self.site.site_name, len(self.failed_movies),
-                              self.exports_folder, self.failed_movies_filename))
-        sys.stdout.flush()
-
+        self._print_summary(movies)
+        self._handle_failed_movies(movies)
         self.site.kill_browser()
 
     def _find_movie(self, movie):
@@ -68,15 +57,18 @@ class TraktInserter(Inserter):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != '':
             return movie[self.site.site_name.lower()]['id'] == tile['data-movie-id']
         else:
-            self.site.browser.get('https://trakt.tv' + tile['data-url'])
-            time.sleep(1)
-            if 'imdb' in movie and movie['imdb']['id'] != '':
-                return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
-            elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-                return self._compare_external_links(self.site.browser.page_source, movie, 'themoviedb.org', 'tmdb')
-            else:
-                movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-                return movie['year'] == int(movie_details_page.find(class_='year').get_text())
+            return self._check_movie_details(movie, tile)
+
+    def _check_movie_details(self, movie, tile):
+        self.site.browser.get('https://trakt.tv' + tile['data-url'])
+        time.sleep(1)
+        if 'imdb' in movie and movie['imdb']['id'] != '':
+            return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
+        elif 'tmdb' in movie and movie['tmdb']['id'] != '':
+            return self._compare_external_links(self.site.browser.page_source, movie, 'themoviedb.org', 'tmdb')
+        else:
+            movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
+            return movie['year'] == int(movie_details_page.find(class_='year').get_text())
 
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):
