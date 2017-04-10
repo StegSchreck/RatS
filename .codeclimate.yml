@@ -9,6 +9,11 @@ engines:
     enabled: true
   markdownlint:
     enabled: true
+    checks:
+      MD013:
+        enabled: false
+      MD026:
+        enabled: false
   duplication:
     enabled: true
     config:
@@ -25,7 +30,9 @@ ratings:
   - "**.module"
   - "**.py"
 exclude_paths:
+- .pylintrc
 - tests/
+- RatS/img/
 - "*/tests/*"
 - "*/test*.py"
 - "*/test/*.py"

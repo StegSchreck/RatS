@@ -7,7 +7,6 @@ from selenium.common.exceptions import ElementNotVisibleException, NoSuchElement
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.imdb_site import IMDB
-from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
 
 
