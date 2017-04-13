@@ -11,6 +11,7 @@ class TraktInserterTest(TestCase):
     def setUp(self):
         self.movie = dict()
         self.movie['title'] = 'Fight Club'
+        self.movie['year'] = 1999
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
         self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
@@ -129,7 +130,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.inserters.imdb_inserter.IMDB')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
-    def test_find_movie_success(self, browser_mock, base_init_mock, site_mock, compare_mock):
+    def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_result
         inserter = TraktInserter()
@@ -137,6 +138,52 @@ class TraktInserterTest(TestCase):
         inserter.site.site_name = 'trakt'
         inserter.failed_movies = []
         compare_mock.return_value = True
+
+        result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_success_by_tmdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_result
+        inserter = TraktInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'trakt'
+        inserter.failed_movies = []
+        compare_mock.return_value = True
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1999
+        movie2['tmdb'] = dict()
+        movie2['tmdb']['id'] = '550'
+        movie2['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
+        movie2['tmdb']['my_rating'] = 9
+
+        result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_result
+        inserter = TraktInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'trakt'
+        inserter.failed_movies = []
+        compare_mock.return_value = True
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1999
 
         result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
 

@@ -44,6 +44,8 @@ tests/unit/parsers/test_imdb_parser.py
 tests/unit/parsers/test_movielens_parser.py
 tests/unit/parsers/test_tmdb_parser.py
 tests/unit/parsers/test_trakt_parser.py
+tests/unit/sites/__init__.py
+tests/unit/sites/test_movielens_site.py
 tests/unit/utils/__init__.py
 tests/unit/utils/test_command_line.py
 tests/unit/utils/test_file_impex.py

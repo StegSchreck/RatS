@@ -45,13 +45,13 @@ class MovielensInserter(Inserter):
     @staticmethod
     def _is_requested_movie(movie, param):
         if 'movielens' in movie and movie['movielens']['id'] != '':
-            return movie['movielens']['id'] == param['movieId']
+            return str(movie['movielens']['id']) == str(param['movieId'])
         elif 'imdb' in movie and movie['imdb']['id'] != '':
-            return movie['imdb']['id'].replace('tt', '') == param['imdbMovieId'].replace('tt', '')
+            return str(movie['imdb']['id'].replace('tt', '')) == str(param['imdbMovieId'].replace('tt', ''))
         elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-            return movie['tmdb']['id'] == param['tmdbMovieId']
+            return str(movie['tmdb']['id']) == str(param['tmdbMovieId'])
         else:
-            return movie['year'] == param['releaseYear']
+            return int(movie['year']) == int(param['releaseYear'])
 
     def _post_movie_rating(self, entry, my_rating):
         movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])
