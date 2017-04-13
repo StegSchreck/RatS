@@ -25,4 +25,3 @@ class MovielensSiteTest(TestCase):
         result = site.get_json_from_html()
 
         self.assertEqual(self.my_ratings_json, result)
-
