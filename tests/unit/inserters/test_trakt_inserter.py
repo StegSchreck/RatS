@@ -164,7 +164,7 @@ class TraktInserterTest(TestCase):
         movie2['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
         movie2['tmdb']['my_rating'] = 9
 
-        result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
@@ -185,7 +185,7 @@ class TraktInserterTest(TestCase):
         movie2['title'] = 'Fight Club'
         movie2['year'] = 1999
 
-        result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
