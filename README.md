@@ -51,6 +51,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * IMDB (with IMDB account)
 * Trakt
 * TMDB (The Movie Database)
+* Listal
 
 ### Trying again with former export data
 

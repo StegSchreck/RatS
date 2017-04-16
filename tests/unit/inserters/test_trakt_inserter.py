@@ -127,7 +127,7 @@ class TraktInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
-    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
@@ -144,7 +144,7 @@ class TraktInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
-    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_tmdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
@@ -169,7 +169,7 @@ class TraktInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
-    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
@@ -192,7 +192,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.inserters.trakt_inserter.TraktInserter._is_requested_movie')
     @patch('RatS.inserters.trakt_inserter.TraktInserter._get_movie_tiles')
     @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
-    @patch('RatS.inserters.imdb_inserter.IMDB')
+    @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, compare_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments

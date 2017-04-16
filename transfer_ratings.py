@@ -5,6 +5,7 @@ import sys
 import time
 
 from RatS.inserters.imdb_inserter import IMDBInserter
+from RatS.inserters.listal_inserter import ListalInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.inserters.tmdb_uploader import TMDBUploader
 from RatS.inserters.trakt_inserter import TraktInserter
@@ -27,7 +28,8 @@ INSERTERS = {
     'IMDB': IMDBInserter,
     'MOVIELENS': MovielensInserter,
     'TRAKT': TraktInserter,
-    'TMDB': TMDBUploader
+    'TMDB': TMDBUploader,
+    'LISTAL': ListalInserter
 }
 
 
