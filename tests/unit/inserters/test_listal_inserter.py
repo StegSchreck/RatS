@@ -23,7 +23,8 @@ class ListalInserterTest(TestCase):
             self.search_result = search_result.read()
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'listal_tile.html'), encoding='utf8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'listal.html'), encoding='utf8') as movie_detail_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'listal.html'),
+                  encoding='utf8') as movie_detail_page:
             self.movie_detail_page = movie_detail_page.read()
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')

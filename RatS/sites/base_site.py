@@ -30,7 +30,7 @@ class Site:
 
     def _init_browser(self):
         self.display = Xvfb()
-        #self.display.start()
+        self.display.start()
         profile = FirefoxProfile()
         profile.set_preference("browser.download.folderList", 2)
         profile.set_preference("browser.download.manager.showWhenStarting", False)
@@ -74,4 +74,4 @@ class Site:
         self.browser.close()
         self.browser.quit()
 
-        #self.display.stop()
+        self.display.stop()

@@ -1,7 +1,5 @@
-import time
-
 import sys
-from selenium.common.exceptions import NoSuchElementException
+import time
 
 from RatS.sites.base_site import Site
 
@@ -23,8 +21,11 @@ class Listal(Site):
 
         self.browser.execute_script("""
             $.post(
-                'https://www.listal.com/login-ajax/', 
-                { username: '%s', password: '%s' },
+                'https://www.listal.com/login-ajax/',
+                {
+                    username: '%s',
+                    password: '%s'
+                },
                 function(data, status) {}
             );
         """ % (self.USERNAME, self.PASSWORD))

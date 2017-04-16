@@ -81,8 +81,8 @@ class ListalInserter(Inserter):
         self.site.browser.execute_script("""
             $.post(
                 'http://www.listal.com/rate-product', 
-                { 
-                    rating: '%s', 
+                {
+                    rating: '%s',
                     productid: '%s',
                     area: 'movies',
                     starType: 'small-star'
