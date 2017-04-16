@@ -38,10 +38,16 @@ def main(argv):
         print_help(argv)
         return
     if argv[1].upper() not in PARSERS:
-        print('Parser %s not available' % argv[1])
+        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % argv[1])
+        for parser in PARSERS:
+            sys.stdout.write(' - %s \n' % parser)
+        sys.stdout.flush()
         return
     if argv[2].upper() not in INSERTERS:
-        print('Inserter %s not available' % argv[2])
+        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % argv[2])
+        for inserter in INSERTERS:
+            sys.stdout.write(' - %s \n' % inserter)
+        sys.stdout.flush()
         return
 
     execute(argv)
