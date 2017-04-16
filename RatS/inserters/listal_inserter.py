@@ -80,7 +80,7 @@ class ListalInserter(Inserter):
 
         self.site.browser.execute_script("""
             $.post(
-                'http://www.listal.com/rate-product', 
+                'http://www.listal.com/rate-product',
                 {
                     rating: '%s',
                     productid: '%s',
