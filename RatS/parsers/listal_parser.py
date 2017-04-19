@@ -27,7 +27,7 @@ class ListalRatingsParser(Parser):
         sys.stdout.flush()
 
         for i in range(1, pages_count + 1):
-            url = self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/%i/?rating=1' % (self.site.USERNAME, i)
+            url = 'http://%s.listal.com/movies/all/%i/?rating=1' % (self.site.USERNAME, i)
             self.site.browser.get(url)
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
@@ -47,7 +47,7 @@ class ListalRatingsParser(Parser):
         movie[self.site.site_name.lower()]['url'] = tile_header.find('a')['href']
         percentage = movie_tile.find(id='rating').find(class_='current-rating')['style']\
             .replace('width:', '').replace('%;', '')
-        movie[self.site.site_name.lower()]['my_rating'] = int(percentage)/10
+        movie[self.site.site_name.lower()]['my_rating'] = int(percentage) / 10
 
         self.site.browser.get(movie[self.site.site_name.lower()]['url'])
 
