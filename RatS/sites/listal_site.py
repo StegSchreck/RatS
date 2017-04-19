@@ -11,7 +11,7 @@ class Listal(Site):
         self.LOGIN_PASSWORD_SELECTOR = "form input[name='password']"
         self.LOGIN_BUTTON_SELECTOR = "//form//button[contains(@class, 'submit')]"
         super(Listal, self).__init__()
-        self.MY_RATINGS_URL = 'https://www.themoviedb.org/account/%s/discover/rated/movie' % self.USERNAME
+        self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/1/?rating=1' % self.USERNAME
 
     def login(self):
         sys.stdout.write('===== %s: performing login' % type(self).__name__)

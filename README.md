@@ -42,6 +42,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * IMDB (with IMDB account)
 * Movielens
 * TMDB (The Movie Database)
+* Listal
 
 <a name="inserters"></a>
 

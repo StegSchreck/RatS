@@ -1,47 +1,53 @@
 import sys
 import time
 
+import re
 from bs4 import BeautifulSoup
 
 from RatS.parsers.base_parser import Parser
-from RatS.sites.trakt_site import Trakt
+from RatS.sites.listal_site import Listal
 from RatS.utils.command_line import print_progress
 
 
-class TraktRatingsParser(Parser):
+class ListalRatingsParser(Parser):
     def __init__(self):
-        super(TraktRatingsParser, self).__init__(Trakt())
+        super(ListalRatingsParser, self).__init__(Listal())
 
     def _parse_ratings(self):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        pages_count = int(movie_ratings_page.find(id='rating-items').
-                          find_all('li', class_='page')[-1].find('a').get_text())
-        self.movies_count = int(movie_ratings_page.find('section', class_='subnav-wrapper').
-                                find('a', attrs={'data-title': 'Movies'}).find('span').
-                                get_text().strip().replace(',', ''))
+
+        pages_count = [int(s) for s in re.findall(r'\b\d+\b',
+                       movie_ratings_page.find(id='displaychange')
+                       .find('div', class_='pages').find_all('a')[-2].get_text())][0]
+        self.movies_count = int(movie_ratings_page.find('h1', class_='headingminiph').
+                                get_text().replace('Movies', '').strip())
 
         sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
                          (self.site.site_name, pages_count, self.movies_count))
         sys.stdout.flush()
 
         for i in range(1, pages_count + 1):
-            self.site.browser.get('%s?page=%i' % (self.site.MY_RATINGS_URL, i))
+            url = self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/%i/?rating=1' % (self.site.USERNAME, i)
+            self.site.browser.get(url)
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
 
     def _parse_movie_listing_page(self, movie_listing_page):
-        movies_tiles = movie_listing_page.find(class_='row posters').find_all('div', attrs={'data-type': 'movie'})
+        movies_tiles = movie_listing_page.find(id='collectionwrapper').find_all('div', class_='gridviewinner')
         for movie_tile in movies_tiles:
             movie = self._parse_movie_tile(movie_tile)
             self.movies.append(movie)
 
     def _parse_movie_tile(self, movie_tile):
         movie = dict()
-        movie['title'] = movie_tile.find('h3').get_text()
+        tile_header = movie_tile.find_all('div')[1]
+        movie['title'] = tile_header.find('a').get_text()
         movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]['id'] = movie_tile['data-movie-id']
-        movie[self.site.site_name.lower()]['url'] = 'https://trakt.tv%s' % movie_tile['data-url']
-        movie[self.site.site_name.lower()]['my_rating'] = int(movie_tile.find_all('h4')[1].get_text().strip())
+        movie[self.site.site_name.lower()]['id'] = movie_tile.find(class_='add-to-list')['data-productid']
+        movie[self.site.site_name.lower()]['url'] = tile_header.find('a')['href']
+        percentage = movie_tile.find(id='rating').find(class_='current-rating')['style']\
+            .replace('width:', '').replace('%;', '')
+        movie[self.site.site_name.lower()]['my_rating'] = int(percentage)/10
 
         self.site.browser.get(movie[self.site.site_name.lower()]['url'])
 
@@ -57,20 +63,17 @@ class TraktRatingsParser(Parser):
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        movie['year'] = int(movie_details_page.find(class_='year').get_text())
+        release_date = movie_details_page.find(id='rightstuff').get_text()
+        movie['year'] = int(re.findall(r'Release date\:\s\d+\s\w+\s(\d{4})', release_date)[0])
         if self.site.site_name.lower() not in movie:
             movie[self.site.site_name.lower()] = dict()
         self._parse_external_links(movie, movie_details_page)
 
     @staticmethod
-    def _parse_external_links(movie, movie_page):
-        external_links = movie_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
+    def _parse_external_links(movie, movie_details_page):
+        external_links = movie_details_page.find(class_='ratingstable').find_all('a')
         for link in external_links:
             if 'imdb.com' in link['href']:
                 movie['imdb'] = dict()
-                movie['imdb']['url'] = link['href']
+                movie['imdb']['url'] = link['href'].strip('/')
                 movie['imdb']['id'] = movie['imdb']['url'].split('/')[-1]
-            if 'themoviedb.org' in link['href']:
-                movie['tmdb'] = dict()
-                movie['tmdb']['url'] = link['href']
-                movie['tmdb']['id'] = movie['tmdb']['url'].split('/')[-1]
