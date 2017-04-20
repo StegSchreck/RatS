@@ -64,7 +64,11 @@ class ListalRatingsParser(Parser):
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         release_date = movie_details_page.find(id='rightstuff').get_text()
-        movie['year'] = int(re.findall(r'Release date\:\s\d+\s\w+\s(\d{4})', release_date)[0])
+        release_year = re.findall(r'Release date\:\s\d+\s\w+\s(\d{4})', release_date)
+        if not release_year:
+            movie_title = movie_details_page.find('h1', class_='itemheadingmedium').get_text()
+            release_year = re.findall(r'\((\d{4})\)', movie_title)
+        movie['year'] = int(release_year[0])
         if self.site.site_name.lower() not in movie:
             movie[self.site.site_name.lower()] = dict()
         self._parse_external_links(movie, movie_details_page)
