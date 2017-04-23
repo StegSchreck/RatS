@@ -9,7 +9,6 @@ class Listal(Site):
         self.LOGIN_PAGE = "https://www.listal.com/login-iframe"
         self.LOGIN_USERNAME_SELECTOR = "form input[name='username']"
         self.LOGIN_PASSWORD_SELECTOR = "form input[name='password']"
-        self.LOGIN_BUTTON_SELECTOR = "//form//button[contains(@class, 'submit')]"
         super(Listal, self).__init__()
         self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/1/?rating=1' % self.USERNAME
 

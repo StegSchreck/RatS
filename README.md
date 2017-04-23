@@ -53,6 +53,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * Trakt
 * TMDB (The Movie Database)
 * Listal
+* Criticker
 
 ### Trying again with former export data
 

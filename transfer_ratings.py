@@ -4,6 +4,7 @@ import os
 import sys
 import time
 
+from RatS.inserters.criticker_inserter import CritickerInserter
 from RatS.inserters.imdb_inserter import IMDBInserter
 from RatS.inserters.listal_inserter import ListalInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
@@ -24,14 +25,15 @@ PARSERS = {
     'IMDB': IMDBRatingsParser,
     'MOVIELENS': MovielensRatingsParser,
     'TMDB': TMDBRatingsParser,
-    'LISTAL': ListalRatingsParser
+    'LISTAL': ListalRatingsParser,
 }
 INSERTERS = {
     'IMDB': IMDBInserter,
     'MOVIELENS': MovielensInserter,
     'TRAKT': TraktInserter,
     'TMDB': TMDBUploader,
-    'LISTAL': ListalInserter
+    'LISTAL': ListalInserter,
+    'CRITICKER': CritickerInserter,
 }
 
 
