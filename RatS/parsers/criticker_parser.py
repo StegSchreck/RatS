@@ -44,7 +44,7 @@ class CritickerRatingsParser(Parser):
         return [self.convert_xml_node_to_movie(xml_node) for xml_node in xml_data.findall('film')]
 
     @staticmethod
-    def convert_xml_node_to_movie( xml_node):
+    def convert_xml_node_to_movie(xml_node):
         film_header = xml_node.find('filmname').text
 
         movie = dict()
