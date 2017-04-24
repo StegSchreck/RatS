@@ -61,7 +61,7 @@ class CritickerInserter(Inserter):
             return self._check_movie_details(movie, tile)
 
     def _check_movie_details(self, movie, tile):
-        movie_url = tile.find('img').parent['href']
+        movie_url = tile.find(class_='sr_result_name').find('a')['href']
         self.site.browser.get(movie_url)
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
@@ -74,7 +74,10 @@ class CritickerInserter(Inserter):
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):
         movie_details_page = BeautifulSoup(page_source, 'html.parser')
-        external_links = movie_details_page.find(id='fi_info_imdb').find_all('a')
+        try:
+            external_links = movie_details_page.find(id='fi_info_imdb').find_all('a')
+        except AttributeError:
+            return False
         for link in external_links:
             if external_url_base in link['href']:
                 return movie[site_name]['id'] == link['href'].split('/')[-1]
