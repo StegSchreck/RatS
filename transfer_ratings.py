@@ -10,6 +10,7 @@ from RatS.inserters.listal_inserter import ListalInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.inserters.tmdb_uploader import TMDBUploader
 from RatS.inserters.trakt_inserter import TraktInserter
+from RatS.parsers.criticker_parser import CritickerRatingsParser
 from RatS.parsers.imdb_parser import IMDBRatingsParser
 from RatS.parsers.listal_parser import ListalRatingsParser
 from RatS.parsers.movielens_parser import MovielensRatingsParser
@@ -26,6 +27,7 @@ PARSERS = {
     'MOVIELENS': MovielensRatingsParser,
     'TMDB': TMDBRatingsParser,
     'LISTAL': ListalRatingsParser,
+    'CRITICKER': CritickerRatingsParser,
 }
 INSERTERS = {
     'IMDB': IMDBInserter,

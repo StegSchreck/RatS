@@ -711,6 +711,7 @@ Description: <p align="center">
         * Movielens
         * TMDB (The Movie Database)
         * Listal
+        * Criticker
         
         <a name="inserters"></a>
         
@@ -721,6 +722,7 @@ Description: <p align="center">
         * Trakt
         * TMDB (The Movie Database)
         * Listal
+        * Criticker
         
         ### Trying again with former export data
         

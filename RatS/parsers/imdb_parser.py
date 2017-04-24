@@ -17,7 +17,7 @@ class IMDBRatingsParser(Parser):
         super(IMDBRatingsParser, self).__init__(IMDB())
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-        self.csv_filename = TIMESTAMP + '_imdb.csv'
+        self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'IMDB')
 
     def _parse_ratings(self):
         self._download_ratings_csv()

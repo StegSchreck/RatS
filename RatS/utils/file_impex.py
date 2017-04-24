@@ -50,7 +50,6 @@ def convert_csv_row_to_movie(row):
     movie['imdb']['id'] = row[1]
     movie['imdb']['url'] = row[15]
     movie['imdb']['my_rating'] = int(row[8])
-    movie['imdb']['overall_rating'] = row[9]
     return movie
 
 

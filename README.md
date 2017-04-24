@@ -43,6 +43,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * Movielens
 * TMDB (The Movie Database)
 * Listal
+* Criticker
 
 <a name="inserters"></a>
 
