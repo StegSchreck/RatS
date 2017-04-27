@@ -4,9 +4,12 @@
 mkdir /usr/bin
 cd /usr/bin || exit
 
-wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
-tar -xvzf geckodriver-v0.15.0-linux64.tar.gz
-rm geckodriver-v0.15.0-linux64.tar.gz
+LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/mozilla/geckodriver/releases/latest)
+LATEST_VERSION=$(echo ${LATEST_RELEASE} | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+
+wget https://github.com/mozilla/geckodriver/releases/download/${LATEST_VERSION}/geckodriver-${LATEST_VERSION}-linux64.tar.gz
+tar -xvzf geckodriver-${LATEST_VERSION}-linux64.tar.gz
+rm geckodriver-${LATEST_VERSION}-linux64.tar.gz
 chmod +x geckodriver
 cp geckodriver wires
 

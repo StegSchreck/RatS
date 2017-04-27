@@ -18,7 +18,7 @@ This project is currently still under development. Please be patient, as I'm onl
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
 1. Install the requirements
     `pip install -r requirements.txt`
-1. Install Selenium Geckodriver
+1. Install Geckodriver
     `sudo ./InstallSelenium.sh`
 1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
 1. Execute the script
@@ -65,6 +65,16 @@ You can use the data you parsed before again without parsing again. The parser t
 ### Script aborts because of Timeouts
 
 It might occassionally happen, that the script runs into errors caused by the page loading too slow. I tried to build some timeouts in for these cases. But depending on your internet connection speed etc. you might still run into this, especially when interacting with Movielens. The only advice I can give you for now is to increase the time.sleep() in the scripts. I will try to come up with a better solution in the future.
+
+### Script aborts with WebDriverException
+
+If you recently updated your Firefox, you might encounter the following exception during the login attempt of the parser:
+
+```selenium.common.exceptions.WebDriverException: Message: Expected [object Undefined] undefined to be a string```
+
+This can be fixed by installing the latests version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver) by running again the following command:
+    `sudo ./InstallSelenium.sh`
+
 
 ## You are missing a feature or noticed something is wrong?
 
