@@ -35,7 +35,7 @@ class IMDBInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.inserters.imdb_inserter.print_progress')
+    @patch('RatS.inserters.base_inserter.print_progress')
     @patch('RatS.inserters.imdb_inserter.IMDB')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')

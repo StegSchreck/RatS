@@ -34,9 +34,9 @@ class CritickerInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.inserters.criticker_inserter.print_progress')
+    @patch('RatS.inserters.base_inserter.print_progress')
     @patch('RatS.inserters.criticker_inserter.CritickerInserter._is_requested_movie')
-    @patch('RatS.inserters.criticker_inserter.CritickerInserter._get_movie_tiles')
+    @patch('RatS.inserters.criticker_inserter.CritickerInserter._get_search_results')
     @patch('RatS.inserters.criticker_inserter.Criticker')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -109,7 +109,7 @@ class CritickerInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.criticker_inserter.CritickerInserter._is_requested_movie')
-    @patch('RatS.inserters.criticker_inserter.CritickerInserter._get_movie_tiles')
+    @patch('RatS.inserters.criticker_inserter.CritickerInserter._get_search_results')
     @patch('RatS.inserters.criticker_inserter.CritickerInserter._compare_external_links')
     @patch('RatS.inserters.criticker_inserter.Criticker')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')

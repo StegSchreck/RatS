@@ -33,9 +33,9 @@ class TraktInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.inserters.trakt_inserter.print_progress')
+    @patch('RatS.inserters.base_inserter.print_progress')
     @patch('RatS.inserters.trakt_inserter.TraktInserter._is_requested_movie')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_movie_tiles')
+    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_search_results')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -190,7 +190,7 @@ class TraktInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.trakt_inserter.TraktInserter._is_requested_movie')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_movie_tiles')
+    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_search_results')
     @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')

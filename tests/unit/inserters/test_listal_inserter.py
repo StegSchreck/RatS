@@ -35,9 +35,9 @@ class ListalInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.inserters.listal_inserter.ListalInserter._post_movie_rating')
-    @patch('RatS.inserters.listal_inserter.print_progress')
+    @patch('RatS.inserters.base_inserter.print_progress')
     @patch('RatS.inserters.listal_inserter.ListalInserter._is_requested_movie')
-    @patch('RatS.inserters.listal_inserter.ListalInserter._get_movie_tiles')
+    @patch('RatS.inserters.listal_inserter.ListalInserter._get_search_results')
     @patch('RatS.inserters.listal_inserter.Listal')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -133,7 +133,7 @@ class ListalInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.inserters.listal_inserter.ListalInserter._is_requested_movie')
-    @patch('RatS.inserters.listal_inserter.ListalInserter._get_movie_tiles')
+    @patch('RatS.inserters.listal_inserter.ListalInserter._get_search_results')
     @patch('RatS.inserters.listal_inserter.ListalInserter._compare_external_links')
     @patch('RatS.inserters.listal_inserter.Listal')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')

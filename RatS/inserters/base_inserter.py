@@ -3,7 +3,10 @@ import os
 import sys
 import time
 
+from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
+
 from RatS.utils import file_impex
+from RatS.utils.command_line import print_progress
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
@@ -17,6 +20,58 @@ class Inserter:
         self.failed_movies_filename = '%s_%s_failed.json' % (TIMESTAMP, self.site.site_name)
 
     def insert(self, movies, source):
+        counter = 0
+        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))
+        sys.stdout.flush()
+
+        for movie in movies:
+            if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
+                self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+                success = True
+            else:
+                success = self._find_movie(movie)
+            if success:
+                self._post_movie_rating(movie[source.lower()]['my_rating'])
+            else:
+                self.failed_movies.append(movie)
+            counter += 1
+            print_progress(counter, len(movies), prefix=self.site.site_name)
+
+        self._print_summary(movies)
+        self._handle_failed_movies(movies)
+        self.site.kill_browser()
+
+    def _find_movie(self, movie):
+        self._search_for_movie(movie)
+        time.sleep(1)
+        try:
+            search_results = self._get_search_results(self.site.browser.page_source)
+        except (NoSuchElementException, KeyError):
+            time.sleep(3)
+            search_results = self._get_search_results(self.site.browser.page_source)
+        for result in search_results:
+            if self._is_requested_movie(movie, result):
+                return True  # Found
+        return False  # Not Found
+
+    def _search_for_movie(self, movie):
+        raise NotImplementedError("Should have implemented this")
+
+    @staticmethod
+    def _get_search_results(search_result_page):
+        raise NotImplementedError("Should have implemented this")
+
+    def _is_requested_movie(self, movies, result):
+        raise NotImplementedError("Should have implemented this")
+
+    def _post_movie_rating(self, my_rating):
+        try:
+            self._click_rating(my_rating)
+        except (ElementNotVisibleException, NoSuchElementException):
+            time.sleep(3)
+            self._click_rating(my_rating)
+
+    def _click_rating(self, my_rating):
         raise NotImplementedError("Should have implemented this")
 
     def _print_summary(self, movies):

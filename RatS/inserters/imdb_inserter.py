@@ -1,49 +1,15 @@
 import re
-import sys
 import time
 
 from bs4 import BeautifulSoup
-from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.imdb_site import IMDB
-from RatS.utils.command_line import print_progress
 
 
 class IMDBInserter(Inserter):
     def __init__(self):
         super(IMDBInserter, self).__init__(IMDB())
-
-    def insert(self, movies, source):
-        counter = 0
-        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))
-        sys.stdout.flush()
-
-        for movie in movies:
-            self._post_movie_rating(movie, movie[source.lower()]['my_rating'])
-            counter += 1
-            print_progress(counter, len(movies), prefix=self.site.site_name)
-
-        self._print_summary(movies)
-        self._handle_failed_movies(movies)
-        self.site.kill_browser()
-
-    def _post_movie_rating(self, movie, my_rating):
-        if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
-            self.site.browser.get(movie[self.site.site_name.lower()]['url'])
-        else:
-            movie_url = self._find_movie(movie)
-            if movie_url:
-                self.site.browser.get(movie_url)
-            else:
-                self.failed_movies.append(movie)
-                return
-        time.sleep(1)
-        try:
-            self._click_rating(my_rating)
-        except (ElementNotVisibleException, NoSuchElementException):
-            time.sleep(3)
-            self._click_rating(my_rating)
 
     def _find_movie(self, movie):
         self.site.browser.get('http://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&q=%s' % movie['title'])
@@ -58,14 +24,12 @@ class IMDBInserter(Inserter):
             return None
         return None
 
-    @staticmethod
-    def _is_requested_movie(movie, result):
+    def _is_requested_movie(self, movie, result):
         result_annotation = result.find(class_='result_text').get_text()
         result_year_list = re.findall(r'\((\d{4})\)', result_annotation)
         if len(result_year_list) > 0:
             result_year = result_year_list[-1]
-            if int(result_year) == movie['year']:
-                return True
+            return int(result_year) == movie['year']
         return False
 
     def _click_rating(self, my_rating):

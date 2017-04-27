@@ -20,7 +20,7 @@ class MovielensInserter(Inserter):
         for movie in movies:
             entry = self._find_movie(movie)
             if entry:
-                self._post_movie_rating(entry, movie[source.lower()]['my_rating'])
+                self._rate_movie(entry, movie[source.lower()]['my_rating'])
             else:
                 self.failed_movies.append(movie)
             counter += 1
@@ -31,7 +31,7 @@ class MovielensInserter(Inserter):
         self.site.kill_browser()
 
     def _find_movie(self, movie):
-        self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
+        self._search_for_movie(movie)
         time.sleep(1)
         try:
             search_results = self.site.get_json_from_html()['searchResults']
@@ -42,18 +42,20 @@ class MovielensInserter(Inserter):
             if self._is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']
 
-    @staticmethod
-    def _is_requested_movie(movie, param):
-        if 'movielens' in movie and movie['movielens']['id'] != '':
-            return str(movie['movielens']['id']) == str(param['movieId'])
-        elif 'imdb' in movie and movie['imdb']['id'] != '':
-            return str(movie['imdb']['id'].replace('tt', '')) == str(param['imdbMovieId'].replace('tt', ''))
-        elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-            return str(movie['tmdb']['id']) == str(param['tmdbMovieId'])
-        else:
-            return int(movie['year']) == int(param['releaseYear'])
+    def _search_for_movie(self, movie):
+        self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
 
-    def _post_movie_rating(self, entry, my_rating):
+    def _is_requested_movie(self, movie, result):
+        if 'movielens' in movie and movie['movielens']['id'] != '':
+            return str(movie['movielens']['id']) == str(result['movieId'])
+        elif 'imdb' in movie and movie['imdb']['id'] != '':
+            return str(movie['imdb']['id'].replace('tt', '')) == str(result['imdbMovieId'].replace('tt', ''))
+        elif 'tmdb' in movie and movie['tmdb']['id'] != '':
+            return str(movie['tmdb']['id']) == str(result['tmdbMovieId'])
+        else:
+            return int(movie['year']) == int(result['releaseYear'])
+
+    def _rate_movie(self, entry, my_rating):
         movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])
         self.site.browser.get(movie_page_url)
         time.sleep(1)
