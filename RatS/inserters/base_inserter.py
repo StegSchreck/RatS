@@ -59,14 +59,14 @@ class Inserter:
                 return True  # Found
         return False  # Not Found
 
-    def _search_for_movie(self, movie):
+    def _search_for_movie(self, movie):  # pylint: disable=abstract-method
         raise NotImplementedError("Should have implemented this")
 
     @staticmethod
-    def _get_search_results(search_result_page):
+    def _get_search_results(search_result_page):  # pylint: disable=abstract-method
         raise NotImplementedError("Should have implemented this")
 
-    def _is_requested_movie(self, movies, result):
+    def _is_requested_movie(self, movies, result):  # pylint: disable=abstract-method
         raise NotImplementedError("Should have implemented this")
 
     def _post_movie_rating(self, my_rating):
@@ -76,7 +76,7 @@ class Inserter:
             time.sleep(3)
             self._click_rating(my_rating)
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating):  # pylint: disable=abstract-method
         raise NotImplementedError("Should have implemented this")
 
     def _print_summary(self, movies):
