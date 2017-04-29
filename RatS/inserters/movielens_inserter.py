@@ -1,7 +1,8 @@
 import sys
 import time
 
-from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
+    ElementNotInteractableException
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.movielens_site import Movielens
@@ -61,8 +62,8 @@ class MovielensInserter(Inserter):
         time.sleep(1)
         try:
             self._click_rating(my_rating)
-        except (ElementNotVisibleException, NoSuchElementException):
-            time.sleep(3)
+        except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException):
+            time.sleep(2)
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):

@@ -2,6 +2,7 @@ import re
 import time
 
 from bs4 import BeautifulSoup
+from selenium.common.exceptions import TimeoutException
 
 from RatS.inserters.base_inserter import Inserter
 from RatS.sites.listal_site import Listal
@@ -20,7 +21,11 @@ class ListalInserter(Inserter):
         return search_result_page.find_all('div', class_='itemcell')
 
     def _is_requested_movie(self, movie, result):
-        self.site.browser.get(result.find('a')['href'])
+        try:
+            self.site.browser.get(result.find('a')['href'])
+        except TimeoutException:
+            time.sleep(2)
+            self.site.browser.get(result.find('a')['href'])
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')

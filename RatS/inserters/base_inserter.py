@@ -3,7 +3,8 @@ import os
 import sys
 import time
 
-from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
+    ElementNotInteractableException
 
 from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress
@@ -25,12 +26,8 @@ class Inserter:
         sys.stdout.flush()
 
         for movie in movies:
-            if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
-                self.site.browser.get(movie[self.site.site_name.lower()]['url'])
-                success = True
-            else:
-                success = self._find_movie(movie)
-            if success:
+            movie_detail_page_found = self._go_to_movie_detail_page(movie)
+            if movie_detail_page_found:
                 self._post_movie_rating(movie[source.lower()]['my_rating'])
             else:
                 self.failed_movies.append(movie)
@@ -40,6 +37,14 @@ class Inserter:
         self._print_summary(movies)
         self._handle_failed_movies(movies)
         self.site.kill_browser()
+
+    def _go_to_movie_detail_page(self, movie):
+        if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
+            self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+            success = True
+        else:
+            success = self._find_movie(movie)
+        return success
 
     def _find_movie(self, movie):
         self._search_for_movie(movie)
@@ -67,7 +72,7 @@ class Inserter:
     def _post_movie_rating(self, my_rating):
         try:
             self._click_rating(my_rating)
-        except (ElementNotVisibleException, NoSuchElementException):
+        except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException):
             time.sleep(3)
             self._click_rating(my_rating)
 

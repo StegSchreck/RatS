@@ -8,7 +8,7 @@ from RatS.sites.tmdb_site import TMDB
 from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-CSV_FILE_NAME = TIMESTAMP + '.csv'
+CSV_FILE_NAME = TIMESTAMP + '_TMDB.csv'
 
 
 class TMDBUploader(Inserter):
@@ -27,8 +27,9 @@ class TMDBUploader(Inserter):
         self.site.browser.find_element_by_xpath("//form[@name='import_csv']//input[@type='submit']").click()
         time.sleep(3)
 
-        sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded '
-                         'and will be process by the servers. You may check back later.\r\n' %
+        sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded and will be process by the servers. '
+                         'You may check your TMDB account later. '
+                         'Note, that this will NOT overwrite any existing ratings.\r\n' %
                          (self.site.site_name, len(movies)))
         sys.stdout.flush()
 
