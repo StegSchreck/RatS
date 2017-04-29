@@ -3,7 +3,7 @@ import sys
 import time
 from configparser import ConfigParser
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver import Firefox
 from selenium.webdriver import FirefoxProfile
 from xvfbwrapper import Xvfb
@@ -38,6 +38,7 @@ class Site:
         profile.set_preference("browser.download.dir", EXPORTS_FOLDER)
         profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv")
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
+        profile.set_preference("devtools.jsonview.enabled", False)
 
         self.browser = Firefox(firefox_profile=profile)
         # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
@@ -73,6 +74,9 @@ class Site:
     def kill_browser(self):
         self.browser.stop_client()
         self.browser.close()
-        self.browser.quit()
+        try:
+            self.browser.quit()
+        except WebDriverException:
+            pass
 
         self.display.stop()
