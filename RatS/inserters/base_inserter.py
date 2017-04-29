@@ -64,10 +64,10 @@ class Inserter:
 
     @staticmethod
     def _get_search_results(search_result_page):
-        pass
+        return []
 
     def _is_requested_movie(self, movie, result):
-        pass
+        return False
 
     def _post_movie_rating(self, my_rating):
         try:
