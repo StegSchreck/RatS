@@ -66,7 +66,7 @@ class Inserter:
     def _get_search_results(search_result_page):
         return []
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, result):  # pylint: disable=no-self-use
         return False
 
     def _post_movie_rating(self, my_rating):
