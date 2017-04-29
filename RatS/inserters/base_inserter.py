@@ -59,15 +59,15 @@ class Inserter:
                 return True  # Found
         return False  # Not Found
 
-    def _search_for_movie(self, movie):  # pylint: disable=abstract-method
-        raise NotImplementedError("Should have implemented this")
+    def _search_for_movie(self, movie):
+        pass
 
     @staticmethod
-    def _get_search_results(search_result_page):  # pylint: disable=abstract-method
-        raise NotImplementedError("Should have implemented this")
+    def _get_search_results(search_result_page):
+        pass
 
-    def _is_requested_movie(self, movies, result):  # pylint: disable=abstract-method
-        raise NotImplementedError("Should have implemented this")
+    def _is_requested_movie(self, movie, result):
+        pass
 
     def _post_movie_rating(self, my_rating):
         try:
@@ -76,8 +76,8 @@ class Inserter:
             time.sleep(3)
             self._click_rating(my_rating)
 
-    def _click_rating(self, my_rating):  # pylint: disable=abstract-method
-        raise NotImplementedError("Should have implemented this")
+    def _click_rating(self, my_rating):
+        pass
 
     def _print_summary(self, movies):
         success_number = len(movies) - len(self.failed_movies)

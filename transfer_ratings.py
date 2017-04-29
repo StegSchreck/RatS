@@ -84,14 +84,13 @@ def get_inserter_from_arg(param):
 
 def execute(argv):
     # PARSING DATA
-    #parser = get_parser_from_arg(argv[1])()
-    #movies = parse_data_from_source(parser)
+    parser = get_parser_from_arg(argv[1])()
+    movies = parse_data_from_source(parser)
     # FILE LOADING
-    movies = load_data_from_file('20170429083647_Trakt.json')
+    # movies = load_data_from_file(filename)
     # POSTING THE DATA
     inserter = get_inserter_from_arg(argv[2])()
-    # insert_movie_ratings(inserter, movies, type(parser.site).__name__)
-    insert_movie_ratings(inserter, movies, 'Trakt')
+    insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
 def parse_data_from_source(parser):
