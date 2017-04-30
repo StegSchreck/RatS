@@ -23,7 +23,8 @@ class TraktInserterTest(TestCase):
             self.search_result = search_result.read()
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt_tile.html'), encoding='utf8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'), encoding='utf8') as movie_details_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'),
+                  encoding='utf8') as movie_details_page:
             self.movie_details_page = movie_details_page.read()
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
