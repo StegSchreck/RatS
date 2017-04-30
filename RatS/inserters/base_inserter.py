@@ -60,14 +60,14 @@ class Inserter:
         return False  # Not Found
 
     def _search_for_movie(self, movie):
-        pass
+        raise NotImplementedError("Should have implemented this")
 
     @staticmethod
     def _get_search_results(search_result_page):
-        return []
+        raise NotImplementedError("Should have implemented this")
 
-    def _is_requested_movie(self, movie, result):  # pylint: disable=no-self-use
-        return False
+    def _is_requested_movie(self, movie, result):
+        raise NotImplementedError("Should have implemented this")
 
     def _post_movie_rating(self, my_rating):
         try:
@@ -77,7 +77,7 @@ class Inserter:
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):
-        pass
+        raise NotImplementedError("Should have implemented this")
 
     def _print_summary(self, movies):
         success_number = len(movies) - len(self.failed_movies)
