@@ -12,7 +12,7 @@ class TraktParserTest(TestCase):
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'trakt.html'), encoding='utf8') as my_ratings:
             self.my_ratings = my_ratings.read()
-        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'trakt.html'), encoding='utf8') as detail_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'), encoding='utf8') as detail_page:
             self.detail_page = detail_page.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -22,7 +22,7 @@ class TraktParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.parsers.trakt_parser.print_progress')
+    @patch('RatS.parsers.base_parser.print_progress')
     @patch('RatS.parsers.trakt_parser.TraktRatingsParser.parse_movie_details_page')
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -43,7 +43,6 @@ class TraktParserTest(TestCase):
         self.assertEqual('Arrival', parser.movies[0]['title'])
         self.assertEqual('210803', parser.movies[0]['trakt']['id'])
         self.assertEqual('https://trakt.tv/movies/arrival-2016', parser.movies[0]['trakt']['url'])
-        self.assertEqual(7, parser.movies[0]['trakt']['my_rating'])
 
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -60,8 +59,10 @@ class TraktParserTest(TestCase):
 
         parser.parse_movie_details_page(movie)
 
-        self.assertEqual(2016, movie['year'])
-        self.assertEqual('tt2543164', movie['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt2543164', movie['imdb']['url'])
-        self.assertEqual('329865', movie['tmdb']['id'])
-        self.assertEqual('https://www.themoviedb.org/movie/329865', movie['tmdb']['url'])
+        # Fight Club
+        self.assertEqual(1999, movie['year'])
+        self.assertEqual('tt0137523', movie['imdb']['id'])
+        self.assertEqual('http://www.imdb.com/title/tt0137523', movie['imdb']['url'])
+        self.assertEqual('550', movie['tmdb']['id'])
+        self.assertEqual('https://www.themoviedb.org/movie/550', movie['tmdb']['url'])
+        self.assertEqual(10, movie['trakt']['my_rating'])

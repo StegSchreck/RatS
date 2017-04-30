@@ -26,8 +26,8 @@ class Inserter:
         sys.stdout.flush()
 
         for movie in movies:
-            movie_detail_page_found = self._go_to_movie_detail_page(movie)
-            if movie_detail_page_found:
+            movie_details_page_found = self._go_to_movie_details_page(movie)
+            if movie_details_page_found:
                 self._post_movie_rating(movie[source.lower()]['my_rating'])
             else:
                 self.failed_movies.append(movie)
@@ -38,7 +38,7 @@ class Inserter:
         self._handle_failed_movies(movies)
         self.site.kill_browser()
 
-    def _go_to_movie_detail_page(self, movie):
+    def _go_to_movie_details_page(self, movie):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
             self.site.browser.get(movie[self.site.site_name.lower()]['url'])
             success = True
@@ -60,14 +60,14 @@ class Inserter:
         return False  # Not Found
 
     def _search_for_movie(self, movie):
-        raise NotImplementedError("Should have implemented this")
+        raise NotImplementedError("This is not the implementation you are looking for.")
 
     @staticmethod
     def _get_search_results(search_result_page):
-        raise NotImplementedError("Should have implemented this")
+        raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _is_requested_movie(self, movie, result):
-        raise NotImplementedError("Should have implemented this")
+        raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _post_movie_rating(self, my_rating):
         try:
@@ -77,7 +77,7 @@ class Inserter:
             self._click_rating(my_rating)
 
     def _click_rating(self, my_rating):
-        raise NotImplementedError("Should have implemented this")
+        raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _print_summary(self, movies):
         success_number = len(movies) - len(self.failed_movies)

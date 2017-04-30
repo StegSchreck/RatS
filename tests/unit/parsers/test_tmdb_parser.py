@@ -12,7 +12,7 @@ class TMDBParserTest(TestCase):
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'tmdb.html'), encoding='utf8') as my_ratings:
             self.my_ratings = my_ratings.read()
-        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'tmdb.html'), encoding='utf8') as detail_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'tmdb.html'), encoding='utf8') as detail_page:
             self.detail_page = detail_page.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -22,7 +22,7 @@ class TMDBParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.parsers.tmdb_parser.print_progress')
+    @patch('RatS.parsers.base_parser.print_progress')
     @patch('RatS.parsers.tmdb_parser.TMDBRatingsParser.parse_movie_details_page')
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')

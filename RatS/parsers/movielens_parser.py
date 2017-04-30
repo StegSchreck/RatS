@@ -21,10 +21,13 @@ class MovielensRatingsParser(Parser):
 
         self._parse_ratings_json(ratings)
         for i in range(2, pages_count + 1):
-            self.site.browser.get('%s&page=%i' % (self.site.MY_RATINGS_URL, i))
+            self.site.browser.get(self._get_ratings_page(i))
             json_data = self.site.get_json_from_html()
             ratings = json_data['searchResults']
             self._parse_ratings_json(ratings)
+
+    def _get_ratings_page(self, i):
+        return '%s&page=%i' % (self.site.MY_RATINGS_URL, i)
 
     def _parse_ratings_json(self, ratings_json):
         for movie_json in ratings_json:

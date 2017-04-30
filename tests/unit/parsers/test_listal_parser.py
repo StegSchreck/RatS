@@ -7,12 +7,12 @@ from RatS.parsers.listal_parser import ListalRatingsParser
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
 
-class TraktParserTest(TestCase):
+class ListalParserTest(TestCase):
 
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'listal.html'), encoding='utf8') as my_ratings:
             self.my_ratings = my_ratings.read()
-        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'listal.html'), encoding='utf8') as detail_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'listal.html'), encoding='utf8') as detail_page:
             self.detail_page = detail_page.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -22,7 +22,7 @@ class TraktParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.parsers.listal_parser.print_progress')
+    @patch('RatS.parsers.base_parser.print_progress')
     @patch('RatS.parsers.listal_parser.ListalRatingsParser.parse_movie_details_page')
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -43,7 +43,6 @@ class TraktParserTest(TestCase):
         self.assertEqual('Fight Club', parser.movies[0]['title'])
         self.assertEqual('1596', parser.movies[0]['listal']['id'])
         self.assertEqual('http://www.listal.com/movie/fight-club', parser.movies[0]['listal']['url'])
-        self.assertEqual(10, parser.movies[0]['listal']['my_rating'])
 
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
@@ -61,5 +60,6 @@ class TraktParserTest(TestCase):
         parser.parse_movie_details_page(movie)
 
         self.assertEqual(1999, movie['year'])
+        self.assertEqual(10, movie['listal']['my_rating'])
         self.assertEqual('tt0137523', movie['imdb']['id'])
         self.assertEqual('http://www.imdb.com/title/tt0137523', movie['imdb']['url'])

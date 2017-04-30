@@ -23,9 +23,9 @@ class CritickerInserterTest(TestCase):
             self.search_result = search_result.read()
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'criticker_tile.html'), encoding='utf8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'movie_detail_page', 'criticker.html'),
-                  encoding='utf8') as movie_detail_page:
-            self.movie_detail_page = movie_detail_page.read()
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'criticker.html'),
+                  encoding='utf8') as movie_details_page:
+            self.movie_details_page = movie_details_page.read()
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -65,7 +65,7 @@ class CritickerInserterTest(TestCase):
         inserter.site.site_name = 'criticker'
         inserter.failed_movies = []
 
-        result = inserter._compare_external_links(self.movie_detail_page, self.movie, 'imdb.com', 'imdb')  # pylint: disable=protected-access
+        result = inserter._compare_external_links(self.movie_details_page, self.movie, 'imdb.com', 'imdb')  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
@@ -87,7 +87,7 @@ class CritickerInserterTest(TestCase):
         movie2['imdb']['url'] = 'http://www.imdb.com/title/tt2543164'
         movie2['imdb']['my_rating'] = 7
 
-        result = inserter._compare_external_links(self.movie_detail_page, movie2, 'imdb.com', 'imdb')  # pylint: disable=protected-access
+        result = inserter._compare_external_links(self.movie_details_page, movie2, 'imdb.com', 'imdb')  # pylint: disable=protected-access
 
         self.assertFalse(result)
 
