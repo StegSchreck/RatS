@@ -8,6 +8,7 @@ RatS/inserters/__init__.py
 RatS/inserters/base_inserter.py
 RatS/inserters/criticker_inserter.py
 RatS/inserters/imdb_inserter.py
+RatS/inserters/letterboxd_uploader.py
 RatS/inserters/listal_inserter.py
 RatS/inserters/movielens_inserter.py
 RatS/inserters/tmdb_uploader.py
@@ -24,6 +25,7 @@ RatS/sites/__init__.py
 RatS/sites/base_site.py
 RatS/sites/criticker_site.py
 RatS/sites/imdb_site.py
+RatS/sites/letterboxd_site.py
 RatS/sites/listal_site.py
 RatS/sites/movielens_site.py
 RatS/sites/tmdb_site.py
@@ -35,6 +37,7 @@ tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_criticker_site.py
 tests/functional/sites/test_imdb_site.py
+tests/functional/sites/test_letterboxd_site.py
 tests/functional/sites/test_listal_site.py
 tests/functional/sites/test_movielens_site.py
 tests/functional/sites/test_tmdb_site.py
@@ -44,6 +47,7 @@ tests/unit/inserters/__init__.py
 tests/unit/inserters/test_base_inserter.py
 tests/unit/inserters/test_criticker_inserter.py
 tests/unit/inserters/test_imdb_inserter.py
+tests/unit/inserters/test_letterboxd_uploader.py
 tests/unit/inserters/test_listal_inserter.py
 tests/unit/inserters/test_movielens_inserter.py
 tests/unit/inserters/test_tmdb_uploader.py

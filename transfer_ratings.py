@@ -6,6 +6,7 @@ import time
 
 from RatS.inserters.criticker_inserter import CritickerInserter
 from RatS.inserters.imdb_inserter import IMDBInserter
+from RatS.inserters.letterboxd_uploader import LetterboxdUploader
 from RatS.inserters.listal_inserter import ListalInserter
 from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.inserters.tmdb_uploader import TMDBUploader
@@ -36,6 +37,7 @@ INSERTERS = {
     'TMDB': TMDBUploader,
     'LISTAL': ListalInserter,
     'CRITICKER': CritickerInserter,
+    'LETTERBOXD': LetterboxdUploader,
 }
 
 

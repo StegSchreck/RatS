@@ -28,7 +28,7 @@ class CritickerParserTest(TestCase):
         parser = CritickerRatingsParser()
         parser.movies = []
         parser.site = site_mock
-        parser.site.site_name = 'criticker'
+        parser.site.site_name = 'Criticker'
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
 

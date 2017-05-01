@@ -48,10 +48,10 @@ class ListalInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], 'imdb')
+        inserter.insert([self.movie], 'IMDB')
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -63,7 +63,7 @@ class ListalInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
 
         result = inserter._compare_external_links(self.movie_details_page, self.movie, 'imdb.com', 'imdb')  # pylint: disable=protected-access
@@ -77,7 +77,7 @@ class ListalInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
 
         movie2 = dict()
@@ -101,7 +101,7 @@ class ListalInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
         compare_mock.return_value = True
 
@@ -119,7 +119,7 @@ class ListalInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
         compare_mock.return_value = True
         equality_mock.return_value = True
@@ -143,7 +143,7 @@ class ListalInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = ListalInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'listal'
+        inserter.site.site_name = 'Listal'
         inserter.failed_movies = []
         compare_mock.return_value = False
         tiles_mock.return_value = self.search_result_tile_list

@@ -47,10 +47,10 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], 'imdb')
+        inserter.insert([self.movie], 'IMDB')
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -62,7 +62,7 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
 
         result = inserter._compare_external_links(self.movie_details_page, self.movie, 'imdb.com', 'imdb')  # pylint: disable=protected-access
@@ -76,7 +76,7 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
 
         movie2 = dict()
@@ -98,7 +98,7 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
 
         result = inserter._compare_external_links(self.movie_details_page, self.movie, 'themoviedb.org', 'tmdb')  # pylint: disable=protected-access
@@ -112,7 +112,7 @@ class TraktInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
 
         movie2 = dict()
@@ -136,7 +136,7 @@ class TraktInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
         compare_mock.return_value = True
 
@@ -153,7 +153,7 @@ class TraktInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
         compare_mock.return_value = True
 
@@ -178,7 +178,7 @@ class TraktInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
         compare_mock.return_value = True
 
@@ -201,7 +201,7 @@ class TraktInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = TraktInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'trakt'
+        inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
         compare_mock.return_value = False
         tiles_mock.return_value = self.search_result_tile_list

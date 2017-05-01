@@ -55,6 +55,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * TMDB (The Movie Database)
 * Listal
 * Criticker
+* Letterboxd
 
 ### Trying again with former export data
 

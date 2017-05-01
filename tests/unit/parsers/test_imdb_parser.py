@@ -25,7 +25,7 @@ class IMDBParserTest(TestCase):
         parser = IMDBRatingsParser()
         parser.movies = []
         parser.site = site_mock
-        parser.site.site_name = 'imdb'
+        parser.site.site_name = 'IMDB'
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_imdb.csv'
@@ -42,7 +42,7 @@ class IMDBParserTest(TestCase):
         parser = IMDBRatingsParser()
         parser.movies = []
         parser.site = site_mock
-        parser.site.site_name = 'imdb'
+        parser.site.site_name = 'IMDB'
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_imdb.csv'

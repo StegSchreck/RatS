@@ -43,10 +43,10 @@ class IMDBInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], 'trakt')
+        inserter.insert([self.movie], 'Trakt')
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -58,7 +58,7 @@ class IMDBInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, 'html.parser')
         search_result = search_result_page.find(class_='findList').find_all(class_='findResult')[0]
@@ -74,7 +74,7 @@ class IMDBInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, 'html.parser')
         search_result = search_result_page.find(class_='findList').find_all(class_='findResult')[0]
@@ -94,7 +94,7 @@ class IMDBInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, 'html.parser')
         search_result = search_result_page.find(class_='findList').find_all(class_='findResult')[0]
@@ -115,7 +115,7 @@ class IMDBInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
 
         result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
@@ -130,7 +130,7 @@ class IMDBInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = IMDBInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'imdb'
+        inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
 
         movie2 = dict()

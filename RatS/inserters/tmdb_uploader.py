@@ -8,7 +8,7 @@ from RatS.sites.tmdb_site import TMDB
 from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-CSV_FILE_NAME = TIMESTAMP + '_TMDB.csv'
+CSV_FILE_NAME = TIMESTAMP + '_for_TMDB.csv'
 
 
 class TMDBUploader(Inserter):

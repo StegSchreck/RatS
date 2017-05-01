@@ -42,10 +42,10 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], 'trakt')
+        inserter.insert([self.movie], 'Trakt')
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(json_mock.called)
@@ -58,7 +58,7 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         movie_to_test = self.search_result_json['searchResults'][0]['movie']
 
@@ -73,7 +73,7 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         movie_to_test = self.search_result_json['searchResults'][0]['movie']
 
@@ -95,7 +95,7 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         movie_to_test = self.search_result_json['searchResults'][0]['movie']
 
@@ -118,7 +118,7 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         movie_to_test = self.search_result_json['searchResults'][0]['movie']
 
@@ -137,7 +137,7 @@ class MovielensInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
-        inserter.site.site_name = 'movielens'
+        inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         movie_to_test = self.search_result_json['searchResults'][0]['movie']
 

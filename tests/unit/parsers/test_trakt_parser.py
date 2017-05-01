@@ -32,7 +32,7 @@ class TraktParserTest(TestCase):
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = site_mock
-        parser.site.site_name = 'trakt'
+        parser.site.site_name = 'Trakt'
         parser.site.browser = browser_mock
 
         parser.parse()
@@ -52,7 +52,7 @@ class TraktParserTest(TestCase):
         parser = TraktRatingsParser()
         parser.movies = []
         parser.site = site_mock
-        parser.site.site_name = 'trakt'
+        parser.site.site_name = 'Trakt'
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
         movie = dict()
