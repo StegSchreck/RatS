@@ -18,14 +18,14 @@ class IMDBInserter(Inserter):
         search_results_list = search_result_page.find(class_='findList')
         if search_results_list:  # found something
             search_results = search_results_list.find_all(class_='findResult')
-            for result in search_results:
-                if self._is_requested_movie(movie, result):
-                    return "http://www.imdb.com" + result.find('a')['href']
+            for search_result in search_results:
+                if self._is_requested_movie(movie, search_result):
+                    return "http://www.imdb.com" + search_result.find('a')['href']
             return None
         return None
 
-    def _is_requested_movie(self, movie, result):
-        result_annotation = result.find(class_='result_text').get_text()
+    def _is_requested_movie(self, movie, search_result):
+        result_annotation = search_result.find(class_='result_text').get_text()
         result_year_list = re.findall(r'\((\d{4})\)', result_annotation)
         if len(result_year_list) > 0:
             result_year = result_year_list[-1]

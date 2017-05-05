@@ -20,14 +20,14 @@ class ListalInserter(Inserter):
         search_result_page = BeautifulSoup(search_result_page, 'html.parser')
         return search_result_page.find_all('div', class_='itemcell')
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, search_result):
         self.site.browser.set_page_load_timeout(10)
         try:
-            self.site.browser.get(result.find('a')['href'])
+            self.site.browser.get(search_result.find('a')['href'])
         except TimeoutException:
             self.site.browser.refresh()
             time.sleep(2)
-            self.site.browser.get(result.find('a')['href'])
+            self.site.browser.get(search_result.find('a')['href'])
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')

@@ -19,15 +19,15 @@ class CritickerInserter(Inserter):
         search_result_page = BeautifulSoup(search_result_page, 'html.parser')
         return search_result_page.find_all('div', class_='sr_result')
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, search_result):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != '':
             return movie[self.site.site_name.lower()]['id'] == \
-                   result.find(_class='sr_minireview').find('textarea')['film']
+                   search_result.find(_class='sr_minireview').find('textarea')['film']
         else:
-            return self._check_movie_details(movie, result)
+            return self._check_movie_details(movie, search_result)
 
-    def _check_movie_details(self, movie, tile):
-        movie_url = tile.find(class_='sr_result_name').find('a')['href']
+    def _check_movie_details(self, movie, search_result):
+        movie_url = search_result.find(class_='sr_result_name').find('a')['href']
         self.site.browser.get(movie_url)
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':

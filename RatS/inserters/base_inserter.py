@@ -54,8 +54,8 @@ class Inserter:
         except (NoSuchElementException, KeyError):
             time.sleep(3)
             search_results = self._get_search_results(self.site.browser.page_source)
-        for result in search_results:
-            if self._is_requested_movie(movie, result):
+        for search_result in search_results:
+            if self._is_requested_movie(movie, search_result):
                 return True  # Found
         return False  # Not Found
 
@@ -66,7 +66,7 @@ class Inserter:
     def _get_search_results(search_result_page):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, search_result):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _post_movie_rating(self, my_rating):

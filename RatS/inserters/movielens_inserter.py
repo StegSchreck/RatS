@@ -46,15 +46,15 @@ class MovielensInserter(Inserter):
     def _search_for_movie(self, movie):
         self.site.browser.get('https://movielens.org/api/movies/explore?q=%s' % movie['title'])
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, search_result):
         if 'movielens' in movie and movie['movielens']['id'] != '':
-            return str(movie['movielens']['id']) == str(result['movieId'])
+            return str(movie['movielens']['id']) == str(search_result['movieId'])
         elif 'imdb' in movie and movie['imdb']['id'] != '':
-            return str(movie['imdb']['id'].replace('tt', '')) == str(result['imdbMovieId'].replace('tt', ''))
+            return str(movie['imdb']['id'].replace('tt', '')) == str(search_result['imdbMovieId'].replace('tt', ''))
         elif 'tmdb' in movie and movie['tmdb']['id'] != '':
-            return str(movie['tmdb']['id']) == str(result['tmdbMovieId'])
+            return str(movie['tmdb']['id']) == str(search_result['tmdbMovieId'])
         else:
-            return int(movie['year']) == int(result['releaseYear'])
+            return int(movie['year']) == int(search_result['releaseYear'])
 
     def _rate_movie(self, entry, my_rating):
         movie_page_url = 'https://movielens.org/movies/%s' % str(entry['movieId'])

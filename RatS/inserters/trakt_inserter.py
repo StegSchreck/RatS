@@ -18,14 +18,14 @@ class TraktInserter(Inserter):
         search_result_page = BeautifulSoup(search_result_page, 'html.parser')
         return search_result_page.find_all('div', attrs={'data-type': 'movie'})
 
-    def _is_requested_movie(self, movie, result):
+    def _is_requested_movie(self, movie, search_result):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != '':
-            return movie[self.site.site_name.lower()]['id'] == result['data-movie-id']
+            return movie[self.site.site_name.lower()]['id'] == search_result['data-movie-id']
         else:
-            return self._check_movie_details(movie, result)
+            return self._check_movie_details(movie, search_result)
 
-    def _check_movie_details(self, movie, tile):
-        self.site.browser.get('https://trakt.tv' + tile['data-url'])
+    def _check_movie_details(self, movie, search_result):
+        self.site.browser.get('https://trakt.tv' + search_result['data-url'])
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
