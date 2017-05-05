@@ -23,8 +23,8 @@ class LetterboxdParserTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.letterboxd_parser.Letterboxd')
-    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock,
-                    parsed_filename_mock, zip_extraction_mock):  # pylint: disable=too-many-arguments
+    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock,  # pylint: disable=too-many-arguments
+                    parsed_filename_mock, zip_extraction_mock):
         parser = LetterboxdRatingsParser()
         parser.movies = []
         parser.site = site_mock
