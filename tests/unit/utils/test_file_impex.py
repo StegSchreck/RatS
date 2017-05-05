@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import time
+from shutil import copyfile
 from unittest import TestCase
 
 from RatS.utils import file_impex
@@ -88,7 +89,7 @@ class FileHandlerTest(TestCase):
         self.assertEqual(2, len(parsed_movies))
         self.assertEqual(dict, type(parsed_movies[0]))
         self.assertEqual('Arrival', parsed_movies[0]['title'])
-        self.assertEqual('2016', parsed_movies[0]['year'])
+        self.assertEqual(2016, parsed_movies[0]['year'])
         self.assertEqual('tt2543164', parsed_movies[0]['imdb']['id'])
         self.assertEqual('http://www.imdb.com/title/tt2543164/', parsed_movies[0]['imdb']['url'])
         self.assertEqual(8, parsed_movies[0]['imdb']['my_rating'])
@@ -124,9 +125,12 @@ class FileHandlerTest(TestCase):
 
         movies = [self.movie, movie2]
         filename = os.path.join(os.path.join(TESTDATA_PATH, 'exports'), 'TEST_multiple_movies.csv')
-        file_impex.save_movies_to_csv(movies, os.path.join(TESTDATA_PATH, 'exports'),
-                                      'TEST_multiple_movies.csv',
-                                      'trakt')
+        file_impex.save_movies_to_csv(
+            movies,
+            os.path.join(TESTDATA_PATH, 'exports'),
+            'TEST_multiple_movies.csv',
+            'trakt'
+        )
         with open(filename) as file:
             reader = csv.reader(file, delimiter=',')
             next(reader)  # csv header
@@ -143,3 +147,20 @@ class FileHandlerTest(TestCase):
             self.assertEqual(movie2['imdb']['url'], row2[15])
             self.assertEqual(movie2['trakt']['my_rating'], int(row2[8]))
         os.remove(filename)
+
+    def test_extract_file_from_archive(self):
+        os.makedirs(TESTDATA_NEW_PATH)
+        test_zip_archive = os.path.join(TESTDATA_NEW_PATH, 'letterboxd.zip')
+        copyfile(os.path.join(TESTDATA_PATH, 'my_ratings', 'letterboxd.zip'), test_zip_archive)
+        extracted_file = os.path.join(TESTDATA_NEW_PATH, 'ratings.csv')
+
+        self.assertTrue(os.path.isfile(test_zip_archive))
+        self.assertFalse(os.path.isfile(extracted_file))
+
+        file_impex.extract_file_from_archive(test_zip_archive, 'ratings.csv', TESTDATA_NEW_PATH)
+
+        self.assertFalse(os.path.isfile(test_zip_archive))
+        self.assertTrue(os.path.isfile(extracted_file))
+
+        os.remove(extracted_file)
+        os.removedirs(TESTDATA_NEW_PATH)

@@ -10,6 +10,12 @@
 
 This project serves for parsing your ratings from one movie tracking / rating website to another.
 
+The goal of this project is to have a universal tool which can transfer your ratings from any site to another without 
+the need of any manual steps like configuring an API access or whatever. 
+Just configure you credentials (see steps below), start the tool and relax.
+
+This also works if your lists are marked as private, as this tool uses a browser to login and get the content.
+
 ## How do I use this?
 
 This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
@@ -44,6 +50,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * TMDB (The Movie Database)
 * Listal
 * Criticker
+* Letterboxd
 
 <a name="inserters"></a>
 

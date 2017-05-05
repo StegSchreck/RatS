@@ -17,6 +17,7 @@ RatS/parsers/__init__.py
 RatS/parsers/base_parser.py
 RatS/parsers/criticker_parser.py
 RatS/parsers/imdb_parser.py
+RatS/parsers/letterboxd_parser.py
 RatS/parsers/listal_parser.py
 RatS/parsers/movielens_parser.py
 RatS/parsers/tmdb_parser.py
@@ -56,6 +57,7 @@ tests/unit/parsers/__init__.py
 tests/unit/parsers/test_base_parser.py
 tests/unit/parsers/test_criticker_parser.py
 tests/unit/parsers/test_imdb_parser.py
+tests/unit/parsers/test_letterboxd_parser.py
 tests/unit/parsers/test_listal_parser.py
 tests/unit/parsers/test_movielens_parser.py
 tests/unit/parsers/test_tmdb_parser.py

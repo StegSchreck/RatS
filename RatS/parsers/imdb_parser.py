@@ -27,7 +27,7 @@ class IMDBRatingsParser(Parser):
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
         sys.stdout.flush()
-        self.site.browser.set_page_load_timeout(2)
+        self.site.browser.set_page_load_timeout(5)
         time.sleep(1)
         try:
             self.site.browser.get('http://www.imdb.com/list/export?list_id=ratings&author_id=%s' % self.site.USERID)

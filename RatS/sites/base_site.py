@@ -36,7 +36,7 @@ class Site:
         profile.set_preference("browser.download.folderList", 2)
         profile.set_preference("browser.download.manager.showWhenStarting", False)
         profile.set_preference("browser.download.dir", EXPORTS_FOLDER)
-        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv")
+        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv, application/zip")
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
         profile.set_preference("devtools.jsonview.enabled", False)
 

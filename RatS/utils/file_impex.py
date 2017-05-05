@@ -1,9 +1,9 @@
 import csv
 import json
 import os
-import time
-
 import sys
+import time
+import zipfile
 
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 CSV_HEADER = '"position","const","created","modified","description","Title","Title type","Directors","You rated","IMDb Rating","Runtime (mins)","Year","Genres","Num. Votes","Release Date (month/day/year)","URL"\n'  # pylint: disable=line-too-long
@@ -45,7 +45,7 @@ def load_movies_from_csv(filepath):
 def convert_csv_row_to_movie(row):
     movie = dict()
     movie['title'] = row[5]
-    movie['year'] = row[11]
+    movie['year'] = int(row[11])
     movie['imdb'] = dict()
     movie['imdb']['id'] = row[1]
     movie['imdb']['url'] = row[15]
@@ -82,3 +82,12 @@ def convert_movie_to_csv(movies, index, rating_source):
                 ',' + \
                 movies[index]['imdb']['url']
     return movie_csv
+
+
+def extract_file_from_archive(path_to_zip_file, filename_to_extract, directory_to_extract_to):
+    if not os.path.exists(directory_to_extract_to):
+        os.makedirs(directory_to_extract_to)
+    zip_ref = zipfile.ZipFile(path_to_zip_file, 'r')
+    zip_ref.extract(filename_to_extract, directory_to_extract_to)
+    zip_ref.close()
+    os.remove(path_to_zip_file)
