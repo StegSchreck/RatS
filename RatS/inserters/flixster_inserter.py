@@ -57,7 +57,7 @@ class FlixsterInserter(Inserter):
     def _click_rating(self, my_rating):
         print(self.site.browser.page_source)
         movie_id = self.site.browser.find_element_by_xpath("//meta[@name='movieID']").get_attribute('content')
-        converted_rating = str(float(my_rating)/2)
+        converted_rating = str(float(my_rating) / 2)
 
         rating_script = """
             $.post(
