@@ -5,6 +5,7 @@ import sys
 import time
 
 from RatS.inserters.criticker_inserter import CritickerInserter
+from RatS.inserters.flixster_inserter import FlixsterInserter
 from RatS.inserters.imdb_inserter import IMDBInserter
 from RatS.inserters.letterboxd_uploader import LetterboxdUploader
 from RatS.inserters.listal_inserter import ListalInserter
@@ -24,22 +25,23 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
 PARSERS = {
-    'TRAKT': TraktRatingsParser,
+    'CRITICKER': CritickerRatingsParser,
     'IMDB': IMDBRatingsParser,
+    'LETTERBOXD': LetterboxdRatingsParser,
+    'LISTAL': ListalRatingsParser,
     'MOVIELENS': MovielensRatingsParser,
     'TMDB': TMDBRatingsParser,
-    'LISTAL': ListalRatingsParser,
-    'CRITICKER': CritickerRatingsParser,
-    'LETTERBOXD': LetterboxdRatingsParser,
+    'TRAKT': TraktRatingsParser,
 }
 INSERTERS = {
-    'IMDB': IMDBInserter,
-    'MOVIELENS': MovielensInserter,
-    'TRAKT': TraktInserter,
-    'TMDB': TMDBUploader,
-    'LISTAL': ListalInserter,
     'CRITICKER': CritickerInserter,
+    'FLIXSTER': FlixsterInserter,
+    'IMDB': IMDBInserter,
     'LETTERBOXD': LetterboxdUploader,
+    'LISTAL': ListalInserter,
+    'MOVIELENS': MovielensInserter,
+    'TMDB': TMDBUploader,
+    'TRAKT': TraktInserter,
 }
 
 

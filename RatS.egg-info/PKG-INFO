@@ -701,7 +701,7 @@ Description: <p align="center">
             This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
         
             This script will take some minutes. Relax. You can follow the progress in console output.
-        1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a json, so you can easily try them again (see below).
+        1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
         
         ### Command line call parameters
         
@@ -712,25 +712,26 @@ Description: <p align="center">
         
         #### Currently Available Parsers
         
-        * Trakt
+        * Criticker
         * IMDB (with IMDB account)
+        * Letterboxd
+        * Listal
         * Movielens
         * TMDB (The Movie Database)
-        * Listal
-        * Criticker
-        * Letterboxd
+        * Trakt
         
         <a name="inserters"></a>
         
         #### Currently Available Inserters
         
-        * Movielens
-        * IMDB (with IMDB account)
-        * Trakt
-        * TMDB (The Movie Database)
-        * Listal
         * Criticker
+        * Flixster
+        * IMDB (with IMDB account)
         * Letterboxd
+        * Listal
+        * Movielens
+        * TMDB (The Movie Database)
+        * Trakt
         
         ### Trying again with former export data
         

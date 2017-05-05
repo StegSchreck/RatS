@@ -19,8 +19,8 @@ class TraktInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt.html'), encoding='utf8') as search_result:
-            self.search_result = search_result.read()
+        with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt.html'), encoding='utf8') as search_results:
+            self.search_results = search_results.read()
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'trakt_tile.html'), encoding='utf8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
         with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'),
@@ -133,7 +133,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
-        browser_mock.page_source = self.search_result
+        browser_mock.page_source = self.search_results
         inserter = TraktInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
@@ -150,7 +150,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_tmdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
-        browser_mock.page_source = self.search_result
+        browser_mock.page_source = self.search_results
         inserter = TraktInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
@@ -175,7 +175,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
-        browser_mock.page_source = self.search_result
+        browser_mock.page_source = self.search_results
         inserter = TraktInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
@@ -198,7 +198,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, compare_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
-        browser_mock.page_source = self.search_result
+        browser_mock.page_source = self.search_results
         inserter = TraktInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'

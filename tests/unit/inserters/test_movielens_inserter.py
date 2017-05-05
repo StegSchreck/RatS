@@ -22,8 +22,8 @@ class MovielensInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'movielens.json'), encoding='utf8') as search_result:
-            self.search_result_json = json.loads(search_result.read())['data']
+        with open(os.path.join(TESTDATA_PATH, 'search_result', 'movielens.json'), encoding='utf8') as search_results:
+            self.search_results_json = json.loads(search_results.read())['data']
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -38,7 +38,7 @@ class MovielensInserterTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, json_mock, progress_print_mock):  # pylint: disable=too-many-arguments
-        json_mock.return_value = self.search_result_json
+        json_mock.return_value = self.search_results_json
         site_mock.browser = browser_mock
         inserter = MovielensInserter()
         inserter.site = site_mock
@@ -60,7 +60,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['searchResults'][0]['movie']
 
         result = inserter._is_requested_movie(self.movie, movie_to_test)  # pylint: disable=protected-access
 
@@ -75,7 +75,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -97,7 +97,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -120,7 +120,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -139,7 +139,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_result_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Arrival'
