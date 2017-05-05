@@ -35,10 +35,7 @@ class FlixsterInserter(Inserter):
     def _search_for_movie(self, movie):
         self.site.browser.get('https://www.flixster.com/search/?search=%s' % movie['title'])
         time.sleep(1)
-        if '/movie/' in self.site.browser.current_url:  # already on movie_details_page
-            return True
-        else:
-            return False
+        return '/movie/' in self.site.browser.current_url  # already on movie_details_page
 
     @staticmethod
     def _get_search_results(search_result_page):
