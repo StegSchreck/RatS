@@ -60,7 +60,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_results_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['data']['searchResults'][0]['movie']
 
         result = inserter._is_requested_movie(self.movie, movie_to_test)  # pylint: disable=protected-access
 
@@ -75,7 +75,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_results_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['data']['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -97,7 +97,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_results_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['data']['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -120,7 +120,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_results_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['data']['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Fight Club'
@@ -139,7 +139,7 @@ class MovielensInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
-        movie_to_test = self.search_results_json['searchResults'][0]['movie']
+        movie_to_test = self.search_results_json['data']['searchResults'][0]['movie']
 
         movie2 = dict()
         movie2['title'] = 'Arrival'
