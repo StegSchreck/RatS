@@ -17,7 +17,7 @@ class FlixsterInserter(Inserter):
 
         if directly_found:
             return True
-        elif 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text:
+        elif self._is_empty_search_result():
             return False  # no search results
 
         self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
@@ -31,6 +31,9 @@ class FlixsterInserter(Inserter):
             if self._is_requested_movie(movie, search_result):
                 return True  # Found
         return False  # Not Found in search results
+
+    def _is_empty_search_result(self):
+        return 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
         self.site.browser.get('https://www.flixster.com/search/?search=%s' % movie['title'])

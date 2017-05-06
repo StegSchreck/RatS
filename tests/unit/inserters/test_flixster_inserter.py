@@ -71,6 +71,27 @@ class FlixsterInserterTest(TestCase):
         movie2 = dict()
         movie2['title'] = 'Fight Club'
         movie2['year'] = 1999
+        movie2['flixster'] = dict()
+        movie2['flixster']['url'] = 'https://www.flixster.com/movie/fight-club/'
+
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.inserters.flixster_inserter.Flixster')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_success_by_own_url(self, browser_mock, base_init_mock, site_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_results
+        inserter = FlixsterInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'Flixster'
+        inserter.failed_movies = []
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1999
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -98,6 +119,50 @@ class FlixsterInserterTest(TestCase):
         movie2['imdb']['id'] = 'tt0137523'
         movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
         movie2['imdb']['my_rating'] = 9
+
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
+
+        self.assertFalse(result)
+
+    @patch('RatS.inserters.flixster_inserter.FlixsterInserter._search_for_movie')
+    @patch('RatS.inserters.flixster_inserter.Flixster')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_success_directly_at_search(self, browser_mock, base_init_mock, site_mock, search_mock):
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_results
+        inserter = FlixsterInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'Flixster'
+        inserter.failed_movies = []
+        search_mock.return_value = True
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1999
+
+        result = inserter._find_movie(movie2)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.inserters.flixster_inserter.FlixsterInserter._is_empty_search_result')
+    @patch('RatS.inserters.flixster_inserter.FlixsterInserter._search_for_movie')
+    @patch('RatS.inserters.flixster_inserter.Flixster')
+    @patch('RatS.inserters.base_inserter.Inserter.__init__')
+    @patch('RatS.sites.base_site.Firefox')
+    def test_find_movie_fail_at_search(self, browser_mock, base_init_mock, site_mock, search_mock, empty_result_mock):  # pylint: disable=too-many-arguments
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.search_results
+        inserter = FlixsterInserter()
+        inserter.site = site_mock
+        inserter.site.site_name = 'Flixster'
+        inserter.failed_movies = []
+        search_mock.return_value = False
+        empty_result_mock.return_value = True
+
+        movie2 = dict()
+        movie2['title'] = 'Not A Movie'
+        movie2['year'] = 1999
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
