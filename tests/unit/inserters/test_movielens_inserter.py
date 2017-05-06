@@ -23,7 +23,7 @@ class MovielensInserterTest(TestCase):
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'movielens.json'), encoding='utf8') as search_results:
-            self.search_results_json = json.loads(search_results.read())['data']
+            self.search_results_json = json.loads(search_results.read())
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
