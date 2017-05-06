@@ -51,7 +51,10 @@ class FlixsterInserter(Inserter):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
             success = movie[self.site.site_name.lower()]['url'] == movie_url
         else:
-            success = movie['year'] == int(re.findall(r'\((\d{4})\)', movie_heading.get_text())[-1])
+            try:
+                success = movie['year'] == int(re.findall(r'\((\d{4})\)', movie_heading.get_text())[-1])
+            except IndexError:
+                return False
         if success:
             self.site.browser.get(movie_url)
             time.sleep(1)
