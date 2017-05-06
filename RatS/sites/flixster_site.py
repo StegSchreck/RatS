@@ -8,7 +8,7 @@ class Flixster(Site):
         self.LOGIN_PASSWORD_SELECTOR = "//form[@name='login']//input[@name='authPass']"
         self.LOGIN_BUTTON_SELECTOR = "//form[@name='login']//button[@type='submit']"
         super(Flixster, self).__init__()
-        self.MY_RATINGS_URL = 'https://www.flixster.com/mymovies/ratings/'
+        self.MY_RATINGS_URL = 'https://www.flixster.com/user/current/ratings/markup/?pagesize=100'
 
         account_link = self.browser.find_element_by_id('profileDropdown').find_element_by_tag_name('a')\
             .get_attribute('href')

@@ -12,7 +12,7 @@ class MovielensParserTest(TestCase):
 
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.json'), encoding='utf8') as my_ratings:
-            self.my_ratings = json.loads(my_ratings.read())['data']
+            self.my_ratings = json.loads(my_ratings.read())
 
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')

@@ -13,6 +13,7 @@ from RatS.inserters.movielens_inserter import MovielensInserter
 from RatS.inserters.tmdb_uploader import TMDBUploader
 from RatS.inserters.trakt_inserter import TraktInserter
 from RatS.parsers.criticker_parser import CritickerRatingsParser
+from RatS.parsers.flixster_parser import FlixsterRatingsParser
 from RatS.parsers.imdb_parser import IMDBRatingsParser
 from RatS.parsers.letterboxd_parser import LetterboxdRatingsParser
 from RatS.parsers.listal_parser import ListalRatingsParser
@@ -26,6 +27,7 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS',
 
 PARSERS = {
     'CRITICKER': CritickerRatingsParser,
+    'FLIXSTER': FlixsterRatingsParser,
     'IMDB': IMDBRatingsParser,
     'LETTERBOXD': LetterboxdRatingsParser,
     'LISTAL': ListalRatingsParser,

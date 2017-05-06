@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import time
@@ -80,3 +81,7 @@ class Site:
             pass
 
         self.display.stop()
+
+    def get_json_from_html(self):
+        response = self.browser.find_element_by_tag_name("pre").text.strip()
+        return json.loads(response)

@@ -17,6 +17,7 @@ RatS/inserters/trakt_inserter.py
 RatS/parsers/__init__.py
 RatS/parsers/base_parser.py
 RatS/parsers/criticker_parser.py
+RatS/parsers/flixster_parser.py
 RatS/parsers/imdb_parser.py
 RatS/parsers/letterboxd_parser.py
 RatS/parsers/listal_parser.py
@@ -60,6 +61,7 @@ tests/unit/inserters/test_trakt_inserter.py
 tests/unit/parsers/__init__.py
 tests/unit/parsers/test_base_parser.py
 tests/unit/parsers/test_criticker_parser.py
+tests/unit/parsers/test_flixster_parser.py
 tests/unit/parsers/test_imdb_parser.py
 tests/unit/parsers/test_letterboxd_parser.py
 tests/unit/parsers/test_listal_parser.py

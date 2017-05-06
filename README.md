@@ -45,6 +45,7 @@ This project is currently still under development. Please be patient, as I'm onl
 #### Currently Available Parsers
 
 * Criticker
+* Flixster
 * IMDB (with IMDB account)
 * Letterboxd
 * Listal

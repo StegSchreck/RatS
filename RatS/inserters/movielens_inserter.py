@@ -35,10 +35,10 @@ class MovielensInserter(Inserter):
         self._search_for_movie(movie)
         time.sleep(1)
         try:
-            search_results = self.site.get_json_from_html()['searchResults']
+            search_results = self.site.get_json_from_html()['data']['searchResults']
         except (NoSuchElementException, KeyError):
             time.sleep(3)
-            search_results = self.site.get_json_from_html()['searchResults']
+            search_results = self.site.get_json_from_html()['data']['searchResults']
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result['movie']):
                 return search_result['movie']

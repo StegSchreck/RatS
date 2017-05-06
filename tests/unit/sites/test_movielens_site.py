@@ -13,7 +13,7 @@ class MovielensSiteTest(TestCase):
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.json'), encoding='utf8') as my_ratings:
             self.my_ratings_pre = my_ratings.read()
-            self.my_ratings_json = json.loads(self.my_ratings_pre)['data']
+            self.my_ratings_json = json.loads(self.my_ratings_pre)
 
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.sites.base_site.Site._init_browser')
