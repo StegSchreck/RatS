@@ -20,12 +20,7 @@ class FlixsterInserter(Inserter):
         elif self._is_empty_search_result():
             return False  # no search results
 
-        try:
-            self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
-        except NoSuchElementException:
-            # happens if special characters in movie name (e.g. Amélie)
-            # as flixster is not handling special characters in url params correctly
-            return False
+        self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
 
         time.sleep(1)
         try:
@@ -42,7 +37,7 @@ class FlixsterInserter(Inserter):
         return 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
-        self.site.browser.get('https://www.flixster.com/search/?search=%s' % movie['title'])
+        self.site.browser.get('https://www.flixster.com/search/?search=%s' % movie['title'].encode('ISO-8859-1'))
         time.sleep(1)
         return '/movie/' in self.site.browser.current_url  # already on movie_details_page
 

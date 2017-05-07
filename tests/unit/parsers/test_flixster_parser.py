@@ -11,7 +11,7 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 class FlixsterParserTest(TestCase):
 
     def setUp(self):
-        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'flixster.json'), encoding='utf8') as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'flixster.json'), encoding='UTF-8') as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 
     @patch('RatS.parsers.base_parser.Parser.__init__')

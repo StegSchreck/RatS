@@ -10,7 +10,7 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 class CritickerParserTest(TestCase):
 
     def setUp(self):
-        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'criticker.xml'), encoding='utf8') as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'criticker.xml'), encoding='UTF-8') as my_ratings:
             self.my_ratings = my_ratings.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')

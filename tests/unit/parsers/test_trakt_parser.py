@@ -10,9 +10,9 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 class TraktParserTest(TestCase):
 
     def setUp(self):
-        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'trakt.html'), encoding='utf8') as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'trakt.html'), encoding='UTF-8') as my_ratings:
             self.my_ratings = my_ratings.read()
-        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'), encoding='utf8') as detail_page:
+        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'), encoding='UTF-8') as detail_page:
             self.detail_page = detail_page.read()
 
     @patch('RatS.parsers.base_parser.Parser.__init__')

@@ -25,7 +25,7 @@ class IMDBInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'imdb.html'), encoding='utf8') as search_result_tile:
+        with open(os.path.join(TESTDATA_PATH, 'search_result', 'imdb.html'), encoding='UTF-8') as search_result_tile:
             self.search_result = search_result_tile.read()
 
     @patch('RatS.inserters.base_inserter.Inserter.__init__')

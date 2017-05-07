@@ -11,7 +11,7 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 class MovielensSiteTest(TestCase):
 
     def setUp(self):
-        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.json'), encoding='utf8') as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.json'), encoding='UTF-8') as my_ratings:
             self.my_ratings_pre = my_ratings.read()
             self.my_ratings_json = json.loads(self.my_ratings_pre)
 
