@@ -696,11 +696,14 @@ Description: <p align="center">
             `sudo ./InstallGeckodriver.sh`
         1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
         1. Execute the script
-            `python transfer_ratings.py trakt movielens`
+            `python transfer_ratings.py --source trakt --destination movielens`
         
             This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
         
             This script will take some minutes. Relax. You can follow the progress in console output.
+            
+            For more information about how to use the script, you can call 
+            `python transfer_ratings.py --help`
         1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
         
         ### Command line call parameters
