@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import argparse
 import datetime
 import os
 import sys
@@ -47,33 +48,31 @@ INSERTERS = {
 }
 
 
-def main(argv):
-    if len(argv) != 3:
-        print_help(argv)
-        return
-    if argv[1].upper() not in PARSERS:
-        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % argv[1])
+def main():
+    args = parse_args()
+
+    if args.source.upper() not in PARSERS:
+        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % args.source)
         for parser in PARSERS:
             sys.stdout.write(' - %s \n' % parser)
         sys.stdout.flush()
         return
-    if argv[2].upper() not in INSERTERS:
-        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % argv[2])
+    if args.destination.upper() not in INSERTERS:
+        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % args.destination)
         for inserter in INSERTERS:
             sys.stdout.write(' - %s \n' % inserter)
         sys.stdout.flush()
         return
 
-    execute(argv)
+    execute(args)
 
 
-def print_help(argv):
-    sys.stdout.write('''\r\nThe number of arguments was not correct!
-        \r\nExample call:
-        \r\n   python %s imdb movielens
-        \r\nThis would parse your ratings from IMDB and insert them to your Movielens account
-        \r\n''' % argv[0])
-    sys.stdout.flush()
+def parse_args():
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("-s", "--source", help="Source of the movie ratings", required=True)
+    argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=True)
+    args = argparser.parse_args()
+    return args
 
 
 def get_parser_from_arg(param):
@@ -90,14 +89,14 @@ def get_inserter_from_arg(param):
         return None
 
 
-def execute(argv):
+def execute(args):
     # PARSING DATA
-    parser = get_parser_from_arg(argv[1])()
+    parser = get_parser_from_arg(args.source)()
     movies = parse_data_from_source(parser)
     # FILE LOADING
     # movies = load_data_from_file(filename)
     # POSTING THE DATA
-    inserter = get_inserter_from_arg(argv[2])()
+    inserter = get_inserter_from_arg(args.destination)()
     insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
@@ -123,4 +122,4 @@ def insert_movie_ratings(inserter, movies, source):
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()
