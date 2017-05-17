@@ -50,20 +50,6 @@ INSERTERS = {
 
 def main():
     args = parse_args()
-
-    if args.source.upper() not in PARSERS:
-        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % args.source)
-        for parser in PARSERS:
-            sys.stdout.write(' - %s \n' % parser)
-        sys.stdout.flush()
-        return
-    if args.destination.upper() not in INSERTERS:
-        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % args.destination)
-        for inserter in INSERTERS:
-            sys.stdout.write(' - %s \n' % inserter)
-        sys.stdout.flush()
-        return
-
     execute(args)
 
 
@@ -79,14 +65,22 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        return None
+        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % args.source)
+        for parser in PARSERS:
+            sys.stdout.write(' - %s \n' % parser)
+        sys.stdout.flush()
+        sys.exit(1)
 
 
 def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        return None
+        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % args.destination)
+        for inserter in INSERTERS:
+            sys.stdout.write(' - %s \n' % inserter)
+        sys.stdout.flush()
+        sys.exit(1)
 
 
 def execute(args):
