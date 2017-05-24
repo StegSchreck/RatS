@@ -4,12 +4,12 @@ from unittest.mock import patch
 
 from bs4 import BeautifulSoup
 
-from RatS.inserters.imdb_inserter import IMDBInserter
+from RatS.inserters.imdb_inserter import IMDBRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
 
-class IMDBInserterTest(TestCase):
+class IMDBRatingsInserterTest(TestCase):
     def setUp(self):
         self.movie = dict()
         self.movie['title'] = 'Fight Club'
@@ -31,7 +31,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        IMDBInserter()
+        IMDBRatingsInserter()
 
         self.assertTrue(base_init_mock.called)
 
@@ -41,7 +41,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
@@ -56,7 +56,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_is_requested_movie_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
@@ -72,7 +72,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_is_requested_movie_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
@@ -92,7 +92,7 @@ class IMDBInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_is_requested_movie_no_movie_with_that_year(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
@@ -113,7 +113,7 @@ class IMDBInserterTest(TestCase):
     def test_find_movie_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_result
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []
@@ -128,7 +128,7 @@ class IMDBInserterTest(TestCase):
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_result
-        inserter = IMDBInserter()
+        inserter = IMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []

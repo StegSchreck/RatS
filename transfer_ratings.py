@@ -5,14 +5,14 @@ import os
 import sys
 import time
 
-from RatS.inserters.criticker_inserter import CritickerInserter
-from RatS.inserters.flixster_inserter import FlixsterInserter
-from RatS.inserters.imdb_inserter import IMDBInserter
-from RatS.inserters.letterboxd_uploader import LetterboxdUploader
-from RatS.inserters.listal_inserter import ListalInserter
-from RatS.inserters.movielens_uploader import MovielensUploader
-from RatS.inserters.tmdb_uploader import TMDBUploader
-from RatS.inserters.trakt_inserter import TraktInserter
+from RatS.inserters.criticker_inserter import CritickerRatingsInserter
+from RatS.inserters.flixster_inserter import FlixsterRatingsInserter
+from RatS.inserters.imdb_inserter import IMDBRatingsInserter
+from RatS.inserters.letterboxd_inserter import LetterboxdRatingsInserter
+from RatS.inserters.listal_inserter import ListalRatingsInserter
+from RatS.inserters.movielens_inserter import MovielensRatingsInserter
+from RatS.inserters.tmdb_inserter import TMDBRatingsInserter
+from RatS.inserters.trakt_inserter import TraktRatingsInserter
 from RatS.parsers.criticker_parser import CritickerRatingsParser
 from RatS.parsers.flixster_parser import FlixsterRatingsParser
 from RatS.parsers.imdb_parser import IMDBRatingsParser
@@ -37,14 +37,14 @@ PARSERS = {
     'TRAKT': TraktRatingsParser,
 }
 INSERTERS = {
-    'CRITICKER': CritickerInserter,
-    'FLIXSTER': FlixsterInserter,
-    'IMDB': IMDBInserter,
-    'LETTERBOXD': LetterboxdUploader,
-    'LISTAL': ListalInserter,
-    'MOVIELENS': MovielensUploader,
-    'TMDB': TMDBUploader,
-    'TRAKT': TraktInserter,
+    'CRITICKER': CritickerRatingsInserter,
+    'FLIXSTER': FlixsterRatingsInserter,
+    'IMDB': IMDBRatingsInserter,
+    'LETTERBOXD': LetterboxdRatingsInserter,
+    'LISTAL': ListalRatingsInserter,
+    'MOVIELENS': MovielensRatingsInserter,
+    'TMDB': TMDBRatingsInserter,
+    'TRAKT': TraktRatingsInserter,
 }
 
 

@@ -6,9 +6,9 @@ from RatS.inserters.base_inserter import Inserter
 from RatS.sites.trakt_site import Trakt
 
 
-class TraktInserter(Inserter):
+class TraktRatingsInserter(Inserter):
     def __init__(self):
-        super(TraktInserter, self).__init__(Trakt())
+        super(TraktRatingsInserter, self).__init__(Trakt())
 
     def _search_for_movie(self, movie):
         self.site.browser.get('https://trakt.tv/search/?query=%s' % movie['title'])

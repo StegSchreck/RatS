@@ -8,9 +8,9 @@ from RatS.inserters.base_inserter import Inserter
 from RatS.sites.flixster_site import Flixster
 
 
-class FlixsterInserter(Inserter):
+class FlixsterRatingsInserter(Inserter):
     def __init__(self):
-        super(FlixsterInserter, self).__init__(Flixster())
+        super(FlixsterRatingsInserter, self).__init__(Flixster())
 
     def _find_movie(self, movie):
         directly_found = self._search_for_movie(movie)

@@ -2,12 +2,12 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
-from RatS.inserters.trakt_inserter import TraktInserter
+from RatS.inserters.trakt_inserter import TraktRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
 
-class TraktInserterTest(TestCase):
+class TraktRatingsInserterTest(TestCase):
     def setUp(self):
         self.movie = dict()
         self.movie['title'] = 'Fight Club'
@@ -30,13 +30,13 @@ class TraktInserterTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        TraktInserter()
+        TraktRatingsInserter()
 
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.inserters.base_inserter.print_progress')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._is_requested_movie')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_search_results')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._is_requested_movie')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._get_search_results')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
@@ -45,7 +45,7 @@ class TraktInserterTest(TestCase):
         overview_page_mock.return_value = self.search_result_tile_list
         eq_check_mock.return_value = True
         site_mock.browser = browser_mock
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -60,7 +60,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_external_link_compare_imdb_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -74,7 +74,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_external_link_compare_imdb_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -96,7 +96,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_external_link_compare_tmdb_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -110,7 +110,7 @@ class TraktInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_external_link_compare_tmdb_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -127,14 +127,14 @@ class TraktInserterTest(TestCase):
 
         self.assertFalse(result)
 
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._compare_external_links')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -144,14 +144,14 @@ class TraktInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._compare_external_links')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_tmdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -169,14 +169,14 @@ class TraktInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._compare_external_links')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []
@@ -190,16 +190,16 @@ class TraktInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._is_requested_movie')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._get_search_results')
-    @patch('RatS.inserters.trakt_inserter.TraktInserter._compare_external_links')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._is_requested_movie')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._get_search_results')
+    @patch('RatS.inserters.trakt_inserter.TraktRatingsInserter._compare_external_links')
     @patch('RatS.inserters.trakt_inserter.Trakt')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, compare_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = TraktInserter()
+        inserter = TraktRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'Trakt'
         inserter.failed_movies = []

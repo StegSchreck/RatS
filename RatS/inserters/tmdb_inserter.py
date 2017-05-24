@@ -11,9 +11,9 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 CSV_FILE_NAME = TIMESTAMP + '_converted_for_TMDB.csv'
 
 
-class TMDBUploader(Inserter):
+class TMDBRatingsInserter(Inserter):
     def __init__(self):
-        super(TMDBUploader, self).__init__(TMDB())
+        super(TMDBRatingsInserter, self).__init__(TMDB())
 
     def insert(self, movies, source):
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))

@@ -2,12 +2,12 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
-from RatS.inserters.tmdb_uploader import TMDBUploader
+from RatS.inserters.tmdb_inserter import TMDBRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
 
-class TMDBUploaderTest(TestCase):
+class TMDBRatingsInserterTest(TestCase):
     def setUp(self):
         self.movie = dict()
         self.movie['title'] = 'Fight Club'
@@ -19,17 +19,17 @@ class TMDBUploaderTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        TMDBUploader()
+        TMDBRatingsInserter()
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.inserters.tmdb_uploader.save_movies_to_csv')
-    @patch('RatS.inserters.tmdb_uploader.TMDB')
+    @patch('RatS.inserters.tmdb_inserter.save_movies_to_csv')
+    @patch('RatS.inserters.tmdb_inserter.TMDB')
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, impex_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
-        inserter = TMDBUploader()
+        inserter = TMDBRatingsInserter()
         inserter.site = site_mock
         inserter.site.site_name = 'TMDB'
         inserter.failed_movies = []

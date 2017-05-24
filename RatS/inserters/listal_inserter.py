@@ -8,9 +8,9 @@ from RatS.inserters.base_inserter import Inserter
 from RatS.sites.listal_site import Listal
 
 
-class ListalInserter(Inserter):
+class ListalRatingsInserter(Inserter):
     def __init__(self):
-        super(ListalInserter, self).__init__(Listal())
+        super(ListalRatingsInserter, self).__init__(Listal())
 
     def _search_for_movie(self, movie):
         self.site.browser.get('http://www.listal.com/search/movies/%s' % movie['title'])
