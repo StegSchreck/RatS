@@ -7,14 +7,15 @@ from selenium.common.exceptions import ElementNotVisibleException, NoSuchElement
     ElementNotInteractableException
 
 from RatS.utils import file_impex
-from RatS.utils.command_line import print_progress
+from RatS.utils.command_line import print_progress_bar
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
 
 class Inserter:
-    def __init__(self, site):
+    def __init__(self, site, args):
         self.site = site
+        self.args = args
         self.failed_movies = []
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
@@ -32,11 +33,18 @@ class Inserter:
             else:
                 self.failed_movies.append(movie)
             counter += 1
-            print_progress(counter, len(movies), prefix=self.site.site_name)
+            self.print_progress(counter, movie, movies)
 
         self._print_summary(movies)
         self._handle_failed_movies(movies)
         self.site.kill_browser()
+
+    def print_progress(self, counter, movie, movies):
+        if self.args.verbose >= 1:
+            sys.stdout.write('\r===== %s: posting %i \r\n' % (self.site.site_name, movie))
+            sys.stdout.flush()
+        else:
+            print_progress_bar(counter, len(movies), prefix=self.site.site_name)
 
     def _go_to_movie_details_page(self, movie):
         if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':

@@ -32,11 +32,11 @@ class FlixsterRatingsInserterTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        FlixsterRatingsInserter()
+        FlixsterRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.inserters.base_inserter.print_progress')
+    @patch('RatS.inserters.base_inserter.Inserter.print_progress')
     @patch('RatS.inserters.flixster_inserter.FlixsterRatingsInserter._is_requested_movie')
     @patch('RatS.inserters.flixster_inserter.FlixsterRatingsInserter._get_search_results')
     @patch('RatS.inserters.flixster_inserter.Flixster')
@@ -47,7 +47,7 @@ class FlixsterRatingsInserterTest(TestCase):
         overview_page_mock.return_value = self.search_result_tile_list
         eq_check_mock.return_value = True
         site_mock.browser = browser_mock
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []
@@ -63,7 +63,7 @@ class FlixsterRatingsInserterTest(TestCase):
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []
@@ -84,7 +84,7 @@ class FlixsterRatingsInserterTest(TestCase):
     def test_find_movie_success_by_own_url(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []
@@ -105,7 +105,7 @@ class FlixsterRatingsInserterTest(TestCase):
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []
@@ -131,7 +131,7 @@ class FlixsterRatingsInserterTest(TestCase):
     def test_find_movie_success_directly_at_search(self, browser_mock, base_init_mock, site_mock, search_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []
@@ -153,7 +153,7 @@ class FlixsterRatingsInserterTest(TestCase):
     def test_find_movie_fail_at_search(self, browser_mock, base_init_mock, site_mock, search_mock, empty_result_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
-        inserter = FlixsterRatingsInserter()
+        inserter = FlixsterRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []

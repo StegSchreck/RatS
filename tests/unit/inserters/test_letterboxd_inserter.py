@@ -19,7 +19,7 @@ class LetterboxdRatingsInserterTest(TestCase):
     @patch('RatS.inserters.base_inserter.Inserter.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        LetterboxdRatingsInserter()
+        LetterboxdRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
 
@@ -31,7 +31,7 @@ class LetterboxdRatingsInserterTest(TestCase):
     @patch('RatS.sites.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, impex_mock, matching_mock, process_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
-        inserter = LetterboxdRatingsInserter()
+        inserter = LetterboxdRatingsInserter(None)
         inserter.site = site_mock
         inserter.site.site_name = 'Letterboxd'
         inserter.failed_movies = []

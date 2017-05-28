@@ -12,7 +12,7 @@ class IMDBParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        IMDBRatingsParser()
+        IMDBRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
@@ -22,7 +22,7 @@ class IMDBParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.imdb_parser.IMDB')
     def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):  # pylint: disable=too-many-arguments
-        parser = IMDBRatingsParser()
+        parser = IMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'IMDB'
@@ -39,7 +39,7 @@ class IMDBParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.imdb_parser.IMDB')
     def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
-        parser = IMDBRatingsParser()
+        parser = IMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'IMDB'

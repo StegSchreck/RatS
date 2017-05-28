@@ -18,18 +18,18 @@ class TMDBParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        TMDBRatingsParser()
+        TMDBRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.parsers.base_parser.print_progress')
+    @patch('RatS.parsers.base_parser.Parser.print_progress')
     @patch('RatS.parsers.tmdb_parser.TMDBRatingsParser.parse_movie_details_page')
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.tmdb_parser.TMDB')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
-        parser = TMDBRatingsParser()
+        parser = TMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'TMDB'
@@ -49,7 +49,7 @@ class TMDBParserTest(TestCase):
     @patch('RatS.parsers.tmdb_parser.TMDB')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):
         browser_mock.page_source = self.my_ratings
-        parser = TMDBRatingsParser()
+        parser = TMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'TMDB'

@@ -7,8 +7,8 @@ from RatS.sites.listal_site import Listal
 
 
 class ListalRatingsParser(Parser):
-    def __init__(self):
-        super(ListalRatingsParser, self).__init__(Listal())
+    def __init__(self, args):
+        super(ListalRatingsParser, self).__init__(Listal(), args)
 
     def _get_ratings_page(self, i):
         return 'http://%s.listal.com/movies/all/%i/?rating=1' % (self.site.USERNAME, i)

@@ -16,8 +16,8 @@ CSV_FILE_NAME = TIMESTAMP + '_converted_for_Letterboxd.csv'
 
 
 class LetterboxdRatingsInserter(Inserter):
-    def __init__(self):
-        super(LetterboxdRatingsInserter, self).__init__(Letterboxd())
+    def __init__(self, args):
+        super(LetterboxdRatingsInserter, self).__init__(Letterboxd(), args)
 
     def insert(self, movies, source):
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))

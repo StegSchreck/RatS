@@ -2,12 +2,11 @@ import sys
 
 from RatS.parsers.base_parser import Parser
 from RatS.sites.flixster_site import Flixster
-from RatS.utils.command_line import print_progress
 
 
 class FlixsterRatingsParser(Parser):
-    def __init__(self):
-        super(FlixsterRatingsParser, self).__init__(Flixster())
+    def __init__(self, args):
+        super(FlixsterRatingsParser, self).__init__(Flixster(), args)
 
     def _get_ratings_page(self, i):
         return '%s&page=%i' % (self.site.MY_RATINGS_URL, i)
@@ -32,7 +31,7 @@ class FlixsterRatingsParser(Parser):
         for movie_json in ratings_json:
             movie = self._parse_movie_json(movie_json)
             self.movies.append(movie)
-            print_progress(len(self.movies), self.movies_count, prefix=self.site.site_name)
+            self.print_progress(movie)
 
     @staticmethod
     def _parse_movie_json(movie_json):

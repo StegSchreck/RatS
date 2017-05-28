@@ -8,8 +8,8 @@ from RatS.sites.criticker_site import Criticker
 
 
 class CritickerRatingsInserter(Inserter):
-    def __init__(self):
-        super(CritickerRatingsInserter, self).__init__(Criticker())
+    def __init__(self, args):
+        super(CritickerRatingsInserter, self).__init__(Criticker(), args)
 
     def _search_for_movie(self, movie):
         self.site.browser.get('https://www.criticker.com/?search=%s&type=films' % movie['title'])

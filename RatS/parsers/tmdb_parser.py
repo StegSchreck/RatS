@@ -5,8 +5,8 @@ from RatS.sites.tmdb_site import TMDB
 
 
 class TMDBRatingsParser(Parser):
-    def __init__(self):
-        super(TMDBRatingsParser, self).__init__(TMDB())
+    def __init__(self, args):
+        super(TMDBRatingsParser, self).__init__(TMDB(), args)
 
     def _get_ratings_page(self, i):
         return '%s?page=%i' % (self.site.MY_RATINGS_URL, i)

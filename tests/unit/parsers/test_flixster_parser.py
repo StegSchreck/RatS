@@ -17,18 +17,18 @@ class FlixsterParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        FlixsterRatingsParser()
+        FlixsterRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.parsers.flixster_parser.print_progress')
+    @patch('RatS.parsers.base_parser.Parser.print_progress')
     @patch('RatS.parsers.flixster_parser.Flixster.get_json_from_html')
     @patch('RatS.sites.base_site.Firefox')
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.flixster_parser.Flixster')
     def test_parser(self, site_mock, base_init_mock, browser_mock, json_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         json_mock.return_value = self.my_ratings
-        parser = FlixsterRatingsParser()
+        parser = FlixsterRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Flixster'

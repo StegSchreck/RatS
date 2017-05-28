@@ -3,7 +3,7 @@ import os
 import sys
 
 
-def print_progress(iteration, total, prefix='', suffix=''):
+def print_progress_bar(iteration, total, prefix='', suffix=''):
     """
     Call in a loop to create terminal progress bar
     @params:

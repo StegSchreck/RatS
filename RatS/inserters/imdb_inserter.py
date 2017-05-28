@@ -8,8 +8,8 @@ from RatS.sites.imdb_site import IMDB
 
 
 class IMDBRatingsInserter(Inserter):
-    def __init__(self):
-        super(IMDBRatingsInserter, self).__init__(IMDB())
+    def __init__(self, args):
+        super(IMDBRatingsInserter, self).__init__(IMDB(), args)
 
     def _find_movie(self, movie):
         self.site.browser.get('http://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&q=%s' % movie['title'])

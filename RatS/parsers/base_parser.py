@@ -3,12 +3,13 @@ import time
 import sys
 from bs4 import BeautifulSoup
 
-from RatS.utils.command_line import print_progress
+from RatS.utils.command_line import print_progress_bar
 
 
 class Parser:
-    def __init__(self, site):
+    def __init__(self, site, args):
         self.site = site
+        self.args = args
 
         self.movies = []
         self.movies_count = 0
@@ -55,6 +56,14 @@ class Parser:
         for movie_tile in movies_tiles:
             movie = self._parse_movie_tile(movie_tile)
             self.movies.append(movie)
+            self.print_progress(movie)
+
+    def print_progress(self, movie):
+        if self.args.verbose >= 1:
+            sys.stdout.write('\r===== %s: parsing %i \r\n' % (self.site.site_name, movie))
+            sys.stdout.flush()
+        else:
+            print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_name)
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
@@ -75,8 +84,6 @@ class Parser:
         except AttributeError:
             time.sleep(3)  # wait a little bit for page to load and try again
             self.parse_movie_details_page(movie)
-
-        print_progress(len(self.movies), self.movies_count, prefix=self.site.site_name)
 
         return movie
 

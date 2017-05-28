@@ -16,7 +16,7 @@ class CritickerParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        CritickerRatingsParser()
+        CritickerRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
@@ -25,7 +25,7 @@ class CritickerParserTest(TestCase):
     @patch('RatS.parsers.criticker_parser.Criticker')
     def test_parser(self, site_mock, base_init_mock, browser_mock):
         browser_mock.page_source = self.my_ratings
-        parser = CritickerRatingsParser()
+        parser = CritickerRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Criticker'

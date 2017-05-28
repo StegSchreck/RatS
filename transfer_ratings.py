@@ -57,6 +57,7 @@ def parse_args():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("-s", "--source", help="Source of the movie ratings", required=True)
     argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=True)
+    argparser.add_argument("-v", "--verbose", action="count", help="increase output verbosity", required=False)
     args = argparser.parse_args()
     return args
 
@@ -85,12 +86,12 @@ def get_inserter_from_arg(param):
 
 def execute(args):
     # PARSING DATA
-    parser = get_parser_from_arg(args.source)()
+    parser = get_parser_from_arg(args.source)(args)
     movies = parse_data_from_source(parser)
     # FILE LOADING
     # movies = load_data_from_file(filename)
     # POSTING THE DATA
-    inserter = get_inserter_from_arg(args.destination)()
+    inserter = get_inserter_from_arg(args.destination)(args)
     insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 

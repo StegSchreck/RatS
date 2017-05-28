@@ -12,7 +12,7 @@ class MovielensParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.sites.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
-        MovielensRatingsParser()
+        MovielensRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
@@ -22,7 +22,7 @@ class MovielensParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.movielens_parser.Movielens')
     def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):  # pylint: disable=too-many-arguments
-        parser = MovielensRatingsParser()
+        parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Movielens'
@@ -39,7 +39,7 @@ class MovielensParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.movielens_parser.Movielens')
     def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
-        parser = MovielensRatingsParser()
+        parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Movielens'
@@ -62,7 +62,7 @@ class MovielensParserTest(TestCase):
     @patch('RatS.parsers.base_parser.Parser.__init__')
     @patch('RatS.parsers.movielens_parser.Movielens')
     def test_parse_movies_from_csv(self, site_mock, base_init_mock, browser_mock):
-        parser = MovielensRatingsParser()
+        parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Movielens'
