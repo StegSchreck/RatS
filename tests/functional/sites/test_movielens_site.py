@@ -7,7 +7,7 @@ from RatS.sites.movielens_site import Movielens
 @skip('movielens not working from travis')
 class MovielensSiteTest(TestCase):
     def setUp(self):
-        self.site = Movielens()
+        self.site = Movielens(None)
 
     def test_login(self):
         self.assertEqual('https://movielens.org/home', self.site.browser.current_url)

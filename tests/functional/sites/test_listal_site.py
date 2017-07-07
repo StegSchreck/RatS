@@ -7,7 +7,7 @@ from RatS.sites.listal_site import Listal
 @skip('this test is unstable on travis')
 class ListalSiteTest(TestCase):
     def setUp(self):
-        self.site = Listal()
+        self.site = Listal(None)
 
     def test_login(self):
         self.assertIn(self.site.USERNAME, self.site.browser.page_source)

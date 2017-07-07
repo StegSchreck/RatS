@@ -7,7 +7,7 @@ from RatS.sites.trakt_site import Trakt
 @skip('this test is unstable on travis')
 class TraktSiteTest(TestCase):
     def setUp(self):
-        self.site = Trakt()
+        self.site = Trakt(None)
 
     def test_login(self):
         self.assertIn(self.site.USERNAME, self.site.browser.page_source)
