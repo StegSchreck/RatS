@@ -40,7 +40,7 @@ class Inserter:
         self.site.kill_browser()
 
     def print_progress(self, counter, movie, movies):
-        if self.args.verbose >= 1:
+        if self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write('\r===== %s: posting %i \r\n' % (self.site.site_name, movie))
             sys.stdout.flush()
         else:

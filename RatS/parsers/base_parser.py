@@ -1,6 +1,6 @@
+import sys
 import time
 
-import sys
 from bs4 import BeautifulSoup
 
 from RatS.utils.command_line import print_progress_bar
@@ -59,7 +59,7 @@ class Parser:
             self.print_progress(movie)
 
     def print_progress(self, movie):
-        if self.args.verbose >= 1:
+        if self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write('\r===== %s: parsing %i \r\n' % (self.site.site_name, movie))
             sys.stdout.flush()
         else:
