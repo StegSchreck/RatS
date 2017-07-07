@@ -4,3 +4,5 @@ ghostdriver.log
 *.pyc
 RatS/exports/*
 geckodriver.log
+build
+dist
