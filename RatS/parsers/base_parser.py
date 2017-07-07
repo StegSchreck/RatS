@@ -20,13 +20,14 @@ class Parser:
         try:
             self._parse_ratings()
         except AttributeError:
-            time.sleep(1)  # wait a little bit for page to load and try again
+            time.sleep(2)  # wait a little bit for page to load and try again
             self._parse_ratings()
         self.site.kill_browser()
         return self.movies
 
     def _parse_ratings(self):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
+        time.sleep(1)
 
         pages_count = self._get_pages_count(movie_ratings_page)
         self.movies_count = self._get_movies_count(movie_ratings_page)

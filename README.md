@@ -20,6 +20,8 @@ This also works if your lists are marked as private, as this tool uses a browser
 
 This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
 
+1. Make sure you have Python3 and Xvfb installed on your system.
+    This project is designed to run on Linux.
 1. Checkout the project
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
 1. Install the requirements
@@ -27,7 +29,7 @@ This project is currently still under development. Please be patient, as I'm onl
 1. Install Geckodriver
     `sudo ./InstallGeckodriver.sh`
 1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
-1. Execute the script
+1. Execute the script with **Python3**
     `python transfer_ratings.py --source trakt --destination movielens`
 
     This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
