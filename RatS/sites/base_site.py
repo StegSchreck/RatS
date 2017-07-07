@@ -13,7 +13,9 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pard
 
 
 class Site:
-    def __init__(self):
+    def __init__(self, args):
+        self.args = args
+
         self.config = ConfigParser()
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
@@ -30,8 +32,9 @@ class Site:
         self._init_browser()
 
     def _init_browser(self):
-        self.display = Xvfb()
-        self.display.start()
+        if self.args and not self.args.show_browser:
+            self.display = Xvfb()
+            self.display.start()
 
         profile = FirefoxProfile()
         profile.set_preference("browser.download.folderList", 2)
@@ -80,7 +83,8 @@ class Site:
         except WebDriverException:
             pass
 
-        self.display.stop()
+        if self.args and not self.args.show_browser:
+            self.display.stop()
 
     def get_json_from_html(self):
         response = self.browser.find_element_by_tag_name("pre").text.strip()

@@ -14,7 +14,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 
 class IMDBRatingsParser(Parser):
     def __init__(self, args):
-        super(IMDBRatingsParser, self).__init__(IMDB(), args)
+        super(IMDBRatingsParser, self).__init__(IMDB(args), args)
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
         self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'IMDB')

@@ -5,11 +5,11 @@ from RatS.sites.base_site import Site
 
 
 class Listal(Site):
-    def __init__(self):
+    def __init__(self, args):
         self.LOGIN_PAGE = "https://www.listal.com/login-iframe"
         self.LOGIN_USERNAME_SELECTOR = "form input[name='username']"
         self.LOGIN_PASSWORD_SELECTOR = "form input[name='password']"
-        super(Listal, self).__init__()
+        super(Listal, self).__init__(args)
         self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/1/?rating=1' % self.USERNAME
 
     def login(self):

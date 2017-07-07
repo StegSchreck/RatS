@@ -6,7 +6,7 @@ from RatS.sites.trakt_site import Trakt
 
 class TraktRatingsParser(Parser):
     def __init__(self, args):
-        super(TraktRatingsParser, self).__init__(Trakt(), args)
+        super(TraktRatingsParser, self).__init__(Trakt(args), args)
 
     def _get_ratings_page(self, i):
         return '%s?page=%i' % (self.site.MY_RATINGS_URL, i)

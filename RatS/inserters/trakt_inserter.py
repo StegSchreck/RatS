@@ -8,7 +8,7 @@ from RatS.sites.trakt_site import Trakt
 
 class TraktRatingsInserter(Inserter):
     def __init__(self, args):
-        super(TraktRatingsInserter, self).__init__(Trakt(), args)
+        super(TraktRatingsInserter, self).__init__(Trakt(args), args)
 
     def _search_for_movie(self, movie):
         self.site.browser.get('https://trakt.tv/search/?query=%s' % movie['title'])

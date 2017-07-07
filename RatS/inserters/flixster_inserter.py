@@ -10,7 +10,7 @@ from RatS.sites.flixster_site import Flixster
 
 class FlixsterRatingsInserter(Inserter):
     def __init__(self, args):
-        super(FlixsterRatingsInserter, self).__init__(Flixster(), args)
+        super(FlixsterRatingsInserter, self).__init__(Flixster(args), args)
 
     def _find_movie(self, movie):
         directly_found = self._search_for_movie(movie)

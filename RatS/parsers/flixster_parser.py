@@ -6,7 +6,7 @@ from RatS.sites.flixster_site import Flixster
 
 class FlixsterRatingsParser(Parser):
     def __init__(self, args):
-        super(FlixsterRatingsParser, self).__init__(Flixster(), args)
+        super(FlixsterRatingsParser, self).__init__(Flixster(args), args)
 
     def _get_ratings_page(self, i):
         return '%s&page=%i' % (self.site.MY_RATINGS_URL, i)

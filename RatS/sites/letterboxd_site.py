@@ -2,10 +2,10 @@ from RatS.sites.base_site import Site
 
 
 class Letterboxd(Site):
-    def __init__(self):
+    def __init__(self, args):
         self.LOGIN_PAGE = "https://letterboxd.com/sign-in/"
         self.LOGIN_USERNAME_SELECTOR = "//form[@id='signin-form']//input[@id='signin-username']"
         self.LOGIN_PASSWORD_SELECTOR = "//form[@id='signin-form']//input[@id='signin-password']"
         self.LOGIN_BUTTON_SELECTOR = "//form[@id='signin-form']//input[@type='submit']"
-        super(Letterboxd, self).__init__()
+        super(Letterboxd, self).__init__(args)
         self.MY_RATINGS_URL = 'https://letterboxd.com/%s/films/ratings/' % self.USERNAME

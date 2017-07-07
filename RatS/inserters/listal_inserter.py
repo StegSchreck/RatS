@@ -10,7 +10,7 @@ from RatS.sites.listal_site import Listal
 
 class ListalRatingsInserter(Inserter):
     def __init__(self, args):
-        super(ListalRatingsInserter, self).__init__(Listal(), args)
+        super(ListalRatingsInserter, self).__init__(Listal(args), args)
 
     def _search_for_movie(self, movie):
         self.site.browser.get('http://www.listal.com/search/movies/%s' % movie['title'])

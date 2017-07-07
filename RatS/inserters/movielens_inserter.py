@@ -13,7 +13,7 @@ CSV_FILE_NAME = TIMESTAMP + '_converted_for_Movielens.csv'
 
 class MovielensRatingsInserter(Inserter):
     def __init__(self, args):
-        super(MovielensRatingsInserter, self).__init__(Movielens(), args)
+        super(MovielensRatingsInserter, self).__init__(Movielens(args), args)
 
     def insert(self, movies, source):
         sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))
