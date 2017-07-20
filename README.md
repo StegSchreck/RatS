@@ -26,18 +26,21 @@ This project is currently still under development. Please be patient, as I'm onl
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
 1. Install the requirements
     `pip install -r requirements.txt`
-1. Install Geckodriver
-    `sudo ./InstallGeckodriver.sh`
+1. Install Geckodriver 
+
+    **Linux:** `sudo ./InstallGeckodriver.sh`, for this you will need to have tar and wget installed.
+    
+    **MAC:** `brew install geckodriver`
 1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
 1. Execute the script with **Python3**
-    `python transfer_ratings.py --source trakt --destination movielens`
+    `python3 transfer_ratings.py --source trakt --destination movielens`
 
     This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
 
     This script will take some minutes. Relax. You can follow the progress in console output.
     
     For more information about how to use the script, you can call 
-    `python transfer_ratings.py --help`
+    `python3 transfer_ratings.py --help`
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
 
 ### Command line call parameters
@@ -87,8 +90,7 @@ If you recently updated your Firefox, you might encounter the following exceptio
 
 `selenium.common.exceptions.WebDriverException: Message: Expected [object Undefined] undefined to be a string`
 
-This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver) by running again the following command:
-    `sudo ./InstallGeckodriver.sh`
+This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver) by running again the command mentioned above.
 
 
 ## You are missing a feature or noticed something is wrong?
