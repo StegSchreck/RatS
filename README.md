@@ -18,6 +18,8 @@ This also works if your lists are marked as private, as this tool uses a browser
 
 ## How do I use this?
 
+### Natively on the command line
+
 This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
 
 1. Make sure you have Python3 and Xvfb installed on your system.
@@ -42,6 +44,21 @@ This project is currently still under development. Please be patient, as I'm onl
     For more information about how to use the script, you can call 
     `python3 transfer_ratings.py --help`
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
+
+### Inside a Docker container
+
+1. Create a credentials configuration in your home folder, e.g.: `touch ~/.RatS.cfg`
+1. Configure your credentials in the file you just created, e.g.:
+    ```
+    [Trakt]
+    USERNAME = abc
+    PASSWORD = def
+    ```
+    Please see the RatS/credentials.cfg.orig in this repository as a template.
+1. Get the Docker image: `docker pull stegschreck/rats`
+1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg rats python3 transfer_ratings.py --source trakt --destination movielens`
+    
+    The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
 
 ### Command line call parameters
 
