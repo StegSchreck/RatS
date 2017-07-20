@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
 [![Coverage Status](https://coveralls.io/repos/github/StegSchreck/RatS/badge.svg?branch=master)](https://coveralls.io/github/StegSchreck/RatS?branch=master)
 [![Code Climate](https://codeclimate.com/github/StegSchreck/RatS/badges/gpa.svg)](https://codeclimate.com/github/StegSchreck/RatS)
+[![Docker image](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
 
 This project serves for parsing your ratings from one movie tracking / rating website to another.
 
@@ -56,9 +57,11 @@ This project is currently still under development. Please be patient, as I'm onl
     ```
     Please see the RatS/credentials.cfg.orig in this repository as a template.
 1. Get the Docker image: `docker pull stegschreck/rats`
-1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg rats python3 transfer_ratings.py --source trakt --destination movielens`
+1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg stegschreck/rats python3 transfer_ratings.py --source trakt --destination movielens`
     
     The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
+    
+    You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command.
 
 ### Command line call parameters
 
