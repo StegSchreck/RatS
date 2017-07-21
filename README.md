@@ -62,6 +62,8 @@ This project is currently still under development. Please be patient, as I'm onl
     The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
     
     You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command.
+1. After the successful run of the transfer script, you may remove the docker container using `docker rm <container-id>`. 
+    You can find the container id using `docker ps -a`.
 
 ### Command line call parameters
 
