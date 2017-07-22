@@ -10,6 +10,7 @@ from RatS.inserters.flixster_inserter import FlixsterRatingsInserter
 from RatS.inserters.imdb_inserter import IMDBRatingsInserter
 from RatS.inserters.letterboxd_inserter import LetterboxdRatingsInserter
 from RatS.inserters.listal_inserter import ListalRatingsInserter
+from RatS.inserters.metacritic_inserter import MetacriticRatingsInserter
 from RatS.inserters.movielens_inserter import MovielensRatingsInserter
 from RatS.inserters.tmdb_inserter import TMDBRatingsInserter
 from RatS.inserters.trakt_inserter import TraktRatingsInserter
@@ -42,6 +43,7 @@ INSERTERS = {
     'IMDB': IMDBRatingsInserter,
     'LETTERBOXD': LetterboxdRatingsInserter,
     'LISTAL': ListalRatingsInserter,
+    'METACRITIC': MetacriticRatingsInserter,
     'MOVIELENS': MovielensRatingsInserter,
     'TMDB': TMDBRatingsInserter,
     'TRAKT': TraktRatingsInserter,

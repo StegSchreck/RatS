@@ -11,6 +11,7 @@ RatS/inserters/flixster_inserter.py
 RatS/inserters/imdb_inserter.py
 RatS/inserters/letterboxd_inserter.py
 RatS/inserters/listal_inserter.py
+RatS/inserters/metacritic_inserter.py
 RatS/inserters/movielens_inserter.py
 RatS/inserters/tmdb_inserter.py
 RatS/inserters/trakt_inserter.py
@@ -31,6 +32,7 @@ RatS/sites/flixster_site.py
 RatS/sites/imdb_site.py
 RatS/sites/letterboxd_site.py
 RatS/sites/listal_site.py
+RatS/sites/metacritic_site.py
 RatS/sites/movielens_site.py
 RatS/sites/tmdb_site.py
 RatS/sites/trakt_site.py
@@ -44,6 +46,7 @@ tests/functional/sites/test_flixster_site.py
 tests/functional/sites/test_imdb_site.py
 tests/functional/sites/test_letterboxd_site.py
 tests/functional/sites/test_listal_site.py
+tests/functional/sites/test_metacritic_site.py
 tests/functional/sites/test_movielens_site.py
 tests/functional/sites/test_tmdb_site.py
 tests/functional/sites/test_trakt_site.py
@@ -55,6 +58,7 @@ tests/unit/inserters/test_flixster_inserter.py
 tests/unit/inserters/test_imdb_inserter.py
 tests/unit/inserters/test_letterboxd_inserter.py
 tests/unit/inserters/test_listal_inserter.py
+tests/unit/inserters/test_metacritic_inserter.py
 tests/unit/inserters/test_movielens_inserter.py
 tests/unit/inserters/test_tmdb_inserter.py
 tests/unit/inserters/test_trakt_inserter.py

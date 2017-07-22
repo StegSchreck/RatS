@@ -675,6 +675,7 @@ Description: <p align="center">
         [![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
         [![Coverage Status](https://coveralls.io/repos/github/StegSchreck/RatS/badge.svg?branch=master)](https://coveralls.io/github/StegSchreck/RatS?branch=master)
         [![Code Climate](https://codeclimate.com/github/StegSchreck/RatS/badges/gpa.svg)](https://codeclimate.com/github/StegSchreck/RatS)
+        [![Docker image](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
         
         This project serves for parsing your ratings from one movie tracking / rating website to another.
         
@@ -686,6 +687,8 @@ Description: <p align="center">
         
         ## How do I use this?
         
+        ### Natively on the command line
+        
         This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
         
         1. Make sure you have Python3 and Xvfb installed on your system.
@@ -694,19 +697,41 @@ Description: <p align="center">
             `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
         1. Install the requirements
             `pip install -r requirements.txt`
-        1. Install Geckodriver
-            `sudo ./InstallGeckodriver.sh`
+        1. Install Geckodriver 
+        
+            **Linux:** `sudo ./InstallGeckodriver.sh`, for this you will need to have tar and wget installed.
+            
+            **MAC:** `brew install geckodriver`
         1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
         1. Execute the script with **Python3**
-            `python transfer_ratings.py --source trakt --destination movielens`
+            `python3 transfer_ratings.py --source trakt --destination movielens`
         
             This will first parse your ratings in Trakt, save them in a JSON file for later use and then try to find those movies in Movielens an put your rating there. Notice: This will also overwrite rating you already did set there before.
         
             This script will take some minutes. Relax. You can follow the progress in console output.
             
             For more information about how to use the script, you can call 
-            `python transfer_ratings.py --help`
+            `python3 transfer_ratings.py --help`
         1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
+        
+        ### Inside a Docker container
+        
+        1. Create a credentials configuration in your home folder, e.g.: `touch ~/.RatS.cfg`
+        1. Configure your credentials in the file you just created, e.g.:
+            ```
+            [Trakt]
+            USERNAME = abc
+            PASSWORD = def
+            ```
+            Please see the RatS/credentials.cfg.orig in this repository as a template.
+        1. Get the Docker image: `docker pull stegschreck/rats`
+        1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg stegschreck/rats python3 transfer_ratings.py --source trakt --destination movielens`
+            
+            The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
+            
+            You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command.
+        1. After the successful run of the transfer script, you may remove the docker container using `docker rm <container-id>`. 
+            You can find the container id using `docker ps -a`.
         
         ### Command line call parameters
         
@@ -735,6 +760,7 @@ Description: <p align="center">
         * IMDB (with IMDB account)
         * Letterboxd
         * Listal
+        * Metacritic
         * Movielens
         * TMDB (The Movie Database)
         * Trakt
@@ -755,8 +781,7 @@ Description: <p align="center">
         
         `selenium.common.exceptions.WebDriverException: Message: Expected [object Undefined] undefined to be a string`
         
-        This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver) by running again the following command:
-            `sudo ./InstallGeckodriver.sh`
+        This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver) by running again the command mentioned above.
         
         
         ## You are missing a feature or noticed something is wrong?

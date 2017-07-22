@@ -92,6 +92,7 @@ This project is currently still under development. Please be patient, as I'm onl
 * IMDB (with IMDB account)
 * Letterboxd
 * Listal
+* Metacritic
 * Movielens
 * TMDB (The Movie Database)
 * Trakt
