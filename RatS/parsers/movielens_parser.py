@@ -63,7 +63,8 @@ class MovielensRatingsParser(Parser):
 
         if self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_name)
-            [sys.stdout.write(r + '\r\n') for r in row]
+            for r in row:
+                sys.stdout.write(r + '\r\n')
             sys.stdout.flush()
 
         find_year = re.findall(r'(\(\d{4}\))', row[5])
