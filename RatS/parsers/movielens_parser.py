@@ -22,9 +22,9 @@ class MovielensRatingsParser(Parser):
         self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'Movielens')
 
     def _parse_ratings(self):
-        self._download_ratings_csv()
-        self._rename_csv_file()
-        self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
+        # self._download_ratings_csv()
+        # self._rename_csv_file()
+        self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, '20170722005039_Movielens.csv'))
 
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
@@ -60,8 +60,20 @@ class MovielensRatingsParser(Parser):
 
     def _convert_csv_row_to_movie(self, row):
         movie = dict()
-        movie['title'] = row[5].replace(re.findall(r'(\(\d{4}\))', row[5])[-1], '').strip()
-        movie['year'] = int(re.findall(r'\((\d{4})\)', row[5])[-1])
+
+        if self.args.verbose and self.args.verbose >= 1:
+            sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_name)
+            [sys.stdout.write(r + '\r\n') for r in row]
+            sys.stdout.flush()
+
+        find_year = re.findall(r'(\(\d{4}\))', row[5])
+        if find_year:
+            year = find_year[-1]
+            movie['year'] = int(re.findall(r'\((\d{4})\)', row[5])[-1])
+        else:  # no movie year in CSV
+            year = '()'
+            movie['year'] = 0
+        movie['title'] = row[5].replace(year, '').strip()
 
         movie[self.site.site_name.lower()] = dict()
         movie[self.site.site_name.lower()]['id'] = row[0]
