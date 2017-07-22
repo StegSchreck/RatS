@@ -69,6 +69,7 @@ class MovielensParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_movielens.csv'
+        parser.args = None
 
         movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.csv'))  # pylint: disable=protected-access
 
