@@ -22,9 +22,9 @@ class MovielensRatingsParser(Parser):
         self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'Movielens')
 
     def _parse_ratings(self):
-        # self._download_ratings_csv()
-        # self._rename_csv_file()
-        self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, '20170722005039_Movielens.csv'))
+        self._download_ratings_csv()
+        self._rename_csv_file()
+        self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
