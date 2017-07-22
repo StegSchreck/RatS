@@ -61,6 +61,8 @@ class MovielensRatingsParser(Parser):
     def _convert_csv_row_to_movie(self, row):
         movie = dict()
 
+        print(type(self.args))
+
         if self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_name)
             [sys.stdout.write(r + '\r\n') for r in row]
