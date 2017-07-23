@@ -45,8 +45,11 @@ class TraktRatingsInserter(Inserter):
 
     def _click_rating(self, my_rating):
         user_rating_section = self.site.browser.find_element_by_class_name('summary-user-rating')
-        current_rating = int(user_rating_section.find_element_by_class_name('number')
-                             .find_element_by_class_name('rating').text)
+        user_rating = user_rating_section.find_element_by_class_name('number').find_elements_by_class_name('rating')
+        if user_rating:
+            current_rating = int(user_rating[0].text)
+        else:
+            current_rating = 0
         if current_rating is not my_rating:  # prevent unrating if same score
             user_rating_section.click()
             time.sleep(1)
