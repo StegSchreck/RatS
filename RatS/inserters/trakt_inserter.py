@@ -44,7 +44,11 @@ class TraktRatingsInserter(Inserter):
                 return movie[site_name]['id'] == link['href'].split('/')[-1]
 
     def _click_rating(self, my_rating):
-        self.site.browser.find_element_by_class_name('summary-user-rating').click()
-        time.sleep(1)
-        star_index = 10 - int(my_rating)
-        self.site.browser.execute_script("$('.rating-hearts').find('label')[%i].click()" % star_index)
+        user_rating_section = self.site.browser.find_element_by_class_name('summary-user-rating')
+        current_rating = int(user_rating_section.find_element_by_class_name('number')
+                             .find_element_by_class_name('rating').text)
+        if current_rating is not my_rating:  # prevent unrating if same score
+            user_rating_section.click()
+            time.sleep(1)
+            star_index = 10 - int(my_rating)
+            self.site.browser.execute_script("$('.rating-hearts').find('label')[%i].click()" % star_index)
