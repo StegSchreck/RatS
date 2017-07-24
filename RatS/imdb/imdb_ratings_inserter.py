@@ -23,9 +23,11 @@ class IMDBRatingsInserter(RatingsInserter):
             search_results = search_results_list.find_all(class_='findResult')
             for search_result in search_results:
                 if self._is_requested_movie(movie, search_result):
-                    return "http://www.imdb.com" + search_result.find('a')['href']
-            return None
-        return None
+                    movie_url = "http://www.imdb.com" + search_result.find('a')['href']
+                    self.site.browser.get(movie_url)
+                    return True
+            return False
+        return False
 
     def _is_requested_movie(self, movie, search_result):
         result_annotation = search_result.find(class_='result_text').get_text()

@@ -120,7 +120,7 @@ class IMDBRatingsInserterTest(TestCase):
 
         result = inserter._find_movie(self.movie)  # pylint: disable=protected-access
 
-        self.assertIsNotNone(result)
+        self.assertTrue(result)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
@@ -139,4 +139,4 @@ class IMDBRatingsInserterTest(TestCase):
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
-        self.assertIsNone(result)
+        self.assertFalse(result)
