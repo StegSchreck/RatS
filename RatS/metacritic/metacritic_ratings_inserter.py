@@ -13,7 +13,7 @@ class MetacriticRatingsInserter(RatingsInserter):
 
     def _search_for_movie(self, movie):
         search_url = 'http://www.metacritic.com/search/movie/%s/results' % \
-                     urllib.parse.urlencode({'query': movie['title']})
+                     urllib.parse.quote_plus(movie['title'])
         self.site.browser.get(search_url)
 
     @staticmethod
