@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.imdb_site import IMDB
+from RatS.imdb.imdb_site import IMDB
 
 
 @skip('this test is unstable on travis')

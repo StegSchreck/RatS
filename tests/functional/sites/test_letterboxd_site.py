@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.letterboxd_site import Letterboxd
+from RatS.letterboxd.letterboxd_site import Letterboxd
 
 
 @skip('this test is unstable on travis')

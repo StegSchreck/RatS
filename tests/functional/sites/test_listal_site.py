@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.listal_site import Listal
+from RatS.listal.listal_site import Listal
 
 
 @skip('this test is unstable on travis')

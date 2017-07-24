@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.criticker_site import Criticker
+from RatS.criticker.criticker_site import Criticker
 
 
 @skip('this test is unstable on travis')

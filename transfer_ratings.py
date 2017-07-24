@@ -5,23 +5,24 @@ import os
 import sys
 import time
 
-from RatS.inserters.criticker_inserter import CritickerRatingsInserter
-from RatS.inserters.flixster_inserter import FlixsterRatingsInserter
-from RatS.inserters.imdb_inserter import IMDBRatingsInserter
-from RatS.inserters.letterboxd_inserter import LetterboxdRatingsInserter
-from RatS.inserters.listal_inserter import ListalRatingsInserter
-from RatS.inserters.metacritic_inserter import MetacriticRatingsInserter
-from RatS.inserters.movielens_inserter import MovielensRatingsInserter
-from RatS.inserters.tmdb_inserter import TMDBRatingsInserter
-from RatS.inserters.trakt_inserter import TraktRatingsInserter
-from RatS.parsers.criticker_parser import CritickerRatingsParser
-from RatS.parsers.flixster_parser import FlixsterRatingsParser
-from RatS.parsers.imdb_parser import IMDBRatingsParser
-from RatS.parsers.letterboxd_parser import LetterboxdRatingsParser
-from RatS.parsers.listal_parser import ListalRatingsParser
-from RatS.parsers.movielens_parser import MovielensRatingsParser
-from RatS.parsers.tmdb_parser import TMDBRatingsParser
-from RatS.parsers.trakt_parser import TraktRatingsParser
+from RatS.criticker.criticker_inserter import CritickerRatingsInserter
+from RatS.flixster.flixster_inserter import FlixsterRatingsInserter
+from RatS.imdb.imdb_inserter import IMDBRatingsInserter
+from RatS.letterboxd.letterboxd_inserter import LetterboxdRatingsInserter
+from RatS.listal.listal_inserter import ListalRatingsInserter
+from RatS.tmdb.tmdb_inserter import TMDBRatingsInserter
+from RatS.trakt.trakt_inserter import TraktRatingsInserter
+from RatS.movielens.movielens_parser import MovielensRatingsParser
+
+from RatS.criticker.criticker_parser import CritickerRatingsParser
+from RatS.flixster.flixster_parser import FlixsterRatingsParser
+from RatS.imdb.imdb_parser import IMDBRatingsParser
+from RatS.letterboxd.letterboxd_parser import LetterboxdRatingsParser
+from RatS.listal.listal_parser import ListalRatingsParser
+from RatS.metacritic.metacritic_inserter import MetacriticRatingsInserter
+from RatS.movielens.movielens_inserter import MovielensRatingsInserter
+from RatS.tmdb.tmdb_parser import TMDBRatingsParser
+from RatS.trakt.trakt_parser import TraktRatingsParser
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')

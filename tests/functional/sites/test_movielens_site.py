@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.movielens_site import Movielens
+from RatS.movielens.movielens_site import Movielens
 
 
 @skip('this test is unstable on travis')

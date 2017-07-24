@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.flixster_site import Flixster
+from RatS.flixster.flixster_site import Flixster
 
 
 @skip('this test is unstable on travis')

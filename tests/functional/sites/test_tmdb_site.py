@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.tmdb_site import TMDB
+from RatS.tmdb.tmdb_site import TMDB
 
 
 @skip('this test is unstable on travis')

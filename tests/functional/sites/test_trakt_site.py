@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.trakt_site import Trakt
+from RatS.trakt.trakt_site import Trakt
 
 
 @skip('this test is unstable on travis')

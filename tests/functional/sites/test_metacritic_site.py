@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import skip
 
-from RatS.sites.metacritic_site import Metacritic
+from RatS.metacritic.metacritic_site import Metacritic
 
 
 @skip('this test is unstable on travis')
