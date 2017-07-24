@@ -25,7 +25,12 @@ class TraktRatingsInserter(RatingsInserter):
             return self._check_movie_details(movie, search_result)
 
     def _check_movie_details(self, movie, search_result):
-        self.site.browser.get('https://trakt.tv' + search_result['data-url'])
+        try:
+            movie_url = 'https://trakt.tv' + search_result['data-url']
+        except KeyError:
+            return False
+
+        self.site.browser.get(movie_url)
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
