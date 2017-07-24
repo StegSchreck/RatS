@@ -1,5 +1,6 @@
 import re
 import time
+import urllib.parse
 
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import TimeoutException
@@ -13,7 +14,8 @@ class ListalRatingsInserter(RatingsInserter):
         super(ListalRatingsInserter, self).__init__(Listal(args), args)
 
     def _search_for_movie(self, movie):
-        self.site.browser.get('http://www.listal.com/search/movies/%s' % movie['title'])
+        search_url = 'http://www.listal.com/search/movies/%s' % urllib.parse.urlencode({'query': movie['title']})
+        self.site.browser.get(search_url)
 
     @staticmethod
     def _get_search_results(search_result_page):

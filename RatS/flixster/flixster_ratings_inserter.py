@@ -1,5 +1,6 @@
 import re
 import time
+import urllib.parse
 
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
@@ -37,7 +38,8 @@ class FlixsterRatingsInserter(RatingsInserter):
         return 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
-        self.site.browser.get('https://www.flixster.com/search/?search=%s' % movie['title'].encode('ISO-8859-1'))
+        search_url = 'https://www.flixster.com/search/?search=%s' % urllib.parse.urlencode({'query': movie['title']})
+        self.site.browser.get(search_url)
         time.sleep(1)
         return '/movie/' in self.site.browser.current_url  # already on movie_details_page
 

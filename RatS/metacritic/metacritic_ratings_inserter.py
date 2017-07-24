@@ -1,4 +1,5 @@
 import time
+import urllib.parse
 
 from bs4 import BeautifulSoup
 
@@ -11,7 +12,9 @@ class MetacriticRatingsInserter(RatingsInserter):
         super(MetacriticRatingsInserter, self).__init__(Metacritic(args), args)
 
     def _search_for_movie(self, movie):
-        self.site.browser.get('http://www.metacritic.com/search/movie/%s/results' % movie['title'])
+        search_url = 'http://www.metacritic.com/search/movie/%s/results' % \
+                     urllib.parse.urlencode({'query': movie['title']})
+        self.site.browser.get(search_url)
 
     @staticmethod
     def _get_search_results(search_result_page):

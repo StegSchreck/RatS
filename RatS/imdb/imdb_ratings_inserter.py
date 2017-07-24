@@ -1,5 +1,6 @@
 import re
 import time
+import urllib.parse
 
 from bs4 import BeautifulSoup
 
@@ -12,7 +13,9 @@ class IMDBRatingsInserter(RatingsInserter):
         super(IMDBRatingsInserter, self).__init__(IMDB(args), args)
 
     def _find_movie(self, movie):
-        self.site.browser.get('http://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&q=%s' % movie['title'])
+        search_url = 'http://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&q=%s' % \
+                     urllib.parse.urlencode({'query': movie['title']})
+        self.site.browser.get(search_url)
         time.sleep(1)
         search_result_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         search_results_list = search_result_page.find(class_='findList')

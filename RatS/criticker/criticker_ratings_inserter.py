@@ -1,4 +1,5 @@
 import time
+import urllib.parse
 
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
@@ -12,7 +13,9 @@ class CritickerRatingsInserter(RatingsInserter):
         super(CritickerRatingsInserter, self).__init__(Criticker(args), args)
 
     def _search_for_movie(self, movie):
-        self.site.browser.get('https://www.criticker.com/?search=%s&type=films' % movie['title'])
+        search_url = 'https://www.criticker.com/?search=%s&type=films' % \
+                     urllib.parse.urlencode({'query': movie['title']})
+        self.site.browser.get(search_url)
 
     @staticmethod
     def _get_search_results(search_result_page):
