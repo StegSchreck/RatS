@@ -3,11 +3,11 @@ import time
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.criticker.criticker_site import Criticker
 
 
-class CritickerRatingsInserter(Inserter):
+class CritickerRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(CritickerRatingsInserter, self).__init__(Criticker(args), args)
 

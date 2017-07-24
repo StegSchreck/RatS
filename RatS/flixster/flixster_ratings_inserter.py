@@ -4,11 +4,11 @@ import time
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.flixster.flixster_site import Flixster
 
 
-class FlixsterRatingsInserter(Inserter):
+class FlixsterRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(FlixsterRatingsInserter, self).__init__(Flixster(args), args)
 

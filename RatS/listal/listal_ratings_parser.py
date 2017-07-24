@@ -2,11 +2,11 @@ import re
 
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.listal.listal_site import Listal
 
 
-class ListalRatingsParser(Parser):
+class ListalRatingsParser(RatingsParser):
     def __init__(self, args):
         super(ListalRatingsParser, self).__init__(Listal(args), args)
 

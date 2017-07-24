@@ -3,7 +3,7 @@ import os
 import sys
 import time
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.movielens.movielens_site import Movielens
 from RatS.utils.file_impex import save_movies_to_csv
 
@@ -11,7 +11,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 CSV_FILE_NAME = TIMESTAMP + '_converted_for_Movielens.csv'
 
 
-class MovielensRatingsInserter(Inserter):
+class MovielensRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(MovielensRatingsInserter, self).__init__(Movielens(args), args)
 

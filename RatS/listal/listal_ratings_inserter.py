@@ -4,11 +4,11 @@ import time
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.listal.listal_site import Listal
 
 
-class ListalRatingsInserter(Inserter):
+class ListalRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(ListalRatingsInserter, self).__init__(Listal(args), args)
 

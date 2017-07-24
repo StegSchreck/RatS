@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from RatS.utils.command_line import print_progress_bar
 
 
-class Parser:
+class RatingsParser:
     def __init__(self, site, args):
         self.site = site
         self.args = args

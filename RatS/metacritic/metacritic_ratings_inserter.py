@@ -2,11 +2,11 @@ import time
 
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.metacritic.metacritic_site import Metacritic
 
 
-class MetacriticRatingsInserter(Inserter):
+class MetacriticRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(MetacriticRatingsInserter, self).__init__(Metacritic(args), args)
 

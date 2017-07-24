@@ -28,16 +28,16 @@ class IMDBRatingsInserterTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'search_result', 'imdb.html'), encoding='UTF-8') as search_result_tile:
             self.search_result = search_result_tile.read()
 
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         IMDBRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_inserter.Inserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
@@ -52,7 +52,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.assertTrue(progress_print_mock.called)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_is_requested_movie_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -68,7 +68,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_is_requested_movie_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -88,7 +88,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.assertFalse(result)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_is_requested_movie_no_movie_with_that_year(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -108,7 +108,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.assertFalse(result)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -123,7 +123,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.assertIsNotNone(result)
 
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock

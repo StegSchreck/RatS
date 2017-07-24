@@ -1,10 +1,10 @@
 import sys
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.flixster.flixster_site import Flixster
 
 
-class FlixsterRatingsParser(Parser):
+class FlixsterRatingsParser(RatingsParser):
     def __init__(self, args):
         super(FlixsterRatingsParser, self).__init__(Flixster(args), args)
 

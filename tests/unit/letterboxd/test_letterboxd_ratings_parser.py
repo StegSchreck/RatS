@@ -9,7 +9,7 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 class LetterboxdParserTest(TestCase):
 
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         LetterboxdRatingsParser(None)
@@ -21,7 +21,7 @@ class LetterboxdParserTest(TestCase):
     @patch('RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._parse_movies_from_csv')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._rename_csv_file')
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock,  # pylint: disable=too-many-arguments
                     parsed_filename_mock, zip_extraction_mock):
@@ -41,7 +41,7 @@ class LetterboxdParserTest(TestCase):
         self.assertEqual(1, parse_csv_mock.call_count)
 
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
         parser = LetterboxdRatingsParser(None)
@@ -64,7 +64,7 @@ class LetterboxdParserTest(TestCase):
         os.remove(os.path.join(TESTDATA_PATH, 'exports', parser.csv_filename))
 
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_parse_movies_from_csv(self, site_mock, base_init_mock, browser_mock):
         parser = LetterboxdRatingsParser(None)

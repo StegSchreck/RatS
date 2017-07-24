@@ -5,14 +5,14 @@ import time
 
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.imdb.imdb_site import IMDB
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
 
-class IMDBRatingsParser(Parser):
+class IMDBRatingsParser(RatingsParser):
     def __init__(self, args):
         super(IMDBRatingsParser, self).__init__(IMDB(args), args)
         self.exports_folder = os.path.abspath(

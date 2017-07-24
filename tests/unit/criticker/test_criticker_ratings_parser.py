@@ -13,7 +13,7 @@ class CritickerParserTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'my_ratings', 'criticker.xml'), encoding='UTF-8') as my_ratings:
             self.my_ratings = my_ratings.read()
 
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         CritickerRatingsParser(None)
@@ -21,7 +21,7 @@ class CritickerParserTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.criticker.criticker_ratings_parser.Criticker')
     def test_parser(self, site_mock, base_init_mock, browser_mock):
         browser_mock.page_source = self.my_ratings

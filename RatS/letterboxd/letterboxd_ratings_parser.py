@@ -6,14 +6,14 @@ import time
 
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
 
-class LetterboxdRatingsParser(Parser):
+class LetterboxdRatingsParser(RatingsParser):
     def __init__(self, args):
         super(LetterboxdRatingsParser, self).__init__(Letterboxd(args), args)
         self.exports_folder = os.path.abspath(

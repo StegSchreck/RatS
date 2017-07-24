@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.trakt.trakt_site import Trakt
 
 
-class TraktRatingsParser(Parser):
+class TraktRatingsParser(RatingsParser):
     def __init__(self, args):
         super(TraktRatingsParser, self).__init__(Trakt(args), args)
 

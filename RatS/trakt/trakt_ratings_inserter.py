@@ -2,11 +2,11 @@ import time
 
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.trakt.trakt_site import Trakt
 
 
-class TraktRatingsInserter(Inserter):
+class TraktRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(TraktRatingsInserter, self).__init__(Trakt(args), args)
 

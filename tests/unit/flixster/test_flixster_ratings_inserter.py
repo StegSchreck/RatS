@@ -29,18 +29,18 @@ class FlixsterRatingsInserterTest(TestCase):
                   encoding='ISO-8859-1') as movie_details_page:
             self.movie_details_page = movie_details_page.read()
 
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         FlixsterRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_inserter.Inserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results')
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, overview_page_mock,  # pylint: disable=too-many-arguments
                     eq_check_mock, progress_print_mock):
@@ -58,7 +58,7 @@ class FlixsterRatingsInserterTest(TestCase):
         self.assertTrue(progress_print_mock.called)
 
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -79,7 +79,7 @@ class FlixsterRatingsInserterTest(TestCase):
         self.assertTrue(result)
 
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_success_by_own_url(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
@@ -100,7 +100,7 @@ class FlixsterRatingsInserterTest(TestCase):
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results')
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
@@ -126,7 +126,7 @@ class FlixsterRatingsInserterTest(TestCase):
 
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie')
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_success_directly_at_search(self, browser_mock, base_init_mock, site_mock, search_mock):
         site_mock.browser = browser_mock
@@ -148,7 +148,7 @@ class FlixsterRatingsInserterTest(TestCase):
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_empty_search_result')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie')
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_find_movie_fail_at_search(self, browser_mock, base_init_mock, site_mock, search_mock, empty_result_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock

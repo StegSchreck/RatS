@@ -7,14 +7,14 @@ from xml.etree import ElementTree
 
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.criticker.criticker_site import Criticker
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
 
-class CritickerRatingsParser(Parser):
+class CritickerRatingsParser(RatingsParser):
     def __init__(self, args):
         super(CritickerRatingsParser, self).__init__(Criticker(args), args)
         self.exports_folder = os.path.abspath(

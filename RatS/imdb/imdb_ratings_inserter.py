@@ -3,11 +3,11 @@ import time
 
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.imdb.imdb_site import IMDB
 
 
-class IMDBRatingsInserter(Inserter):
+class IMDBRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(IMDBRatingsInserter, self).__init__(IMDB(args), args)
 

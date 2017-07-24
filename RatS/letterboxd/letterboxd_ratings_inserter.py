@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions, ui
 from selenium.webdriver.support.wait import WebDriverWait
 
-from RatS.base.base_ratings_inserter import Inserter
+from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils.file_impex import save_movies_to_csv
 
@@ -15,7 +15,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 CSV_FILE_NAME = TIMESTAMP + '_converted_for_Letterboxd.csv'
 
 
-class LetterboxdRatingsInserter(Inserter):
+class LetterboxdRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(LetterboxdRatingsInserter, self).__init__(Letterboxd(args), args)
 

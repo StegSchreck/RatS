@@ -12,7 +12,7 @@ from RatS.utils.command_line import print_progress_bar
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
 
-class Inserter:
+class RatingsInserter:
     def __init__(self, site, args):
         self.site = site
         self.args = args

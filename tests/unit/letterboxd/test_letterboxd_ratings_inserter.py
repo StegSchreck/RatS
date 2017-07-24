@@ -16,7 +16,7 @@ class LetterboxdRatingsInserterTest(TestCase):
         self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
 
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         LetterboxdRatingsInserter(None)
@@ -27,7 +27,7 @@ class LetterboxdRatingsInserterTest(TestCase):
     @patch('RatS.letterboxd.letterboxd_ratings_inserter.LetterboxdRatingsInserter._wait_for_movie_matching')
     @patch('RatS.letterboxd.letterboxd_ratings_inserter.save_movies_to_csv')
     @patch('RatS.letterboxd.letterboxd_ratings_inserter.Letterboxd')
-    @patch('RatS.base.base_ratings_inserter.Inserter.__init__')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, impex_mock, matching_mock, process_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock

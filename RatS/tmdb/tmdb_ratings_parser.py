@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
-from RatS.base.base_ratings_parser import Parser
+from RatS.base.base_ratings_parser import RatingsParser
 from RatS.tmdb.tmdb_site import TMDB
 
 
-class TMDBRatingsParser(Parser):
+class TMDBRatingsParser(RatingsParser):
     def __init__(self, args):
         super(TMDBRatingsParser, self).__init__(TMDB(args), args)
 

@@ -15,17 +15,17 @@ class TraktParserTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'trakt.html'), encoding='UTF-8') as detail_page:
             self.detail_page = detail_page.read()
 
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         TraktRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_parser.Parser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
     @patch('RatS.trakt.trakt_ratings_parser.TraktRatingsParser.parse_movie_details_page')
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.trakt.trakt_ratings_parser.Trakt')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
@@ -45,7 +45,7 @@ class TraktParserTest(TestCase):
         self.assertEqual('https://trakt.tv/movies/arrival-2016', parser.movies[0]['trakt']['url'])
 
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.trakt.trakt_ratings_parser.Trakt')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):
         browser_mock.page_source = self.my_ratings

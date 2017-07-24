@@ -15,17 +15,17 @@ class ListalParserTest(TestCase):
         with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'listal.html'), encoding='UTF-8') as detail_page:
             self.detail_page = detail_page.read()
 
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         ListalRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_parser.Parser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
     @patch('RatS.listal.listal_ratings_parser.ListalRatingsParser.parse_movie_details_page')
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.listal.listal_ratings_parser.Listal')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
@@ -45,7 +45,7 @@ class ListalParserTest(TestCase):
         self.assertEqual('http://www.listal.com/movie/fight-club', parser.movies[0]['listal']['url'])
 
     @patch('RatS.base.base_site.Firefox')
-    @patch('RatS.base.base_ratings_parser.Parser.__init__')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.listal.listal_ratings_parser.Listal')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):
         browser_mock.page_source = self.my_ratings
