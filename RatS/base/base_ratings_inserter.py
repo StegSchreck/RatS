@@ -40,8 +40,11 @@ class RatingsInserter:
         self.site.kill_browser()
 
     def print_progress(self, counter, movie, movies):
-        if self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: posting %i \r\n' % (self.site.site_name, movie))
+        if self.args.verbose and self.args.verbose >= 2:
+            sys.stdout.write('\r===== %s: posted %s \r\n' % (self.site.site_name, movie))
+            sys.stdout.flush()
+        elif self.args.verbose and self.args.verbose >= 1:
+            sys.stdout.write('\r===== %s: posted %s \r\n' % (self.site.site_name, movie['title']))
             sys.stdout.flush()
         else:
             print_progress_bar(counter, len(movies), prefix=self.site.site_name)
