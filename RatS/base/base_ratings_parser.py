@@ -64,7 +64,7 @@ class RatingsParser:
             sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_name, movie))
             sys.stdout.flush()
         elif self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_name, movie['title']))
+            sys.stdout.write('\r===== %s: parsed %s (%i) \r\n' % (self.site.site_name, movie['title'], movie['year']))
             sys.stdout.flush()
         else:
             print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_name)
