@@ -18,11 +18,12 @@ class TraktRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        pagination_elements = movie_ratings_page.find(id='rating-items').find_all('li', class_='page')
-        if pagination_elements:
-            return int(pagination_elements[-1].find('a').get_text())
-        else:
-            return 1
+        ratings_section = movie_ratings_page.find(id='rating-items')
+        if ratings_section:
+            pagination_elements = ratings_section.find_all('li', class_='page')
+            if pagination_elements:
+                return int(pagination_elements[-1].find('a').get_text())
+        return 1
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
