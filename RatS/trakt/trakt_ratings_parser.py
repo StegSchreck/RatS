@@ -14,13 +14,15 @@ class TraktRatingsParser(RatingsParser):
     @staticmethod
     def _get_movies_count(movie_ratings_page):
         return int(movie_ratings_page.find('section', class_='subnav-wrapper').
-                   find('a', attrs={'data-title': 'Movies'}).find('span').
-                   get_text().strip().replace(',', ''))
+                   find('a', attrs={'data-title': 'Movies'}).find('span').get_text().strip().replace(',', ''))
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        return int(movie_ratings_page.find(id='rating-items').
-                   find_all('li', class_='page')[-1].find('a').get_text())
+        pagination_elements = movie_ratings_page.find(id='rating-items').find_all('li', class_='page')
+        if pagination_elements:
+            return int(pagination_elements[-1].find('a').get_text())
+        else:
+            return 1
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
