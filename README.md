@@ -62,8 +62,9 @@ This project is currently still under development. Please be patient, as I'm onl
     The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
     
     You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command to hide the output.
+1. If you want to run the command again, simply run `docker start -ai <container-id>`.
+    You can find the container id using `docker ps -a` or by running `docker ps -q -l`, if you haven't started any other containers in the meanwhile.
 1. After the successful run of the transfer script, you may remove the docker container using `docker rm <container-id>`. 
-    You can find the container id using `docker ps -a`.
 
 ### Command line call parameters
 
@@ -103,13 +104,28 @@ You can also omit the destination argument in order to just save the parsing res
 
 ### Trying again with former export data
 
+Depending on what you used in the first run:
+
+#### ... using the command line
+
 You can re-use the data you parsed before, without parsing again. This will help you, if you want to distribute from one source to multiple destinations. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by calling the script for example this way:
 
 `python3 transfer_ratings.py --source trakt --destination movielens --file 20170721191143_Trakt.json`
 
 Please notice, that the `--source` argument is still needed in order to identify which data to use from the file for the inserter.
 
-Furthermore: This section is meant to be used with the native command line version. Docker containers work differently. 
+Furthermore: This section is meant to be used with the native command line version. Docker containers work differently.
+
+#### ... using Docker
+
+1. After the first run of the Docker container: (assuming you didn't start any other Docker containers in the meanwhile)
+   * save the state of the container (including the saved data): ```docker commit <container-id> user/RatS```
+   * lookup the JSON file the script saved into the exports folder: `docker run -it user/RatS ls -l RatS/exports/` (take the latest JSON file)
+1. Run the container again, e.g. with a different destination 
+  `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg user/RatS python3 transfer_ratings.py --source trakt --destination imdb --file 20170721191143_Trakt.json`
+  
+#### Switching between environments
+You can copy the exported JSON from/to the Docker container if you like. I don't recommend this if you have no experience with docker. If you have, you already know what to do here ;)
 
 ## Problem shooting
 
