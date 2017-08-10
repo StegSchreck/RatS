@@ -61,14 +61,16 @@ This project is currently still under development. Please be patient, as I'm onl
     
     The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
     
-    You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command.
+    You will see the progress in your console. If you want to run this in the background, you can add the option `-d` to the docker run command to hide the output.
 1. After the successful run of the transfer script, you may remove the docker container using `docker rm <container-id>`. 
     You can find the container id using `docker ps -a`.
 
 ### Command line call parameters
 
-1. the first argument is the site where the ratings are parsed from (see [Available Parsers](#parsers))
-1. the second argument is the site where the ratings should be posted (inserted) to (see [Available Inserters](#inserters))
+1. the first argument (`--source`) is the site where the ratings are parsed from (see [Available Parsers](#parsers))
+1. the second argument  (`--destination`) is the site where the ratings should be posted (inserted) to (see [Available Inserters](#inserters))
+
+You can also omit the destination argument in order to just save the parsing results to a JSON file. You might insert the saved results anytime later. (see [below](#retry))
 
 <a name="parsers"></a>
 
@@ -97,9 +99,17 @@ This project is currently still under development. Please be patient, as I'm onl
 * TMDB (The Movie Database)
 * Trakt
 
+<a name="retry"></a>
+
 ### Trying again with former export data
 
-You can use the data you parsed before again without parsing again. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by commenting out the parsing in the `transfer_ratings.py` script and comment in the file loader part, where you just have to adjust the filename.
+You can re-use the data you parsed before, without parsing again. This will help you, if you want to distribute from one source to multiple destinations. The parser tells you in which file he saved his results, the folder is `./RatS/exports`. You can use this data by calling the script for example this way:
+
+`python3 transfer_ratings.py --source trakt --destination movielens --file 20170721191143_Trakt.json`
+
+Please notice, that the `--source` argument is still needed in order to identify which data to use from the file for the inserter.
+
+Furthermore: This section is meant to be used with the native command line version. Docker containers work differently. 
 
 ## Problem shooting
 

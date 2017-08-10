@@ -59,7 +59,10 @@ def main():
 def parse_args():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("-s", "--source", help="Source of the movie ratings", required=True)
-    argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=True)
+    argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=False)
+    argparser.add_argument("-f", "--file", help="Import ratings from this file instead of parser "
+                                                "(you still have provide the -s/--source argument "
+                                                "to determine which data to use for inserting)", required=False)
     argparser.add_argument("-v", "--verbose", action="count", help="increase output verbosity", required=False)
     argparser.add_argument("-x", "--show_browser", help="show the browser doing his work",
                            action="store_true", required=False)
@@ -90,14 +93,19 @@ def get_inserter_from_arg(param):
 
 
 def execute(args):
-    # PARSING DATA
     parser = get_parser_from_arg(args.source)(args)
-    movies = parse_data_from_source(parser)
-    # FILE LOADING
-    # movies = load_data_from_file(filename)
-    # POSTING THE DATA
-    inserter = get_inserter_from_arg(args.destination)(args)
-    insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+
+    if args.file:
+        # LOAD FROM FILE
+        movies = load_data_from_file(args.file)
+    else:
+        # PARSE DATA
+        movies = parse_data_from_source(parser)
+
+    if args.destination:
+        # INSERT THE DATA
+        inserter = get_inserter_from_arg(args.destination)(args)
+        insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
 def parse_data_from_source(parser):
