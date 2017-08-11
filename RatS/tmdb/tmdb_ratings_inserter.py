@@ -20,17 +20,21 @@ class TMDBRatingsInserter(RatingsInserter):
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
+        self.upload_csv_file()
+
+        sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded '
+                         'and will be process by the servers. '
+                         'You may check your %s account later. '
+                         'Note, that this will NOT overwrite any existing ratings.\r\n' %
+                         (self.site.site_name, len(movies), self.site.site_name))
+        sys.stdout.flush()
+
+        self.site.kill_browser()
+
+    def upload_csv_file(self):
         self.site.browser.get('https://www.themoviedb.org/account/StegSchreck/import')
         time.sleep(1)
         self.site.browser.find_element_by_id('csv_file').send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))
         time.sleep(1)
         self.site.browser.find_element_by_xpath("//form[@name='import_csv']//input[@type='submit']").click()
         time.sleep(3)
-
-        sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded and will be process by the servers. '
-                         'You may check your TMDB account later. '
-                         'Note, that this will NOT overwrite any existing ratings.\r\n' %
-                         (self.site.site_name, len(movies)))
-        sys.stdout.flush()
-
-        self.site.kill_browser()

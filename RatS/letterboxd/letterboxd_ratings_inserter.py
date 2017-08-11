@@ -24,14 +24,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
-        self.site.browser.get('https://letterboxd.com/import/')
-        time.sleep(1)
-        self.site.browser.find_element_by_id('upload-imdb-import')\
-            .send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))
-
-        wait = ui.WebDriverWait(self.site.browser, 600)
-        self._wait_for_movie_matching(wait)
-        self._wait_for_import_processing(wait)
+        self.upload_csv_file()
 
         sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded '
                          'and successfully processed by the servers. '
@@ -40,6 +33,16 @@ class LetterboxdRatingsInserter(RatingsInserter):
         sys.stdout.flush()
 
         self.site.kill_browser()
+
+    def upload_csv_file(self):
+        self.site.browser.get('https://letterboxd.com/import/')
+        time.sleep(1)
+        self.site.browser.find_element_by_id('upload-imdb-import') \
+            .send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))
+
+        wait = ui.WebDriverWait(self.site.browser, 600)
+        self._wait_for_movie_matching(wait)
+        self._wait_for_import_processing(wait)
 
     def _wait_for_movie_matching(self, wait):
         time.sleep(5)
