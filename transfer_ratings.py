@@ -7,6 +7,7 @@ import time
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
+from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
 from RatS.letterboxd.letterboxd_ratings_inserter import LetterboxdRatingsInserter
 from RatS.listal.listal_ratings_inserter import ListalRatingsInserter
@@ -48,6 +49,7 @@ INSERTERS = {
     'MOVIELENS': MovielensRatingsInserter,
     'TMDB': TMDBRatingsInserter,
     'TRAKT': TraktRatingsInserter,
+    'ICHECKMOVIES': ICheckMoviesRatingsInserter,
 }
 
 

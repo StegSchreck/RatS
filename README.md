@@ -92,6 +92,7 @@ You can also omit the destination argument in order to just save the parsing res
 
 * Criticker
 * Flixster
+* iCheckMovies
 * IMDB (with IMDB account)
 * Letterboxd
 * Listal
