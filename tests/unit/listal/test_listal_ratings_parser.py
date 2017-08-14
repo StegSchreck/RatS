@@ -34,6 +34,7 @@ class ListalParserTest(TestCase):
         parser.site = site_mock
         parser.site.site_name = 'Listal'
         parser.site.browser = browser_mock
+        parser.args = None
 
         parser.parse()
 

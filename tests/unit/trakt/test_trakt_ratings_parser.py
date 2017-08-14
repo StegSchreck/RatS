@@ -34,6 +34,7 @@ class TraktParserTest(TestCase):
         parser.site = site_mock
         parser.site.site_name = 'Trakt'
         parser.site.browser = browser_mock
+        parser.args = None
 
         parser.parse()
 

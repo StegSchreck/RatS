@@ -34,6 +34,7 @@ class TMDBParserTest(TestCase):
         parser.site = site_mock
         parser.site.site_name = 'TMDB'
         parser.site.browser = browser_mock
+        parser.args = None
 
         parser.parse()
 
