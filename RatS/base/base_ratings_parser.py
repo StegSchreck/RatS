@@ -35,7 +35,7 @@ class RatingsParser:
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.write('\r\n ===== %s: getting page count: %i \r\n' % (self.site.site_name, pages_count))
             sys.stdout.write('\r\n ===== %s: getting movies count: %i \r\n' % (self.site.site_name, self.movies_count))
-            sys.stdout.write('\r\n %s \r\n' % self.site.browser.page_source)
+            sys.stdout.write(self.site.browser.page_source)
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.flush()
 
