@@ -46,7 +46,8 @@ This project is currently still under development. Please be patient, as I'm onl
     `python3 transfer_ratings.py --help`
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
 
-### Inside a Docker container
+### Inside a Docker container 
+Please note: This is currently not working on Windows, but I'm working on that.
 
 1. Create a credentials configuration in your home folder, e.g.: `touch ~/.RatS.cfg`
 1. Configure your credentials in the file you just created, e.g.:
