@@ -27,7 +27,7 @@ class MovielensRatingsParser(RatingsParser):
         self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
-        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
+        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
         sys.stdout.flush()
         self.site.browser.set_page_load_timeout(5)
         time.sleep(1)
@@ -43,10 +43,10 @@ class MovielensRatingsParser(RatingsParser):
         try:
             os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
             sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_name, self.exports_folder, self.csv_filename))
+                             (self.site.site_displayname, self.exports_folder, self.csv_filename))
             sys.stdout.flush()
         except FileNotFoundError:
-            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_name)
+            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_displayname)
             sys.stdout.flush()
 
     def _parse_movies_from_csv(self, filepath):
@@ -62,7 +62,7 @@ class MovielensRatingsParser(RatingsParser):
         movie = dict()
 
         if self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_name)
+            sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_displayname)
             for r in row:
                 sys.stdout.write(r + '\r\n')
             sys.stdout.flush()

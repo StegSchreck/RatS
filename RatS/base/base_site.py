@@ -55,7 +55,7 @@ class Site:
         time.sleep(1)
 
     def login(self):
-        sys.stdout.write('===== %s: performing login' % type(self).__name__)
+        sys.stdout.write('===== ' + self.site_displayname + ': performing login')
         sys.stdout.flush()
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)

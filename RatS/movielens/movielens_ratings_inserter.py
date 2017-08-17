@@ -16,7 +16,7 @@ class MovielensRatingsInserter(RatingsInserter):
         super(MovielensRatingsInserter, self).__init__(Movielens(args), args)
 
     def insert(self, movies, source):
-        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_name, len(movies)))
+        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_displayname, len(movies)))
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
@@ -25,7 +25,7 @@ class MovielensRatingsInserter(RatingsInserter):
         sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded '
                          'and will be process by the servers. '
                          'You may check your %s account later.\r\n' %
-                         (self.site.site_name, len(movies), self.site.site_name))
+                         (self.site.site_displayname, len(movies), self.site.site_name))
         sys.stdout.flush()
 
         self.site.kill_browser()

@@ -25,7 +25,8 @@ class ICheckMoviesRatingsParser(RatingsParser):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         time.sleep(1)
         self.movies_count = self._get_movies_count(movie_ratings_page)
-        sys.stdout.write('\r===== %s: Parsing %i %s movies\r\n' % (self.site.site_name, self.movies_count, category))
+        sys.stdout.write('\r===== %s: Parsing %i %s movies\r\n' %
+                         (self.site.site_displayname, self.movies_count, category))
         sys.stdout.flush()
         self._parse_movie_listing_page(movie_ratings_page)
 

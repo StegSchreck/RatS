@@ -28,7 +28,7 @@ class CritickerRatingsParser(RatingsParser):
         self.movies = self._parse_xml()
 
     def _get_ratings_xml(self):
-        sys.stdout.write('\r===== %s: Retrieving ratings XML' % self.site.site_name)
+        sys.stdout.write('\r===== %s: Retrieving ratings XML' % self.site.site_displayname)
         sys.stdout.flush()
         time.sleep(1)
         try:

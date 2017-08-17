@@ -25,7 +25,7 @@ class IMDBRatingsParser(RatingsParser):
         self.movies = file_impex.load_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
-        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_name)
+        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
         sys.stdout.flush()
         self.site.browser.set_page_load_timeout(5)
         time.sleep(1)
@@ -41,8 +41,8 @@ class IMDBRatingsParser(RatingsParser):
         try:
             os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
             sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_name, self.exports_folder, self.csv_filename))
+                             (self.site.site_displayname, self.exports_folder, self.csv_filename))
             sys.stdout.flush()
         except FileNotFoundError:
-            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_name)
+            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_displayname)
             sys.stdout.flush()

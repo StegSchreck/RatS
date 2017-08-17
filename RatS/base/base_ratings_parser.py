@@ -34,14 +34,16 @@ class RatingsParser:
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.write(self.site.browser.current_url)
-            sys.stdout.write('\r\n ===== %s: getting page count: %i \r\n' % (self.site.site_name, pages_count))
-            sys.stdout.write('\r\n ===== %s: getting movies count: %i \r\n' % (self.site.site_name, self.movies_count))
+            sys.stdout.write('\r\n ===== %s: getting page count: %i \r\n' %
+                             (self.site.site_displayname, pages_count))
+            sys.stdout.write('\r\n ===== %s: getting movies count: %i \r\n' %
+                             (self.site.site_displayname, self.movies_count))
             # sys.stdout.write(str(self.site.browser.page_source))
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.flush()
 
         sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
-                         (self.site.site_name, pages_count, self.movies_count))
+                         (self.site.site_displayname, pages_count, self.movies_count))
         sys.stdout.flush()
 
         for i in range(1, pages_count + 1):
@@ -69,13 +71,13 @@ class RatingsParser:
 
     def print_progress(self, movie):
         if self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_name, movie))
+            sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_displayname, movie))
             sys.stdout.flush()
         elif self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: parsed %s (%i) \r\n' % (self.site.site_name, movie['title'], movie['year']))
+            sys.stdout.write('\r===== %s: parsed %s (%i) \r\n' % (self.site.site_displayname, movie['title'], movie['year']))
             sys.stdout.flush()
         else:
-            print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_name)
+            print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_displayname)
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
