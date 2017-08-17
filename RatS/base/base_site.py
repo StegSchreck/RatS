@@ -9,6 +9,8 @@ from selenium.webdriver import Firefox
 from selenium.webdriver import FirefoxProfile
 from xvfbwrapper import Xvfb
 
+from RatS.utils.bash_color import BashColor
+
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
 
 
@@ -20,6 +22,7 @@ class Site:
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
         self.site_name = type(self).__name__
+        self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END
         if os.environ.get(self.site_name.upper() + '_USERNAME'):
             self.USERNAME = os.environ.get(self.site_name.upper() + '_USERNAME')
         else:

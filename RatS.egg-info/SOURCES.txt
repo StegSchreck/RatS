@@ -17,6 +17,7 @@ RatS/flixster/flixster_ratings_inserter.py
 RatS/flixster/flixster_ratings_parser.py
 RatS/flixster/flixster_site.py
 RatS/icheckmovies/__init__.py
+RatS/icheckmovies/icheckmovies_misconfiguration_exception.py
 RatS/icheckmovies/icheckmovies_ratings_inserter.py
 RatS/icheckmovies/icheckmovies_ratings_parser.py
 RatS/icheckmovies/icheckmovies_site.py
@@ -48,6 +49,7 @@ RatS/trakt/trakt_ratings_inserter.py
 RatS/trakt/trakt_ratings_parser.py
 RatS/trakt/trakt_site.py
 RatS/utils/__init__.py
+RatS/utils/bash_color.py
 RatS/utils/command_line.py
 RatS/utils/file_impex.py
 tests/functional/__init__.py

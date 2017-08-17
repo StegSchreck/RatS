@@ -9,6 +9,7 @@ from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
+from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMoviesMisconfigurationException
 from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
 from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
@@ -25,6 +26,7 @@ from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
 from RatS.trakt.trakt_ratings_inserter import TraktRatingsInserter
 from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
 from RatS.utils import file_impex
+from RatS.utils.bash_color import BashColor
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
@@ -56,7 +58,14 @@ INSERTERS = {
 
 def main():
     args = parse_args()
-    execute(args)
+    try:
+        execute(args)
+    except ICheckMoviesMisconfigurationException as e:
+        sys.stderr.write(BashColor.BOLD + BashColor.FAIL + '\r\nERROR: ' + BashColor.END +
+                         BashColor.FAIL + str(e) + BashColor.END)
+        sys.stdout.write('\r\n===== ABORTING =====\r\n')
+        sys.stdout.flush()
+        sys.exit(1)
 
 
 def parse_args():

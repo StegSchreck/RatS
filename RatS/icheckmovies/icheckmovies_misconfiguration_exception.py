@@ -1,0 +1,2 @@
+class ICheckMoviesMisconfigurationException(Exception):
+    pass
