@@ -1,8 +1,6 @@
-import re
-
+import sys
 import time
 
-import sys
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
