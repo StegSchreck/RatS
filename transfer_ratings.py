@@ -6,23 +6,23 @@ import sys
 import time
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
-from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
-from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
-from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
-from RatS.letterboxd.letterboxd_ratings_inserter import LetterboxdRatingsInserter
-from RatS.listal.listal_ratings_inserter import ListalRatingsInserter
-from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
-from RatS.trakt.trakt_ratings_inserter import TraktRatingsInserter
-from RatS.movielens.movielens_ratings_parser import MovielensRatingsParser
-
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
+from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
+from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
+from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
+from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
 from RatS.imdb.imdb_ratings_parser import IMDBRatingsParser
+from RatS.letterboxd.letterboxd_ratings_inserter import LetterboxdRatingsInserter
 from RatS.letterboxd.letterboxd_ratings_parser import LetterboxdRatingsParser
+from RatS.listal.listal_ratings_inserter import ListalRatingsInserter
 from RatS.listal.listal_ratings_parser import ListalRatingsParser
 from RatS.metacritic.metacritic_ratings_inserter import MetacriticRatingsInserter
 from RatS.movielens.movielens_ratings_inserter import MovielensRatingsInserter
+from RatS.movielens.movielens_ratings_parser import MovielensRatingsParser
+from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
 from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
+from RatS.trakt.trakt_ratings_inserter import TraktRatingsInserter
 from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
 from RatS.utils import file_impex
 
@@ -32,6 +32,7 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS',
 PARSERS = {
     'CRITICKER': CritickerRatingsParser,
     'FLIXSTER': FlixsterRatingsParser,
+    'ICHECKMOVIES': ICheckMoviesRatingsParser,
     'IMDB': IMDBRatingsParser,
     'LETTERBOXD': LetterboxdRatingsParser,
     'LISTAL': ListalRatingsParser,
@@ -42,6 +43,7 @@ PARSERS = {
 INSERTERS = {
     'CRITICKER': CritickerRatingsInserter,
     'FLIXSTER': FlixsterRatingsInserter,
+    'ICHECKMOVIES': ICheckMoviesRatingsInserter,
     'IMDB': IMDBRatingsInserter,
     'LETTERBOXD': LetterboxdRatingsInserter,
     'LISTAL': ListalRatingsInserter,
@@ -49,7 +51,6 @@ INSERTERS = {
     'MOVIELENS': MovielensRatingsInserter,
     'TMDB': TMDBRatingsInserter,
     'TRAKT': TraktRatingsInserter,
-    'ICHECKMOVIES': ICheckMoviesRatingsInserter,
 }
 
 

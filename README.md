@@ -34,7 +34,9 @@ This project is currently still under development. Please be patient, as I'm onl
     **Linux:** `sudo ./InstallGeckodriver.sh`, for this you will need to have tar and wget installed.
     
     **MAC:** `brew install geckodriver`
-1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites there.
+1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there.
+
+    Copying the file will conserve the possibility to do a `git pull` later on without overwriting your credentials.
 1. Execute the script with **Python3**
     `python3 transfer_ratings.py --source trakt --destination movielens`
 
@@ -47,7 +49,7 @@ This project is currently still under development. Please be patient, as I'm onl
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
 
 ### Inside a Docker container 
-Please note: This is currently not working on Windows, but I'm working on that.
+_Please note: This is currently not working on Windows, but I'm working on that._
 
 1. Create a credentials configuration in your home folder, e.g.: `touch ~/.RatS.cfg`
 1. Configure your credentials in the file you just created, e.g.:
@@ -80,6 +82,8 @@ You can also omit the destination argument in order to just save the parsing res
 
 * Criticker
 * Flixster
+* iCheckMovies
+  * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
 * IMDB (with IMDB account)
 * Letterboxd
 * Listal
@@ -94,7 +98,7 @@ You can also omit the destination argument in order to just save the parsing res
 * Criticker
 * Flixster
 * iCheckMovies
-  * please configure the boundaries for the ratings conversion yourself in the credentials.cfg
+  * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`
 * IMDB (with IMDB account)
 * Letterboxd
 * Listal

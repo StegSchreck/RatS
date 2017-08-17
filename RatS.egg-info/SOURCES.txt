@@ -18,6 +18,7 @@ RatS/flixster/flixster_ratings_parser.py
 RatS/flixster/flixster_site.py
 RatS/icheckmovies/__init__.py
 RatS/icheckmovies/icheckmovies_ratings_inserter.py
+RatS/icheckmovies/icheckmovies_ratings_parser.py
 RatS/icheckmovies/icheckmovies_site.py
 RatS/imdb/__init__.py
 RatS/imdb/imdb_ratings_inserter.py
@@ -73,6 +74,7 @@ tests/unit/flixster/test_flixster_ratings_inserter.py
 tests/unit/flixster/test_flixster_ratings_parser.py
 tests/unit/icheckmovies/__init__.py
 tests/unit/icheckmovies/test_icheckmovies_ratings_inserter.py
+tests/unit/icheckmovies/test_icheckmovies_ratings_parser.py
 tests/unit/imdb/__init__.py
 tests/unit/imdb/test_imdb_ratings_inserter.py
 tests/unit/imdb/test_imdb_ratings_parser.py
