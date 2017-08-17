@@ -15,7 +15,7 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pard
 
 
 class Site:
-    def __init__(self, args):  # pylint: disable=too-many-instance-attributes
+    def __init__(self, args):
         self.args = args
 
         self.site_name = type(self).__name__

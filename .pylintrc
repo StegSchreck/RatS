@@ -69,7 +69,7 @@ enable=all
 # --disable=W"
 #disable=all
 #disable=map-builtin-not-iterating,reduce-builtin,parameter-unpacking,buffer-builtin,raw_input-builtin,execfile-builtin,raising-string,cmp-method,old-octal-literal,suppressed-message,print-statement,import-star-module-level,indexing-exception,long-builtin,apply-builtin,dict-view-method,old-division,unicode-builtin,setslice-method,unichr-builtin,round-builtin,oct-method,next-method-called,unpacking-in-except,metaclass-assignment,using-cmp-argument,old-raise-syntax,cmp-builtin,file-builtin,old-ne-operator,basestring-builtin,xrange-builtin,useless-suppression,nonzero-method,standarderror-builtin,range-builtin-not-iterating,delslice-method,no-absolute-import,coerce-method,input-builtin,backtick,long-suffix,intern-builtin,coerce-builtin,zip-builtin-not-iterating,filter-builtin-not-iterating,reload-builtin,getslice-method,hex-method,dict-iter-method
-disable=missing-docstring,unused-import,wildcard-import,unused-wildcard-import,no-method,too-few-public-methods,invalid-name,no-member,bad-continuation,unused-argument,redefined-variable-type,too-many-ancestors,len-as-condition,no-else-return,abstract-method
+disable=missing-docstring,unused-import,wildcard-import,unused-wildcard-import,no-method,too-few-public-methods,invalid-name,no-member,bad-continuation,unused-argument,redefined-variable-type,too-many-ancestors,len-as-condition,no-else-return,abstract-method,too-many-instance-attributes
 
 [REPORTS]
 
