@@ -3,7 +3,7 @@ from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMovi
 
 
 class ICheckMovies(Site):
-    def __init__(self, args):
+    def __init__(self, args):  # pylint: disable=too-many-instance-attributes
         self.LOGIN_PAGE = "https://www.icheckmovies.com/login/"
         self.LOGIN_USERNAME_SELECTOR = "//form[@id='login']//input[@id='loginUsername']"
         self.LOGIN_PASSWORD_SELECTOR = "//form[@id='login']//input[@id='loginPassword']"

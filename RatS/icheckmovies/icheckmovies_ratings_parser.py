@@ -70,5 +70,5 @@ class ICheckMoviesRatingsParser(RatingsParser):
         return 'https://www.icheckmovies.com%s' % movie_tile.find('h2').find('a')['href']
 
     @staticmethod
-    def _get_external_links(movie_tile):
+    def _get_external_links(movie_tile):  # pylint: disable=arguments-differ
         return [movie_tile.find('a', class_='optionIMDB')]

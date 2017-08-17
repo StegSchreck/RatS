@@ -15,14 +15,15 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pard
 
 
 class Site:
-    def __init__(self, args):
+    def __init__(self, args):  # pylint: disable=too-many-instance-attributes
         self.args = args
+
+        self.site_name = type(self).__name__
+        self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END
 
         self.config = ConfigParser()
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
-        self.site_name = type(self).__name__
-        self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END
         if os.environ.get(self.site_name.upper() + '_USERNAME'):
             self.USERNAME = os.environ.get(self.site_name.upper() + '_USERNAME')
         else:
