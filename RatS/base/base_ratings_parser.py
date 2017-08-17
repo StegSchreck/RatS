@@ -33,9 +33,10 @@ class RatingsParser:
         self.movies_count = self._get_movies_count(movie_ratings_page)
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write('\r\n ================================================== \r\n')
+            sys.stdout.write(self.site.browser.current_url)
             sys.stdout.write('\r\n ===== %s: getting page count: %i \r\n' % (self.site.site_name, pages_count))
             sys.stdout.write('\r\n ===== %s: getting movies count: %i \r\n' % (self.site.site_name, self.movies_count))
-            sys.stdout.write('\r\n %s \r\n' % self.site.browser.page_source)
+            # sys.stdout.write(str(self.site.browser.page_source))
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.flush()
 
