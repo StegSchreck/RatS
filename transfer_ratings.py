@@ -86,7 +86,8 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        sys.stdout.write("No parser matching '%s' found.\r\nAvailable parsers:\r\n" % param)
+        sys.stdout.write(BashColor.WARNING + "No parser matching '" + param + "' found." + BashColor.END + "\r\n" +
+                         "Available parsers:\r\n")
         for parser in PARSERS:
             sys.stdout.write(' - %s \n' % parser)
         sys.stdout.flush()
@@ -97,7 +98,8 @@ def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        sys.stdout.write("No inserter matching '%s' found.\r\nAvailable inserters:\r\n" % param)
+        sys.stdout.write(BashColor.WARNING + "No inserter matching '" + param + "' found." + BashColor.END + "\r\n" +
+                         "Available inserters:\r\n")
         for inserter in INSERTERS:
             sys.stdout.write(' - %s \n' % inserter)
         sys.stdout.flush()
@@ -126,7 +128,7 @@ def parse_data_from_source(parser):
     json_filename = '%s_%s.json' % (TIMESTAMP, type(parser.site).__name__)
     file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
     sys.stdout.write('\r\n===== %s: saved %i parsed movies to %s/%s\r\n' %
-                     (type(parser.site).__name__, len(movies), EXPORTS_FOLDER, json_filename))
+                     (parser.site.site_displayname, len(movies), EXPORTS_FOLDER, json_filename))
     sys.stdout.flush()
     return movies
 

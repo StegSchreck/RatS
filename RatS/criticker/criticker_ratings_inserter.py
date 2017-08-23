@@ -62,5 +62,7 @@ class CritickerRatingsInserter(RatingsInserter):
             self._insert_rating(converted_rating)
 
     def _insert_rating(self, converted_rating):
-        self.site.browser.find_element_by_xpath("//input[@class='score_box']").send_keys(str(converted_rating))
+        score_input = self.site.browser.find_element_by_xpath("//input[@class='score_box']")
+        score_input.clear()
+        score_input.send_keys(str(converted_rating))
         self.site.browser.find_element_by_id('fi_submit_link').click()

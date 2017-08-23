@@ -27,12 +27,16 @@ class IMDBRatingsParser(RatingsParser):
     def _download_ratings_csv(self):
         sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
         sys.stdout.flush()
-        self.site.browser.set_page_load_timeout(5)
+        self.site.browser.set_page_load_timeout(10)
         time.sleep(1)
         try:
-            self.site.browser.get('http://www.imdb.com/list/export?list_id=ratings&author_id=%s' % self.site.USERID)
+            self._call_download_url()
         except TimeoutException:
-            time.sleep(1)
+            time.sleep(2)
+            self._call_download_url()
+
+    def _call_download_url(self):
+        self.site.browser.get('http://www.imdb.com/list/export?list_id=ratings&author_id=%s' % self.site.USERID)
 
     def _rename_csv_file(self):
         filepath = os.path.join(self.exports_folder, 'ratings.csv')

@@ -34,7 +34,8 @@ class TMDBRatingsInserter(RatingsInserter):
     def upload_csv_file(self):
         self.site.browser.get('https://www.themoviedb.org/account/StegSchreck/import')
         time.sleep(1)
-        self.site.browser.find_element_by_id('csv_file').send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))
+        filename = os.path.join(self.exports_folder, CSV_FILE_NAME)
+        self.site.browser.find_element_by_id('csv_file').send_keys(filename)
         time.sleep(1)
         self.site.browser.find_element_by_xpath("//form[@name='import_csv']//input[@type='submit']").click()
         time.sleep(3)
