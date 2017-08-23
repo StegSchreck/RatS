@@ -110,6 +110,7 @@ def execute(args):
     if args.file:
         # LOAD FROM FILE
         movies = load_data_from_file(args.file)
+        parser.site.kill_browser()
     else:
         # PARSE DATA
         movies = parse_data_from_source(parser)
