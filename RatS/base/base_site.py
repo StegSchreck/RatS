@@ -48,6 +48,8 @@ class Site:
         profile.set_preference("browser.helperApps.alwaysAsk.force", False)
         profile.set_preference("devtools.jsonview.enabled", False)
         profile.set_preference("media.volume_scale", "0.0")
+        # https://github.com/mozilla/geckodriver/issues/858#issuecomment-322512336
+        profile.set_preference("dom.file.createInChild", True)
 
         self.browser = Firefox(firefox_profile=profile)
         # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long

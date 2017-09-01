@@ -37,8 +37,8 @@ class LetterboxdRatingsInserter(RatingsInserter):
     def upload_csv_file(self):
         self.site.browser.get('https://letterboxd.com/import/')
         time.sleep(1)
-        self.site.browser.find_element_by_id('upload-imdb-import') \
-            .send_keys(os.path.join(self.exports_folder, CSV_FILE_NAME))
+        filename = os.path.join(self.exports_folder, CSV_FILE_NAME)
+        self.site.browser.find_element_by_id('upload-imdb-import').send_keys(os.path.join(filename))
 
         wait = ui.WebDriverWait(self.site.browser, 600)
         self._wait_for_movie_matching(wait)
