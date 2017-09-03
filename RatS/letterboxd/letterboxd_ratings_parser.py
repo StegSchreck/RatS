@@ -8,8 +8,8 @@ from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.letterboxd.letterboxd_site import Letterboxd
+from RatS.utils import command_line
 from RatS.utils import file_impex
-from RatS.utils.bash_color import BashColor
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
@@ -38,10 +38,7 @@ class LetterboxdRatingsParser(RatingsParser):
             self._rename_csv_file()
             self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
         else:
-            sys.stderr.write(BashColor.BOLD + BashColor.FAIL + '\r\nERROR: ' + BashColor.END +
-                             BashColor.FAIL + 'Could not determine file location\r\n' + BashColor.END)
-            sys.stdout.write('\r\n===== ABORTING =====\r\n')
-            sys.stdout.flush()
+            command_line.error('Could not determine file location')
 
     @staticmethod
     def _get_downloaded_filename(after, before):

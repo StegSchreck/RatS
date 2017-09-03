@@ -25,8 +25,7 @@ from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
 from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
 from RatS.trakt.trakt_ratings_inserter import TraktRatingsInserter
 from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
-from RatS.utils import file_impex
-from RatS.utils.bash_color import BashColor
+from RatS.utils import file_impex, command_line
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
@@ -61,10 +60,7 @@ def main():
     try:
         execute(args)
     except ICheckMoviesMisconfigurationException as e:
-        sys.stderr.write(BashColor.BOLD + BashColor.FAIL + '\r\nERROR: ' + BashColor.END +
-                         BashColor.FAIL + str(e) + BashColor.END)
-        sys.stdout.write('\r\n===== ABORTING =====\r\n')
-        sys.stdout.flush()
+        command_line.error(str(e))
         sys.exit(1)
 
 
@@ -86,8 +82,8 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        sys.stdout.write(BashColor.WARNING + "No parser matching '" + param + "' found." + BashColor.END + "\r\n" +
-                         "Available parsers:\r\n")
+        command_line.warn("No parser matching '" + param + "' found.")
+        sys.stdout.write("Available parsers:\r\n")
         for parser in PARSERS:
             sys.stdout.write(' - %s \n' % parser)
         sys.stdout.flush()
@@ -98,8 +94,8 @@ def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        sys.stdout.write(BashColor.WARNING + "No inserter matching '" + param + "' found." + BashColor.END + "\r\n" +
-                         "Available inserters:\r\n")
+        command_line.warn("No inserter matching '" + param + "' found.")
+        sys.stdout.write("Available inserters:\r\n")
         for inserter in INSERTERS:
             sys.stdout.write(' - %s \n' % inserter)
         sys.stdout.flush()
