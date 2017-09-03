@@ -12,7 +12,6 @@ class ICheckMovies(Site):
         self.MY_RATINGS_URL = 'https://www.icheckmovies.com/movies/favorited/'
         self.MY_RATINGS_URL_FAVORITED = 'https://www.icheckmovies.com/movies/favorited/'
         self.MY_RATINGS_URL_DISLIKED = 'https://www.icheckmovies.com/movies/disliked/'
-        self._parse_configuration()
 
     def _parse_configuration(self):
         self.INSERT_LIKE_LOWER_BOUND = self.config[self.site_name]['INSERT_LIKE_LOWER_BOUND']

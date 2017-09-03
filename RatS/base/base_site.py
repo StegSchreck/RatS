@@ -25,6 +25,12 @@ class Site:
         self.config = ConfigParser()
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
+        self._parse_credentials()
+        self._parse_configuration()
+
+        self._init_browser()
+
+    def _parse_credentials(self):
         if os.environ.get(self.site_name.upper() + '_USERNAME'):
             self.USERNAME = os.environ.get(self.site_name.upper() + '_USERNAME')
         else:
@@ -34,7 +40,9 @@ class Site:
         else:
             self.PASSWORD = self.config[self.site_name]['PASSWORD']
 
-        self._init_browser()
+    def _parse_configuration(self):
+        # this method should be overwritten by a site, if there are more configs to parse than just the credentials
+        pass
 
     def _init_browser(self):
         if self.args and not self.args.show_browser:
