@@ -76,7 +76,7 @@ _Please note: This is currently not working on Windows, but I'm working on that.
 
 You can also omit the destination argument in order to just save the parsing results to a JSON file. You might insert the saved results anytime later. (see [below](#retry))
 
-<a name="parsers"></a>
+<a name="parsers"></a><img style="float: right;" src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS_Ensemble.png">
 
 #### Currently Available Parsers
 
@@ -88,6 +88,7 @@ You can also omit the destination argument in order to just save the parsing res
 * Letterboxd
 * Listal
 * Movielens
+* Plex (locally hosted server)
 * TMDB (The Movie Database)
 * Trakt
 
@@ -104,6 +105,7 @@ You can also omit the destination argument in order to just save the parsing res
 * Listal
 * Metacritic
 * Movielens
+* Plex (locally hosted server)
 * TMDB (The Movie Database)
 * Trakt
 

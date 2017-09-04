@@ -4,7 +4,7 @@ import sys
 import time
 
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
-    ElementNotInteractableException
+    ElementNotInteractableException, TimeoutException
 
 from RatS.utils import file_impex
 from RatS.utils.command_line import print_progress_bar
@@ -23,7 +23,7 @@ class RatingsInserter:
 
     def insert(self, movies, source):
         counter = 0
-        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_displayname, len(movies)))
+        sys.stdout.write('\r===== %s: posting %i movies               \r\n' % (self.site.site_displayname, len(movies)))
         sys.stdout.flush()
 
         for movie in movies:
@@ -59,7 +59,10 @@ class RatingsInserter:
         return success
 
     def _find_movie(self, movie):
-        self._search_for_movie(movie)
+        try:
+            self._search_for_movie(movie)
+        except TimeoutException:
+            return False
         time.sleep(1)
         try:
             search_results = self._get_search_results(self.site.browser.page_source)

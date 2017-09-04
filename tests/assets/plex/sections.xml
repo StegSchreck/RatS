@@ -1,0 +1,14 @@
+<MediaContainer size="4" allowSync="0" identifier="com.plexapp.plugins.library" mediaTagPrefix="/system/bundle/media/flags/" mediaTagVersion="1458593502" title1="Plex Library">
+<Directory allowSync="0" art="/:/resources/show-fanart.jpg" composite="/library/sections/7/composite/1504456340" filters="1" refreshing="0" thumb="/:/resources/show.png" key="7" type="show" title="Comedy" agent="com.plexapp.agents.thetvdb" scanner="Plex Series Scanner" language="en" uuid="RANDOM_UUID_1" updatedAt="1504456340" createdAt="1445102987">
+<Location id="7" path="/data/Videos/Comedy"/>
+</Directory>
+<Directory allowSync="0" art="/:/resources/movie-fanart.jpg" composite="/library/sections/5/composite/1504456357" filters="1" refreshing="0" thumb="/:/resources/movie.png" key="5" type="movie" title="Movies" agent="com.plexapp.agents.imdb" scanner="Plex Movie Scanner" language="de" uuid="RANDOM_UUID_2" updatedAt="1504456357" createdAt="1445080501">
+<Location id="5" path="/data/Videos/Filme"/>
+</Directory>
+<Directory allowSync="0" art="/:/resources/artist-fanart.jpg" composite="/library/sections/1/composite/1504456458" filters="1" refreshing="0" thumb="/:/resources/artist.png" key="1" type="artist" title="Music" agent="com.plexapp.agents.lastfm" scanner="Plex Music Scanner" language="en" uuid="RANDOM_UUID_3" updatedAt="1504456458" createdAt="1445024808">
+<Location id="1" path="/data/Musik/Musik"/>
+</Directory>
+<Directory allowSync="0" art="/:/resources/show-fanart.jpg" composite="/library/sections/6/composite/1504456479" filters="1" refreshing="0" thumb="/:/resources/show.png" key="6" type="show" title="TV Shows" agent="com.plexapp.agents.thetvdb" scanner="Plex Series Scanner" language="de" uuid="RANDOM_UUID_4" updatedAt="1504456479" createdAt="1445086167">
+<Location id="6" path="/data/Videos/Serien"/>
+</Directory>
+</MediaContainer>

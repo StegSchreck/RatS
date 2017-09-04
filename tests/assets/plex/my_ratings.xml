@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaContainer size="20" totalSize="1687" allowSync="1" art="/:/resources/movie-fanart.jpg" identifier="com.plexapp.plugins.library" librarySectionID="5" librarySectionTitle="Movies" librarySectionUUID="e5ffe3f4-e65b-4037-b0a1-bcbc7dfd7f57" mediaTagPrefix="/system/bundle/media/flags/" mediaTagVersion="1458593502" offset="0" thumb="/:/resources/movie.png" title1="Movies" title2="All Movies" viewGroup="movie" viewMode="65592">
+<Video ratingKey="19460" key="/library/metadata/19460" studio="Castle Rock Entertainment" type="movie" title="Die Verurteilten" originalTitle="The Shawshank Redemption" contentRating="de/12" summary="Das Shawshank Gefängnis in den 30ern: der wegen Mordes an seiner Frau verurteilte Andy Dufresne kommt als Neuling lebenslänglich hinter Gittern. Zurückhaltend wie er ist, ist er ständig das Ziel sexueller Angriffe, doch als er als Banker durchblicken läßt, daß er finanziell für den Direktor und die Wärter eine Menge tun kann, ist für seine Sicherheit gesorgt. Langsam aber sicher freundet er sich mit dem Langzeitinsassen Red an, baut die Gefängnisbibliothek auf und rückt nie von seiner Überzeugung ab, unschuldig zu sein. Viele Jahre vergehen, bis etwas geschieht, was sogar Reds Leben für immer verändern wird..." rating="8.3" viewCount="1" lastViewedAt="1452878510" year="1995" tagline="Entscheide Dich, ob Du leben oder sterben willst ... nur darum geht es." thumb="/library/metadata/19460/thumb/1499731909" art="/library/metadata/19460/art/1499731909" duration="8553432" originallyAvailableAt="1995-03-09" addedAt="1312971573" updatedAt="1499731909" chapterSource="">
+<Media videoResolution="720" id="17339" duration="8553432" bitrate="3951" width="1280" height="720" aspectRatio="1.78" audioChannels="2" audioCodec="mp3" videoCodec="mpeg4" container="avi" videoFrameRate="PAL" videoProfile="advanced simple">
+<Part id="17339" key="/library/parts/17339/file.avi" duration="8553432" file="/data/Videos/Filme/Die Verurteilten.avi" size="4224057408" container="avi" videoProfile="advanced simple" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19665" key="/library/metadata/19665" studio="Paramount Pictures" type="movie" title="Interstellar" contentRating="de/12" summary="Was Wissenschaftler, Politiker und Aktivisten seit Jahrzehnten prophezeien, ist eingetreten: Die Menschheit steht kurz davor, an einer globalen Nahrungsknappheit zugrunde zu gehen. Die einzige Hoffnung der Weltbevölkerung besteht in einem geheimen Projekt der US-Regierung, das von dem findigen Wissenschaftler Professor Brand geleitet wird. Der Plan sieht vor, eine Expedition in ein anderes Sternensystem zu starten, wo bewohnbare Planeten, Rohstoffe und vor allem Leben vermutet werden. Der Ingenieur und ehemalige NASA-Pilot Cooper und Brands Tochter Amelia führen die Besatzung an, die sich auf eine Reise ins Ungewisse begibt: Wurmlöcher sind so gut wie unerforscht und niemand kann mit Sicherheit sagen, was die Crew auf der anderen Seite erwartet. Ebenso ist unsicher, ob und wann Cooper und Brand wieder auf die Erde zurückkehren. Coopers Kinder, Tochter Murph und Sohn Tom, müssen mit Schwiegervater Donald zurückbleiben und auf seine Wiederkehr hoffen..." rating="8.2" year="2014" tagline="Die Menschheit wurde auf der Erde geboren. Es war nie gedacht, dass sie hier stirbt." thumb="/library/metadata/19665/thumb/1499732103" art="/library/metadata/19665/art/1499732103" duration="10143937" originallyAvailableAt="2014-11-06" addedAt="1432493906" updatedAt="1499732103" chapterSource="media">
+<Media videoResolution="720" id="17544" duration="10143937" bitrate="6997" width="1280" height="720" aspectRatio="1.78" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="17544" key="/library/parts/17544/file.mkv" duration="10143937" file="/data/Videos/Filme/Interstellar.mkv" size="8872767811" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Abenteuer" />
+<Genre tag="Drama" />
+<Genre tag="Science Fiction" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Canada" />
+<Country tag="USA" />
+<Country tag="United Kingdom" />
+</Video>
+<Video ratingKey="19383" key="/library/metadata/19383" studio="Paramount Pictures" type="movie" title="Der Pate" titleSort="Pate" originalTitle="The Godfather" contentRating="de/16" summary="Don Vito Corleone ist der Kopf einer der einflußreichsten Mafia-Familien New Yorks. Als die anderen Familien der Stadt beschließen, neben Glücksspiel und Schutzgelderpressungen nun auch den Handel mit Drogen als Erwerbsquelle zu nutzen und sich Don Corleone diesem Vorhaben nicht anschließen möchte, wird er zum Ziel eines hinterhältigen Mordanschlags. Nun steht Vitos Sohn Michael in der Verantwortung, in die Fußstapfen seines Vaters zu treten, obwohl er mit den Gechäften der Familie bis dato nichts zu tun haben wollte." rating="8.2" year="1972" tagline="Ein Angebot das du nicht ablehnen kannst" thumb="/library/metadata/19383/thumb/1499731835" art="/library/metadata/19383/art/1499731835" duration="10629184" originallyAvailableAt="1972-08-24" addedAt="1353699372" updatedAt="1499731835" chapterSource="media">
+<Media videoResolution="720" id="17262" duration="10629184" bitrate="5301" width="1280" height="720" aspectRatio="1.78" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="17262" key="/library/parts/17262/file.mkv" duration="10629184" file="/data/Videos/Filme/Der Pate.mkv" size="7043242813" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="31311" key="/library/metadata/31311" studio="Studio Ghibli" type="movie" title="Die letzten Glühwürmchen" titleSort="Die letzten Gluhwurmchen" originalTitle="火垂るの墓" contentRating="de/6" summary="Japanischer Zeichentrick von Isao Takahata aus dem Jahr 1988. Im Japan des Jahres 1945 verlieren die Kinder Seita und Setsuko ihre Mutter. Während ihr Vater bei der Marine ist, sind die Kinder während des unerbitterlichen Krieges auf sich allein gestellt und müssen versuchen, auf eigene Faust zu überleben." rating="8.1" year="2000" thumb="/library/metadata/31311/thumb/1499732816" art="/library/metadata/31311/art/1499732816" duration="5317846" originallyAvailableAt="2000-05-16" addedAt="1451650675" updatedAt="1499732816" chapterSource="media">
+<Media videoResolution="720" id="29166" duration="5317846" bitrate="5184" width="1280" height="688" aspectRatio="1.85" audioChannels="2" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="29168" key="/library/parts/29168/file.mkv" duration="5317846" file="/data/Videos/Filme/Die letzten Gl%C3%BChw%C3%BCrmchen.mkv" size="3445718405" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Animation" />
+<Genre tag="Drama" />
+<Genre tag="Familie" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Japan" />
+</Video>
+<Video ratingKey="19381" key="/library/metadata/19381" studio="Paramount Pictures" type="movie" title="Der Pate - Teil II" titleSort="Pate - Teil II" originalTitle="The Godfather: Part II" contentRating="de/16" summary="Michael Corleone ist jetzt der Pate seiner Familie und führt diese Aufgabe mit der nötigen Gnadenlosigkeit aus. Als er in Las Vegas und auf Kuba expandieren will, weil ihm die alten Geschäftsideen nichts mehr einbringen, treten Schwierigkeiten auf. Um diese zu klären, veranlaßt Michael eine große Säuberungsaktion, die auch vor den Familienmitgliedern nicht halt macht." rating="8.1" year="1975" thumb="/library/metadata/19381/thumb/1499731833" art="/library/metadata/19381/art/1499731833" duration="12126376" originallyAvailableAt="1975-09-25" addedAt="1356367474" updatedAt="1499731833" chapterSource="media">
+<Media videoResolution="720" id="17260" duration="12126376" bitrate="5628" width="1280" height="720" aspectRatio="1.78" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="17260" key="/library/parts/17260/file.mkv" duration="12126376" file="/data/Videos/Filme/Der Pate 2.mkv" size="8531048362" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="31240" key="/library/metadata/31240" studio="Toho" type="movie" title="Spirited Away" contentRating="de/0" summary="Als die kleine Chihiro mit ihren Eltern während eines Ausflugs einen dunklen Tunnel durchquert, ahnt sie noch nicht, was sie auf der anderen Seite erwarten wird. Denn dort liegt eine für Menschen normalerweise unsichtbare Stadt der Geister. Zu allem Übel muss Chihiro dann auch noch feststellen, dass sich ihre Eltern in Schweine verwandelt haben und sie selbst plötzlich unsichtbar zu werden scheint..." rating="8.1" thumb="/library/metadata/31240/thumb/1499732788" art="/library/metadata/31240/art/1499732788" duration="7472306" addedAt="1449861129" updatedAt="1499732788" chapterSource="media">
+<Media videoResolution="1080" id="29100" duration="7472306" bitrate="6800" width="1920" height="1040" aspectRatio="1.85" audioChannels="7" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="es" videoProfile="high">
+<Part id="29102" key="/library/parts/29102/file.mkv" duration="7472306" file="/data/Videos/Filme/Chihiros Reise ins Zauberland.mkv" size="6351298831" audioProfile="es" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Anime" />
+<Genre tag="Abenteuer" />
+<Genre tag="Fantasy" />
+<Director tag="Hayao Miyazaki" />
+<Country tag="Japan" />
+<Role tag="Daveigh Chase" />
+<Role tag="Suzanne Pleshette" />
+<Role tag="Miyu Irino" />
+</Video>
+<Video ratingKey="20330" key="/library/metadata/20330" studio="Gaumont" type="movie" title="Ziemlich beste Freunde" originalTitle="Intouchables" contentRating="R" summary="Philippe ist zwar reich und intelligent, aber er benötigt im Alltag auch Hilfe, da er vom Hals abwärts gelähmt ist. Als er sich einen neuen Pfleger engagiert entscheidet er sich zum Entsetzen seiner Freunde für den jungen schwarzen Driss, der gerade aus dem Gefängnis entlassen wurde. Der direkte und fröhliche Charakter von Driss beeindruckt Philippe, der besonders unter dem allgegenwärtigen Mitleid seiner Umgebung leidet. Zwischen den beiden entwickelt sich eine ungewöhnliche Männerfreundschaft, die alle ethnischen und sozialen Grenzen überschreitet." rating="8.1" year="2011" tagline="Manchmal muss man sich in die Welt einer anderen Person begeben, um herauszufinden was in seiner eigenen fehlt" thumb="/library/metadata/20330/thumb/1499732681" art="/library/metadata/20330/art/1499732681" duration="6730500" originallyAvailableAt="2011-11-02" addedAt="1334756151" updatedAt="1499732681" chapterSource="media">
+<Media videoResolution="1080" id="18209" duration="6730500" bitrate="9003" width="1920" height="1040" aspectRatio="1.85" audioChannels="2" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="18209" key="/library/parts/18209/file.mkv" duration="6730500" file="/data/Videos/Filme/Ziemlich beste Freunde.mkv" size="7574070291" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Komödie" />
+<Writer tag="Eric Toledano" />
+<Writer tag="Olivier Nakache" />
+<Director tag="Eric Toledano" />
+<Director tag="Olivier Nakache" />
+<Country tag="France" />
+<Role tag="François Cluzet" />
+<Role tag="Omar Sy" />
+<Role tag="Anne Le Ny" />
+</Video>
+<Video ratingKey="30906" key="/library/metadata/30906" studio="Walt Disney Pictures" type="movie" title="Alles steht Kopf" originalTitle="Inside Out" contentRating="de/0" summary="Die elfjährige Riley wird plötzlich aus ihrem bisherigen Leben im mittleren Westen gerissen, als ihr Vater einen neuen Job annimmt. Diese berufliche Veränderung bringt die Familie nach San Francisco und die Gefühle der Tochter ganz schön durcheinander. Wie alle Menschen wird auch Riley von ihren Emotionen geleitet: Freude, Angst, Wut, Ekel und Traurigkeit leben im Kontrollzentrum von Rileys Verstand, von wo aus sie dem jungen Mädchen Ratschläge erteilen und ihr zur Seite stehen. Doch nach dem Umzug haben Riley und ihre Gefühle Probleme mit dem Leben in der fremden Stadt und es geht turbulent zu in der innerlichen Kommandozentrale ihrer Emotionen. Obwohl Freude versucht, positiv zu bleiben, kriegen sich die Gefühle darüber in die Köpfe, wie sie Riley am besten durch den veränderten Alltag in der neuen Stadt, dem neuen Haus und der neuen Schule navigieren." rating="8.0" viewCount="1" lastViewedAt="1446151622" year="2015" tagline="Triff die Stimmen in Deinem Kopf." thumb="/library/metadata/30906/thumb/1499732706" art="/library/metadata/30906/art/1499732706" duration="5674375" originallyAvailableAt="2015-10-01" addedAt="1446139386" updatedAt="1499732706" chapterSource="">
+<Media videoResolution="720" id="28788" duration="5674375" bitrate="4041" width="1280" height="720" aspectRatio="1.78" audioChannels="2" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="28788" key="/library/parts/28788/file.mkv" duration="5674375" file="/data/Videos/Filme/Alles steht Kopf.mkv" size="2866162900" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Komödie" />
+<Genre tag="Animation" />
+<Genre tag="Familie" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19223" key="/library/metadata/19223" studio="DC Comics" type="movie" title="The Dark Knight" titleSort="Dark Knight" contentRating="de/16" summary="Gemeinsam mit Bezirksstaatsanwalt Harvey Dent und Lieutenant James Gordon versucht der im Fledermauskostüm agierende Milliardär Bruce Wayne dem Verbrechen in Gotham City Einhalt zu gebieten. Wie aus dem Nichts taucht plötzlich ein psychotischer Superverbrecher auf - der Joker. In seiner wahnhaften Vision möchte er die Stadt in Chaos und Anarchie stürzen und Batman scheint der einzige, der ihn stoppen kann. Bis es zum endgültigen Show-Down kommt, wird aber viel Blut fließen und auch Menschen die Bruce Wayne nahe stehen, könnten Opfer werden." rating="8.0" year="2008" tagline="Warum so ernst?" thumb="/library/metadata/19223/thumb/1499731678" art="/library/metadata/19223/art/1499731678" duration="9133244" originallyAvailableAt="2008-08-20" addedAt="1309659367" updatedAt="1499731678" chapterSource="">
+<Media videoResolution="1080" id="17102" duration="9133244" bitrate="7766" width="1920" height="1072" aspectRatio="1.78" audioChannels="2" audioCodec="mp3" videoCodec="mpeg4" container="avi" videoFrameRate="24p" videoProfile="advanced simple">
+<Part id="17102" key="/library/parts/17102/file.avi" duration="9133244" file="/data/Videos/Filme/Batman - The Dark Knight (2008).avi" size="8866078646" container="avi" videoProfile="advanced simple" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Action" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="United Kingdom" />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19542" key="/library/metadata/19542" studio="Regency Enterprises" type="movie" title="Fight Club" contentRating="de/18" summary="Ein Yuppie findet beim charismatischen Tyler Durden Unterschlupf, nachdem seine Wohnung in die Luft gejagt wird. Ein Gerangel zwischen den beiden entwickelt sich zu einer Schlägerei, die mit der Erkenntnis endet, dass man sich nach einer ordentlichen Portion Prügel einfach besser fühlt. Der &quot;Fight Club&quot; ist geboren. Immer mehr Männer versammeln sich, um sich zu schlagen - und gestärkt in den Alltag zu gehen. Wie ein Virus greift das Konzept um sich, doch für Tyler ist der Kampfverein nur die erste Stufe, um die USA in die Knie zu zwingen." rating="8.0" userRating="10.0" year="1999" tagline="Übermut. Chaos. Seife." thumb="/library/metadata/19542/thumb/1499731986" art="/library/metadata/19542/art/1499731986" duration="8348726" originallyAvailableAt="1999-11-10" addedAt="1393944978" updatedAt="1499731986" chapterSource="">
+<Media videoResolution="720" id="17421" duration="8348726" bitrate="6758" width="1280" height="528" aspectRatio="2.35" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="17421" key="/library/parts/17421/file.mkv" duration="8348726" file="/data/Videos/Filme/Fight Club.mkv" size="7052565332" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Germany" />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19559" key="/library/metadata/19559" studio="Paramount Pictures" type="movie" title="Forrest Gump" contentRating="de/12" summary="Von seiner Mutter rückhaltlos unterstützt, macht sich der geistig ein wenig zurückgebliebene Forrest Gump in die Welt auf. Er bringt Elvis seinen Tanzstil bei, findet in der jungen Jenny eine echte Freundin, wird aufgrund seines Laufvermögens ein Football-Star, steht im Vietnamkrieg seinen Mann, rettet seinen Vorgesetzten Dan Taylor vor dem sicheren Tod und wird schließlich im Shrimps-Business zum Millionär. Doch all die Zeit kann er seine große Liebe Jenny nicht vergessen." rating="8.0" year="1994" tagline="Die Welt wird nie mehr dieselbe sein, wenn man Sie durch die Augen von Forrest Gump gesehen hat" thumb="/library/metadata/19559/thumb/1499732002" art="/library/metadata/19559/art/1499732002" duration="8529345" originallyAvailableAt="1994-10-12" addedAt="1311925999" updatedAt="1499732002" chapterSource="">
+<Media videoResolution="720" id="17438" duration="8529345" bitrate="4413" width="1280" height="544" aspectRatio="2.35" audioChannels="2" audioCodec="mp3" videoCodec="mpeg4" container="avi" videoFrameRate="24p" videoProfile="advanced simple">
+<Part id="17438" key="/library/parts/17438/file.avi" duration="8529345" file="/data/Videos/Filme/Forrest Gump.avi" size="4705052490" container="avi" videoProfile="advanced simple" />
+</Media>
+<Genre tag="Komödie" />
+<Genre tag="Drama" />
+<Genre tag="Lovestory" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19595" key="/library/metadata/19595" studio="Warner Bros." type="movie" title="Good Fellas - Drei Jahrzehnte in der Mafia" originalTitle="Goodfellas" contentRating="de/16" summary="Jimmy und Tommy können machen, was sie wollen. Sie sind Mitglieder der New Yorker Quartier-Mafia, brauchen auf niemanden Rücksicht zu nehmen und verdienen eine Menge Geld. Henry Hill ist von diesem Leben fasziniert und arbeitet daran, es ebenfalls führen zu können. Er wird in die Mafia aufgenommen und macht Karriere - schon bald organisiert er selbst Banküberfälle. Wer dabei im Weg steht, wird &quot;weggeräumt&quot;, umgebracht. Dabei sind Jimmy und vor allem Tommy nicht zimperlich. Sie verstehen ihr Handwerk, einschließlich Mord, und kennen weder Pardon noch Gewissen..." rating="8.0" year="1990" thumb="/library/metadata/19595/thumb/1499732036" art="/library/metadata/19595/art/1499732036" duration="8727561" originallyAvailableAt="1990-10-10" addedAt="1387823482" updatedAt="1499732036" chapterSource="media">
+<Media videoResolution="720" id="17474" duration="8727561" bitrate="7455" width="1280" height="720" aspectRatio="1.78" audioChannels="2" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="17474" key="/library/parts/17474/file.mkv" duration="8727561" file="/data/Videos/Filme/GoodFellas.mkv" size="8132740466" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="19602" key="/library/metadata/19602" studio="Marvel Studios" type="movie" title="Guardians of the Galaxy" contentRating="de/12" summary="Nachdem der Abenteurer Peter Quill eine geheimnisvolle Kugel gestohlen hat, wird er das Opfer einer unerbittlichen Kopfgeldjagd mit Ronan the Accuser. Die Ziele des mächtigen Bösewichts bedrohen die Sicherheit des Universums. Um dem hartnäckigen Ronan und seinen Schergen zu entgehen, ist Quill gezwungen, einen nicht gerade einfach einzuhaltenden Waffenstillstand mit einem Quartett von ungleichen Außenseitern einzugehen - dazu gehört der waffenliebende Waschbär Rocket, der Baummensch Groot, die tödliche und rätselhafte Gamora und der rachsüchtige Drax the Destroyer. Als Peter dann die wahre Macht der Kugel und dessen Bedrohung für den Kosmos bewusst wird, muss er sein Bestes geben, um die bunt zusammengewürfelten Rivalen für einen letzten, verzweifelten Widerstand zu vereinen und eine Helden-Truppe aus ihnen machen - denn das Schicksal der Galaxie steht auf dem Spiel." rating="8.0" year="2014" tagline="Ist hier noch was zu retten?" thumb="/library/metadata/19602/thumb/1499732043" art="/library/metadata/19602/art/1499732043" duration="7251210" originallyAvailableAt="2014-08-28" addedAt="1419789937" updatedAt="1499732043" chapterSource="media">
+<Media videoResolution="720" id="17481" duration="7251210" bitrate="4484" width="1280" height="720" aspectRatio="1.78" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="17481" key="/library/parts/17481/file.mkv" duration="7251210" file="/data/Videos/Filme/Guardians of the Galaxy.mkv" size="4064713444" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Action" />
+<Genre tag="Science Fiction" />
+<Genre tag="Abenteuer" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="United Kingdom" />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="20182" key="/library/metadata/20182" studio="Black Bear Pictures" type="movie" title="The Imitation Game - Ein streng geheimes Leben" titleSort="Imitation Game - Ein streng geheimes Leben" originalTitle="The Imitation Game" contentRating="de/12" summary="Nach einer unglücklichen Jugend beginnt der brillante Mathematiker Alan Turing während seines Studiums an der Cambridge-Universität, sein volles Potenzial zu entfalten. Schnell gehört er zu den führenden Denkern des Landes, besonders was seine Theorien zu Rechenmaschinen angeht. Genau diese machen auch den britischen Geheimdienst auf das Genie aufmerksam. Nach einem Test, den Alan mit Leichtigkeit besteht, wird er Mitglied einer geheimen Gruppe. Ihre Aufgabe: im Zweiten Weltkrieg die Kommunikation der Deutschen entschlüsseln. Mit Hilfe von Joan Clarke und Hugh Alexander und unter der Leitung von Stewart Menzies sowie Commander Denniston versucht Alan, den Verschlüsselungsapparat Enigma zu knacken, um an kriegsentscheidende Informationen zu kommen..." rating="8.0" year="2015" tagline="Das wahre Rätsel war der Mann, der den Code knackte" thumb="/library/metadata/20182/thumb/1499732571" art="/library/metadata/20182/art/1499732571" duration="6853812" originallyAvailableAt="2015-01-22" addedAt="1436041520" updatedAt="1499732571" chapterSource="media">
+<Media videoResolution="720" id="18061" duration="6853812" bitrate="5723" width="1280" height="536" aspectRatio="2.35" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="18061" key="/library/parts/18061/file.mkv" duration="6853812" file="/data/Videos/Filme/The Imitation Game - Ein streng geheimes Leben.mkv" size="4902798584" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Historie" />
+<Genre tag="Drama" />
+<Genre tag="Thriller" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="United Kingdom" />
+</Video>
+<Video ratingKey="19327" key="/library/metadata/19327" studio="Melampo Cinematografica" type="movie" title="Das Leben ist schön" titleSort="Leben ist schon" originalTitle="La vita è bella" contentRating="de/6" summary="Die Geschichte eines italienischen Buchhändlers jüdischer Abstammung, der in seiner eigenen Märchenwelt lebt. Doch seine kreative Vorstellungskraft wird vor eine bittere Herausforderung gestellt, als er mit seiner ganzen Familie während des Holocaust in ein Konzentrationslager deportiert wird. Kurzerhand erklärt er seinem kleinen Sohn, dass alles nur ein Spiel sei." rating="8.0" year="1998" thumb="/library/metadata/19327/thumb/1499731780" art="/library/metadata/19327/art/1499731780" duration="7162960" originallyAvailableAt="1998-11-12" addedAt="1253574322" updatedAt="1499731780" chapterSource="">
+<Media videoResolution="sd" id="17206" duration="7162960" bitrate="1827" width="720" height="398" aspectRatio="1.78" audioChannels="6" audioCodec="ac3" videoCodec="mpeg4" container="avi" videoFrameRate="PAL" videoProfile="simple">
+<Part id="17206" key="/library/parts/17206/file.avi" duration="7162960" file="/data/Videos/Filme/Das Leben ist sch%C3%B6n.avi" size="1635643388" container="avi" videoProfile="simple" />
+</Media>
+<Genre tag="Komödie" />
+<Genre tag="Drama" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Italy" />
+</Video>
+<Video ratingKey="33797" key="/library/metadata/33797" studio="WWE Studios" type="movie" title="The Marine 5 Battleground" titleSort="Marine 5 Battleground" contentRating="de/16" summary="Als Soldat hat Jake Carter (Mike Mizanin) im Nahen Osten die Schrecken des Krieges hautnah miterlebt, aber nun ist er wieder in seine Heimat zurückgekehrt. Als Rettungssanitäter könnte er ja ein ganz neues Leben beginnen, doch bei einem neuen Einsatz wird ihm ein Strich durch die Rechnung gemacht: Als er und seine Partnerin Zoe Williams (Anna Van Hooft) den Notruf eines verletzten Mannes empfangen, geraten sie schnurstracks an eine hundsgemeine Motorradgang. Als diese dann auch noch Zoe gefangen nimmt, sieht sich Jake dazu gezwungen, wieder in seine Trickkiste zu greifen. Mit außergewöhnlichen und vor allem tödlichen Fähigkeiten ausgestattet, macht sich Jake auf, den bösen Buben zu zeigen, wo der Hammer hängt. Ob er damit Erfolg haben wird? Rost und Ruhestand sehen jedenfalls ganz anders aus…" rating="8.0" viewCount="1" lastViewedAt="1493066387" year="2017" thumb="/library/metadata/33797/thumb/1499733104" art="/library/metadata/33797/art/1499733104" duration="5498498" originallyAvailableAt="2017-05-04" addedAt="1492851111" updatedAt="1499733104" chapterSource="media">
+<Media videoResolution="720" id="31910" duration="5498498" bitrate="3932" width="1280" height="720" aspectRatio="1.78" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="31913" key="/library/parts/31913/file.mkv" duration="5498498" file="/data/Videos/Filme/The Marine 5 Battleground.mkv" size="2702226277" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Action" />
+<Writer tag="Scott Wiper" />
+<Writer tag="Edward McHenry" />
+<Director tag="James Nunn" />
+<Country tag="USA" />
+<Role tag="Mike Mizanin" />
+<Role tag="Anna Van Hooft" />
+<Role tag="Maryse Ouellet Mizanin" />
+</Video>
+<Video ratingKey="31884" key="/library/metadata/31884" studio="Studio Ghibli" type="movie" title="Prinzessin Mononoke" originalTitle="もののけ姫" contentRating="de/12" summary="Japan im frühen Mittelalter. Der junge Krieger Ashitaka tötet in Notwehr einen dämonischen Eber und wird darauf mit einem Fluch belegt. Auf der Suche nach Heilung durchstreift Ashitaka das Land und stößt schließlich nahe einer befestigten Hüttensiedlung, die sich tief in das einst idyllische Land um einen Heiligen Berg frisst, auf die von Wölfen großgezogene Kriegerin San, genannt Mononoke. Obwohl San einen Krieg für die Natur wider ihre Zerstörer führt, verliebt sie sich in Ashitaka." rating="8.0" viewCount="1" lastViewedAt="1458069639" year="2000" thumb="/library/metadata/31884/thumb/1499732953" art="/library/metadata/31884/art/1499732953" duration="8002836" originallyAvailableAt="2000-07-25" addedAt="1457899878" updatedAt="1499732953" chapterSource="media">
+<Media videoResolution="720" id="29699" duration="8002836" bitrate="2730" width="1280" height="688" aspectRatio="1.85" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="29702" key="/library/parts/29702/file.mkv" duration="8002836" file="/data/Videos/Filme/Prinzessin Mononoke.mkv" size="2731400890" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Abenteuer" />
+<Genre tag="Fantasy" />
+<Genre tag="Animation" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Japan" />
+</Video>
+<Video ratingKey="19936" key="/library/metadata/19936" studio="Miramax Films" type="movie" title="Pulp Fiction" contentRating="de/16" summary="Vincent Vega und Jules Winnfield holen für ihren Boss Marsellus Wallace eine schwarze Aktentasche aus einer Wohnung ab. Drei Jungs, die ihnen dabei im Weg stehen, lassen ihr Leben. Die Killer machen sich mit einem vierten Jungen als Geisel auf den Weg ins Hauptquartier. Doch als das Auto über eine Straßenerhöhung schaukelt, erschießt Vincent aus Versehen die Geisel. Um den blutverspritzten Wagen zu reinigen, machen die beiden einen Abstecher zu Jules&apos;s Freund Jimmie, wo auf Befehl vom Boss ein Spezialist für schwierige Aufträge zu ihnen stößt: The Wolf..." rating="8.0" year="1994" tagline="Drei schwere Jungs und ein Flittchen, das &quot;Ärger&quot; heißt." thumb="/library/metadata/19936/thumb/1499732365" art="/library/metadata/19936/art/1499732365" duration="9267100" originallyAvailableAt="1994-11-03" addedAt="1328659719" updatedAt="1499732365" chapterSource="">
+<Media videoResolution="1080" id="17815" duration="9267100" bitrate="10505" width="1920" height="816" aspectRatio="2.35" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="17815" key="/library/parts/17815/file.mkv" duration="9267100" file="/data/Videos/Filme/Pulp Fiction.mkv" size="12168736193" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Thriller" />
+<Genre tag="Krimi" />
+<Writer tag="&#xA;      " />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="20012" key="/library/metadata/20012" studio="Universal Pictures" type="movie" title="Schindlers Liste" originalTitle="Schindler&apos;s List" contentRating="de/12" summary="Von einer wahren Begebenheit inspiriert, erzählt Schindlers Liste die Geschichte des Industriellen Oskar Schindler, der während des Zweiten Weltkriegs versucht, sich in Krakau eine Existenz aufzubauen. Aus finanziellen Gründen beschäftigt er nur Juden und leiht sich Geld von ihnen um eine Emaillefabrik zu gründen, die ihm letztlich großen Reichtum beschert. Als die Brutalität des Holocaust Krakau erreicht, riskiert er nicht nur sein Vermögen, sondern auch sein Leben um seine Arbeiter vor der Deportation zu bewahren." rating="8.0" year="1994" thumb="/library/metadata/20012/thumb/1499732436" art="/library/metadata/20012/art/1499732436" duration="11227240" originallyAvailableAt="1994-03-03" addedAt="1350318830" updatedAt="1499732436" chapterSource="">
+<Media videoResolution="720" id="17891" duration="11227240" bitrate="6062" width="1280" height="694" aspectRatio="1.85" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="PAL" audioProfile="dts" videoProfile="high">
+<Part id="17891" key="/library/parts/17891/file.mkv" duration="11227240" file="/data/Videos/Filme/Schindlers Liste.mkv" size="8507675742" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Genre tag="Historie" />
+<Genre tag="Kriegsfilm" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="USA" />
+</Video>
+<Video ratingKey="32748" key="/library/metadata/32748" studio="Tokuma Shoten" type="movie" title="Das wandelnde Schloss" titleSort="wandelnde Schloss" originalTitle="ハウルの動く城" contentRating="de/6" summary="Die junge Hutmacherin Sophie lebt in einer Kleinstadt im Lande Ingary, einer Welt voller Magie und Fabelwesen, die aber auch schon erste Flugzeuge und Dampfmaschinen kennt. Eines Tages lernt Sophie durch Zufall den jungen Magier Hauro kennen und verliebt sich in ihn - doch eine eiferschtige Hexe verwandelt sie in eine alte Frau. Sophie verlässt ihre Heimatstadt, um nach einem Mittel gegen den Fluch zu suchen, und gelangt schließlich zu Hauros wandelndem Schloss. Hier findet sie eine Anstellung als Putzfrau und gewinnt durch ihre freundliche und zuvorkommende Art schnell die Herzen der übrigen Bewohner. Nur Hauro bleibt ihr gegenüber kalt und abweisend. Als der König von Hauro verlangt, für ihn in den Krieg zu ziehen, begreift Sophie allmählich, welche geheimnisvolle Verbindung zwischen dem Magier und Calcifer besteht, dem Dämon, dessen Kraft das wandelnde Schloss antreibt - und dass nur die alles verwandelnde Kraft der Liebe sie, Hauro und die übrigen Bewohner erlösen kann..." rating="8.0" viewCount="1" lastViewedAt="1466803851" year="2005" tagline="Sophie hat sich ihrem langweiligen Schicksal ergeben, aber das Schicksal hat andere Pläne für sie." thumb="/library/metadata/32748/thumb/1499733011" art="/library/metadata/32748/art/1499733011" duration="7149152" originallyAvailableAt="2005-08-25" addedAt="1466274095" updatedAt="1499733011" chapterSource="media">
+<Media videoResolution="720" id="30925" duration="7149152" bitrate="3548" width="1280" height="696" aspectRatio="1.85" audioChannels="6" audioCodec="ac3" videoCodec="h264" container="mkv" videoFrameRate="24p" videoProfile="high">
+<Part id="30928" key="/library/parts/30928/file.mkv" duration="7149152" file="/data/Videos/Filme/Das wandelnde Schloss.mkv" size="3170951144" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Fantasy" />
+<Genre tag="Animation" />
+<Genre tag="Abenteuer" />
+<Writer tag="Hayao Miyazaki" />
+<Director tag="Hayao Miyazaki" />
+<Country tag="Japan" />
+<Role tag="Takuya Kimura" />
+<Role tag="Akihiro Miwa" />
+<Role tag="Tatsuya Gashûin" />
+</Video>
+</MediaContainer>

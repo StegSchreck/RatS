@@ -1,0 +1,10 @@
+<Video allowSync="1" librarySectionID="5" librarySectionTitle="Movies" librarySectionUUID="e5ffe3f4-e65b-4037-b0a1-bcbc7dfd7f57" personal="1" sourceTitle="NAS_Schreck" ratingKey="19542" key="/library/metadata/19542" studio="Regency Enterprises" type="movie" title="Fight Club" contentRating="de/18" summary="Ein Yuppie findet beim charismatischen Tyler Durden Unterschlupf, nachdem seine Wohnung in die Luft gejagt wird. Ein Gerangel zwischen den beiden entwickelt sich zu einer Schlägerei, die mit der Erkenntnis endet, dass man sich nach einer ordentlichen Portion Prügel einfach besser fühlt. Der &quot;Fight Club&quot; ist geboren. Immer mehr Männer versammeln sich, um sich zu schlagen - und gestärkt in den Alltag zu gehen. Wie ein Virus greift das Konzept um sich, doch für Tyler ist der Kampfverein nur die erste Stufe, um die USA in die Knie zu zwingen." rating="8.0" userRating="6.0" year="1999" tagline="Übermut. Chaos. Seife." thumb="/library/metadata/19542/thumb/1499731986" art="/library/metadata/19542/art/1499731986" duration="8348726" originallyAvailableAt="1999-11-10" addedAt="1393944978" updatedAt="1499731986" chapterSource="">
+<Media videoResolution="720" id="17421" duration="8348726" bitrate="6758" width="1280" height="528" aspectRatio="2.35" audioChannels="6" audioCodec="dca" videoCodec="h264" container="mkv" videoFrameRate="24p" audioProfile="dts" videoProfile="high">
+<Part id="17421" key="/library/parts/17421/file.mkv" duration="8348726" file="/data/Videos/Filme/Fight Club.mkv" size="7052565332" audioProfile="dts" container="mkv" videoProfile="high" />
+</Media>
+<Genre tag="Drama" />
+<Writer tag="&#xA;      " />
+<Director tag="&#xA;      " />
+<Country tag="Germany" />
+<Country tag="USA" />
+</Video>

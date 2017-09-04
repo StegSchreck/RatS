@@ -16,14 +16,15 @@ def print_progress_bar(iteration, total, prefix='', suffix=''):
         bar_length  - Optional  : character length of bar (Int)
     """
     _, tty_columns = get_command_line_dimensions()
-    length_of_percentage_output = 12
+    length_of_percentage_output = 8
+    length_of_spaces = 4
 
     if iteration == total:
         progress_factor = 1
     else:
         progress_factor = iteration / float(total)
 
-    bar_length = int(tty_columns) - len(prefix) - len(suffix) - length_of_percentage_output
+    bar_length = int(tty_columns) - len(prefix) - len(suffix) - length_of_percentage_output - length_of_spaces
     percents = "{0:.1f}".format(100 * progress_factor)
     filled_length = int(round(bar_length * progress_factor))
     filled_bar = '#' * filled_length + '-' * (bar_length - filled_length)
