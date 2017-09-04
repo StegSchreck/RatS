@@ -9,8 +9,9 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 
 class MovielensSiteTest(TestCase):
-
     def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
         with open(os.path.join(TESTDATA_PATH, 'movielens', 'my_ratings.json'), encoding='UTF-8') as my_ratings:
             self.my_ratings_pre = my_ratings.read()
             self.my_ratings_json = json.loads(self.my_ratings_pre)

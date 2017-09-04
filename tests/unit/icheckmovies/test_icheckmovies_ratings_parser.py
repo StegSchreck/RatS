@@ -10,6 +10,8 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 class ICheckMoviesParserTest(TestCase):
 
     def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
         with open(os.path.join(TESTDATA_PATH, 'icheckmovies', 'my_ratings_like.html'),
                   encoding='UTF-8') as my_ratings_like:
             self.my_ratings_like = my_ratings_like.read()

@@ -19,6 +19,8 @@ class RatingsInserter:
         self.failed_movies = []
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+        if not os.path.exists(self.exports_folder):
+            os.makedirs(self.exports_folder)
         self.failed_movies_filename = '%s_%s_failed.json' % (TIMESTAMP, self.site.site_name)
 
     def insert(self, movies, source):

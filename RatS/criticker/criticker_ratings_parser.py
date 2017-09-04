@@ -19,6 +19,8 @@ class CritickerRatingsParser(RatingsParser):
         super(CritickerRatingsParser, self).__init__(Criticker(args), args)
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+        if not os.path.exists(self.exports_folder):
+            os.makedirs(self.exports_folder)
         self.xml_filename = '%s_%s.xml' % (TIMESTAMP, 'Criticker')
 
     def _parse_ratings(self):

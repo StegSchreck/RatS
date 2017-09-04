@@ -9,8 +9,9 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 
 class FlixsterParserTest(TestCase):
-
     def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
         with open(os.path.join(TESTDATA_PATH, 'flixster', 'my_ratings.json'), encoding='UTF-8') as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 

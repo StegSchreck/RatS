@@ -9,6 +9,8 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 class MovielensUploaderTest(TestCase):
     def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
         self.movie = dict()
         self.movie['title'] = 'Fight Club'
         self.movie['imdb'] = dict()

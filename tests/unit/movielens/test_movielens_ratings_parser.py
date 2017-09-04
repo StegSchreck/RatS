@@ -8,6 +8,9 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 
 class MovielensParserTest(TestCase):
+    def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')

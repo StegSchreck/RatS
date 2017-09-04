@@ -10,8 +10,9 @@ TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 
 class PlexRatingsParserTest(TestCase):
-
     def setUp(self):
+        if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
+            os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
         with open(os.path.join(TESTDATA_PATH, 'plex', 'my_ratings.xml'), encoding='UTF-8') as my_ratings:
             self.my_ratings = my_ratings.read()
         with open(os.path.join(TESTDATA_PATH, 'plex', 'my_ratings_tile.xml'), encoding='UTF-8') as ratings_tile:
