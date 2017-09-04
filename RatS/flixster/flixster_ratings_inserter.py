@@ -21,7 +21,10 @@ class FlixsterRatingsInserter(RatingsInserter):
         elif self._is_empty_search_result() or self._is_internal_server_error():
             return False  # no search results
 
-        self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
+        try:
+            self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
+        except NoSuchElementException:
+            return False
 
         time.sleep(1)
         try:
