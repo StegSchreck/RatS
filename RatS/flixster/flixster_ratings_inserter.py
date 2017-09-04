@@ -18,7 +18,7 @@ class FlixsterRatingsInserter(RatingsInserter):
 
         if directly_found:
             return True
-        elif self._is_empty_search_result():
+        elif self._is_empty_search_result() or self._is_internal_server_error():
             return False  # no search results
 
         self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
@@ -36,6 +36,10 @@ class FlixsterRatingsInserter(RatingsInserter):
 
     def _is_empty_search_result(self):
         return 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text
+
+    def _is_internal_server_error(self):
+        return "Sorry, we're having some technical difficulties" in \
+               self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
         search_url = 'https://www.flixster.com/search/?%s' % urllib.parse.urlencode({'search': movie['title']})
