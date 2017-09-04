@@ -71,12 +71,10 @@ _Please note: This is currently not working on Windows, but I'm working on that.
 
 ### Command line call parameters
 
-1. the first argument (`--source`) is the site where the ratings are parsed from (see [Available Parsers](#parsers))
-1. the second argument  (`--destination`) is the site where the ratings should be posted (inserted) to (see [Available Inserters](#inserters))
+1. the first argument (`--source`) is the site where the ratings are parsed from (see [Available Parsers](#currently-available-parsers))
+1. the second argument  (`--destination`) is the site where the ratings should be posted (inserted) to (see [Available Inserters](#currently-available-inserters))
 
-You can also omit the destination argument in order to just save the parsing results to a JSON file. You might insert the saved results anytime later. (see [below](#retry))
-
-<a name="parsers"></a><img style="float: right;" src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS_Ensemble.png">
+You can also omit the destination argument in order to just save the parsing results to a JSON file. You might insert the saved results anytime later. (see [below](#trying-again-with-former-export-data))
 
 #### Currently Available Parsers
 
@@ -91,8 +89,6 @@ You can also omit the destination argument in order to just save the parsing res
 * Plex (locally hosted server)
 * TMDB (The Movie Database)
 * Trakt
-
-<a name="inserters"></a>
 
 #### Currently Available Inserters
 
@@ -109,7 +105,10 @@ You can also omit the destination argument in order to just save the parsing res
 * TMDB (The Movie Database)
 * Trakt
 
-<a name="retry"></a>
+<p align="center">
+  <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS_Ensemble.png">
+</p>
+
 
 ### Trying again with former export data
 
