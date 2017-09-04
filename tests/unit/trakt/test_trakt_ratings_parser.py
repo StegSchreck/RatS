@@ -7,7 +7,7 @@ from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 
 
-class TraktParserTest(TestCase):
+class TraktRatingsParserTest(TestCase):
 
     def setUp(self):
         with open(os.path.join(TESTDATA_PATH, 'trakt', 'my_ratings.html'), encoding='UTF-8') as my_ratings:

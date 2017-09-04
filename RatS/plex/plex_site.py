@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup
 
 from RatS.base.base_site import Site
 
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-
 
 class Plex(Site):
     def __init__(self, args):
@@ -18,7 +16,7 @@ class Plex(Site):
         self.MOVIE_SECTION_ID = self._determine_movies_section_id()
         self.SERVER_ID = self._determine_server_id()
         self.MY_RATINGS_URL = 'http://%s/library/sections/%s/all' \
-                              '?type=1&sort=rating:desc&X-plex-Container-Start=0&X-plex-Container-Size=100' \
+                              '?type=1&sort=rating:desc&X-Plex-Container-Start=0&X-Plex-Container-Size=100' \
                               % (self.BASE_URL, self.MOVIE_SECTION_ID)
 
     def _parse_configuration(self):

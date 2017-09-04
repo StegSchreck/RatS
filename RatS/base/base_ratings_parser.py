@@ -66,7 +66,8 @@ class RatingsParser:
         movies_tiles = self._get_movie_tiles(movie_listing_page)
         for movie_tile in movies_tiles:
             movie = self._parse_movie_tile(movie_tile)
-            self.movies.append(movie)
+            if movie:
+                self.movies.append(movie)
             self.print_progress(movie)
 
     def print_progress(self, movie):
@@ -78,7 +79,10 @@ class RatingsParser:
                              (self.site.site_displayname, movie['title'], movie['year']))
             sys.stdout.flush()
         else:
-            print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_displayname)
+            self._print_progress_bar()
+
+    def _print_progress_bar(self):
+        print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_displayname)
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):

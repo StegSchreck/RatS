@@ -23,9 +23,6 @@ class PlexRatingsInserterTest(TestCase):
             self.search_results = search_results.read()
         with open(os.path.join(TESTDATA_PATH, 'plex', 'search_result_tile.xml'), encoding='UTF-8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'plex', 'movie_details_page.html'),
-                  encoding='UTF-8') as movie_details_page:
-            self.movie_details_page = movie_details_page.read()
 
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_server_id')
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_movies_section_id')
