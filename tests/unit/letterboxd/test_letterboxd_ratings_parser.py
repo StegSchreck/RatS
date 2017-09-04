@@ -75,7 +75,7 @@ class LetterboxdParserTest(TestCase):
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_letterboxd.csv'
 
-        movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'my_ratings', 'letterboxd.csv'))  # pylint: disable=protected-access
+        movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'letterboxd', 'my_ratings.csv'))  # pylint: disable=protected-access
 
         self.assertEqual(1056, len(movies))
         self.assertEqual(dict, type(movies[0]))

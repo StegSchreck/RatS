@@ -31,7 +31,7 @@ class FileHandlerTest(TestCase):
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
 
     def test_load_movies_from_json(self):
-        movies = file_impex.load_movies_from_json(folder=os.path.join(TESTDATA_PATH, 'exports'), filename='trakt.json')
+        movies = file_impex.load_movies_from_json(folder=os.path.join(TESTDATA_PATH, 'trakt'), filename='exports.json')
         self.assertEqual(1, len(movies))
         self.assertEqual(list, type(movies))
         self.assertEqual(dict, type(movies[0]))
@@ -84,7 +84,7 @@ class FileHandlerTest(TestCase):
         os.remove(filename)
 
     def test_load_movies_from_csv(self):
-        parsed_movies = file_impex.load_movies_from_csv(os.path.join(TESTDATA_PATH, 'my_ratings', 'imdb.csv'))
+        parsed_movies = file_impex.load_movies_from_csv(os.path.join(TESTDATA_PATH, 'imdb', 'my_ratings.csv'))
 
         self.assertEqual(2, len(parsed_movies))
         self.assertEqual(dict, type(parsed_movies[0]))
@@ -151,7 +151,7 @@ class FileHandlerTest(TestCase):
     def test_extract_file_from_archive(self):
         os.makedirs(TESTDATA_NEW_PATH)
         test_zip_archive = os.path.join(TESTDATA_NEW_PATH, 'letterboxd.zip')
-        copyfile(os.path.join(TESTDATA_PATH, 'my_ratings', 'letterboxd.zip'), test_zip_archive)
+        copyfile(os.path.join(TESTDATA_PATH, 'letterboxd', 'my_ratings.zip'), test_zip_archive)
         extracted_file = os.path.join(TESTDATA_NEW_PATH, 'ratings.csv')
 
         self.assertTrue(os.path.isfile(test_zip_archive))

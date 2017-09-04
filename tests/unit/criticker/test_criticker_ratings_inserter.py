@@ -19,11 +19,11 @@ class CritickerRatingsInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'criticker.html'), encoding='UTF-8') as search_results:
+        with open(os.path.join(TESTDATA_PATH, 'criticker', 'search_result.html'), encoding='UTF-8') as search_results:
             self.search_results = search_results.read()
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'criticker_tile.html'), encoding='UTF-8') as result_tile:
+        with open(os.path.join(TESTDATA_PATH, 'criticker', 'search_result_tile.html'), encoding='UTF-8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'criticker.html'),
+        with open(os.path.join(TESTDATA_PATH, 'criticker', 'movie_details_page.html'),
                   encoding='UTF-8') as movie_details_page:
             self.movie_details_page = movie_details_page.read()
 

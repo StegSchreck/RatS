@@ -19,13 +19,13 @@ class FlixsterRatingsInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'flixster.html'),
+        with open(os.path.join(TESTDATA_PATH, 'flixster', 'search_result.html'),
                   encoding='ISO-8859-1') as search_results:
             self.search_results = search_results.read()
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'flixster_tile.html'),
+        with open(os.path.join(TESTDATA_PATH, 'flixster', 'search_result_tile.html'),
                   encoding='ISO-8859-1') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
-        with open(os.path.join(TESTDATA_PATH, 'movie_details_page', 'flixster.html'),
+        with open(os.path.join(TESTDATA_PATH, 'flixster', 'movie_details_page.html'),
                   encoding='ISO-8859-1') as movie_details_page:
             self.movie_details_page = movie_details_page.read()
 

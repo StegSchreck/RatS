@@ -16,9 +16,9 @@ class MetacriticRatingsInserterTest(TestCase):
         self.movie['imdb']['id'] = 'tt0137523'
         self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'metacritic.html'), encoding='UTF-8') as search_results:
+        with open(os.path.join(TESTDATA_PATH, 'metacritic', 'search_result.html'), encoding='UTF-8') as search_results:
             self.search_results = search_results.read()
-        with open(os.path.join(TESTDATA_PATH, 'search_result', 'metacritic_tile.html'),
+        with open(os.path.join(TESTDATA_PATH, 'metacritic', 'search_result_tile.html'),
                   encoding='UTF-8') as result_tile:
             self.search_result_tile_list = [result_tile.read()]
 

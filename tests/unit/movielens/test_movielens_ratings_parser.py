@@ -71,7 +71,7 @@ class MovielensParserTest(TestCase):
         parser.csv_filename = '1234567890_movielens.csv'
         parser.args = None
 
-        movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'my_ratings', 'movielens.csv'))  # pylint: disable=protected-access
+        movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'movielens', 'my_ratings.csv'))  # pylint: disable=protected-access
 
         self.assertEqual(1063, len(movies))
         self.assertEqual(dict, type(movies[0]))
