@@ -36,7 +36,7 @@ class TraktRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.trakt.trakt_ratings_inserter.TraktRatingsInserter._is_requested_movie')
     @patch('RatS.trakt.trakt_ratings_inserter.TraktRatingsInserter._get_search_results')
     @patch('RatS.trakt.trakt_ratings_inserter.Trakt')

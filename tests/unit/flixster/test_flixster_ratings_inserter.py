@@ -38,7 +38,7 @@ class FlixsterRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie')
     @patch('RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results')
     @patch('RatS.flixster.flixster_ratings_inserter.Flixster')

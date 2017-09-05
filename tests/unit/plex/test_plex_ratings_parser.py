@@ -27,7 +27,7 @@ class PlexRatingsParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
+    @patch('RatS.plex.plex_ratings_parser.PlexRatingsParser._print_progress_bar')
     @patch('RatS.plex.plex_ratings_parser.PlexRatingsParser._parse_movie_tile')
     @patch('RatS.base.base_site.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
@@ -35,6 +35,7 @@ class PlexRatingsParserTest(TestCase):
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
         parser = PlexRatingsParser(None)
+        parser.args = False
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Plex'

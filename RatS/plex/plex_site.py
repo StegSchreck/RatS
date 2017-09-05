@@ -12,15 +12,15 @@ class Plex(Site):
         self.LOGIN_PASSWORD_SELECTOR = "//form[@id='user-account-form']//input[@id='password']"
         self.LOGIN_BUTTON_SELECTOR = "//form[@id='user-account-form']//button[@type='submit']"
         super(Plex, self).__init__(args)
+
+    def _parse_configuration(self):
+        self.BASE_URL = self.config[self.site_name]['BASE_URL'] + ":" + self.config[self.site_name]['BASE_PORT']
+        self.LOGIN_PAGE = "http://%s/web/index.html#!/login" % self.BASE_URL
         self.MOVIE_SECTION_ID = self._determine_movies_section_id()
         self.SERVER_ID = self._determine_server_id()
         self.MY_RATINGS_URL = 'http://%s/library/sections/%s/all' \
                               '?type=1&sort=rating:desc&X-Plex-Container-Start=0&X-Plex-Container-Size=100' \
                               % (self.BASE_URL, self.MOVIE_SECTION_ID)
-
-    def _parse_configuration(self):
-        self.BASE_URL = self.config[self.site_name]['BASE_URL'] + ":" + self.config[self.site_name]['BASE_PORT']
-        self.LOGIN_PAGE = "http://%s/web/index.html#!/login" % self.BASE_URL
 
     def _determine_movies_section_id(self):
         sys.stdout.write('\r===== ' + self.site_displayname + ': determine movie section')

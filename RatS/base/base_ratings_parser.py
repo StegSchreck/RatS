@@ -71,10 +71,10 @@ class RatingsParser:
             self.print_progress(movie)
 
     def print_progress(self, movie):
-        if self.args.verbose and self.args.verbose >= 2:
+        if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_displayname, movie))
             sys.stdout.flush()
-        elif self.args.verbose and self.args.verbose >= 1:
+        elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write('\r===== %s: parsed %s (%i) \r\n' %
                              (self.site.site_displayname, movie['title'], movie['year']))
             sys.stdout.flush()

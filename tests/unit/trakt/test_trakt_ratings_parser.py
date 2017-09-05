@@ -23,7 +23,7 @@ class TraktRatingsParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.trakt.trakt_ratings_parser.TraktRatingsParser.parse_movie_details_page')
     @patch('RatS.base.base_site.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
@@ -31,6 +31,7 @@ class TraktRatingsParserTest(TestCase):
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings
         parser = TraktRatingsParser(None)
+        parser.args = False
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'Trakt'

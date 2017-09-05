@@ -35,7 +35,7 @@ class PlexRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.plex.plex_ratings_inserter.PlexRatingsInserter._is_requested_movie')
     @patch('RatS.plex.plex_ratings_inserter.PlexRatingsInserter._get_search_results')
     @patch('RatS.plex.plex_ratings_inserter.Plex')

@@ -2,6 +2,8 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from bs4 import BeautifulSoup
+
 from RatS.listal.listal_ratings_inserter import ListalRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
@@ -37,7 +39,7 @@ class ListalRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._post_movie_rating')
-    @patch('RatS.base.base_ratings_inserter.RatingsInserter.print_progress')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._is_requested_movie')
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._get_search_results')
     @patch('RatS.listal.listal_ratings_inserter.Listal')
@@ -161,5 +163,69 @@ class ListalRatingsInserterTest(TestCase):
         movie2['imdb']['my_rating'] = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
+
+        self.assertFalse(result)
+
+    @patch('RatS.listal.listal_ratings_inserter.Listal')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
+    @patch('RatS.base.base_site.Firefox')
+    def test_compare_success_by_year(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.movie_details_page
+        inserter = ListalRatingsInserter(None)
+        inserter.site = site_mock
+        inserter.site.site_name = 'Listal'
+        inserter.failed_movies = []
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1999
+
+        search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.listal.listal_ratings_inserter.Listal')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
+    @patch('RatS.base.base_site.Firefox')
+    def test_compare_success_by_imdb(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.movie_details_page
+        inserter = ListalRatingsInserter(None)
+        inserter.site = site_mock
+        inserter.site.site_name = 'Listal'
+        inserter.failed_movies = []
+
+        movie2 = dict()
+        movie2['title'] = 'Fight Club'
+        movie2['year'] = 1998
+        movie2['imdb'] = dict()
+        movie2['imdb']['id'] = 'tt0137523'
+        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie2['imdb']['my_rating'] = 9
+
+        search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
+
+        self.assertTrue(result)
+
+    @patch('RatS.listal.listal_ratings_inserter.Listal')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
+    @patch('RatS.base.base_site.Firefox')
+    def test_compare_fail_by_year(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
+        site_mock.browser = browser_mock
+        browser_mock.page_source = self.movie_details_page
+        inserter = ListalRatingsInserter(None)
+        inserter.site = site_mock
+        inserter.site.site_name = 'Listal'
+        inserter.failed_movies = []
+
+        movie2 = dict()
+        movie2['title'] = 'The Matrix'
+        movie2['year'] = 1995
+
+        search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)

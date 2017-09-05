@@ -26,7 +26,7 @@ class ICheckMoviesParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMoviesRatingsParser._parse_movies_category')
     @patch('RatS.base.base_site.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
@@ -34,6 +34,7 @@ class ICheckMoviesParserTest(TestCase):
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_category_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         browser_mock.page_source = self.my_ratings_like
         parser = ICheckMoviesRatingsParser(None)
+        parser.args = False
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'ICheckMovies'
@@ -44,7 +45,7 @@ class ICheckMoviesParserTest(TestCase):
 
         self.assertEqual(2, parse_category_mock.call_count)
 
-    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.base.base_site.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies')
@@ -53,6 +54,7 @@ class ICheckMoviesParserTest(TestCase):
         site_mock.PARSE_LIKE_TRANSLATION = 8
         site_mock.PARSE_DISLIKE_TRANSLATION = 3
         parser = ICheckMoviesRatingsParser(None)
+        parser.args = False
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'ICheckMovies'
@@ -71,7 +73,7 @@ class ICheckMoviesParserTest(TestCase):
         self.assertEqual('http://www.imdb.com/title/tt0137523', parser.movies[0]['imdb']['url'])
         self.assertEqual(8, parser.movies[0]['icheckmovies']['my_rating'])
 
-    @patch('RatS.base.base_ratings_parser.RatingsParser.print_progress')
+    @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.base.base_site.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies')
@@ -80,6 +82,7 @@ class ICheckMoviesParserTest(TestCase):
         site_mock.PARSE_LIKE_TRANSLATION = 8
         site_mock.PARSE_DISLIKE_TRANSLATION = 3
         parser = ICheckMoviesRatingsParser(None)
+        parser.args = False
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = 'ICheckMovies'
