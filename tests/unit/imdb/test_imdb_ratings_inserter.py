@@ -44,6 +44,7 @@ class IMDBRatingsInserterTest(TestCase):
     def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
+        inserter.args = False
         inserter.site = site_mock
         inserter.site.site_name = 'IMDB'
         inserter.failed_movies = []

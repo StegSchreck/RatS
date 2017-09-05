@@ -50,6 +50,7 @@ class FlixsterRatingsInserterTest(TestCase):
         eq_check_mock.return_value = True
         site_mock.browser = browser_mock
         inserter = FlixsterRatingsInserter(None)
+        inserter.args = False
         inserter.site = site_mock
         inserter.site.site_name = 'Flixster'
         inserter.failed_movies = []

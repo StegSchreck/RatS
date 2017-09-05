@@ -48,6 +48,7 @@ class CritickerRatingsInserterTest(TestCase):
         eq_check_mock.return_value = True
         site_mock.browser = browser_mock
         inserter = CritickerRatingsInserter(None)
+        inserter.args = False
         inserter.site = site_mock
         inserter.site.site_name = 'Criticker'
         inserter.failed_movies = []

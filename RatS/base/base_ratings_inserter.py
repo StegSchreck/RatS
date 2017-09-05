@@ -103,8 +103,9 @@ class RatingsInserter:
         sys.stdout.flush()
 
     def _handle_failed_movies(self, movies):
-        for failed_movie in self.failed_movies:
-            sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
+        if self.args and self.args.verbose and self.args.verbose >= 1:
+            for failed_movie in self.failed_movies:
+                sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
