@@ -2,8 +2,6 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
-from bs4 import BeautifulSoup
-
 from RatS.plex.plex_site import Plex
 
 TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
