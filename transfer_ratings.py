@@ -71,7 +71,7 @@ def main():
 def parse_args():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("-s", "--source", help="Source of the movie ratings", required=True)
-    argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=False)
+    argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=False, action='append')
     argparser.add_argument("-f", "--file", help="Import ratings from this file instead of parser "
                                                 "(you still have provide the -s/--source argument "
                                                 "to determine which data to use for inserting)", required=False)
@@ -119,9 +119,10 @@ def execute(args):
 
     if args.destination:
         # INSERT THE DATA
-        inserter = get_inserter_from_arg(args.destination)(args)
-        insert_movie_ratings(inserter, movies, type(parser.site).__name__)
-
+        for dest in args.destination:
+            inserter = get_inserter_from_arg(dest)(args)
+            insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+            
 
 def parse_data_from_source(parser):
     movies = parser.parse()
