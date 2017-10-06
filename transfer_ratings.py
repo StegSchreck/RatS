@@ -122,7 +122,7 @@ def execute(args):
         for dest in args.destination:
             inserter = get_inserter_from_arg(dest)(args)
             insert_movie_ratings(inserter, movies, type(parser.site).__name__)
-            
+
 
 def parse_data_from_source(parser):
     movies = parser.parse()
