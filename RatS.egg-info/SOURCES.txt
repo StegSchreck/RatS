@@ -100,6 +100,7 @@ tests/unit/movielens/test_movielens_site.py
 tests/unit/plex/__init__.py
 tests/unit/plex/test_plex_ratings_inserter.py
 tests/unit/plex/test_plex_ratings_parser.py
+tests/unit/plex/test_plex_site.py
 tests/unit/tmdb/__init__.py
 tests/unit/tmdb/test_tmdb_ratings_inserter.py
 tests/unit/tmdb/test_tmdb_ratings_parser.py

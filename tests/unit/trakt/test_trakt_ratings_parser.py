@@ -15,6 +15,9 @@ class TraktRatingsParserTest(TestCase):
             self.my_ratings = my_ratings.read()
         with open(os.path.join(TESTDATA_PATH, 'trakt', 'movie_details_page.html'), encoding='UTF-8') as detail_page:
             self.detail_page = detail_page.read()
+        with open(os.path.join(TESTDATA_PATH, 'trakt', 'movie_details_page_missing_imdb_id.html'),
+                  encoding='UTF-8') as detail_page_without_imdb_id:
+            self.detail_page_without_imdb_id = detail_page_without_imdb_id.read()
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.base.base_site.Firefox')
@@ -69,3 +72,25 @@ class TraktRatingsParserTest(TestCase):
         self.assertEqual('550', movie['tmdb']['id'])
         self.assertEqual('https://www.themoviedb.org/movie/550', movie['tmdb']['url'])
         self.assertEqual(10, movie['trakt']['my_rating'])
+
+    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
+    @patch('RatS.trakt.trakt_ratings_parser.Trakt')
+    def test_parser_single_movie_with_missing_imdb_id(self, site_mock, base_init_mock, browser_mock):
+        browser_mock.page_source = self.my_ratings
+        parser = TraktRatingsParser(None)
+        parser.movies = []
+        parser.site = site_mock
+        parser.site.site_name = 'Trakt'
+        parser.site.browser = browser_mock
+        browser_mock.page_source = self.detail_page_without_imdb_id
+        movie = dict()
+
+        parser.parse_movie_details_page(movie)
+
+        # Top Gear Patagonia
+        self.assertEqual(2014, movie['year'])
+        self.assertNotIn('imdb', movie)
+        self.assertEqual('314390', movie['tmdb']['id'])
+        self.assertEqual('https://www.themoviedb.org/movie/314390', movie['tmdb']['url'])
+        self.assertEqual(8, movie['trakt']['my_rating'])

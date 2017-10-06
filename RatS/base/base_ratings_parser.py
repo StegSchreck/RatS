@@ -124,7 +124,7 @@ class RatingsParser:
     def _parse_external_links(self, movie, movie_details_page):
         external_links = self._get_external_links(movie_details_page)
         for link in external_links:
-            if 'imdb.com' in link['href']:
+            if 'imdb.com' in link['href'] and 'find?' not in link['href']:
                 movie['imdb'] = dict()
                 movie['imdb']['url'] = link['href'].strip('/')
                 movie['imdb']['id'] = movie['imdb']['url'].split('/')[-1]
