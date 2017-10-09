@@ -10,6 +10,7 @@ from selenium.webdriver import FirefoxProfile
 from xvfbwrapper import Xvfb
 
 from RatS.utils.bash_color import BashColor
+from RatS.utils import command_line
 
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
 
@@ -63,8 +64,10 @@ class Site:
         self.browser = Firefox(firefox_profile=profile)
         # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
         self.browser._is_remote = False  # pylint: disable=protected-access
+
         self.login()
         time.sleep(1)
+        self._check_login_successful()
 
     def login(self):
         sys.stdout.write('===== ' + self.site_displayname + ': performing login')
@@ -79,6 +82,16 @@ class Site:
             time.sleep(2)  # wait for page to load and try again
             self._insert_login_credentials()
             self._click_login_button()
+
+    def _check_login_successful(self):
+        if len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \
+                and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR)) > 0 \
+                and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR)) > 0:
+            command_line.error("Login to %s failed." % self.site_name)
+            sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
+            sys.stdout.flush()
+            self.kill_browser()
+            sys.exit(1)
 
     def _insert_login_credentials(self):
         login_field_user = self.browser.find_element_by_xpath(self.LOGIN_USERNAME_SELECTOR)
