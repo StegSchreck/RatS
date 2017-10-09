@@ -8,9 +8,10 @@ from RatS.base.base_site import Site
 
 class Plex(Site):
     def __init__(self, args):
-        self.LOGIN_USERNAME_SELECTOR = "//form[@id='user-account-form']//input[@id='username']"
-        self.LOGIN_PASSWORD_SELECTOR = "//form[@id='user-account-form']//input[@id='password']"
-        self.LOGIN_BUTTON_SELECTOR = "//form[@id='user-account-form']//button[@type='submit']"
+        login_form_selector = "//form[@id='user-account-form']"
+        self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='username']"
+        self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='password']"
+        self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(Plex, self).__init__(args)
 
     def _parse_configuration(self):
