@@ -76,6 +76,10 @@ _Please note: This is currently not working on Windows, but I'm working on that.
 
 You can also omit the destination argument in order to just save the parsing results to a JSON file. You might insert the saved results anytime later. (see [below](#trying-again-with-former-export-data))
 
+Furthermore, you can define multiple destinations, e.g. like this:
+`python3 transfer_ratings.py --source trakt --destination movielens --destination imdb`
+in order to use the same data from the parser in this run for multiple destinations.
+
 #### Currently Available Parsers
 
 * Criticker
