@@ -86,7 +86,7 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        command_line.warn("No parser matching '" + param + "' found.")
+        command_line.error("No parser matching '" + param + "' found.")
         sys.stdout.write("Available parsers:\r\n")
         for parser in PARSERS:
             sys.stdout.write(' - %s \n' % parser)
@@ -98,7 +98,7 @@ def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        command_line.warn("No inserter matching '" + param + "' found.")
+        command_line.error("No inserter matching '" + param + "' found.")
         sys.stdout.write("Available inserters:\r\n")
         for inserter in INSERTERS:
             sys.stdout.write(' - %s \n' % inserter)
