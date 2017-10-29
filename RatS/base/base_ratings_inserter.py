@@ -41,6 +41,9 @@ class RatingsInserter:
         self._handle_failed_movies(movies)
         self.site.kill_browser()
 
+    def _is_this_site_id_in_parsed_data(self, movie):
+        return self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != ''
+
     def print_progress(self, counter, movie, movies):
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write('\r===== %s: posted %s \r\n' % (self.site.site_displayname, movie))
@@ -56,7 +59,7 @@ class RatingsInserter:
         print_progress_bar(counter, len(movies), prefix=self.site.site_displayname)
 
     def _go_to_movie_details_page(self, movie):
-        if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['url'] != '':
+        if self._is_this_site_id_in_parsed_data(movie):
             self.site.browser.get(movie[self.site.site_name.lower()]['url'])
             success = True
         else:
@@ -107,11 +110,14 @@ class RatingsInserter:
 
     def _handle_failed_movies(self, movies):
         if self.args and self.args.verbose and self.args.verbose >= 1:
-            for failed_movie in self.failed_movies:
-                sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))
+            self._print_failed_movies()
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
             sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
                              (self.site.site_displayname, len(self.failed_movies),
                               self.exports_folder, self.failed_movies_filename))
         sys.stdout.flush()
+
+    def _print_failed_movies(self):
+        for failed_movie in self.failed_movies:
+            sys.stdout.write('FAILED TO FIND: %s (%i)\r\n' % (failed_movie['title'], failed_movie['year']))

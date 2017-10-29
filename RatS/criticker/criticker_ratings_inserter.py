@@ -23,7 +23,7 @@ class CritickerRatingsInserter(RatingsInserter):
         return search_result_page.find_all('div', class_='sr_result')
 
     def _is_requested_movie(self, movie, search_result):
-        if self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != '':
+        if self._is_this_site_id_in_parsed_data(movie):
             return movie[self.site.site_name.lower()]['id'] == \
                    search_result.find(_class='sr_minireview').find('textarea')['film']
         else:

@@ -24,12 +24,15 @@ class Site:
             if sys.stdout.isatty() else self.site_name
 
         self.config = ConfigParser()
-        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg.orig')))
-        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, 'credentials.cfg')))
+        self.__read_config_file('credentials.cfg.orig')
+        self.__read_config_file('credentials.cfg')
         self._parse_credentials()
         self._parse_configuration()
 
         self._init_browser()
+
+    def __read_config_file(self, filename):
+        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
 
     def _parse_credentials(self):
         if os.environ.get(self.site_name.upper() + '_USERNAME'):
