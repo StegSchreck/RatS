@@ -2,9 +2,6 @@ import csv
 import os
 import re
 import sys
-import time
-
-from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.movielens.movielens_site import Movielens
@@ -20,15 +17,8 @@ class MovielensRatingsParser(RatingsDownloader):
         self._rename_csv_file('movielens-ratings.csv')
         self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
-    def _download_ratings_csv(self):
-        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
-        sys.stdout.flush()
-        self.site.browser.set_page_load_timeout(5)
-        time.sleep(1)
-        try:
-            self.site.browser.get('https://movielens.org/api/users/me/movielens-ratings.csv')
-        except TimeoutException:
-            time.sleep(1)
+    def _call_download_url(self):
+        self.site.browser.get('https://movielens.org/api/users/me/movielens-ratings.csv')
 
     def _parse_movies_from_csv(self, filepath):
         sys.stdout.write('===== getting movies from CSV\r\n')

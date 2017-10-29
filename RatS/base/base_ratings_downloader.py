@@ -3,6 +3,8 @@ import os
 import sys
 import time
 
+from selenium.common.exceptions import TimeoutException
+
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.utils import file_impex
 
@@ -20,6 +22,17 @@ class RatingsDownloader(RatingsParser):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _download_ratings_csv(self):
+        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
+        sys.stdout.flush()
+        self.site.browser.set_page_load_timeout(10)
+        time.sleep(1)
+        try:
+            self._call_download_url()
+        except TimeoutException:
+            time.sleep(2)
+            self._call_download_url()
+
+    def _call_download_url(self):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _rename_csv_file(self, original_filename):
