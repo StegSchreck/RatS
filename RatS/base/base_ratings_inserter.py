@@ -42,7 +42,8 @@ class RatingsInserter:
         self.site.kill_browser()
 
     def _is_this_site_id_in_parsed_data(self, movie):
-        return self.site.site_name.lower() in movie and movie[self.site.site_name.lower()]['id'] != ''
+        return self.site.site_name.lower() in movie and 'id' in movie[self.site.site_name.lower()] and \
+               movie[self.site.site_name.lower()]['id'] != ''
 
     def print_progress(self, counter, movie, movies):
         if self.args and self.args.verbose and self.args.verbose >= 2:
