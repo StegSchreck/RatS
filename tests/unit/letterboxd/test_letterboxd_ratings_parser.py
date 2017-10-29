@@ -60,7 +60,7 @@ class LetterboxdParserTest(TestCase):
             self.assertTrue(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', 'ratings.csv')))
         self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', parser.csv_filename)))
 
-        parser._rename_csv_file()  # pylint: disable=protected-access
+        parser._rename_csv_file('ratings.csv')  # pylint: disable=protected-access
 
         self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', 'ratings.csv')))
         self.assertTrue(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', parser.csv_filename)))

@@ -1,25 +1,19 @@
 import csv
-import datetime
 import os
 import sys
 import time
 
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils import command_line
 from RatS.utils import file_impex
 
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
-
-class LetterboxdRatingsParser(RatingsParser):
+class LetterboxdRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(LetterboxdRatingsParser, self).__init__(Letterboxd(args), args)
-        self.exports_folder = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-        self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'Letterboxd')
 
     def _parse_ratings(self):
         before = os.listdir(self.exports_folder)
@@ -35,7 +29,7 @@ class LetterboxdRatingsParser(RatingsParser):
                 ratings_csv_filename,
                 self.exports_folder
             )
-            self._rename_csv_file()
+            self._rename_csv_file('ratings.csv')
             self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
         else:
             command_line.error('Could not determine file location')
@@ -53,19 +47,6 @@ class LetterboxdRatingsParser(RatingsParser):
             self.site.browser.get('https://letterboxd.com/data/export/')
         except TimeoutException:
             time.sleep(1)
-
-    def _rename_csv_file(self):
-        filepath = os.path.join(self.exports_folder, 'ratings.csv')
-        file_impex.wait_for_file_to_exist(filepath)
-
-        try:
-            os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
-            sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_displayname, self.exports_folder, self.csv_filename))
-            sys.stdout.flush()
-        except FileNotFoundError:
-            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_displayname)
-            sys.stdout.flush()
 
     def _parse_movies_from_csv(self, filepath):
         sys.stdout.write('===== getting movies from CSV\r\n')

@@ -1,5 +1,4 @@
 import csv
-import datetime
 import os
 import re
 import sys
@@ -7,23 +6,18 @@ import time
 
 from selenium.common.exceptions import TimeoutException
 
-from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.movielens.movielens_site import Movielens
 from RatS.utils import file_impex
 
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
-
-class MovielensRatingsParser(RatingsParser):
+class MovielensRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(MovielensRatingsParser, self).__init__(Movielens(args), args)
-        self.exports_folder = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
-        self.csv_filename = '%s_%s.csv' % (TIMESTAMP, 'Movielens')
 
     def _parse_ratings(self):
         self._download_ratings_csv()
-        self._rename_csv_file()
+        self._rename_csv_file('movielens-ratings.csv')
         self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
@@ -35,19 +29,6 @@ class MovielensRatingsParser(RatingsParser):
             self.site.browser.get('https://movielens.org/api/users/me/movielens-ratings.csv')
         except TimeoutException:
             time.sleep(1)
-
-    def _rename_csv_file(self):
-        filepath = os.path.join(self.exports_folder, 'movielens-ratings.csv')
-        file_impex.wait_for_file_to_exist(filepath)
-
-        try:
-            os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
-            sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_displayname, self.exports_folder, self.csv_filename))
-            sys.stdout.flush()
-        except FileNotFoundError:
-            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_displayname)
-            sys.stdout.flush()
 
     def _parse_movies_from_csv(self, filepath):
         sys.stdout.write('===== getting movies from CSV\r\n')
