@@ -25,7 +25,7 @@ class MovielensUploaderTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.movielens.movielens_ratings_inserter.save_movies_to_csv')
+    @patch('RatS.base.base_ratings_uploader.save_movies_to_csv')
     @patch('RatS.movielens.movielens_ratings_inserter.Movielens')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.base.base_site.Firefox')
@@ -36,6 +36,7 @@ class MovielensUploaderTest(TestCase):
         inserter.site.site_name = 'Movielens'
         inserter.failed_movies = []
         inserter.exports_folder = TESTDATA_PATH
+        inserter.csv_filename = 'converted.csv'
 
         inserter.insert([self.movie], 'IMDB')
 

@@ -5,8 +5,10 @@ RatS.egg-info/SOURCES.txt
 RatS.egg-info/dependency_links.txt
 RatS.egg-info/top_level.txt
 RatS/base/__init__.py
+RatS/base/base_ratings_downloader.py
 RatS/base/base_ratings_inserter.py
 RatS/base/base_ratings_parser.py
+RatS/base/base_ratings_uploader.py
 RatS/base/base_site.py
 RatS/criticker/__init__.py
 RatS/criticker/criticker_ratings_inserter.py
