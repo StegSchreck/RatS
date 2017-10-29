@@ -41,9 +41,9 @@ class RatingsInserter:
         self._handle_failed_movies(movies)
         self.site.kill_browser()
 
-    def _is_this_site_id_in_parsed_data(self, movie):
-        return self.site.site_name.lower() in movie and 'id' in movie[self.site.site_name.lower()] and \
-               movie[self.site.site_name.lower()]['id'] != ''
+    def _is_field_in_parsed_data_for_this_site(self, movie, field):
+        return self.site.site_name.lower() in movie and field in movie[self.site.site_name.lower()] and \
+               movie[self.site.site_name.lower()][field] != ''
 
     def print_progress(self, counter, movie, movies):
         if self.args and self.args.verbose and self.args.verbose >= 2:
@@ -60,7 +60,7 @@ class RatingsInserter:
         print_progress_bar(counter, len(movies), prefix=self.site.site_displayname)
 
     def _go_to_movie_details_page(self, movie):
-        if self._is_this_site_id_in_parsed_data(movie):
+        if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
             self.site.browser.get(movie[self.site.site_name.lower()]['url'])
             success = True
         else:

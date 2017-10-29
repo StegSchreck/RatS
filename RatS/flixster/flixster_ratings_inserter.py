@@ -61,7 +61,7 @@ class FlixsterRatingsInserter(RatingsInserter):
     def _is_requested_movie(self, movie, search_result):
         movie_heading = search_result.find('p', class_='heading').find('a')
         movie_url = 'https://www.flixster.com' + movie_heading['href']
-        if self._is_this_site_id_in_parsed_data(movie):
+        if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
             success = movie[self.site.site_name.lower()]['url'] == movie_url
         else:
             try:
