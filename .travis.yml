@@ -9,13 +9,13 @@ install:
 - pip install -r requirements.txt
 - pip install -r travis_requirements.txt
 script:
-- pytest --cov RatS --cov-report term-missing
+- pytest --cov RatS --cov-report term-missing --cov-report xml
 - pytest --flakes
 - pytest --pep8
 - pytest --mccabe -m mccabe
 - pytest --pylint -m pylint
 after_script:
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code $TRAVIS_TEST_RESULT
 notifications:
   email:
     recipients:
