@@ -4,21 +4,24 @@ python:
 install:
 - pip install -r requirements.txt
 - pip install -r travis_requirements.txt
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
 script:
-- pytest --cov RatS --cov-report term-missing
+- pytest --cov RatS --cov-report term-missing --cov-report xml
 - pytest --flakes
 - pytest --pep8
 - pytest --mccabe -m mccabe
 - pytest --pylint -m pylint
+after_script:
+- ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code $TRAVIS_TEST_RESULT
 notifications:
   email:
     recipients:
     - stegschreck@gmail.com
     on_success: change
     on_failure: always
-addons:
-    code_climate:
-        repo_token: bc76716a804f41269be39e1cc8855f2f1d39d9c0a33f503191e5a30b7d2414f8
 after_success: coveralls
 deploy:
   provider: releases
@@ -29,3 +32,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+
