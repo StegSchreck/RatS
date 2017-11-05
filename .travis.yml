@@ -1,13 +1,13 @@
 language: python
 python:
 - '3.6'
+install:
+- pip install -r requirements.txt
+- pip install -r travis_requirements.txt
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build
-install:
-- pip install -r requirements.txt
-- pip install -r travis_requirements.txt
 script:
 - pytest --cov RatS --cov-report term-missing --cov-report xml
 - pytest --flakes
@@ -32,3 +32,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+
