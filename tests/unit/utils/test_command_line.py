@@ -1,3 +1,4 @@
+import time
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -9,4 +10,8 @@ class CommandLineUtilTest(TestCase):
     @patch('RatS.utils.command_line.get_command_line_dimensions')
     def test_progress_output(os_mock):
         os_mock.return_value = (50, 50)
-        print_progress_bar(1, 100)
+        print_progress_bar(
+            iteration=1,
+            total=100,
+            start_timestamp=time.time()
+        )

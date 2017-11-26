@@ -78,8 +78,18 @@ class LetterboxdRatingsInserter(RatingsInserter):
         while len(self.site.browser.find_elements_by_css_selector(self.progress_counter_selector)) is not 0:
             try:
                 counter = int(self.site.browser.find_element_by_css_selector(self.progress_counter_selector).text)
-                print_progress_bar(counter, movies_count)
+                print_progress_bar(
+                    iteration=counter,
+                    total=movies_count,
+                    start_timestamp=self.start_timestamp,
+                    prefix=self.site.site_displayname
+                )
             except StaleElementReferenceException:
                 pass
             time.sleep(1)
-        print_progress_bar(movies_count, movies_count)
+        print_progress_bar(
+            iteration=movies_count,
+            total=movies_count,
+            start_timestamp=self.start_timestamp,
+            prefix=self.site.site_displayname
+        )

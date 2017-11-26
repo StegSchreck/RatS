@@ -49,4 +49,9 @@ class PlexRatingsParser(RatingsParser):
         return movie
 
     def _print_progress_bar(self):
-        print_progress_bar(self.processed_movies_count, self.movies_count, prefix=self.site.site_displayname)
+        print_progress_bar(
+            iteration=self.processed_movies_count,
+            total=self.movies_count,
+            start_timestamp=self.start_timestamp,
+            prefix=self.site.site_displayname
+        )

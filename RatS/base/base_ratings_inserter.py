@@ -22,6 +22,7 @@ class RatingsInserter:
         if not os.path.exists(self.exports_folder):
             os.makedirs(self.exports_folder)
         self.failed_movies_filename = '%s_%s_failed.json' % (TIMESTAMP, self.site.site_name)
+        self.start_timestamp = time.time()
 
     def insert(self, movies, source):
         counter = 0
@@ -57,7 +58,12 @@ class RatingsInserter:
             self._print_progress_bar(counter, movies)
 
     def _print_progress_bar(self, counter, movies):
-        print_progress_bar(counter, len(movies), prefix=self.site.site_displayname)
+        print_progress_bar(
+            iteration=counter,
+            total=len(movies),
+            start_timestamp=self.start_timestamp,
+            prefix=self.site.site_displayname
+        )
 
     def _go_to_movie_details_page(self, movie):
         if self._is_field_in_parsed_data_for_this_site(movie, 'url'):

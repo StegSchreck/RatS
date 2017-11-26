@@ -15,6 +15,7 @@ class RatingsParser:
         self.movies_count = 0
 
         self.site.browser.get(self.site.MY_RATINGS_URL)
+        self.start_timestamp = time.time()
 
     def parse(self):
         try:
@@ -82,7 +83,12 @@ class RatingsParser:
             self._print_progress_bar()
 
     def _print_progress_bar(self):
-        print_progress_bar(len(self.movies), self.movies_count, prefix=self.site.site_displayname)
+        print_progress_bar(
+            iteration=len(self.movies),
+            total=self.movies_count,
+            start_timestamp=self.start_timestamp,
+            prefix=self.site.site_displayname
+        )
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
