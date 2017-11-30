@@ -5,8 +5,9 @@ import time
 from configparser import ConfigParser
 
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver import Firefox
+from selenium.webdriver import Firefox, DesiredCapabilities
 from selenium.webdriver import FirefoxProfile
+from selenium.webdriver.firefox.options import Options
 from xvfbwrapper import Xvfb
 
 from RatS.utils.bash_color import BashColor
@@ -53,6 +54,16 @@ class Site:
             self.display = Xvfb()
             self.display.start()
 
+        capabilities = DesiredCapabilities.FIREFOX.copy()
+        capabilities["moz:firefoxOptions"] = {
+            "log": {
+                "level": "trace",
+            },
+        }
+
+        options = Options()
+        options.log.level = 'trace'
+
         profile = FirefoxProfile()
         profile.set_preference("browser.download.folderList", 2)
         profile.set_preference("browser.download.manager.showWhenStarting", False)
@@ -64,7 +75,7 @@ class Site:
         # https://github.com/mozilla/geckodriver/issues/858#issuecomment-322512336
         profile.set_preference("dom.file.createInChild", True)
 
-        self.browser = Firefox(firefox_profile=profile)
+        self.browser = Firefox(firefox_profile=profile, capabilities=capabilities, firefox_options=options)
         # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
         self.browser._is_remote = False  # pylint: disable=protected-access
 
