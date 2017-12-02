@@ -49,16 +49,19 @@ This project is currently still under development. Please be patient, as I'm onl
     `python3 transfer_ratings.py --help`
 1. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
 
-### Inside a Docker container 
+### Inside a Docker container
+
 _Please note: This is currently not working on Windows, but I'm working on that._
 
 1. Create a credentials configuration in your home folder, e.g.: `touch ~/.RatS.cfg`
 1. Configure your credentials in the file you just created, e.g.:
+
     ```
     [Trakt]
     USERNAME = abc
     PASSWORD = def
     ```
+
     Please see the RatS/credentials.cfg.orig in this repository as a template.
 1. Get the Docker image: `docker pull stegschreck/rats`
 1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg stegschreck/rats python3 transfer_ratings.py --source trakt --destination movielens`
@@ -139,6 +142,7 @@ Furthermore: This section is meant to be used with the native command line versi
   `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg user/RatS python3 transfer_ratings.py --source trakt --destination imdb --file 20170721191143_Trakt.json`
 
 #### Switching between environments
+
 You can copy the exported JSON from/to the Docker container if you like. I don't recommend this if you have no experience with docker. If you have, you already know what to do here ;)
 
 ## Problem shooting
