@@ -1,6 +1,4 @@
-import csv
 import os
-import sys
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.letterboxd.letterboxd_site import Letterboxd
@@ -37,15 +35,6 @@ class LetterboxdRatingsParser(RatingsDownloader):
 
     def _call_download_url(self):
         self.site.browser.get('https://letterboxd.com/data/export/')
-
-    def _parse_movies_from_csv(self, filepath):
-        sys.stdout.write('===== getting movies from CSV\r\n')
-        sys.stdout.flush()
-        file_impex.wait_for_file_to_exist(filepath)
-        with open(filepath, newline='') as input_file:
-            reader = csv.reader(input_file, delimiter=',')
-            next(reader, None)  # ignore csv header
-            return [self._convert_csv_row_to_movie(row) for row in reader]
 
     def _convert_csv_row_to_movie(self, row):
         movie = dict()

@@ -1,7 +1,7 @@
 import datetime
-import time
-
+import os
 import sys
+import time
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.utils.file_impex import save_movies_to_csv
@@ -31,4 +31,10 @@ class RatingsUploader(RatingsInserter):
         self.site.kill_browser()
 
     def upload_csv_file(self):
-        raise NotImplementedError("This is not the implementation you are looking for.")
+        self.site.browser.get(self.url_for_csv_file_upload)
+        time.sleep(1)
+        filename = os.path.join(self.exports_folder, self.csv_filename)
+        self.site.browser.find_element_by_id(self.css_id_of_file_input_element).send_keys(filename)
+        time.sleep(1)
+        self.site.browser.find_element_by_xpath(self.xpath_selector_for_submit_button).click()
+        time.sleep(3)

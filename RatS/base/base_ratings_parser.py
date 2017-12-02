@@ -1,6 +1,7 @@
 import sys
 import time
 
+import os
 from bs4 import BeautifulSoup
 
 from RatS.utils.command_line import print_progress_bar
@@ -16,6 +17,10 @@ class RatingsParser:
 
         self.site.browser.get(self.site.MY_RATINGS_URL)
         self.start_timestamp = time.time()
+        self.exports_folder = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+        if not os.path.exists(self.exports_folder):
+            os.makedirs(self.exports_folder)
 
     def parse(self):
         try:
