@@ -38,13 +38,7 @@ class MovielensRatingsParser(RatingsDownloader):
                 sys.stdout.write(r + '\r\n')
             sys.stdout.flush()
 
-        find_year = re.findall(r'(\(\d{4}\))', row[5])
-        if find_year:
-            year = find_year[-1]
-            movie['year'] = int(re.findall(r'\((\d{4})\)', row[5])[-1])
-        else:  # no movie year in CSV
-            year = '()'
-            movie['year'] = 0
+        year = self.__extract_year(movie, row)
         movie['title'] = row[5].replace(year, '').strip()
 
         movie[self.site.site_name.lower()] = dict()
@@ -52,14 +46,32 @@ class MovielensRatingsParser(RatingsDownloader):
         movie[self.site.site_name.lower()]['url'] = 'https://movielens.org/movies/' + row[0]
         movie[self.site.site_name.lower()]['my_rating'] = int(float(row[3]) * 2)
 
+        self.__extract_imdb_informations(movie, row)
+        self.__extract_tmdb_informations(movie, row)
+
+        return movie
+
+    @staticmethod
+    def __extract_tmdb_informations(movie, row):
+        movie['tmdb'] = dict()
+        movie['tmdb']['id'] = row[2]
+        movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/' + movie['tmdb']['id']
+
+    @staticmethod
+    def __extract_imdb_informations(movie, row):
         movie['imdb'] = dict()
         movie['imdb']['id'] = row[1]
         if 'tt' not in movie['imdb']['id']:
             movie['imdb']['id'] = 'tt' + row[1]
         movie['imdb']['url'] = 'http://www.imdb.com/title/' + movie['imdb']['id']
 
-        movie['tmdb'] = dict()
-        movie['tmdb']['id'] = row[2]
-        movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/' + movie['tmdb']['id']
-
-        return movie
+    @staticmethod
+    def __extract_year(movie, row):
+        find_year = re.findall(r'(\(\d{4}\))', row[5])
+        if find_year:
+            year = find_year[-1]
+            movie['year'] = int(re.findall(r'\((\d{4})\)', row[5])[-1])
+        else:  # no movie year in CSV
+            year = '()'
+            movie['year'] = 0
+        return year

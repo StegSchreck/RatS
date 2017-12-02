@@ -77,7 +77,20 @@ class FlixsterRatingsInserter(RatingsInserter):
         movie_id = self.site.browser.find_element_by_xpath("//meta[@name='movieID']").get_attribute('content')
         converted_rating = str(float(my_rating) / 2)
 
-        rating_script = """
+        rating_script = self._get_insert_javascript_template() % (
+            movie_id,
+            str(self.site.USERID), movie_id,
+            movie_id,
+            self.site.browser.current_url,
+            converted_rating,
+            str(self.site.USERID)
+        )
+
+        self.site.browser.execute_script(rating_script)
+
+    @staticmethod
+    def _get_insert_javascript_template():
+        return """
             $.post(
                 'https://www.flixster.com/api/users/current/movies/ratings/%s',
                 {
@@ -97,13 +110,4 @@ class FlixsterRatingsInserter(RatingsInserter):
                 },
                 function(data, status) {}
             );
-        """ % (
-            movie_id,
-            str(self.site.USERID), movie_id,
-            movie_id,
-            self.site.browser.current_url,
-            converted_rating,
-            str(self.site.USERID)
-        )
-
-        self.site.browser.execute_script(rating_script)
+        """
