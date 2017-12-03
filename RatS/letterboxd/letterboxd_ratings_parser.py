@@ -10,9 +10,9 @@ class LetterboxdRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(LetterboxdRatingsParser, self).__init__(Letterboxd(args), args)
         self.downloaded_file_name = 'ratings.csv'
+        self.before = os.listdir(self.exports_folder)
 
     def _parse_ratings(self):
-        self.before = os.listdir(self.exports_folder)
         self._download_ratings_csv()
 
         after = os.listdir(self.exports_folder)
