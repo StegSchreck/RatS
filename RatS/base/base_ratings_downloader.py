@@ -30,8 +30,13 @@ class RatingsDownloader(RatingsParser):
         try:
             self._call_download_url()
         except TimeoutException:
-            time.sleep(2)
-            self._call_download_url()
+            if not self._file_was_downloaded():
+                time.sleep(2)
+                self._call_download_url()
+
+    def _file_was_downloaded(self):
+        filepath = os.path.join(self.exports_folder, self.downloaded_file_name)
+        return os.path.isfile(filepath)
 
     def _call_download_url(self):
         raise NotImplementedError("This is not the implementation you are looking for.")

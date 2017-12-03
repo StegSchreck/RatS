@@ -9,25 +9,30 @@ from RatS.utils import file_impex
 class LetterboxdRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(LetterboxdRatingsParser, self).__init__(Letterboxd(args), args)
+        self.downloaded_file_name = 'ratings.csv'
 
     def _parse_ratings(self):
-        before = os.listdir(self.exports_folder)
+        self.before = os.listdir(self.exports_folder)
         self._download_ratings_csv()
 
         after = os.listdir(self.exports_folder)
-        change = self._get_downloaded_filename(after, before)
+        change = self._get_downloaded_filename(after, self.before)
         if len(change) == 1:
             archive_filename = change.pop()  # the one file that was added to the dir
-            ratings_csv_filename = 'ratings.csv'
             file_impex.extract_file_from_archive(
                 os.path.join(self.exports_folder, archive_filename),
-                ratings_csv_filename,
+                self.downloaded_file_name,
                 self.exports_folder
             )
-            self._rename_csv_file('ratings.csv')
+            self._rename_csv_file(self.downloaded_file_name)
             self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
         else:
             command_line.error('Could not determine file location')
+
+    def _file_was_downloaded(self):
+        after = os.listdir(self.exports_folder)
+        change = self._get_downloaded_filename(after, self.before)
+        return len(change) == 1
 
     @staticmethod
     def _get_downloaded_filename(after, before):

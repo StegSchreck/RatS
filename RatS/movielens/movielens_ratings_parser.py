@@ -9,10 +9,11 @@ from RatS.movielens.movielens_site import Movielens
 class MovielensRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(MovielensRatingsParser, self).__init__(Movielens(args), args)
+        self.downloaded_file_name = 'movielens-ratings.csv'
 
     def _parse_ratings(self):
         self._download_ratings_csv()
-        self._rename_csv_file('movielens-ratings.csv')
+        self._rename_csv_file(self.downloaded_file_name)
         self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _call_download_url(self):
