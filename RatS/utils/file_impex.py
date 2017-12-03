@@ -65,8 +65,10 @@ def save_movies_to_csv(movies, folder=EXPORTS_FOLDER, filename='export.csv', rat
 
 
 def convert_movie_to_csv(movies, index, rating_source):
+    imdb_id = movies[index]['imdb']['id'] if 'imdb' in movies[index] else ''
+    imdb_url = movies[index]['imdb']['url'] if 'imdb' in movies[index] else ''
     movie_csv = '"' + str(index) + '",' + \
-                '"' + movies[index]['imdb']['id'] + '",' + \
+                '"' + imdb_id + '",' + \
                 '"",' + \
                 '"",' + \
                 '"",' + \
@@ -80,7 +82,7 @@ def convert_movie_to_csv(movies, index, rating_source):
                 '"",' + \
                 '"",' + \
                 '"",' + \
-                '"' + movies[index]['imdb']['url'] + '"'
+                '"' + imdb_url + '"'
     return movie_csv
 
 
