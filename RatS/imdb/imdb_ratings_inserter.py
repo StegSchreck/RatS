@@ -3,6 +3,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver import ActionChains
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.imdb.imdb_site import IMDB
@@ -38,8 +39,12 @@ class IMDBRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        self.site.browser.find_element_by_class_name('star-rating-button').find_element_by_tag_name('button').click()
-        time.sleep(0.5)
+        ratings_button = self.site.browser.find_element_by_class_name('star-rating-button')\
+            .find_element_by_tag_name('button')
         stars = self.site.browser.find_element_by_class_name('star-rating-stars').find_elements_by_tag_name('a')
         star_index = int(my_rating) - 1
-        stars[star_index].click()
+        builder = ActionChains(self.site.browser)
+        builder.move_to_element(ratings_button).click(ratings_button)\
+            .move_to_element(stars[star_index]).click(stars[star_index])\
+            .perform()
+        time.sleep(0.5)  # wait for POST request to be sent
