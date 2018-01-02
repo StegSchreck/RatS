@@ -28,8 +28,8 @@ This project is currently still under development. Please be patient, as I'm onl
     This project is designed to run on Linux.
 1. Checkout the project
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
-1. Install the requirements
-    `pip install -r requirements.txt`
+1. Install the requirements with pip for Python3
+    `pip3 install -r requirements.txt`
 1. Install Geckodriver
 
     **Linux:** `sudo ./InstallGeckodriver.sh`, for this you will need to have tar and wget installed.
