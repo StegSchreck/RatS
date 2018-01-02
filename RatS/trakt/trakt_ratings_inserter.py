@@ -49,6 +49,7 @@ class TraktRatingsInserter(RatingsInserter):
         for link in external_links:
             if external_url_base in link['href']:
                 return movie[site_name]['id'] == link['href'].split('/')[-1]
+        return False
 
     def _click_rating(self, my_rating):
         user_rating_section = self.site.browser.find_element_by_class_name('summary-user-rating')

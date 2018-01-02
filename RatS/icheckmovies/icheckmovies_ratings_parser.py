@@ -46,6 +46,7 @@ class ICheckMoviesRatingsParser(RatingsParser):
             return int(self.site.PARSE_LIKE_TRANSLATION)
         if 'Remove' in movie_tile.find('a', class_='optionMarkNotLike').get_text():
             return int(self.site.PARSE_DISLIKE_TRANSLATION)
+        raise Exception
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):

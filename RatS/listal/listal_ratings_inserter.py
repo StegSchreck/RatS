@@ -47,6 +47,7 @@ class ListalRatingsInserter(RatingsInserter):
             if external_url_base in link['href']:
                 link_href = link['href'].strip('/')
                 return movie[site_name]['id'] == link_href.split('/')[-1]
+        return False
 
     def _post_movie_rating(self, my_rating):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')

@@ -50,6 +50,7 @@ class CritickerRatingsInserter(RatingsInserter):
         for link in external_links:
             if external_url_base in link['href']:
                 return movie[site_name]['id'] == link['href'].split('/')[-1]
+        return False
 
     def _post_movie_rating(self, my_rating):
         converted_rating = str(my_rating * 10)
