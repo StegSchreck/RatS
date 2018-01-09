@@ -24,7 +24,7 @@ This also works if your lists are marked as private, as this tool uses a browser
 
 This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
 
-1. Make sure you have Python3 and Xvfb installed on your system.
+1. Make sure you have Python3, Forefox and Xvfb installed on your system.
     This project is designed to run on Linux.
 1. Checkout the project
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
