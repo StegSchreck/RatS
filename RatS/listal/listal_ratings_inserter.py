@@ -24,12 +24,20 @@ class ListalRatingsInserter(RatingsInserter):
 
     def _is_requested_movie(self, movie, search_result):
         self.site.browser.set_page_load_timeout(10)
-        try:
-            self.site.browser.get(search_result.find('a')['href'])
-        except TimeoutException:
-            self.site.browser.refresh()
-            time.sleep(2)
-            self.site.browser.get(search_result.find('a')['href'])
+
+        iteration = 0
+        while True:
+            try:
+                self.site.browser.get(search_result.find('a')['href'])
+                break
+            except AttributeError as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                self.site.browser.refresh()
+                time.sleep(iteration * 1)
+                continue
+
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')

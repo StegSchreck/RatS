@@ -27,12 +27,17 @@ class RatingsDownloader(RatingsParser):
         sys.stdout.flush()
         self.site.browser.set_page_load_timeout(10)
         time.sleep(1)
-        try:
-            self._call_download_url()
-        except TimeoutException:
-            if not self._file_was_downloaded():
-                time.sleep(2)
+
+        iteration = 0
+        while not self._file_was_downloaded():
+            try:
                 self._call_download_url()
+            except TimeoutException as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _file_was_downloaded(self):
         filepath = os.path.join(self.exports_folder, self.downloaded_file_name)

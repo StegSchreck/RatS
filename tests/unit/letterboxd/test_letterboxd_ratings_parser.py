@@ -35,6 +35,7 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_letterboxd.csv'
+        parser.downloaded_file_name = os.path.join(os.pardir, 'letterboxd', 'my_ratings.csv')
         parsed_filename_mock.return_value = ['letterboxd.zip']
 
         parser.parse()
@@ -54,6 +55,7 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_letterboxd.csv'
+        parser.downloaded_file_name = os.path.join(os.pardir, 'letterboxd', 'my_ratings.csv')
 
         self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', 'ratings.csv')))
         with open(os.path.join(TESTDATA_PATH, 'exports', 'ratings.csv'), 'w+'):
@@ -77,6 +79,7 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, 'exports'))
         parser.csv_filename = '1234567890_letterboxd.csv'
+        parser.downloaded_file_name = os.path.join(os.pardir, 'letterboxd', 'my_ratings.csv')
 
         movies = parser._parse_movies_from_csv(os.path.join(TESTDATA_PATH, 'letterboxd', 'my_ratings.csv'))  # pylint: disable=protected-access
 

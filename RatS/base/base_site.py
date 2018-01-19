@@ -89,13 +89,18 @@ class Site:
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
 
-        try:
-            self._insert_login_credentials()
-            self._click_login_button()
-        except NoSuchElementException:
-            time.sleep(2)  # wait for page to load and try again
-            self._insert_login_credentials()
-            self._click_login_button()
+        iteration = 0
+        while True:
+            try:
+                self._insert_login_credentials()
+                self._click_login_button()
+                break
+            except NoSuchElementException as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _check_login_successful(self):
         if len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \

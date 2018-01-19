@@ -13,12 +13,20 @@ class IMDB(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='ap_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(IMDB, self).__init__(args)
+        self.MY_RATINGS_URL = ''
         time.sleep(1)
-        try:
-            self._get_ratings_url()
-        except NoSuchElementException:
-            time.sleep(1)
-            self._get_ratings_url()
+
+        iteration = 0
+        while self.MY_RATINGS_URL == '':
+            try:
+                self._get_ratings_url()
+                break
+            except NoSuchElementException as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _get_ratings_url(self):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \

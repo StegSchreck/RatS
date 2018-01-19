@@ -79,11 +79,19 @@ class RatingsInserter:
         except TimeoutException:
             return False
         time.sleep(1)
-        try:
-            search_results = self._get_search_results(self.site.browser.page_source)
-        except (NoSuchElementException, KeyError):
-            time.sleep(3)
-            search_results = self._get_search_results(self.site.browser.page_source)
+
+        iteration = 0
+        search_results = None
+        while not search_results:
+            try:
+                search_results = self._get_search_results(self.site.browser.page_source)
+            except (NoSuchElementException, KeyError) as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
+
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result):
                 return True  # Found
@@ -100,11 +108,17 @@ class RatingsInserter:
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _post_movie_rating(self, my_rating):
-        try:
-            self._click_rating(my_rating)
-        except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException):
-            time.sleep(3)
-            self._click_rating(my_rating)
+        iteration = 0
+        while True:
+            try:
+                self._click_rating(my_rating)
+                break
+            except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException) as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _click_rating(self, my_rating):
         raise NotImplementedError("This is not the implementation you are looking for.")

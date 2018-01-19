@@ -23,12 +23,15 @@ def save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename='export.json'):
 
 
 def wait_for_file_to_exist(filepath, seconds=30):
-    for i in range(seconds):  # pylint: disable=unused-variable
+    iteration = 0
+    while iteration < seconds:
         try:
             with open(filepath, 'rb') as file:
                 return file
         except IOError:
-            time.sleep(1)
+            iteration += 1
+            time.sleep(1)  # try every second
+            continue
     raise IOError('Could not access {} after {} seconds'.format(filepath, str(seconds)))
 
 

@@ -30,11 +30,18 @@ class FlixsterRatingsInserter(RatingsInserter):
         return self._process_search_results(movie)
 
     def _process_search_results(self, movie):
-        try:
-            search_results = self._get_search_results(self.site.browser.page_source)
-        except (NoSuchElementException, KeyError):
-            time.sleep(3)
-            search_results = self._get_search_results(self.site.browser.page_source)
+        iteration = 0
+        search_results = None
+        while not search_results:
+            try:
+                search_results = self._get_search_results(self.site.browser.page_source)
+            except (NoSuchElementException, KeyError) as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
+
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result):
                 return True  # Found

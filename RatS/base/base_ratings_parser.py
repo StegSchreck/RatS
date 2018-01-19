@@ -23,11 +23,18 @@ class RatingsParser:
             os.makedirs(self.exports_folder)
 
     def parse(self):
-        try:
-            self._parse_ratings()
-        except AttributeError:
-            time.sleep(2)  # wait a little bit for page to load and try again
-            self._parse_ratings()
+        iteration = 0
+        while True:
+            try:
+                iteration += 1
+                self._parse_ratings()
+                break
+            except AttributeError as e:
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 2)
+                continue
+
         self.site.kill_browser()
         return self.movies
 
@@ -109,11 +116,17 @@ class RatingsParser:
         self.site.browser.get(movie[self.site.site_name.lower()]['url'])
         time.sleep(1)
 
-        try:
-            self.parse_movie_details_page(movie)
-        except AttributeError:
-            time.sleep(3)  # wait a little bit for page to load and try again
-            self.parse_movie_details_page(movie)
+        iteration = 0
+        while True:
+            try:
+                self.parse_movie_details_page(movie)
+                break
+            except AttributeError as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
         return movie
 

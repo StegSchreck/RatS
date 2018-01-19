@@ -29,10 +29,18 @@ class CritickerRatingsParser(RatingsParser):
         sys.stdout.write('\r===== %s: Retrieving ratings XML' % self.site.site_displayname)
         sys.stdout.flush()
         time.sleep(1)
-        try:
-            self.site.browser.get('https://www.criticker.com/resource/rankings/conv.php?type=xml')
-        except TimeoutException:
-            time.sleep(1)
+
+        iteration = 0
+        while True:
+            try:
+                self.site.browser.get('https://www.criticker.com/resource/rankings/conv.php?type=xml')
+                break
+            except TimeoutException as e:
+                iteration += 1
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _parse_xml(self):
         file_impex.wait_for_file_to_exist(os.path.join(self.exports_folder, self.xml_filename))
