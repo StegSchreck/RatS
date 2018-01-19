@@ -54,7 +54,7 @@ def _generate_progress_bar(bar_length, progress_factor):
 
 def _estimate_remaining_time(start_timestamp, iteration, total):
     time_so_far = time.time() - start_timestamp
-    remaining_time_estimation = (time_so_far / iteration) * total
+    remaining_time_estimation = (time_so_far / iteration) * (total - iteration)
     remaining_hours = int(remaining_time_estimation // (60 * 60))
     remaining_minutes = int((remaining_time_estimation % (60 * 60)) // 60)
     remaining_seconds = int(remaining_time_estimation % 60)
