@@ -23,7 +23,9 @@ class MovielensRatingsParser(RatingsDownloader):
         movie = dict()
 
         if self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: reading movie from CSV: \r\n' % self.site.site_displayname)
+            sys.stdout.write('\r===== {site_displayname}: reading movie from CSV: \r\n'.format(
+                site_displayname=self.site.site_displayname
+            ))
             for r in row:
                 sys.stdout.write(r + '\r\n')
             sys.stdout.flush()
@@ -33,7 +35,9 @@ class MovielensRatingsParser(RatingsDownloader):
 
         movie[self.site.site_name.lower()] = dict()
         movie[self.site.site_name.lower()]['id'] = row[0]
-        movie[self.site.site_name.lower()]['url'] = 'https://movielens.org/movies/' + row[0]
+        movie[self.site.site_name.lower()]['url'] = 'https://movielens.org/movies/{movie_url_path}'.format(
+            movie_url_path=row[0]
+        )
         movie[self.site.site_name.lower()]['my_rating'] = int(float(row[3]) * 2)
 
         self.__extract_imdb_informations(movie, row)
@@ -45,15 +49,15 @@ class MovielensRatingsParser(RatingsDownloader):
     def __extract_tmdb_informations(movie, row):
         movie['tmdb'] = dict()
         movie['tmdb']['id'] = row[2]
-        movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/' + movie['tmdb']['id']
+        movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/{tmdb_id}'.format(tmdb_id=movie['tmdb']['id'])
 
     @staticmethod
     def __extract_imdb_informations(movie, row):
         movie['imdb'] = dict()
         movie['imdb']['id'] = row[1]
         if 'tt' not in movie['imdb']['id']:
-            movie['imdb']['id'] = 'tt' + row[1]
-        movie['imdb']['url'] = 'http://www.imdb.com/title/' + movie['imdb']['id']
+            movie['imdb']['id'] = 'tt{imdb_id_number}'.format(imdb_id_number=row[1])
+        movie['imdb']['url'] = 'http://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
 
     @staticmethod
     def __extract_year(movie, row):

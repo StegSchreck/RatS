@@ -9,4 +9,6 @@ class Trakt(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='user_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(Trakt, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://trakt.tv/users/%s/ratings/movies/all/added' % self.USERNAME
+        self.MY_RATINGS_URL = 'https://trakt.tv/users/{username}/ratings/movies/all/added'.format(
+            username=self.USERNAME
+        )

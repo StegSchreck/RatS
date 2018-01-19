@@ -15,8 +15,9 @@ class PlexRatingsInserter(RatingsInserter):
         super(PlexRatingsInserter, self).__init__(Plex(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'http://%s/search?local=1&query=%s' % \
-                     (self.site.BASE_URL, urllib.request.quote(movie['title']))
+        search_url = 'http://{base_url}/search?local=1&query={search_params}'.format(
+            base_url=self.site.BASE_URL, search_params=urllib.request.quote(movie['title'])
+        )
 
         self.site.browser.get(search_url)
 
@@ -34,8 +35,12 @@ class PlexRatingsInserter(RatingsInserter):
 
         if is_requested_movie:
             movie_id = search_result['ratingkey']
-            movie_url = 'http://%s/web/index.html#!/server/%s/details/' % (self.site.BASE_URL, self.site.SERVER_ID) + \
-                        '%2Flibrary%2Fmetadata%2F' + movie_id
+            movie_url = 'http://{base_url}/web/index.html#!/server/{server_id}/details/{library_path}{movie_id}'.format(
+                base_url=self.site.BASE_URL,
+                server_id=self.site.SERVER_ID,
+                library_path='%2Flibrary%2Fmetadata%2F',
+                movie_id=movie_id
+            )
             self.site.browser.get(movie_url)
             self._wait_for_movie_page_to_be_loaded()
             return True

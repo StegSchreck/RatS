@@ -13,10 +13,10 @@ class Listal(Site):
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + \
             "//button[contains(concat(' ', normalize-space(@class), ' '), ' submit ')]"
         super(Listal, self).__init__(args)
-        self.MY_RATINGS_URL = 'http://%s.listal.com/movies/all/1/?rating=1' % self.USERNAME
+        self.MY_RATINGS_URL = 'http://{username}.listal.com/movies/all/1/?rating=1'.format(username=self.USERNAME)
 
     def login(self):
-        sys.stdout.write('===== %s: performing login' % type(self).__name__)
+        sys.stdout.write('===== {site_displayname}: performing login'.format(site_displayname=self.site_displayname))
         sys.stdout.flush()
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
@@ -24,13 +24,13 @@ class Listal(Site):
         self.browser.execute_script("""
             $.post(
                 'https://www.listal.com/login-ajax/',
-                {
-                    username: '%s',
-                    password: '%s'
-                },
-                function(data, status) {}
+                {{
+                    username: '{username}',
+                    password: '{password}'
+                }},
+                function(data, status) {{}}
             );
-        """ % (self.USERNAME, self.PASSWORD))
+        """.format(username=self.USERNAME, password=self.PASSWORD))
 
         time.sleep(1)
         self.browser.get('http://www.listal.com/')

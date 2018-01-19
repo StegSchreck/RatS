@@ -32,7 +32,7 @@ def wait_for_file_to_exist(filepath, seconds=30):
             iteration += 1
             time.sleep(1)  # try every second
             continue
-    raise IOError('Could not access {} after {} seconds'.format(filepath, str(seconds)))
+    raise IOError('Could not access {filepath} after {seconds} seconds'.format(filepath=filepath, seconds=str(seconds)))
 
 
 def load_movies_from_csv(filepath):

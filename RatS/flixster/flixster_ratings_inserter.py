@@ -55,7 +55,9 @@ class FlixsterRatingsInserter(RatingsInserter):
                self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.flixster.com/search/?%s' % urllib.parse.urlencode({'search': movie['title']})
+        search_url = 'https://www.flixster.com/search/?{search_params}'.format(
+            search_params=urllib.parse.urlencode({'search': movie['title']})
+        )
         self.site.browser.get(search_url)
         time.sleep(1)
         return '/movie/' in self.site.browser.current_url  # already on movie_details_page
@@ -84,13 +86,11 @@ class FlixsterRatingsInserter(RatingsInserter):
         movie_id = self.site.browser.find_element_by_xpath("//meta[@name='movieID']").get_attribute('content')
         converted_rating = str(float(my_rating) / 2)
 
-        rating_script = self._get_insert_javascript_template() % (
-            movie_id,
-            str(self.site.USERID), movie_id,
-            movie_id,
-            self.site.browser.current_url,
-            converted_rating,
-            str(self.site.USERID)
+        rating_script = self._get_insert_javascript_template().format(
+            movie_id=movie_id,
+            user_id=str(self.site.USERID),
+            movie_url=self.site.browser.current_url,
+            rating=converted_rating
         )
 
         self.site.browser.execute_script(rating_script)
@@ -99,22 +99,22 @@ class FlixsterRatingsInserter(RatingsInserter):
     def _get_insert_javascript_template():
         return """
             $.post(
-                'https://www.flixster.com/api/users/current/movies/ratings/%s',
-                {
-                    id: '%s_%s',
-                    movieId: '%s',
+                'https://www.flixster.com/api/users/current/movies/ratings/{movie_id}',
+                {{
+                    id: '{user_id}_{movie_id}',
+                    movieId: '{movie_id}',
                     lastUpdated: '0 minutes ago',
-                    movieUrl: '%s',
+                    movieUrl: '{movie_url}',
                     ratingSource: 'Flixster',
                     review: '',
-                    score: '%s',
-                    user: {
+                    score: '{rating}',
+                    user: {{
                         firstName: '',
-                        id: %s,
+                        id: {user_id},
                         lastName: '',
                         thumbnailUrl: '//legacy-static.flixster.com/static/images/actor.default.tmb.gif'
-                    }
-                },
-                function(data, status) {}
+                    }}
+                }},
+                function(data, status) {{}}
             );
         """

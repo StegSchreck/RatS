@@ -9,7 +9,7 @@ class TMDBRatingsParser(RatingsParser):
         super(TMDBRatingsParser, self).__init__(TMDB(args), args)
 
     def _get_ratings_page(self, i):
-        return '%s?page=%i' % (self.site.MY_RATINGS_URL, i)
+        return '{url}?page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):

@@ -84,7 +84,7 @@ class Site:
         self._check_login_successful()
 
     def login(self):
-        sys.stdout.write('===== ' + self.site_displayname + ': performing login')
+        sys.stdout.write('===== {site_displayname}: performing login'.format(site_displayname=self.site_displayname))
         sys.stdout.flush()
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
@@ -106,7 +106,7 @@ class Site:
         if len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \
                 and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR)) > 0 \
                 and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR)) > 0:
-            command_line.error("Login to %s failed." % self.site_name)
+            command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
             sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
             sys.stdout.flush()
             self.kill_browser()

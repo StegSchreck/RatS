@@ -21,12 +21,18 @@ class RatingsInserter:
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
         if not os.path.exists(self.exports_folder):
             os.makedirs(self.exports_folder)
-        self.failed_movies_filename = '%s_%s_failed.json' % (TIMESTAMP, self.site.site_name)
+        self.failed_movies_filename = '{timestamp}_{site_name}_failed.json'.format(
+            timestamp=TIMESTAMP,
+            site_name=self.site.site_name
+        )
         self.start_timestamp = time.time()
 
     def insert(self, movies, source):
         counter = 0
-        sys.stdout.write('\r===== %s: posting %i movies               \r\n' % (self.site.site_displayname, len(movies)))
+        sys.stdout.write('\r===== {site_displayname}: posting {movies_count} movies                   \r\n'.format(
+            site_displayname=self.site.site_displayname,
+            movies_count=len(movies)
+        ))
         sys.stdout.flush()
 
         for movie in movies:
@@ -48,11 +54,17 @@ class RatingsInserter:
 
     def print_progress(self, counter, movie, movies):
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write('\r===== %s: posted %s \r\n' % (self.site.site_displayname, movie))
+            sys.stdout.write('\r===== {site_displayname}: posted {movie} \r\n'.format(
+                site_displayname=self.site.site_displayname,
+                movie=movie
+            ))
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: posted %s (%i)\r\n' %
-                             (self.site.site_displayname, movie['title'], movie['year']))
+            sys.stdout.write('\r===== {site_displayname}: posted {movie_title} ({movie_year})\r\n'.format(
+                site_displayname=self.site.site_displayname,
+                movie_title=movie['title'],
+                movie_year=movie['year']
+            ))
             sys.stdout.flush()
         else:
             self._print_progress_bar(counter, movies)
@@ -125,8 +137,12 @@ class RatingsInserter:
 
     def _print_summary(self, movies):
         success_number = len(movies) - len(self.failed_movies)
-        sys.stdout.write('\r\n===== %s: sucessfully posted %i of %i movies\r\n' %
-                         (self.site.site_displayname, success_number, len(movies)))
+        sys.stdout.write('\r\n===== {site_displayname}: sucessfully posted {success_number}'
+                         ' of {movies_count} movies\r\n'.format(
+                            site_displayname=self.site.site_displayname,
+                            success_number=success_number,
+                            movies_count=len(movies)
+                         ))
         sys.stdout.flush()
 
     def _handle_failed_movies(self, movies):
@@ -134,9 +150,13 @@ class RatingsInserter:
             self._print_failed_movies()
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
-            sys.stdout.write('===== %s: export data for %i failed movies to %s/%s\r\n' %
-                             (self.site.site_displayname, len(self.failed_movies),
-                              self.exports_folder, self.failed_movies_filename))
+            sys.stdout.write('===== {site_displayname}: export data for {failed_number} failed movies to '
+                             '{folder}/{filename}\r\n'.format(
+                                site_displayname=self.site.site_displayname,
+                                failed_number=len(self.failed_movies),
+                                folder=self.exports_folder,
+                                filename=self.failed_movies_filename
+                             ))
         sys.stdout.flush()
 
     def _print_failed_movies(self):

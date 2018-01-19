@@ -14,7 +14,9 @@ class ListalRatingsInserter(RatingsInserter):
         super(ListalRatingsInserter, self).__init__(Listal(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'http://www.listal.com/search/movies/%s' % urllib.parse.quote_plus(movie['title'])
+        search_url = 'http://www.listal.com/search/movies/{movie_url_path}'.format(
+            movie_url_path=urllib.parse.quote_plus(movie['title'])
+        )
         self.site.browser.get(search_url)
 
     @staticmethod
@@ -64,14 +66,14 @@ class ListalRatingsInserter(RatingsInserter):
         self.site.browser.execute_script("""
             $.post(
                 'http://www.listal.com/rate-product',
-                {
-                    rating: '%s',
-                    productid: '%s',
+                {{
+                    rating: '{my_rating}',
+                    productid: '{movie_id}',
                     area: 'movies',
                     starType: 'small-star'
-                },
-                function(data, status) {}
+                }},
+                function(data, status) {{}}
             );
-        """ % (my_rating, movie_id))
+        """.format(my_rating=my_rating, movie_id=movie_id))
 
         time.sleep(1)

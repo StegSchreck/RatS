@@ -9,7 +9,7 @@ class TraktRatingsParser(RatingsParser):
         super(TraktRatingsParser, self).__init__(Trakt(args), args)
 
     def _get_ratings_page(self, i):
-        return '%s?page=%i' % (self.site.MY_RATINGS_URL, i)
+        return '{url}?page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):
@@ -39,7 +39,7 @@ class TraktRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_url(movie_tile):
-        return 'https://trakt.tv%s' % movie_tile['data-url']
+        return 'https://trakt.tv{movie_path}'.format(movie_path=movie_tile['data-url'])
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')

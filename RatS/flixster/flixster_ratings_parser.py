@@ -9,7 +9,7 @@ class FlixsterRatingsParser(RatingsParser):
         super(FlixsterRatingsParser, self).__init__(Flixster(args), args)
 
     def _get_ratings_page(self, i):
-        return '%s&page=%i' % (self.site.MY_RATINGS_URL, i)
+        return '{url}&page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
 
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
@@ -17,8 +17,12 @@ class FlixsterRatingsParser(RatingsParser):
         pages_count = json_data['pagination']['pageCount']
         ratings = json_data['ratings']
 
-        sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
-                         (self.site.site_name, pages_count, self.movies_count))
+        sys.stdout.write('\r===== {site_displayname}: Parsing {pages_count} pages'
+                         ' with {movies_count} movies in total\r\n'.format(
+                            site_displayname=self.site.site_displayname,
+                            pages_count=pages_count,
+                            movies_count=self.movies_count
+                         ))
         sys.stdout.flush()
 
         self._parse_ratings_json(ratings)

@@ -47,16 +47,24 @@ class RatingsParser:
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.write(self.site.browser.current_url)
-            sys.stdout.write('\r\n ===== %s: getting page count: %i \r\n' %
-                             (self.site.site_displayname, pages_count))
-            sys.stdout.write('\r\n ===== %s: getting movies count: %i \r\n' %
-                             (self.site.site_displayname, self.movies_count))
+            sys.stdout.write('\r\n ===== {site_displayname}: getting page count: {pages_count} \r\n'.format(
+                site_displayname=self.site.site_displayname,
+                pages_count=pages_count
+            ))
+            sys.stdout.write('\r\n ===== {site_displayname}: getting movies count: {movies_count} \r\n'.format(
+                site_displayname=self.site.site_displayname,
+                movies_count=self.movies_count
+            ))
             # sys.stdout.write(str(self.site.browser.page_source))
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.flush()
 
-        sys.stdout.write('\r===== %s: Parsing %i pages with %i movies in total\r\n' %
-                         (self.site.site_displayname, pages_count, self.movies_count))
+        sys.stdout.write('\r===== {site_displayname}: Parsing {pages_count} pages '
+                         'with {movies_count} movies in total\r\n'.format(
+                            site_displayname=self.site.site_displayname,
+                            pages_count=pages_count,
+                            movies_count=self.movies_count
+                         ))
         sys.stdout.flush()
 
         for i in range(1, pages_count + 1):
@@ -85,11 +93,17 @@ class RatingsParser:
 
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write('\r===== %s: parsed %s \r\n' % (self.site.site_displayname, movie))
+            sys.stdout.write('\r===== {site_displayname}: parsed {movie} \r\n'.format(
+                site_displayname=self.site.site_displayname,
+                movie=movie
+            ))
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== %s: parsed %s (%i) \r\n' %
-                             (self.site.site_displayname, movie['title'], movie['year']))
+            sys.stdout.write('\r===== {site_displayname}: parsed {movie_title} ({movie_year}) \r\n'.format(
+                site_displayname=self.site.site_displayname,
+                movie_title=movie['title'],
+                movie_year=movie['year']
+            ))
             sys.stdout.flush()
         else:
             self._print_progress_bar()

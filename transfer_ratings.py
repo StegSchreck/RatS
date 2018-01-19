@@ -86,10 +86,10 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        command_line.error("No parser matching '" + param + "' found.")
+        command_line.error("No parser matching '{entered_parser}' found.".format(entered_parser=param))
         sys.stdout.write("Available parsers:\r\n")
         for parser in PARSERS:
-            sys.stdout.write(' - %s \n' % parser)
+            sys.stdout.write(' - {parser} \n'.format(parser=parser))
         sys.stdout.flush()
         sys.exit(1)
 
@@ -98,10 +98,10 @@ def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        command_line.error("No inserter matching '" + param + "' found.")
+        command_line.error("No inserter matching '{entered_inserter}' found.".format(entered_inserter=param))
         sys.stdout.write("Available inserters:\r\n")
         for inserter in INSERTERS:
-            sys.stdout.write(' - %s \n' % inserter)
+            sys.stdout.write(' - {inserter} \n'.format(inserter=inserter))
         sys.stdout.flush()
         sys.exit(1)
 
@@ -126,17 +126,26 @@ def execute(args):
 
 def parse_data_from_source(parser):
     movies = parser.parse()
-    json_filename = '%s_%s.json' % (TIMESTAMP, type(parser.site).__name__)
+    json_filename = '{timestamp}_{sitename}.json'.format(timestamp=TIMESTAMP, sitename=type(parser.site).__name__)
     file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
-    sys.stdout.write('\r\n===== %s: saved %i parsed movies to %s/%s\r\n' %
-                     (parser.site.site_displayname, len(movies), EXPORTS_FOLDER, json_filename))
+    sys.stdout.write('\r\n===== {site_displayname}: saved {parsed_movies_count} parsed movies to '
+                     '{folder}/{filename}\r\n'.format(
+                        site_displayname=parser.site.site_displayname,
+                        parsed_movies_count=len(movies),
+                        folder=EXPORTS_FOLDER,
+                        filename=json_filename
+                     ))
     sys.stdout.flush()
     return movies
 
 
 def load_data_from_file(filename):
     movies = file_impex.load_movies_from_json(folder=EXPORTS_FOLDER, filename=filename)
-    sys.stdout.write('\r\n===== loaded %i movies from %s/%s\r\n' % (len(movies), EXPORTS_FOLDER, filename))
+    sys.stdout.write('\r\n===== loaded {loaded_movies_count} movies from {folder}/{filename}\r\n'.format(
+        loaded_movies_count=len(movies),
+        folder=EXPORTS_FOLDER,
+        filename=filename
+    ))
     sys.stdout.flush()
     return movies
 

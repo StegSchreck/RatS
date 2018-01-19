@@ -32,4 +32,4 @@ class IMDB(Site):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \
             .get_attribute('href')
         self.USERID = account_link.replace('http://www.imdb.com/user/', '').split('/')[0]
-        self.MY_RATINGS_URL = 'http://www.imdb.com/user/%s/ratings' % self.USERID
+        self.MY_RATINGS_URL = 'http://www.imdb.com/user/{user_id}/ratings'.format(user_id=self.USERID)

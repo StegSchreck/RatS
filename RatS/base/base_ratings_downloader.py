@@ -15,7 +15,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 class RatingsDownloader(RatingsParser):
     def __init__(self, site, args):
         super(RatingsDownloader, self).__init__(site, args)
-        self.csv_filename = '%s_%s.csv' % (TIMESTAMP, site.site_name)
+        self.csv_filename = '{timestamp}_{sitename}.csv'.format(timestamp=TIMESTAMP, sitename=site.site_name)
 
     def _parse_ratings(self):
         self._download_ratings_csv()
@@ -23,7 +23,9 @@ class RatingsDownloader(RatingsParser):
         self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
-        sys.stdout.write('\r===== %s: Retrieving ratings CSV file' % self.site.site_displayname)
+        sys.stdout.write('\r===== {site_displayname}: Retrieving ratings CSV file'.format(
+            site_displayname=self.site.site_displayname)
+        )
         sys.stdout.flush()
         self.site.browser.set_page_load_timeout(10)
         time.sleep(1)
@@ -52,11 +54,16 @@ class RatingsDownloader(RatingsParser):
 
         try:
             os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
-            sys.stdout.write('\r===== %s: CSV downloaded to %s/%s\r\n' %
-                             (self.site.site_displayname, self.exports_folder, self.csv_filename))
+            sys.stdout.write('\r===== {site_displayname}: CSV downloaded to {folder}/{filename}\r\n'.format(
+                site_displayname=self.site.site_displayname,
+                folder=self.exports_folder,
+                filename=self.csv_filename)
+            )
             sys.stdout.flush()
         except FileNotFoundError:
-            sys.stdout.write('\r===== %s: Could not retrieve ratings CSV\r\n' % self.site.site_displayname)
+            sys.stdout.write('\r===== {site_displayname}: Could not retrieve ratings CSV\r\n'.format(
+                site_displayname=self.site.site_displayname)
+            )
             sys.stdout.flush()
 
     def _parse_movies_from_csv(self, filepath):

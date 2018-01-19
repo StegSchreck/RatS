@@ -24,14 +24,20 @@ class ICheckMovies(Site):
             self.kill_browser()
             raise ICheckMoviesMisconfigurationException(
                 "Ambiguous configuration values for iCheckMovies: "
-                "INSERT_DISLIKE_UPPER_BOUND [%s] should be lower than INSERT_LIKE_LOWER_BOUND [%s], but isn't." %
-                (self.INSERT_DISLIKE_UPPER_BOUND, self.INSERT_LIKE_LOWER_BOUND)
+                "INSERT_DISLIKE_UPPER_BOUND [{dislike_upper_bound}] should be lower than"
+                " INSERT_LIKE_LOWER_BOUND [{like_lower_bound}], but isn't.".format(
+                    dislike_upper_bound=self.INSERT_DISLIKE_UPPER_BOUND,
+                    like_lower_bound=self.INSERT_LIKE_LOWER_BOUND
+                )
             )
 
         if self.PARSE_LIKE_TRANSLATION < self.PARSE_DISLIKE_TRANSLATION:
             self.kill_browser()
             raise ICheckMoviesMisconfigurationException(
                 "Illogical configuration values for iCheckMovies: "
-                "PARSE_DISLIKE_TRANSLATION [%s] should be lower than PARSE_LIKE_TRANSLATION [%s], but isn't." %
-                (self.PARSE_DISLIKE_TRANSLATION, self.PARSE_LIKE_TRANSLATION)
+                "PARSE_DISLIKE_TRANSLATION [{dislike_translation}] should be lower than"
+                " PARSE_LIKE_TRANSLATION [{like_translation}], but isn't.".format(
+                    dislike_translation=self.PARSE_DISLIKE_TRANSLATION,
+                    like_translation=self.PARSE_LIKE_TRANSLATION
+                )
             )

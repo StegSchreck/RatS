@@ -9,4 +9,4 @@ class Letterboxd(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='signin-password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(Letterboxd, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://letterboxd.com/%s/films/ratings/' % self.USERNAME
+        self.MY_RATINGS_URL = 'https://letterboxd.com/{username}/films/ratings/'.format(username=self.USERNAME)

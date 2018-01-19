@@ -15,17 +15,23 @@ class RatingsUploader(RatingsInserter):
         self.csv_filename = TIMESTAMP + '_converted_for_' + site.site_name + '.csv'
 
     def insert(self, movies, source):
-        sys.stdout.write('\r===== %s: posting %i movies\r\n' % (self.site.site_displayname, len(movies)))
+        sys.stdout.write('\r===== {site_displayname}: posting {movies_count} movies\r\n'.format(
+            site_displayname=self.site.site_displayname,
+            movies_count=len(movies)
+        ))
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=self.csv_filename, rating_source=source)
         self.upload_csv_file()
 
-        sys.stdout.write('\r\n===== %s: The file with %i movies was uploaded '
+        sys.stdout.write('\r\n===== {site_displayname}: The file with {movies_count} movies was uploaded '
                          'and will be process by the servers. '
-                         'You may check your %s account later.\r\n'
-                         'Note, that this might not overwrite any existing ratings.\r\n' %
-                         (self.site.site_displayname, len(movies), self.site.site_name))
+                         'You may check your {site_name} account later.\r\n'
+                         'Note, that this might not overwrite any existing ratings.\r\n'.format(
+                            site_displayname=self.site.site_displayname,
+                            movies_count=len(movies),
+                            site_name=self.site.site_name
+                         ))
         sys.stdout.flush()
 
         self.site.kill_browser()
