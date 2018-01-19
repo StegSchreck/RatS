@@ -80,8 +80,6 @@ class Site:
         self.browser._is_remote = False  # pylint: disable=protected-access
 
         self.login()
-        time.sleep(1)
-        self._check_login_successful()
 
     def login(self):
         sys.stdout.write('===== {site_displayname}: performing login'.format(site_displayname=self.site_displayname))
@@ -90,27 +88,32 @@ class Site:
         time.sleep(1)
 
         iteration = 0
-        while True:
+        while self._user_is_not_logged_in():
             try:
                 self._insert_login_credentials()
                 self._click_login_button()
-                break
             except NoSuchElementException as e:
                 iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
                 continue
+            if iteration > 10:
+                self._handle_login_unsuccessful()
 
-    def _check_login_successful(self):
-        if len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \
-                and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR)) > 0 \
-                and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR)) > 0:
+    def _handle_login_unsuccessful(self):
+        time.sleep(1)
+        if self._user_is_not_logged_in():
             command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
             sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
             sys.stdout.flush()
             self.kill_browser()
             sys.exit(1)
+
+    def _user_is_not_logged_in(self):
+        return len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \
+               and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR)) > 0 \
+               and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR)) > 0
 
     def _insert_login_credentials(self):
         login_field_user = self.browser.find_element_by_xpath(self.LOGIN_USERNAME_SELECTOR)
