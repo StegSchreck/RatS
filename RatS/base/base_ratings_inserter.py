@@ -104,6 +104,9 @@ class RatingsInserter:
                 time.sleep(iteration * 1)
                 continue
 
+        return self._is_movie_in_search_results(movie, search_results)
+
+    def _is_movie_in_search_results(self, movie, search_results):
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result):
                 return True  # Found
