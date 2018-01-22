@@ -1,6 +1,6 @@
 ## System
 * Version: <!-- RatS version -->
-* Platform: <!-- e.g. Linux/macOS/Windows + version -->
+* Platform: <!-- e.g. Linux/MacOS/Windows + version -->
 * Firefox version: <!-- from the about dialogue -->
 * Python version: <!-- `python --version` -->
 * PIP version: <!-- `pip --version` -->
@@ -12,4 +12,10 @@
 
 <!--
 Error and stacktrace produced by the script in the console.
+-->
+
+## Geckodriver log
+
+<!--
+There is a {TIMESTAMP}_geckdrover.log file. Most of the time, this is not needed.
 -->

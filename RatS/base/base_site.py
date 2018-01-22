@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import sys
@@ -13,6 +14,7 @@ from xvfbwrapper import Xvfb
 from RatS.utils.bash_color import BashColor
 from RatS.utils import command_line
 
+TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
 
 
@@ -75,7 +77,12 @@ class Site:
         # https://github.com/mozilla/geckodriver/issues/858#issuecomment-322512336
         profile.set_preference("dom.file.createInChild", True)
 
-        self.browser = Firefox(firefox_profile=profile, capabilities=capabilities, firefox_options=options)
+        self.browser = Firefox(
+            firefox_profile=profile,
+            capabilities=capabilities,
+            firefox_options=options,
+            log_path="{timestamp}_geckodriver.log".format(timestamp=TIMESTAMP)
+        )
         # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
         self.browser._is_remote = False  # pylint: disable=protected-access
 
