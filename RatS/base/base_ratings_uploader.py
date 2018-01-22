@@ -28,9 +28,9 @@ class RatingsUploader(RatingsInserter):
                          'and will be process by the servers. '
                          'You may check your {site_name} account later.\r\n'
                          'Note, that this might not overwrite any existing ratings.\r\n'.format(
-                            site_displayname=self.site.site_displayname,
-                            movies_count=len(movies),
-                            site_name=self.site.site_name
+                             site_displayname=self.site.site_displayname,
+                             movies_count=len(movies),
+                             site_name=self.site.site_name
                          ))
         sys.stdout.flush()
 

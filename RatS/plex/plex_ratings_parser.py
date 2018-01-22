@@ -23,10 +23,10 @@ class PlexRatingsParser(RatingsParser):
         page_start = i * page_size
         return 'http://{base_url}/library/sections/{section_id}/all' \
                '?type=1&sort=rating:desc&X-Plex-Container-Start={page_start}&X-Plex-Container-Size={page_size}'.format(
-                    base_url=self.site.BASE_URL,
-                    section_id=self.site.MOVIE_SECTION_ID,
-                    page_start=page_start,
-                    page_size=page_size
+                   base_url=self.site.BASE_URL,
+                   section_id=self.site.MOVIE_SECTION_ID,
+                   page_start=page_start,
+                   page_size=page_size
                )
 
     @staticmethod
@@ -49,7 +49,7 @@ class PlexRatingsParser(RatingsParser):
                     server_id=self.site.SERVER_ID,
                     library_path='%2Flibrary%2Fmetadata%2F',
                     movie_id=movie[self.site.site_name.lower()]['id']
-                )
+            )
 
         self.processed_movies_count += 1
 

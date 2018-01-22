@@ -139,9 +139,9 @@ class RatingsInserter:
         success_number = len(movies) - len(self.failed_movies)
         sys.stdout.write('\r\n===== {site_displayname}: sucessfully posted {success_number}'
                          ' of {movies_count} movies\r\n'.format(
-                            site_displayname=self.site.site_displayname,
-                            success_number=success_number,
-                            movies_count=len(movies)
+                             site_displayname=self.site.site_displayname,
+                             success_number=success_number,
+                             movies_count=len(movies)
                          ))
         sys.stdout.flush()
 
@@ -152,10 +152,10 @@ class RatingsInserter:
             file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
             sys.stdout.write('===== {site_displayname}: export data for {failed_number} failed movies to '
                              '{folder}/{filename}\r\n'.format(
-                                site_displayname=self.site.site_displayname,
-                                failed_number=len(self.failed_movies),
-                                folder=self.exports_folder,
-                                filename=self.failed_movies_filename
+                                 site_displayname=self.site.site_displayname,
+                                 failed_number=len(self.failed_movies),
+                                 folder=self.exports_folder,
+                                 filename=self.failed_movies_filename
                              ))
         sys.stdout.flush()
 

@@ -3,7 +3,6 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
-from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.listal.listal_site import Listal

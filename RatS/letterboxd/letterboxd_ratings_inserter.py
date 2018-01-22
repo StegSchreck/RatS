@@ -35,9 +35,9 @@ class LetterboxdRatingsInserter(RatingsInserter):
         sys.stdout.write('\r\n===== {site_displayname}: The file with {movies_count} movies was uploaded '
                          'and successfully processed by the servers. '
                          'You may check your {site_name} account later.\r\n'.format(
-                            site_displayname=self.site.site_displayname,
-                            movies_count=len(movies),
-                            site_name=self.site.site_name
+                             site_displayname=self.site.site_displayname,
+                             movies_count=len(movies),
+                             site_name=self.site.site_name
                          ))
         sys.stdout.flush()
 

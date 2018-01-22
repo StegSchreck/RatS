@@ -19,9 +19,9 @@ class FlixsterRatingsParser(RatingsParser):
 
         sys.stdout.write('\r===== {site_displayname}: Parsing {pages_count} pages'
                          ' with {movies_count} movies in total\r\n'.format(
-                            site_displayname=self.site.site_displayname,
-                            pages_count=pages_count,
-                            movies_count=self.movies_count
+                             site_displayname=self.site.site_displayname,
+                             pages_count=pages_count,
+                             movies_count=self.movies_count
                          ))
         sys.stdout.flush()
 

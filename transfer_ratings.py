@@ -130,10 +130,10 @@ def parse_data_from_source(parser):
     file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
     sys.stdout.write('\r\n===== {site_displayname}: saved {parsed_movies_count} parsed movies to '
                      '{folder}/{filename}\r\n'.format(
-                        site_displayname=parser.site.site_displayname,
-                        parsed_movies_count=len(movies),
-                        folder=EXPORTS_FOLDER,
-                        filename=json_filename
+                         site_displayname=parser.site.site_displayname,
+                         parsed_movies_count=len(movies),
+                         folder=EXPORTS_FOLDER,
+                         filename=json_filename
                      ))
     sys.stdout.flush()
     return movies
