@@ -24,7 +24,7 @@ This also works if your lists are marked as private, as this tool uses a browser
 
 This project is currently still under development. Please be patient, as I'm only working on this every once in a while.
 
-1. Make sure you have Python3, Forefox and Xvfb installed on your system.
+1. Make sure you have Python3, Firefox and Xvfb installed on your system.
     This project is designed to run on Linux.
 1. Checkout the project
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
@@ -32,9 +32,12 @@ This project is currently still under development. Please be patient, as I'm onl
     `pip3 install -r requirements.txt`
 1. Install Geckodriver
 
-    **Linux:** `sudo ./InstallGeckodriver.sh`, for this you will need to have tar and wget installed.
+      * Use your system's package manager (if it contains Geckodriver)
+        * Arch Linux: `pacman -S geckodriver`
+        * MacOS: `brew install geckodriver`
+      * Or execute `sudo ./InstallGeckodriver.sh`.
+        For this you will need to have tar and wget installed.
 
-    **MAC:** `brew install geckodriver`
 1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there.
 
     Copying the file will conserve the possibility to do a `git pull` later on without overwriting your credentials.
