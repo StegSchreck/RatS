@@ -64,7 +64,14 @@ class Site:
         }
 
         options = Options()
-        options.log.level = 'trace'
+        if self.args and self.args.verbose and self.args.verbose >= 3:
+            options.log.level = 'trace'
+        elif self.args and self.args.verbose and self.args.verbose == 2:
+            options.log.level = 'debug'
+        elif self.args and self.args.verbose and self.args.verbose == 1:
+            options.log.level = 'info'
+        else:
+            options.log.level = 'warn'
 
         profile = FirefoxProfile()
         profile.set_preference("browser.download.folderList", 2)
