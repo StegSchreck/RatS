@@ -7,7 +7,7 @@ cd /usr/bin || exit
 LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/mozilla/geckodriver/releases/latest)
 LATEST_VERSION=$(echo ${LATEST_RELEASE} | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 
-wget https://github.com/mozilla/geckodriver/releases/download/${LATEST_VERSION}/geckodriver-${LATEST_VERSION}-linux64.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/${LATEST_VERSION}/geckodriver-${LATEST_VERSION}-linux64.tar.gz || exit
 tar -xvzf geckodriver-${LATEST_VERSION}-linux64.tar.gz
 rm geckodriver-${LATEST_VERSION}-linux64.tar.gz
 chmod +x geckodriver
