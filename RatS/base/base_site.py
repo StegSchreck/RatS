@@ -56,22 +56,24 @@ class Site:
             self.display = Xvfb()
             self.display.start()
 
+        if self.args and self.args.verbose and self.args.verbose >= 3:
+            log_level = 'trace'
+        elif self.args and self.args.verbose and self.args.verbose == 2:
+            log_level = 'debug'
+        elif self.args and self.args.verbose and self.args.verbose == 1:
+            log_level = 'info'
+        else:
+            log_level = 'warn'
+
         capabilities = DesiredCapabilities.FIREFOX.copy()
         capabilities["moz:firefoxOptions"] = {
             "log": {
-                "level": "trace",
+                "level": log_level,
             },
         }
 
         options = Options()
-        if self.args and self.args.verbose and self.args.verbose >= 3:
-            options.log.level = 'trace'
-        elif self.args and self.args.verbose and self.args.verbose == 2:
-            options.log.level = 'debug'
-        elif self.args and self.args.verbose and self.args.verbose == 1:
-            options.log.level = 'info'
-        else:
-            options.log.level = 'warn'
+        options.log.level = log_level
 
         profile = FirefoxProfile()
         profile.set_preference("browser.download.folderList", 2)
