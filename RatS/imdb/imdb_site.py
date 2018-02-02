@@ -10,7 +10,7 @@ class IMDB(Site):
         login_form_selector = "//form[@name='signIn']"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='ap_email']"
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='ap_password']"
-        self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
+        self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@id='signInSubmit']"
         super(IMDB, self).__init__(args)
         self.MY_RATINGS_URL = ''
         time.sleep(1)
