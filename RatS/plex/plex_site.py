@@ -14,9 +14,11 @@ class Plex(Site):
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(Plex, self).__init__(args)
 
-    def _parse_configuration(self):
+    def _get_login_page_url(self):
         self.BASE_URL = self.config[self.site_name]['BASE_URL'] + ":" + self.config[self.site_name]['BASE_PORT']
-        self.LOGIN_PAGE = "http://{base_url}/web/index.html#!/login".format(base_url=self.BASE_URL)
+        return "http://{base_url}/web/index.html#!/login".format(base_url=self.BASE_URL)
+
+    def _parse_configuration(self):
         self.MOVIE_SECTION_ID = self._determine_movies_section_id()
         self.SERVER_ID = self._determine_server_id()
         self.MY_RATINGS_URL = 'http://{base_url}/library/sections/{section_id}/all' \

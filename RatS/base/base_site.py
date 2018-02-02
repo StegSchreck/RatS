@@ -30,9 +30,11 @@ class Site:
         self.__read_config_file('credentials.cfg.orig')
         self.__read_config_file('credentials.cfg')
         self._parse_credentials()
-        self._parse_configuration()
+        self.LOGIN_PAGE = self._get_login_page_url()
 
         self._init_browser()
+
+        self._parse_configuration()
 
     def __read_config_file(self, filename):
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
@@ -47,8 +49,12 @@ class Site:
         else:
             self.PASSWORD = self.config[self.site_name]['PASSWORD']
 
+    def _get_login_page_url(self):
+        raise NotImplementedError("This is not the implementation you are looking for.")
+
     def _parse_configuration(self):
         # this method should be overwritten by a site, if there are more configs to parse than just the credentials
+        # and for things which need a running browser
         pass
 
     def _init_browser(self):
