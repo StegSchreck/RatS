@@ -111,11 +111,11 @@ class Site:
 
         iteration = 0
         while self._user_is_not_logged_in():
+            iteration += 1
             try:
                 self._insert_login_credentials()
                 self._click_login_button()
             except NoSuchElementException as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
