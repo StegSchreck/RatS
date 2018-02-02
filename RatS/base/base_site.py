@@ -120,8 +120,13 @@ class Site:
                     raise e
                 time.sleep(iteration * 1)
                 continue
+            self._handle_captcha_challenge_if_present()
             if iteration > 10:
                 self._handle_login_unsuccessful()
+
+    def _handle_captcha_challenge_if_present(self):
+        # to be implemented for sites with captchas individually
+        pass
 
     def _handle_login_unsuccessful(self):
         time.sleep(1)

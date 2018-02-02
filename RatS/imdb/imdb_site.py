@@ -1,8 +1,10 @@
 import time
 
+import sys
 from selenium.common.exceptions import NoSuchElementException
 
 from RatS.base.base_site import Site
+from RatS.utils import command_line
 
 
 class IMDB(Site):
@@ -28,7 +30,16 @@ class IMDB(Site):
                 continue
 
     def _get_login_page_url(self):
-        return "https://www.imdb.com/ap/signin?openid.return_to=https%3A%2F%2Fwww.imdb.com%2Fap-signin-handler&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=imdb_us&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"   # pylint: disable=line-too-long
+        return "https://www.imdb.com/ap/signin?openid.return_to=https%3A%2F%2Fwww.imdb.com%2Fap-signin-handler&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=imdb_us&openid.mode=checkid_setup&siteState=eyJvcGVuaWQuYXNzb2NfaGFuZGxlIjoiaW1kYl91cyIsInJlZGlyZWN0VG8iOiJodHRwczovL3d3dy5pbWRiLmNvbS8_cmVmXz1sb2dpbiJ9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&&tag=imdbtag_reg-20"   # pylint: disable=line-too-long
+
+    def _handle_captcha_challenge_if_present(self):
+        if len(self.browser.find_elements_by_xpath("//div[@id='auth-captcha-image-container']")) > 0:
+            command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
+            sys.stdout.write("There seems to be a Captcha challenge present for the login. Please try again later.\r\n")
+            sys.stdout.flush()
+            self.kill_browser()
+            sys.exit(1)
+
 
     def _get_ratings_url(self):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \
