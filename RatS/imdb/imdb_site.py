@@ -40,7 +40,6 @@ class IMDB(Site):
             self.kill_browser()
             sys.exit(1)
 
-
     def _get_ratings_url(self):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \
             .get_attribute('href')
