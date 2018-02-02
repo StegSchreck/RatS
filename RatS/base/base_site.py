@@ -139,8 +139,10 @@ class Site:
 
     def _insert_login_credentials(self):
         login_field_user = self.browser.find_element_by_xpath(self.LOGIN_USERNAME_SELECTOR)
+        login_field_user.clear()
         login_field_user.send_keys(self.USERNAME)
         login_field_password = self.browser.find_element_by_xpath(self.LOGIN_PASSWORD_SELECTOR)
+        login_field_password.clear()
         login_field_password.send_keys(self.PASSWORD)
 
     def _click_login_button(self):
