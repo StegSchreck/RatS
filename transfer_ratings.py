@@ -108,7 +108,22 @@ def get_inserter_from_arg(param):
 
 def execute(args):
     parser = get_parser_from_arg(args.source)(args)
+    movies = execute_parsing(args, parser)
+    execute_inserting(args, movies, parser)
 
+
+def execute_inserting(args, movies, parser):
+    if args.destination:
+        if len(movies) == 0:
+            command_line.error("There are no files to be inserted. Did the Parser run properly?")
+            sys.exit(1)
+        # INSERT THE DATA
+        for dest in args.destination:
+            inserter = get_inserter_from_arg(dest)(args)
+            insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+
+
+def execute_parsing(args, parser):
     if args.file:
         # LOAD FROM FILE
         movies = load_data_from_file(args.file)
@@ -116,12 +131,7 @@ def execute(args):
     else:
         # PARSE DATA
         movies = parse_data_from_source(parser)
-
-    if args.destination:
-        # INSERT THE DATA
-        for dest in args.destination:
-            inserter = get_inserter_from_arg(dest)(args)
-            insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+    return movies
 
 
 def parse_data_from_source(parser):
