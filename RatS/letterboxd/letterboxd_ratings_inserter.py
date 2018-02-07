@@ -3,7 +3,8 @@ import os
 import sys
 import time
 
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, \
+    NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions, ui
 from selenium.webdriver.support.wait import WebDriverWait
@@ -47,11 +48,24 @@ class LetterboxdRatingsInserter(RatingsInserter):
         self.site.browser.get('https://letterboxd.com/import/')
         time.sleep(1)
         filename = os.path.join(self.exports_folder, CSV_FILE_NAME)
-        self.site.browser.find_element_by_id('upload-imdb-import').send_keys(os.path.join(filename))
+        self._fill_filename_into_upload_form(filename)
 
         wait = ui.WebDriverWait(self.site.browser, 600)
         self._wait_for_movie_matching(wait, movies_count)
         self._wait_for_import_processing(wait, movies_count)
+
+    def _fill_filename_into_upload_form(self, filename):
+        iteration = 0
+        while True:
+            iteration += 1
+            try:
+                self.site.browser.find_element_by_id('upload-imdb-import').send_keys(os.path.join(filename))
+                break
+            except (NoSuchElementException, ElementNotInteractableException) as e:
+                if iteration > 10:
+                    raise e
+                time.sleep(iteration * 1)
+                continue
 
     def _wait_for_movie_matching(self, wait, movies_count):
         time.sleep(5)
