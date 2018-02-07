@@ -25,8 +25,8 @@ class RatingsParser:
     def parse(self):
         iteration = 0
         while True:
+            iteration += 1
             try:
-                iteration += 1
                 self._parse_ratings()
                 break
             except AttributeError as e:
@@ -132,11 +132,11 @@ class RatingsParser:
 
         iteration = 0
         while True:
+            iteration += 1
             try:
                 self.parse_movie_details_page(movie)
                 break
             except AttributeError as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)

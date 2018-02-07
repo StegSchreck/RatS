@@ -6,7 +6,7 @@ import time
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
     ElementNotInteractableException, TimeoutException
 
-from RatS.utils import file_impex
+from RatS.utils import file_impex, command_line
 from RatS.utils.command_line import print_progress_bar
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
@@ -95,14 +95,17 @@ class RatingsInserter:
         iteration = 0
         search_results = None
         while not search_results:
+            iteration += 1
             try:
                 search_results = self._get_search_results(self.site.browser.page_source)
             except (NoSuchElementException, KeyError) as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
                 continue
+            if iteration > 10:
+                # log this?
+                break
 
         return self._is_movie_in_search_results(movie, search_results)
 
@@ -125,11 +128,11 @@ class RatingsInserter:
     def _post_movie_rating(self, my_rating):
         iteration = 0
         while True:
+            iteration += 1
             try:
                 self._click_rating(my_rating)
                 break
             except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException) as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)

@@ -19,11 +19,11 @@ class IMDB(Site):
 
         iteration = 0
         while self.MY_RATINGS_URL == '':
+            iteration += 1
             try:
                 self._get_ratings_url()
                 break
             except NoSuchElementException as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)

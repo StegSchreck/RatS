@@ -37,11 +37,11 @@ class CritickerRatingsParser(RatingsParser):
 
         iteration = 0
         while True:
+            iteration += 1
             try:
                 self.site.browser.get('https://www.criticker.com/resource/rankings/conv.php?type=xml')
                 break
             except TimeoutException as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)

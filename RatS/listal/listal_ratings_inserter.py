@@ -28,11 +28,11 @@ class ListalRatingsInserter(RatingsInserter):
 
         iteration = 0
         while True:
+            iteration += 1
             try:
                 self.site.browser.get(search_result.find('a')['href'])
                 break
             except AttributeError as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 self.site.browser.refresh()

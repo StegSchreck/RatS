@@ -7,7 +7,7 @@ import time
 from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_parser import RatingsParser
-from RatS.utils import file_impex
+from RatS.utils import file_impex, command_line
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
@@ -32,14 +32,17 @@ class RatingsDownloader(RatingsParser):
 
         iteration = 0
         while not self._file_was_downloaded():
+            iteration += 1
             try:
                 self._call_download_url()
             except TimeoutException as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
                 continue
+            if iteration > 10:
+                command_line.error("The CSV file containing the movies data could not be downloaded.")
+                sys.exit(1)
 
     def _file_was_downloaded(self):
         filepath = os.path.join(self.exports_folder, self.downloaded_file_name)

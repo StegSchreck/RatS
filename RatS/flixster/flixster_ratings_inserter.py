@@ -33,10 +33,10 @@ class FlixsterRatingsInserter(RatingsInserter):
         iteration = 0
         search_results = None
         while not search_results:
+            iteration += 1
             try:
                 search_results = self._get_search_results(self.site.browser.page_source)
             except (NoSuchElementException, KeyError) as e:
-                iteration += 1
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
