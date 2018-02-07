@@ -3,6 +3,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.listal.listal_site import Listal
@@ -32,7 +33,7 @@ class ListalRatingsInserter(RatingsInserter):
             try:
                 self.site.browser.get(search_result.find('a')['href'])
                 break
-            except AttributeError as e:
+            except (TimeoutException, AttributeError) as e:
                 if iteration > 10:
                     raise e
                 self.site.browser.refresh()

@@ -59,6 +59,8 @@ class LetterboxdRatingsInserter(RatingsInserter):
         while True:
             iteration += 1
             try:
+                self.site.browser.execute_script("document.getElementById('imdb-form').setAttribute('style', 'visibility: visible;')")
+                self.site.browser.find_element_by_id('upload-imdb-import').clear()
                 self.site.browser.find_element_by_id('upload-imdb-import').send_keys(os.path.join(filename))
                 break
             except (NoSuchElementException, ElementNotInteractableException) as e:
@@ -108,7 +110,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
                     start_timestamp=self.start_timestamp,
                     prefix=self.site.site_displayname
                 )
-            except StaleElementReferenceException:
+            except (StaleElementReferenceException, NoSuchElementException):
                 pass
             time.sleep(1)
         print_progress_bar(
