@@ -1,7 +1,7 @@
+import os
 import sys
 import time
 
-import os
 from bs4 import BeautifulSoup
 
 from RatS.utils.command_line import print_progress_bar
