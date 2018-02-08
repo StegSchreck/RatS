@@ -94,7 +94,7 @@ class RatingsInserter:
 
         iteration = 0
         search_results = None
-        while not search_results:
+        while not search_results and iteration < 10:
             iteration += 1
             try:
                 search_results = self._get_search_results(self.site.browser.page_source)
@@ -103,9 +103,6 @@ class RatingsInserter:
                     raise e
                 time.sleep(iteration * 1)
                 continue
-            if iteration > 10:
-                # log this?
-                break
 
         return self._is_movie_in_search_results(movie, search_results)
 
