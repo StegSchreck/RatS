@@ -38,7 +38,8 @@ This project is currently still under development. Please be patient, as I'm onl
       * Or execute `sudo ./InstallGeckodriver.sh`.
         For this you will need to have tar and wget installed.
 
-1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there.
+1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there
+    (without any quotation marks etc.).
 
     Copying the file will conserve the possibility to do a `git pull` later on without overwriting your credentials.
 1. Execute the script with **Python3**
@@ -68,7 +69,8 @@ _Please note: This is currently not working on Windows, but I'm working on that.
     PASSWORD = def
     ```
 
-    Please see the RatS/credentials.cfg.orig in this repository as a template.
+    Please see the RatS/credentials.cfg.orig in this repository as a template. Please enter your credentials as they are,
+    without any quotation marks.
 1. Get the Docker image: `docker pull stegschreck/rats`
 1. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg stegschreck/rats python3 transfer_ratings.py --source trakt --destination movielens`
 
@@ -179,10 +181,19 @@ If you recently updated your Firefox, you might encounter the following exceptio
 This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver)
 by running again the _Install Geckodriver_ command mentioned [above](#natively-on-the-command-line).
 
+### Login attempt does not work
+
+This can have multiple explanations. One is, that you are using a password which starts or ends with a space character.
+RatS is currently not capable of dealing with that. If your credentials have a space character in the middle though, it
+will work fine.
+
 ## You are missing a feature or noticed something is wrong?
 
-Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new), I will have a look as soon as I can.
+Before submitting a bug ticket, I would ask you to check first whether all dependencies are up-to-date, especially `geckodriver`.
+
+Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new/choose), I will have a look as soon as I can.
 
 ## Where does the name come from?
 
-The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple.
+The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple. It is also
+a reference to the movie "Departed".
