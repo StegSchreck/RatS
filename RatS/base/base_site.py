@@ -121,7 +121,7 @@ class Site:
                 time.sleep(iteration * 1)
                 continue
             self._handle_captcha_challenge_if_present()
-            if iteration > 10:
+            if iteration > 2:
                 self._handle_login_unsuccessful()
 
     def _handle_captcha_challenge_if_present(self):
