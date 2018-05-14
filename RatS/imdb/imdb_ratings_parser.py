@@ -13,7 +13,10 @@ class IMDBRatingsParser(RatingsDownloader):
     def _parse_ratings(self):
         self._download_ratings_csv()
         self._rename_csv_file(self.downloaded_file_name)
-        self.movies = file_impex.load_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
+        self.movies = file_impex.load_movies_from_csv(
+            os.path.join(self.exports_folder, self.csv_filename),
+            encoding='ISO-8859-1'
+        )
 
     def _call_download_url(self):
         self.site.browser.get('http://www.imdb.com/list/export?list_id=ratings&author_id={user_id}'.format(

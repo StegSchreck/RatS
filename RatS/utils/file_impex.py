@@ -35,24 +35,24 @@ def wait_for_file_to_exist(filepath, seconds=30):
     raise IOError('Could not access {filepath} after {seconds} seconds'.format(filepath=filepath, seconds=str(seconds)))
 
 
-def load_movies_from_csv(filepath):
+def load_movies_from_csv(filepath, encoding='UTF-8'):
     sys.stdout.write('===== getting movies from CSV\r\n')
     sys.stdout.flush()
     wait_for_file_to_exist(filepath)
-    with open(filepath, newline='', encoding='UTF-8') as input_file:
+    with open(filepath, newline='', encoding=encoding) as input_file:
         reader = csv.reader(input_file, delimiter=',')
-        next(reader, None)  # ignore csv header
-        return [convert_csv_row_to_movie(row) for row in reader]
+        headers = next(reader, None)
+        return [convert_csv_row_to_movie(headers, row) for row in reader]
 
 
-def convert_csv_row_to_movie(row):
+def convert_csv_row_to_movie(headers, row):
     movie = dict()
-    movie['title'] = row[5]
-    movie['year'] = int(row[11])
+    movie['title'] = row[headers.index("Title")]
+    movie['year'] = int(row[headers.index("Year")])
     movie['imdb'] = dict()
-    movie['imdb']['id'] = row[1]
-    movie['imdb']['url'] = row[15]
-    movie['imdb']['my_rating'] = int(row[8])
+    movie['imdb']['id'] = row[headers.index("Const")]
+    movie['imdb']['url'] = row[headers.index("URL")]
+    movie['imdb']['my_rating'] = int(row[headers.index("Your Rating")])
     return movie
 
 

@@ -41,11 +41,11 @@ class LetterboxdRatingsParser(RatingsDownloader):
     def _call_download_url(self):
         self.site.browser.get('https://letterboxd.com/data/export/')
 
-    def _convert_csv_row_to_movie(self, row):
+    def _convert_csv_row_to_movie(self, headers, row):
         movie = dict()
-        movie['title'] = row[1]
-        movie['year'] = int(row[2])
+        movie['title'] = row[headers.index("Name")]
+        movie['year'] = int(row[headers.index("Year")])
         movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]['url'] = row[3]
-        movie[self.site.site_name.lower()]['my_rating'] = int(float(row[4]) * 2)
+        movie[self.site.site_name.lower()]['url'] = row[headers.index("Letterboxd URI")]
+        movie[self.site.site_name.lower()]['my_rating'] = int(float(row[headers.index("Rating")]) * 2)
         return movie

@@ -91,8 +91,8 @@ class FileHandlerTest(TestCase):
         self.assertEqual('Arrival', parsed_movies[0]['title'])
         self.assertEqual(2016, parsed_movies[0]['year'])
         self.assertEqual('tt2543164', parsed_movies[0]['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt2543164/', parsed_movies[0]['imdb']['url'])
-        self.assertEqual(8, parsed_movies[0]['imdb']['my_rating'])
+        self.assertEqual('https://www.imdb.com/title/tt2543164/', parsed_movies[0]['imdb']['url'])
+        self.assertEqual(7, parsed_movies[0]['imdb']['my_rating'])
 
     def test_save_single_movie_to_csv(self):
         movies = [self.movie]

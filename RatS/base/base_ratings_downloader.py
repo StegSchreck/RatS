@@ -75,8 +75,8 @@ class RatingsDownloader(RatingsParser):
         file_impex.wait_for_file_to_exist(filepath)
         with open(filepath, newline='', encoding='UTF-8') as input_file:
             reader = csv.reader(input_file, delimiter=',')
-            next(reader, None)  # ignore csv header
-            return [self._convert_csv_row_to_movie(row) for row in reader]
+            headers = next(reader, None)
+            return [self._convert_csv_row_to_movie(headers, row) for row in reader]
 
-    def _convert_csv_row_to_movie(self, row):
+    def _convert_csv_row_to_movie(self, headers, row):
         raise NotImplementedError("This is not the implementation you are looking for.")
