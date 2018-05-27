@@ -22,6 +22,7 @@ class RatingsUploader(RatingsInserter):
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=self.csv_filename, rating_source=source)
+        self.pre_upload_action()
         self.upload_csv_file()
 
         sys.stdout.write('\r\n===== {site_displayname}: The file with {movies_count} movies was uploaded '
@@ -35,6 +36,9 @@ class RatingsUploader(RatingsInserter):
         sys.stdout.flush()
 
         self.site.kill_browser()
+
+    def pre_upload_action(self):
+        pass
 
     def upload_csv_file(self):
         self.site.browser.get(self.url_for_csv_file_upload)

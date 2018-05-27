@@ -8,3 +8,9 @@ class TMDBRatingsInserter(RatingsUploader):
         self.url_for_csv_file_upload = 'https://www.themoviedb.org/account/StegSchreck/import'
         self.css_id_of_file_input_element = 'csv_file'
         self.xpath_selector_for_submit_button = "//form[@name='import_csv']//input[@type='submit']"
+
+    def pre_upload_action(self):
+        cookie_accept_button = self.site.browser.find_element_by_id('cookie_notice')\
+            .find_elements_by_class_name('accept')
+        if cookie_accept_button is not None and len(cookie_accept_button) > 0:
+            cookie_accept_button[0].click()
