@@ -7,11 +7,14 @@ from RatS.tmdb.tmdb_site import TMDB
 class TMDBRatingsInserter(RatingsUploader):
     def __init__(self, args):
         super(TMDBRatingsInserter, self).__init__(TMDB(args), args)
-        self.url_for_csv_file_upload = 'https://www.themoviedb.org/account/{username}/import'.format(
-            username=self.site.USERNAME
-        )
+        self.url_for_csv_file_upload = self._get_url_for_csv_upload()
         self.css_id_of_file_input_element = 'csv_file'
         self.xpath_selector_for_submit_button = "//form[@name='import_csv']//input[@type='submit']"
+
+    def _get_url_for_csv_upload(self):
+        return 'https://www.themoviedb.org/account/{username}/import'.format(
+            username=self.site.USERNAME
+        )
 
     def pre_upload_action(self):
         cookie_accept_button = self.site.browser.find_element_by_id('cookie_notice')\
