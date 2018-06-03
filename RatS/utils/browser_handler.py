@@ -22,7 +22,7 @@ class BrowserHandler:
         capabilities = self._create_browser_capabilities(log_level)
         options = self._create_browser_options(log_level)
         profile = self._create_browser_profile()
-    
+
         self.browser = Firefox(
             firefox_profile=profile,
             capabilities=capabilities,
