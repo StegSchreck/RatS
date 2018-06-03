@@ -16,7 +16,7 @@ class FlixsterParserTest(TestCase):
             self.my_ratings = json.loads(my_ratings.read())
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         FlixsterRatingsParser(None)
 
@@ -24,7 +24,7 @@ class FlixsterParserTest(TestCase):
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.flixster.flixster_ratings_parser.Flixster.get_json_from_html')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.flixster.flixster_ratings_parser.Flixster')
     def test_parser(self, site_mock, base_init_mock, browser_mock, json_mock, progress_print_mock):  # pylint: disable=too-many-arguments

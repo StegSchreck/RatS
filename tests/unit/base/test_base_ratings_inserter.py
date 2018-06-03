@@ -6,7 +6,7 @@ from RatS.base.base_ratings_inserter import RatingsInserter
 
 class BaseInserterTest(TestCase):
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock):
         with patch('RatS.base.base_site.Site') as site_mock:
             inserter = RatingsInserter(site_mock, None)

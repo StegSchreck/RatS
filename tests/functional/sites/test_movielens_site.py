@@ -13,4 +13,4 @@ class MovielensSiteTest(TestCase):
         self.assertEqual('https://movielens.org/home', self.site.browser.current_url)
 
     def tearDown(self):
-        self.site.kill_browser()
+        self.site.browser_handler.kill()

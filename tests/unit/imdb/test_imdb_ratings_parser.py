@@ -13,7 +13,7 @@ class IMDBParserTest(TestCase):
             os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         IMDBRatingsParser(None)
 
@@ -21,7 +21,7 @@ class IMDBParserTest(TestCase):
 
     @patch('RatS.utils.file_impex.load_movies_from_csv')
     @patch('RatS.imdb.imdb_ratings_parser.IMDBRatingsParser._rename_csv_file')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.imdb.imdb_ratings_parser.IMDB')
     def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):  # pylint: disable=too-many-arguments
@@ -39,7 +39,7 @@ class IMDBParserTest(TestCase):
         self.assertEqual(1, rename_csv_mock.call_count)
         self.assertEqual(1, parse_csv_mock.call_count)
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.imdb.imdb_ratings_parser.IMDB')
     def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments

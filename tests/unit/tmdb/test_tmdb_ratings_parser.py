@@ -17,7 +17,7 @@ class TMDBParserTest(TestCase):
             self.detail_page = detail_page.read()
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         TMDBRatingsParser(None)
 
@@ -25,7 +25,7 @@ class TMDBParserTest(TestCase):
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.tmdb.tmdb_ratings_parser.TMDBRatingsParser.parse_movie_details_page')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.tmdb.tmdb_ratings_parser.TMDB')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
@@ -47,7 +47,7 @@ class TMDBParserTest(TestCase):
         self.assertEqual('263115', parser.movies[0]['tmdb']['id'])
         self.assertEqual('https://www.themoviedb.org/movie/263115', parser.movies[0]['tmdb']['url'])
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.tmdb.tmdb_ratings_parser.TMDB')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):

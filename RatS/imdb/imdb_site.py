@@ -37,7 +37,7 @@ class IMDB(Site):
             command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
             sys.stdout.write("There seems to be a Captcha challenge present for the login. Please try again later.\r\n")
             sys.stdout.flush()
-            self.kill_browser()
+            self.browser_handler.kill()
             sys.exit(1)
 
     def _get_ratings_url(self):

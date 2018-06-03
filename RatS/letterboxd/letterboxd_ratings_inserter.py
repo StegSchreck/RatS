@@ -42,7 +42,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
                          ))
         sys.stdout.flush()
 
-        self.site.kill_browser()
+        self.site.browser_handler.kill()
 
     def upload_csv_file(self, movies_count):
         self.site.browser.get('https://letterboxd.com/import/')

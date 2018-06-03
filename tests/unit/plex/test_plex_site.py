@@ -15,7 +15,7 @@ class PlexSiteTest(TestCase):
             self.server_sections = server_sections.read()
 
     @patch('RatS.plex.plex_site.Plex._parse_configuration')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_site.Site._init_browser')
     def test_determine_movie_section_id(self, init_browser_mock, browser_mock, configuration_mock):
         browser_mock.page_source = self.server_sections
@@ -28,7 +28,7 @@ class PlexSiteTest(TestCase):
         self.assertEqual('5', result)
 
     @patch('RatS.plex.plex_site.Plex._parse_configuration')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_site.Site._init_browser')
     def test_determine_server_id(self, init_browser_mock, browser_mock, configuration_mock):
         browser_mock.current_url = 'http://localhost/web/index.html#!/settings/server/ThisIsAMockUUID/general'

@@ -35,7 +35,7 @@ class RatingsParser:
                 time.sleep(iteration * 2)
                 continue
 
-        self.site.kill_browser()
+        self.site.browser_handler.kill()
         return self.movies
 
     def _parse_ratings(self):

@@ -19,7 +19,7 @@ class MovielensUploaderTest(TestCase):
         self.movie['imdb']['my_rating'] = 9
 
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         MovielensRatingsInserter(None)
 
@@ -28,7 +28,7 @@ class MovielensUploaderTest(TestCase):
     @patch('RatS.base.base_ratings_uploader.save_movies_to_csv')
     @patch('RatS.movielens.movielens_ratings_inserter.Movielens')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, impex_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = MovielensRatingsInserter(None)

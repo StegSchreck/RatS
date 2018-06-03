@@ -13,4 +13,4 @@ class MetacriticSiteTest(TestCase):
         self.assertIn('primary_menu_user_profile', self.site.browser.page_source)
 
     def tearDown(self):
-        self.site.kill_browser()
+        self.site.browser_handler.kill()

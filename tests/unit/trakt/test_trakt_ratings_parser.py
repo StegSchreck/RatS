@@ -20,7 +20,7 @@ class TraktRatingsParserTest(TestCase):
             self.detail_page_without_imdb_id = detail_page_without_imdb_id.read()
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         TraktRatingsParser(None)
 
@@ -28,7 +28,7 @@ class TraktRatingsParserTest(TestCase):
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.trakt.trakt_ratings_parser.TraktRatingsParser.parse_movie_details_page')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.trakt.trakt_ratings_parser.Trakt')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
@@ -50,7 +50,7 @@ class TraktRatingsParserTest(TestCase):
         self.assertEqual('210803', parser.movies[0]['trakt']['id'])
         self.assertEqual('https://trakt.tv/movies/arrival-2016', parser.movies[0]['trakt']['url'])
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.trakt.trakt_ratings_parser.Trakt')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):
@@ -73,7 +73,7 @@ class TraktRatingsParserTest(TestCase):
         self.assertEqual('https://www.themoviedb.org/movie/550', movie['tmdb']['url'])
         self.assertEqual(10, movie['trakt']['my_rating'])
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.trakt.trakt_ratings_parser.Trakt')
     def test_parser_single_movie_with_missing_imdb_id(self, site_mock, base_init_mock, browser_mock):

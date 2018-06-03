@@ -29,7 +29,7 @@ class PlexRatingsInserterTest(TestCase):
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_server_id')
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_movies_section_id')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock, section_id_mock, server_id_mock):
         PlexRatingsInserter(None)
 
@@ -40,7 +40,7 @@ class PlexRatingsInserterTest(TestCase):
     @patch('RatS.plex.plex_ratings_inserter.PlexRatingsInserter._get_search_results')
     @patch('RatS.plex.plex_ratings_inserter.Plex')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, overview_page_mock,  # pylint: disable=too-many-arguments
                     eq_check_mock, progress_print_mock):
         overview_page_mock.return_value = self.search_result_tile_list
@@ -60,7 +60,7 @@ class PlexRatingsInserterTest(TestCase):
     @patch('RatS.plex.plex_ratings_inserter.PlexRatingsInserter._wait_for_movie_page_to_be_loaded')
     @patch('RatS.plex.plex_ratings_inserter.Plex')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_find_movie_success(self, browser_mock, base_init_mock, site_mock, page_load_wait_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
@@ -77,7 +77,7 @@ class PlexRatingsInserterTest(TestCase):
     @patch('RatS.plex.plex_ratings_inserter.PlexRatingsInserter._get_search_results')
     @patch('RatS.plex.plex_ratings_inserter.Plex')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results

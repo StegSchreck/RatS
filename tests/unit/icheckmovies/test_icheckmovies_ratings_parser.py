@@ -20,7 +20,7 @@ class ICheckMoviesParserTest(TestCase):
             self.my_ratings_dislike = my_ratings_dislike.read()
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         ICheckMoviesRatingsParser(None)
 
@@ -28,7 +28,7 @@ class ICheckMoviesParserTest(TestCase):
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMoviesRatingsParser._parse_movies_category')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_category_mock, progress_print_mock):  # pylint: disable=too-many-arguments
@@ -46,7 +46,7 @@ class ICheckMoviesParserTest(TestCase):
         self.assertEqual(2, parse_category_mock.call_count)
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies')
     def test_parser_likes(self, site_mock, base_init_mock, browser_mock, progress_print_mock):  # pylint: disable=too-many-arguments
@@ -74,7 +74,7 @@ class ICheckMoviesParserTest(TestCase):
         self.assertEqual(8, parser.movies[0]['icheckmovies']['my_rating'])
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies')
     def test_parser_dislikes(self, site_mock, base_init_mock, browser_mock, progress_print_mock):  # pylint: disable=too-many-arguments

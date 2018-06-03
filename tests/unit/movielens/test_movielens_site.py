@@ -16,7 +16,7 @@ class MovielensSiteTest(TestCase):
             self.my_ratings_pre = my_ratings.read()
             self.my_ratings_json = json.loads(self.my_ratings_pre)
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_site.Site._init_browser')
     def test_get_json_from_html(self, init_browser_mock, browser_mock):
         site = Movielens(None)

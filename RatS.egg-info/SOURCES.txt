@@ -56,6 +56,7 @@ RatS/trakt/trakt_ratings_parser.py
 RatS/trakt/trakt_site.py
 RatS/utils/__init__.py
 RatS/utils/bash_color.py
+RatS/utils/browser_handler.py
 RatS/utils/command_line.py
 RatS/utils/file_impex.py
 tests/functional/__init__.py

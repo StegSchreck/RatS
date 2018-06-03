@@ -32,7 +32,7 @@ class ListalRatingsInserterTest(TestCase):
             self.movie_details_page = movie_details_page.read()
 
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         ListalRatingsInserter(None)
 
@@ -44,7 +44,7 @@ class ListalRatingsInserterTest(TestCase):
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._get_search_results')
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_insert(self, browser_mock, base_init_mock, site_mock, overview_page_mock,  # pylint: disable=too-many-arguments
                     eq_check_mock, progress_print_mock, post_rating_mock):
         overview_page_mock.return_value = self.search_result_tile_list
@@ -63,7 +63,7 @@ class ListalRatingsInserterTest(TestCase):
 
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_external_link_compare_imdb_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = ListalRatingsInserter(None)
@@ -77,7 +77,7 @@ class ListalRatingsInserterTest(TestCase):
 
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_external_link_compare_imdb_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = ListalRatingsInserter(None)
@@ -100,7 +100,7 @@ class ListalRatingsInserterTest(TestCase):
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._compare_external_links')
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
@@ -118,7 +118,7 @@ class ListalRatingsInserterTest(TestCase):
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._compare_external_links')
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
@@ -142,7 +142,7 @@ class ListalRatingsInserterTest(TestCase):
     @patch('RatS.listal.listal_ratings_inserter.ListalRatingsInserter._compare_external_links')
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_find_movie_fail(self, browser_mock, base_init_mock, site_mock, compare_mock, tiles_mock, equality_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
@@ -168,7 +168,7 @@ class ListalRatingsInserterTest(TestCase):
 
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_compare_success_by_year(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
@@ -188,7 +188,7 @@ class ListalRatingsInserterTest(TestCase):
 
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_compare_success_by_imdb(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
@@ -212,7 +212,7 @@ class ListalRatingsInserterTest(TestCase):
 
     @patch('RatS.listal.listal_ratings_inserter.Listal')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_compare_fail_by_year(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page

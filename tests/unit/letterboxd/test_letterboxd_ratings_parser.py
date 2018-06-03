@@ -13,7 +13,7 @@ class LetterboxdParserTest(TestCase):
             os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock):
         LetterboxdRatingsParser(None)
 
@@ -23,7 +23,7 @@ class LetterboxdParserTest(TestCase):
     @patch('RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._get_downloaded_filename')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._parse_movies_from_csv')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._rename_csv_file')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock,  # pylint: disable=too-many-arguments
@@ -44,7 +44,7 @@ class LetterboxdParserTest(TestCase):
         self.assertEqual(1, rename_csv_mock.call_count)
         self.assertEqual(1, parse_csv_mock.call_count)
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
@@ -68,7 +68,7 @@ class LetterboxdParserTest(TestCase):
         self.assertTrue(os.path.isfile(os.path.join(TESTDATA_PATH, 'exports', parser.csv_filename)))
         os.remove(os.path.join(TESTDATA_PATH, 'exports', parser.csv_filename))
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.letterboxd.letterboxd_ratings_parser.Letterboxd')
     def test_parse_movies_from_csv(self, site_mock, base_init_mock, browser_mock):

@@ -5,14 +5,11 @@ import sys
 import time
 from configparser import ConfigParser
 
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver import Firefox, DesiredCapabilities
-from selenium.webdriver import FirefoxProfile
-from selenium.webdriver.firefox.options import Options
-from xvfbwrapper import Xvfb
+from selenium.common.exceptions import NoSuchElementException
 
-from RatS.utils.bash_color import BashColor
 from RatS.utils import command_line
+from RatS.utils.bash_color import BashColor
+from RatS.utils.browser_handler import BrowserHandler
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
@@ -58,49 +55,8 @@ class Site:
         pass
 
     def _init_browser(self):
-        if self.args and not self.args.show_browser:
-            self.display = Xvfb()
-            self.display.start()
-
-        if self.args and self.args.verbose and self.args.verbose >= 3:
-            log_level = 'trace'
-        elif self.args and self.args.verbose and self.args.verbose == 2:
-            log_level = 'debug'
-        elif self.args and self.args.verbose and self.args.verbose == 1:
-            log_level = 'info'
-        else:
-            log_level = 'warn'
-
-        capabilities = DesiredCapabilities.FIREFOX.copy()
-        capabilities["moz:firefoxOptions"] = {
-            "log": {
-                "level": log_level,
-            },
-        }
-
-        options = Options()
-        options.log.level = log_level
-
-        profile = FirefoxProfile()
-        profile.set_preference("browser.download.folderList", 2)
-        profile.set_preference("browser.download.manager.showWhenStarting", False)
-        profile.set_preference("browser.download.dir", EXPORTS_FOLDER)
-        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv, application/zip")
-        profile.set_preference("browser.helperApps.alwaysAsk.force", False)
-        profile.set_preference("devtools.jsonview.enabled", False)
-        profile.set_preference("media.volume_scale", "0.0")
-        # https://github.com/mozilla/geckodriver/issues/858#issuecomment-322512336
-        profile.set_preference("dom.file.createInChild", True)
-
-        self.browser = Firefox(
-            firefox_profile=profile,
-            capabilities=capabilities,
-            firefox_options=options,
-            log_path="{timestamp}_geckodriver.log".format(timestamp=TIMESTAMP)
-        )
-        # http://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
-        self.browser._is_remote = False  # pylint: disable=protected-access
-
+        self.browser_handler = BrowserHandler(self.args)
+        self.browser = self.browser_handler.browser
         self.login()
 
     def login(self):
@@ -134,7 +90,7 @@ class Site:
             command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
             sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
             sys.stdout.flush()
-            self.kill_browser()
+            self.browser_handler.kill()
             sys.exit(1)
 
     def _user_is_not_logged_in(self):
@@ -154,17 +110,6 @@ class Site:
         login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
         time.sleep(2)  # wait for page to load
-
-    def kill_browser(self):
-        self.browser.stop_client()
-        self.browser.close()
-        try:
-            self.browser.quit()
-        except WebDriverException:
-            pass
-
-        if self.args and not self.args.show_browser:
-            self.display.stop()
 
     def get_json_from_html(self):
         response = self.browser.find_element_by_tag_name("pre").text.strip()

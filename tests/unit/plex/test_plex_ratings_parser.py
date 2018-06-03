@@ -21,7 +21,7 @@ class PlexRatingsParserTest(TestCase):
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_server_id')
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_movies_section_id')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     def test_init(self, browser_mock, base_init_mock, section_id_mock, server_id_mock):
         PlexRatingsParser(None)
 
@@ -29,7 +29,7 @@ class PlexRatingsParserTest(TestCase):
 
     @patch('RatS.plex.plex_ratings_parser.PlexRatingsParser._print_progress_bar')
     @patch('RatS.plex.plex_ratings_parser.PlexRatingsParser._parse_movie_tile')
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.plex.plex_ratings_parser.Plex')
     def test_parser(self, site_mock, base_init_mock, browser_mock, parse_movie_mock, progress_print_mock):  # pylint: disable=too-many-arguments
@@ -47,7 +47,7 @@ class PlexRatingsParserTest(TestCase):
         self.assertEqual(20, parse_movie_mock.call_count)
         self.assertEqual(20, len(parser.movies))
 
-    @patch('RatS.base.base_site.Firefox')
+    @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.plex.plex_ratings_parser.Plex')
     def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock):

@@ -46,7 +46,7 @@ class RatingsInserter:
 
         self._print_summary(movies)
         self._handle_failed_movies(movies)
-        self.site.kill_browser()
+        self.site.browser_handler.kill()
 
     def _is_field_in_parsed_data_for_this_site(self, movie, field):
         return self.site.site_name.lower() in movie and field in movie[self.site.site_name.lower()] and \

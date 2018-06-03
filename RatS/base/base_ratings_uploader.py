@@ -35,7 +35,7 @@ class RatingsUploader(RatingsInserter):
                          ))
         sys.stdout.flush()
 
-        self.site.kill_browser()
+        self.site.browser_handler.kill()
 
     def pre_upload_action(self):
         pass
