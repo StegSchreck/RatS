@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import time
-from configparser import ConfigParser
+from configparser import RawConfigParser
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -23,7 +23,7 @@ class Site:
         self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END \
             if sys.stdout.isatty() else self.site_name
 
-        self.config = ConfigParser()
+        self.config = RawConfigParser()
         self.__read_config_file('credentials.cfg.orig')
         self.__read_config_file('credentials.cfg')
         self._parse_credentials()
