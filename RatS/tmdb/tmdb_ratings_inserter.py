@@ -11,7 +11,8 @@ class TMDBRatingsInserter(RatingsUploader):
         self.css_id_of_file_input_element = 'csv_file'
         self.xpath_selector_for_submit_button = "//form[@name='import_csv']//input[@type='submit']"
 
-    def _get_url_for_csv_upload(self):
+    @staticmethod
+    def _get_url_for_csv_upload():
         return 'https://www.themoviedb.org/settings/import-list'
 
     def pre_upload_action(self):
