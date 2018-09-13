@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.metacritic.metacritic_site import Metacritic
+from RatS.utils import command_line
 
 
 class MetacriticRatingsInserter(RatingsInserter):
@@ -30,8 +31,22 @@ class MetacriticRatingsInserter(RatingsInserter):
         self.site.browser.get('http://www.metacritic.com' + movie_link['href'])
         time.sleep(1)
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        return movie['year'] == int(movie_details_page.find(class_='product_page_title')
-                                    .find(class_='release_year').get_text())
+        release_year = movie_details_page.find(class_='product_page_title').find(class_='release_year').get_text()
+        if release_year:
+            return movie['year'] == int(release_year)
+        else:
+            if self.args and self.args.verbose and self.args.verbose >= 3:
+                command_line.info(
+                    '{movie_title} ({movie_year}): '
+                    'No release year displayed on {site_displayname} movie detail page {movie_detail_page} '
+                    '... skipping '.format(
+                        site_displayname=self.site.site_name,
+                        movie_title=movie['title'],
+                        movie_year=movie['year'],
+                        movie_detail_page=self.site.browser.current_url
+                    )
+                )
+            return False
 
     def _click_rating(self, my_rating):
         stars = self.site.browser.find_element_by_class_name('user_rating_widget').find_elements_by_class_name('ur')

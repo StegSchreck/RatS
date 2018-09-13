@@ -110,6 +110,7 @@ class MetacriticRatingsInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Metacritic'
         inserter.failed_movies = []
+        inserter.args = None
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
         result = inserter._is_requested_movie(self.movie, search_result)  # pylint: disable=protected-access
@@ -126,6 +127,7 @@ class MetacriticRatingsInserterTest(TestCase):
         inserter.site = site_mock
         inserter.site.site_name = 'Metacritic'
         inserter.failed_movies = []
+        inserter.args = None
 
         movie2 = dict()
         movie2['title'] = 'The Matrix'
@@ -133,5 +135,26 @@ class MetacriticRatingsInserterTest(TestCase):
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
         result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
+
+        self.assertFalse(result)
+
+    @patch('RatS.metacritic.metacritic_ratings_inserter.Metacritic')
+    @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
+    @patch('RatS.utils.browser_handler.Firefox')
+    def test_target_movie_detail_page_has_no_year(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
+        with open(os.path.join(TESTDATA_PATH, 'metacritic', 'movie_details_page_without_release_year.html'),
+                  encoding='UTF-8') as movie_details_page_without_release_year:
+            movie_details_page_without_release_year = movie_details_page_without_release_year.read()
+
+        site_mock.browser = browser_mock
+        browser_mock.page_source = movie_details_page_without_release_year
+        inserter = MetacriticRatingsInserter(None)
+        inserter.site = site_mock
+        inserter.site.site_name = 'Metacritic'
+        inserter.failed_movies = []
+        inserter.args = None
+
+        search_result = BeautifulSoup(self.search_result_tile_list[0], 'html.parser')
+        result = inserter._is_requested_movie(self.movie, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)

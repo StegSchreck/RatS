@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.listal.listal_site import Listal
+from RatS.utils import command_line
 
 
 class ListalRatingsInserter(RatingsInserter):
@@ -46,8 +47,23 @@ class ListalRatingsInserter(RatingsInserter):
         else:
             movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             movie_annotation = movie_details_page.find('h1', class_='itemheadingmedium').get_text()
-            movie_year = int(re.findall(r'\((\d{4})\)', movie_annotation)[-1])
-            return movie['year'] == movie_year
+            release_year = re.findall(r'\((\d{4})\)', movie_annotation)
+            if release_year:
+                movie_year = int(release_year[-1])
+                return movie['year'] == movie_year
+            else:
+                if self.args and self.args.verbose and self.args.verbose >= 3:
+                    command_line.info(
+                        '{movie_title} ({movie_year}): '
+                        'No release year displayed on {site_displayname} movie detail page {movie_detail_page} '
+                        '... skipping '.format(
+                            site_displayname=self.site.site_name,
+                            movie_title=movie['title'],
+                            movie_year=movie['year'],
+                            movie_detail_page=self.site.browser.current_url
+                        )
+                    )
+                return False
 
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):

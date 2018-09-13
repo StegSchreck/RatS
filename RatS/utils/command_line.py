@@ -65,6 +65,14 @@ def _get_command_line_dimensions():
     return os.popen('stty size', 'r').read().split()
 
 
+def info(message):
+    if sys.stdout.isatty():
+        sys.stdout.write(BashColor.OKBLUE + message + BashColor.END + "\r\n")
+    else:
+        sys.stdout.write(message + "\r\n")
+    sys.stdout.flush()
+
+
 def warn(message):
     if sys.stdout.isatty():
         sys.stdout.write(BashColor.WARNING + message + BashColor.END + "\r\n")
