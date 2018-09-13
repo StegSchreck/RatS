@@ -53,18 +53,27 @@ class RatingsInserter:
                movie[self.site.site_name.lower()][field] != ''
 
     def print_progress(self, counter, movie, movies):
+        movie_index = movies.index(movie) + 1
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write('\r===== {site_displayname}: posted {movie} \r\n'.format(
-                site_displayname=self.site.site_displayname,
-                movie=movie
-            ))
+            sys.stdout.write(
+                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
+                'posted {movie}\r\n'.format(
+                    site_displayname=self.site.site_displayname,
+                    movie=movie,
+                    movie_index=movie_index,
+                    movies_count=len(movies)
+                ))
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== {site_displayname}: posted {movie_title} ({movie_year})\r\n'.format(
-                site_displayname=self.site.site_displayname,
-                movie_title=movie['title'],
-                movie_year=movie['year']
-            ))
+            sys.stdout.write(
+                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
+                'posted {movie_title} ({movie_year})\r\n'.format(
+                    site_displayname=self.site.site_displayname,
+                    movie_title=movie['title'],
+                    movie_year=movie['year'],
+                    movie_index=movie_index,
+                    movies_count=len(movies)
+                ))
             sys.stdout.flush()
         else:
             self._print_progress_bar(counter, movies)

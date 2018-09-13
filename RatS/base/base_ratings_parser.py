@@ -93,17 +93,25 @@ class RatingsParser:
 
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write('\r===== {site_displayname}: parsed {movie} \r\n'.format(
-                site_displayname=self.site.site_displayname,
-                movie=movie
-            ))
+            sys.stdout.write(
+                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
+                'parsed {movie} \r\n'.format(
+                    site_displayname=self.site.site_displayname,
+                    movie=movie,
+                    movie_index=len(self.movies),
+                    movies_count=self.movies_count
+                ))
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write('\r===== {site_displayname}: parsed {movie_title} ({movie_year}) \r\n'.format(
-                site_displayname=self.site.site_displayname,
-                movie_title=movie['title'],
-                movie_year=movie['year']
-            ))
+            sys.stdout.write(
+                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
+                'parsed {movie_title} ({movie_year}) \r\n'.format(
+                    site_displayname=self.site.site_displayname,
+                    movie_title=movie['title'],
+                    movie_year=movie['year'],
+                    movie_index=len(self.movies),
+                    movies_count=self.movies_count
+                ))
             sys.stdout.flush()
         else:
             self._print_progress_bar()
