@@ -39,7 +39,7 @@ class CritickerRatingsParser(RatingsParser):
         while True:
             iteration += 1
             try:
-                self.site.browser.get('https://www.criticker.com/resource/rankings/conv.php?type=xml')
+                self.site.browser.get('https://www.criticker.com/resource/ratings/conv.php?type=xml')
                 break
             except TimeoutException as e:
                 if iteration > 10:
@@ -67,7 +67,7 @@ class CritickerRatingsParser(RatingsParser):
         movie_link = re.sub('/rating/.*', '', movie_link)
 
         movie['criticker']['url'] = movie_link
-        movie['criticker']['my_rating'] = round(float(xml_node.find('score').text) / 10)
+        movie['criticker']['my_rating'] = round(float(xml_node.find('rating').text) / 10)
 
         movie['imdb'] = dict()
         movie['imdb']['id'] = xml_node.find('imdbid').text

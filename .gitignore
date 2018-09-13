@@ -3,6 +3,7 @@ RatS/credentials.cfg
 ghostdriver.log
 *.pyc
 RatS/exports/*
+tests/assets/exports/*
 *geckodriver.log
 build
 dist

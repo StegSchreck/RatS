@@ -63,7 +63,7 @@ class CritickerRatingsInserterTest(TestCase):
     @patch('RatS.criticker.criticker_ratings_inserter.Criticker')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_external_link_compare_imdb_fail(self, browser_mock, base_init_mock, site_mock):
+    def test_external_link_compare_imdb_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = CritickerRatingsInserter(None)
         inserter.site = site_mock
@@ -77,7 +77,7 @@ class CritickerRatingsInserterTest(TestCase):
     @patch('RatS.criticker.criticker_ratings_inserter.Criticker')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_external_link_compare_imdb_success(self, browser_mock, base_init_mock, site_mock):
+    def test_external_link_compare_imdb_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = CritickerRatingsInserter(None)
         inserter.site = site_mock

@@ -35,7 +35,7 @@ class CritickerParserTest(TestCase):
 
         parser.parse()
 
-        self.assertEqual(1019, len(parser.movies))
+        self.assertEqual(1531, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
         self.assertEqual('Fight Club', parser.movies[0]['title'])
         self.assertEqual(1999, parser.movies[0]['year'])
