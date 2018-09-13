@@ -45,25 +45,28 @@ class ListalRatingsInserter(RatingsInserter):
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
         else:
-            movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-            movie_annotation = movie_details_page.find('h1', class_='itemheadingmedium').get_text()
-            release_year = re.findall(r'\((\d{4})\)', movie_annotation)
-            if release_year:
-                movie_year = int(release_year[-1])
-                return movie['year'] == movie_year
-            else:
-                if self.args and self.args.verbose and self.args.verbose >= 3:
-                    command_line.info(
-                        '{movie_title} ({movie_year}): '
-                        'No release year displayed on {site_displayname} movie detail page {movie_detail_page} '
-                        '... skipping '.format(
-                            site_displayname=self.site.site_name,
-                            movie_title=movie['title'],
-                            movie_year=movie['year'],
-                            movie_detail_page=self.site.browser.current_url
-                        )
+            return self._check_movie_details(movie)
+
+    def _check_movie_details(self, movie):
+        movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
+        movie_annotation = movie_details_page.find('h1', class_='itemheadingmedium').get_text()
+        release_year = re.findall(r'\((\d{4})\)', movie_annotation)
+        if release_year:
+            movie_year = int(release_year[-1])
+            return movie['year'] == movie_year
+        else:
+            if self.args and self.args.verbose and self.args.verbose >= 3:
+                command_line.info(
+                    '{movie_title} ({movie_year}): '
+                    'No release year displayed on {site_displayname} movie detail page {movie_detail_page} '
+                    '... skipping '.format(
+                        site_displayname=self.site.site_name,
+                        movie_title=movie['title'],
+                        movie_year=movie['year'],
+                        movie_detail_page=self.site.browser.current_url
                     )
-                return False
+                )
+            return False
 
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):
