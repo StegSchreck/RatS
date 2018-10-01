@@ -136,7 +136,7 @@ Depending on what you used in the first run:
 #### ... using the command line
 
 You can re-use the data you parsed before, without parsing again. This will help you, if you want to distribute from one
-source to multiple destinations. The parser tells you in which file he saved his results, the folder is
+source to multiple destinations. The parser tells you in which file he saved his result, the folder is
 `./RatS/exports`. You can use this data by calling the script for example this way:
 
 `python3 transfer_ratings.py --source trakt --destination movielens --file 20170721191143_Trakt.json`
@@ -195,5 +195,5 @@ Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new/choose), 
 
 ## Where does the name come from?
 
-The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple. It is also
+The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It is that simple. It is also
 a reference to the movie "Departed".
