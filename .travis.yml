@@ -16,6 +16,7 @@ script:
 - pytest --pylint -m pylint
 after_script:
 - ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code $TRAVIS_TEST_RESULT
+- echo `git describe --tags --always` | awk '{split($0,a,"-"); print a[1]}' > ./version
 notifications:
   email:
     recipients:

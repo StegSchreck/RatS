@@ -2,6 +2,7 @@
 import argparse
 import datetime
 import os
+import requests
 import sys
 import time
 
@@ -107,6 +108,7 @@ def get_inserter_from_arg(param):
 
 
 def execute(args):
+    check_latest_version()
     parser = get_parser_from_arg(args.source)(args)
     movies = execute_parsing(args, parser)
     execute_inserting(args, movies, parser)
@@ -163,6 +165,22 @@ def load_data_from_file(filename):
 def insert_movie_ratings(inserter, movies, source):
     inserter.insert(movies, source)
 
+def  check_latest_version():
+    try:
+        file = open("version","r")
+        current_version = file.read().strip()
+        data = requests.get('https://api.github.com/repos/StegSchreck/Rats/releases/latest', timeout=2)
+        if ( data.status_code == 200 ):
+            response = data.json()
+            latest_version = response['tag_name'].strip()
+            if ( current_version == latest_version ):
+                command_line.info("Up-to-date with the latest release.")
+            else:
+                command_line.warn("Verson mismatch. Please update to latest release.")
+        else:
+            command_line.warn("Cannot locate latest release.")
+    except:
+        command_line.warn("Cannot read version file. Updates might be needed.")
 
 if __name__ == "__main__":
     main()
