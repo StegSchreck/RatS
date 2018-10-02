@@ -2,9 +2,9 @@
 import argparse
 import datetime
 import os
-import requests
 import sys
 import time
+import requests
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
@@ -165,22 +165,28 @@ def load_data_from_file(filename):
 def insert_movie_ratings(inserter, movies, source):
     inserter.insert(movies, source)
 
-def  check_latest_version():
+
+def check_latest_version():
     try:
-        file = open("version","r")
+        file = open("version", "r")
         current_version = file.read().strip()
         data = requests.get('https://api.github.com/repos/StegSchreck/Rats/releases/latest', timeout=2)
-        if ( data.status_code == 200 ):
+        if data.status_code == 200:
             response = data.json()
             latest_version = response['tag_name'].strip()
-            if ( current_version == latest_version ):
+            if current_version == latest_version:
                 command_line.info("Up-to-date with the latest release.")
             else:
                 command_line.warn("Verson mismatch. Please update to latest release.")
         else:
-            command_line.warn("Cannot locate latest release.")
-    except:
+            command_line.warn("Cannot locate latest release. Error code: " + data.status_code)
+    except FileNotFoundError:
+        command_line.warn("Cannot find version file. Updates might be needed.")
+    except PermissionError:
         command_line.warn("Cannot read version file. Updates might be needed.")
+    except ConnectionError:
+        command_line.warn("Cannot locate latest release.")
+
 
 if __name__ == "__main__":
     main()
