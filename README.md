@@ -10,7 +10,7 @@
 [![Test Coverage by CodeClimate](https://api.codeclimate.com/v1/badges/9be495ea69fb62e960cb/test_coverage)](https://codeclimate.com/github/StegSchreck/RatS/test_coverage)
 [![Docker image](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
 
-This project serves for parsing your ratings from one movie tracking / rating website to another.
+This project serves for analyzing, and transfering your ratings from one movie tracking / rating website to another.
 
 The goal of this project is to have a universal tool which can transfer your ratings from any site to another without
 the need of any manual steps like configuring an API access or whatever. Just configure you credentials (see steps 
