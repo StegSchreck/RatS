@@ -36,7 +36,7 @@ This project is currently still under development. Please be patient, as I'm onl
         * Arch Linux: `pacman -S geckodriver`
         * MacOS: `brew install geckodriver`
       * Or execute `sudo ./InstallGeckodriver.sh`.
-        For this you will need to have tar and wget installed.
+        For this you will need to have tar, wget and curl installed.
 
 1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there
     (without any quotation marks etc.).
