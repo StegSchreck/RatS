@@ -3,6 +3,7 @@ import os
 import sys
 import time
 
+from progressbar import ProgressBar
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
     ElementNotInteractableException, TimeoutException
 
@@ -26,6 +27,7 @@ class RatingsInserter:
             site_name=self.site.site_name
         )
         self.start_timestamp = time.time()
+        self.standard_progress_bar = None
 
     def insert(self, movies, source):
         counter = 0
@@ -79,12 +81,9 @@ class RatingsInserter:
             self._print_progress_bar(counter, movies)
 
     def _print_progress_bar(self, counter, movies):
-        print_progress_bar(
-            iteration=counter,
-            total=len(movies),
-            start_timestamp=self.start_timestamp,
-            prefix=self.site.site_displayname
-        )
+        if not self.standard_progress_bar:
+            self.standard_progress_bar = ProgressBar(max_value=len(movies), redirect_stdout=True)
+        self.standard_progress_bar.update(counter)
 
     def _go_to_movie_details_page(self, movie):
         if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
