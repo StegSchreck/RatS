@@ -8,7 +8,6 @@ from selenium.common.exceptions import ElementNotVisibleException, NoSuchElement
     ElementNotInteractableException, TimeoutException
 
 from RatS.utils import file_impex
-from RatS.utils.command_line import print_progress_bar
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
