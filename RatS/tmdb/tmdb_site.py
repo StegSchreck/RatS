@@ -1,3 +1,5 @@
+import time
+
 from RatS.base.base_site import Site
 
 
@@ -14,3 +16,10 @@ class TMDB(Site):
 
     def _get_login_page_url(self):
         return "https://www.themoviedb.org/login"
+
+    def _handle_cookie_notice_if_present(self):
+        cookie_accept_button = self.browser.find_element_by_id('cookie_notice')\
+            .find_elements_by_class_name('accept')
+        if cookie_accept_button is not None and len(cookie_accept_button) > 0:
+            cookie_accept_button[0].click()
+            time.sleep(1)

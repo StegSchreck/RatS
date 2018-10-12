@@ -7,3 +7,4 @@ tests/assets/exports/*
 *geckodriver.log
 build
 dist
+venv

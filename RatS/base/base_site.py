@@ -65,6 +65,8 @@ class Site:
         self.browser.get(self.LOGIN_PAGE)
         time.sleep(1)
 
+        self._handle_cookie_notice_if_present()
+
         iteration = 0
         while self._user_is_not_logged_in():
             iteration += 1
@@ -79,6 +81,10 @@ class Site:
             self._handle_captcha_challenge_if_present()
             if iteration > 2:
                 self._handle_login_unsuccessful()
+
+    def _handle_cookie_notice_if_present(self):
+        # to be implemented for sites with cookie banners individually
+        pass
 
     def _handle_captcha_challenge_if_present(self):
         # to be implemented for sites with captchas individually
