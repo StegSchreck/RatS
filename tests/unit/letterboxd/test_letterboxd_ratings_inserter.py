@@ -18,9 +18,11 @@ class LetterboxdRatingsInserterTest(TestCase):
         self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
 
+    @patch('RatS.letterboxd.letterboxd_site.Letterboxd._user_is_not_logged_in')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock):
+    def test_init(self, browser_mock, base_init_mock, login_check_mock):
+        login_check_mock.return_value = False
         LetterboxdRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
