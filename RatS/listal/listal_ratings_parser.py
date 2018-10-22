@@ -23,9 +23,14 @@ class ListalRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        return [int(s) for s in re.findall(r'\b\d+\b',
-                                           movie_ratings_page.find(id='displaychange')
-                                           .find('div', class_='pages').find_all('a')[-2].get_text())][0]
+        pagination = re.findall(
+            r'\b\d+\b',
+            movie_ratings_page.find(id='displaychange').find('div', class_='pages').find_all('a')[-2].get_text()
+        )
+        pagination_page_numbers = [int(s) for s in pagination]
+        if len(pagination_page_numbers) > 0:
+            return pagination_page_numbers[0]
+        return 1
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
