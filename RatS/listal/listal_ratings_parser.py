@@ -23,11 +23,10 @@ class ListalRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        pagination = re.findall(
-            r'\b\d+\b',
-            movie_ratings_page.find(id='displaychange').find('div', class_='pages').find_all('a')[-2].get_text()
-        )
-        pagination_page_numbers = [int(s) for s in pagination]
+        pagination_links = movie_ratings_page.find(id='displaychange').find('div', class_='pages').find_all('a')
+        if len(pagination_links) == 0:
+            return 1
+        pagination_page_numbers = [int(s) for s in re.findall(r'\b\d+\b', pagination_links[-2].get_text())]
         if len(pagination_page_numbers) > 0:
             return pagination_page_numbers[0]
         return 1
