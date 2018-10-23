@@ -678,7 +678,7 @@ Description: <p align="center">
         [![Test Coverage by CodeClimate](https://api.codeclimate.com/v1/badges/9be495ea69fb62e960cb/test_coverage)](https://codeclimate.com/github/StegSchreck/RatS/test_coverage)
         [![Docker image](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
         
-        This project serves for parsing your ratings from one movie tracking / rating website to another.
+        This project serves for analyzing, and transfering your ratings from one movie tracking / rating website to another.
         
         The goal of this project is to have a universal tool which can transfer your ratings from any site to another without
         the need of any manual steps like configuring an API access or whatever. Just configure you credentials (see steps 
@@ -704,7 +704,7 @@ Description: <p align="center">
                 * Arch Linux: `pacman -S geckodriver`
                 * MacOS: `brew install geckodriver`
               * Or execute `sudo ./InstallGeckodriver.sh`.
-                For this you will need to have tar and wget installed.
+                For this you will need to have tar, wget and curl installed.
         
         1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there
             (without any quotation marks etc.).
@@ -804,7 +804,7 @@ Description: <p align="center">
         #### ... using the command line
         
         You can re-use the data you parsed before, without parsing again. This will help you, if you want to distribute from one
-        source to multiple destinations. The parser tells you in which file he saved his results, the folder is
+        source to multiple destinations. The parser tells you in which file he saved his result, the folder is
         `./RatS/exports`. You can use this data by calling the script for example this way:
         
         `python3 transfer_ratings.py --source trakt --destination movielens --file 20170721191143_Trakt.json`
@@ -863,7 +863,7 @@ Description: <p align="center">
         
         ## Where does the name come from?
         
-        The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It's that simple. It is also
+        The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It is that simple. It is also
         a reference to the movie "Departed".
         
 Platform: UNKNOWN
