@@ -3,8 +3,7 @@ import sys
 import time
 
 from bs4 import BeautifulSoup
-
-from RatS.utils.command_line import print_progress_bar
+from progressbar import ProgressBar
 
 
 class RatingsParser:
@@ -17,6 +16,7 @@ class RatingsParser:
 
         self.site.browser.get(self.site.MY_RATINGS_URL)
         self.start_timestamp = time.time()
+        self.standard_progress_bar = None
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
         if not os.path.exists(self.exports_folder):
@@ -117,12 +117,12 @@ class RatingsParser:
             self._print_progress_bar()
 
     def _print_progress_bar(self):
-        print_progress_bar(
-            iteration=len(self.movies),
-            total=self.movies_count,
-            start_timestamp=self.start_timestamp,
-            prefix=self.site.site_displayname
-        )
+        if not self.standard_progress_bar:
+            self.standard_progress_bar = ProgressBar(
+                max_value=self.movies_count, redirect_stdout=True)
+        self.standard_progress_bar.update(len(self.movies))
+        if self.movies_count == len(self.movies):
+            self.standard_progress_bar.finish()
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):

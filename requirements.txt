@@ -1,4 +1,5 @@
-beautifulsoup4
-selenium
-configparser
-xvfbwrapper
+beautifulsoup4==4.6.3
+configparser==3.5.0
+progressbar2==3.38.0
+selenium==3.14.1
+xvfbwrapper==0.2.9
