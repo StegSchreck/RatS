@@ -40,7 +40,7 @@ class TMDBParserTest(TestCase):
         self.assertEqual(50, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
         self.assertEqual('Ghost in the Shell: The New Movie', parser.movies[0]['title'])
+        self.assertEqual(2017, parser.movies[0]['year'])
         self.assertEqual('334376', parser.movies[0]['tmdb']['id'])
         self.assertEqual('https://www.themoviedb.org/movie/334376', parser.movies[0]['tmdb']['url'])
-        self.assertEqual(2017, parser.movies[0]['tmdb']['year'])
         self.assertEqual(6, parser.movies[0]['tmdb']['my_rating'])
