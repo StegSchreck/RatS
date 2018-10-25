@@ -33,10 +33,10 @@ class TMDBRatingsParser(RatingsParser):
     def _parse_movie_tile(self, movie_tile):
         movie = dict()
         movie['title'] = self._get_movie_title(movie_tile)
+        movie['year'] = self._get_movie_year(movie_tile)
         movie[self.site.site_name.lower()] = dict()
         movie[self.site.site_name.lower()]['id'] = self._get_movie_id(movie_tile)
         movie[self.site.site_name.lower()]['url'] = self._get_movie_url(movie_tile)
-        movie[self.site.site_name.lower()]['year'] = self._get_movie_year(movie_tile)
         movie[self.site.site_name.lower()]['my_rating'] = self._get_movie_my_rating(movie_tile)
 
         return movie
