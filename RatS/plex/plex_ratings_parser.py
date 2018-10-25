@@ -10,7 +10,7 @@ class PlexRatingsParser(RatingsParser):
     def __init__(self, args):
         super(PlexRatingsParser, self).__init__(Plex(args), args)
         self.processed_movies_count = 0
-        self.standard_progress_bar = None
+        self.progress_bar = None
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
@@ -58,9 +58,8 @@ class PlexRatingsParser(RatingsParser):
         return movie
 
     def _print_progress_bar(self):
-        if not self.standard_progress_bar:
-            self.standard_progress_bar = ProgressBar(
-                max_value=self.movies_count, redirect_stdout=True)
-        self.standard_progress_bar.update(self.processed_movies_count)
+        if not self.progress_bar:
+            self.progress_bar = ProgressBar(max_value=self.movies_count, redirect_stdout=True)
+        self.progress_bar.update(self.processed_movies_count)
         if self.movies_count == self.processed_movies_count:
-            self.standard_progress_bar.finish()
+            self.progress_bar.finish()
