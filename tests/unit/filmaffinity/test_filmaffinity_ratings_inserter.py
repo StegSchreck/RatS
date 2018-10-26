@@ -86,7 +86,7 @@ class FilmAffinityRatingsInserterTest(TestCase):
     @patch('RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinity')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_find_movie_directly(self, browser_mock, base_init_mock, site_mock,
+    def test_find_movie_directly(self, browser_mock, base_init_mock, site_mock,  # pylint: disable=too-many-arguments
                                  search_result_page_location, movie_detail_page_location, displayed_movie_year_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
