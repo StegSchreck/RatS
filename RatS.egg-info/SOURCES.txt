@@ -15,6 +15,10 @@ RatS/criticker/__init__.py
 RatS/criticker/criticker_ratings_inserter.py
 RatS/criticker/criticker_ratings_parser.py
 RatS/criticker/criticker_site.py
+RatS/filmaffinity/__init__.py
+RatS/filmaffinity/filmaffinity_ratings_inserter.py
+RatS/filmaffinity/filmaffinity_ratings_parser.py
+RatS/filmaffinity/filmaffinity_site.py
 RatS/flixster/__init__.py
 RatS/flixster/flixster_ratings_inserter.py
 RatS/flixster/flixster_ratings_parser.py
@@ -63,6 +67,7 @@ RatS/utils/file_impex.py
 tests/functional/__init__.py
 tests/functional/sites/__init__.py
 tests/functional/sites/test_criticker_site.py
+tests/functional/sites/test_filmaffinity_site.py
 tests/functional/sites/test_flixster_site.py
 tests/functional/sites/test_icheckmovies_site.py
 tests/functional/sites/test_imdb_site.py
@@ -80,6 +85,9 @@ tests/unit/base/test_base_ratings_parser.py
 tests/unit/criticker/__init__.py
 tests/unit/criticker/test_criticker_ratings_inserter.py
 tests/unit/criticker/test_criticker_ratings_parser.py
+tests/unit/filmaffinity/__init__.py
+tests/unit/filmaffinity/test_filmaffinity_ratings_inserter.py
+tests/unit/filmaffinity/test_filmaffinity_ratings_parser.py
 tests/unit/flixster/__init__.py
 tests/unit/flixster/test_flixster_ratings_inserter.py
 tests/unit/flixster/test_flixster_ratings_parser.py
@@ -112,5 +120,4 @@ tests/unit/trakt/__init__.py
 tests/unit/trakt/test_trakt_ratings_inserter.py
 tests/unit/trakt/test_trakt_ratings_parser.py
 tests/unit/utils/__init__.py
-tests/unit/utils/test_command_line.py
 tests/unit/utils/test_file_impex.py

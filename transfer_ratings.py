@@ -7,6 +7,8 @@ import time
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
+from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
+from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
 from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
 from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMoviesMisconfigurationException
@@ -34,6 +36,7 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS',
 
 PARSERS = {
     'CRITICKER': CritickerRatingsParser,
+    'FILMAFFINITY': FilmAffinityRatingsParser,
     'FLIXSTER': FlixsterRatingsParser,
     'ICHECKMOVIES': ICheckMoviesRatingsParser,
     'IMDB': IMDBRatingsParser,
@@ -46,6 +49,7 @@ PARSERS = {
 }
 INSERTERS = {
     'CRITICKER': CritickerRatingsInserter,
+    'FILMAFFINITY': FilmAffinityRatingsInserter,
     'FLIXSTER': FlixsterRatingsInserter,
     'ICHECKMOVIES': ICheckMoviesRatingsInserter,
     'IMDB': IMDBRatingsInserter,

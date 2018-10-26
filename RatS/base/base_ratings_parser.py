@@ -135,7 +135,7 @@ class RatingsParser:
         movie[self.site.site_name.lower()]['id'] = self._get_movie_id(movie_tile)
         movie[self.site.site_name.lower()]['url'] = self._get_movie_url(movie_tile)
 
-        self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+        self._go_to_movie_details_page(movie)
         time.sleep(1)
 
         iteration = 0
@@ -151,6 +151,9 @@ class RatingsParser:
                 continue
 
         return movie
+
+    def _go_to_movie_details_page(self, movie):
+        self.site.browser.get(movie[self.site.site_name.lower()]['url'])
 
     @staticmethod
     def _get_movie_title(movie_tile):

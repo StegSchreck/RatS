@@ -18,9 +18,9 @@ class TMDBRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        pages_count = int(movie_ratings_page.find('div', class_='title_header')
-                          .find('a', attrs={'data-media-type': 'movie'}).find('span').get_text().replace('.', ''))
-        return math.ceil(pages_count / 50.0)
+        movies_count = int(movie_ratings_page.find('div', class_='title_header')
+                           .find('a', attrs={'data-media-type': 'movie'}).find('span').get_text().replace('.', ''))
+        return math.ceil(movies_count / 50.0)
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
