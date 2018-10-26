@@ -767,6 +767,7 @@ Description: <p align="center">
         #### Currently Available Parsers
         
         * Criticker
+        * FilmAffinity
         * Flixster
         * iCheckMovies
           * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
@@ -781,6 +782,7 @@ Description: <p align="center">
         #### Currently Available Inserters
         
         * Criticker
+        * FilmAffinity
         * Flixster
         * iCheckMovies
           * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`

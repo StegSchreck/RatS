@@ -99,6 +99,7 @@ in order to use the same data from the parser in this run for multiple destinati
 #### Currently Available Parsers
 
 * Criticker
+* FilmAffinity
 * Flixster
 * iCheckMovies
   * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
