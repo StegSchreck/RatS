@@ -7,6 +7,7 @@ import time
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
+from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
 from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMoviesMisconfigurationException
@@ -46,6 +47,7 @@ PARSERS = {
 }
 INSERTERS = {
     'CRITICKER': CritickerRatingsInserter,
+    'FILMAFFINITY': FilmAffinityRatingsInserter,
     'FLIXSTER': FlixsterRatingsInserter,
     'ICHECKMOVIES': ICheckMoviesRatingsInserter,
     'IMDB': IMDBRatingsInserter,

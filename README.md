@@ -113,6 +113,7 @@ in order to use the same data from the parser in this run for multiple destinati
 #### Currently Available Inserters
 
 * Criticker
+* FilmAffinity
 * Flixster
 * iCheckMovies
   * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`
