@@ -10,7 +10,7 @@ class TMDB(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(TMDB, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://www.themoviedb.org/account/{username}/discover/rated/movie'.format(
+        self.MY_RATINGS_URL = 'https://www.themoviedb.org/u/{username}/ratings/movie'.format(
             username=self.USERNAME
         )
 
@@ -18,8 +18,9 @@ class TMDB(Site):
         return "https://www.themoviedb.org/login"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_accept_button = self.browser.find_element_by_id('cookie_notice')\
-            .find_elements_by_class_name('accept')
-        if cookie_accept_button is not None and len(cookie_accept_button) > 0:
-            cookie_accept_button[0].click()
-            time.sleep(1)
+        cookie_notice = self.browser.find_element_by_id('cookie_notice')
+        if cookie_notice is not None:
+            cookie_accept_button = cookie_notice.find_elements_by_class_name('accept')
+            if cookie_accept_button is not None and len(cookie_accept_button) > 0:
+                cookie_accept_button[0].click()
+                time.sleep(1)

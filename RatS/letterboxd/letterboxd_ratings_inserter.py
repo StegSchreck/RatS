@@ -3,6 +3,8 @@ import os
 import sys
 import time
 
+from progressbar import ProgressBar
+
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException, \
     NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -11,7 +13,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.letterboxd.letterboxd_site import Letterboxd
-from RatS.utils.command_line import print_progress_bar
 from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
@@ -106,18 +107,11 @@ class LetterboxdRatingsInserter(RatingsInserter):
         while len(self.site.browser.find_elements_by_css_selector(self.progress_counter_selector)) is not 0:
             try:
                 counter = int(self.site.browser.find_element_by_css_selector(self.progress_counter_selector).text)
-                print_progress_bar(
-                    iteration=counter,
-                    total=movies_count,
-                    start_timestamp=self.start_timestamp,
-                    prefix=self.site.site_displayname
-                )
+                if not self.progress_bar:
+                    self.progress_bar = ProgressBar(max_value=movies_count, redirect_stdout=True)
+                self.progress_bar.update(counter)
             except (StaleElementReferenceException, NoSuchElementException):
                 pass
             time.sleep(1)
-        print_progress_bar(
-            iteration=movies_count,
-            total=movies_count,
-            start_timestamp=self.start_timestamp,
-            prefix=self.site.site_displayname
-        )
+        self.progress_bar.update(movies_count)
+        self.progress_bar.finish()

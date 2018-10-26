@@ -1,14 +1,16 @@
 import math
 
+from progressbar import ProgressBar
+
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.plex.plex_site import Plex
-from RatS.utils.command_line import print_progress_bar
 
 
 class PlexRatingsParser(RatingsParser):
     def __init__(self, args):
         super(PlexRatingsParser, self).__init__(Plex(args), args)
         self.processed_movies_count = 0
+        self.progress_bar = None
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
@@ -56,9 +58,8 @@ class PlexRatingsParser(RatingsParser):
         return movie
 
     def _print_progress_bar(self):
-        print_progress_bar(
-            iteration=self.processed_movies_count,
-            total=self.movies_count,
-            start_timestamp=self.start_timestamp,
-            prefix=self.site.site_displayname
-        )
+        if not self.progress_bar:
+            self.progress_bar = ProgressBar(max_value=self.movies_count, redirect_stdout=True)
+        self.progress_bar.update(self.processed_movies_count)
+        if self.movies_count == self.processed_movies_count:
+            self.progress_bar.finish()
