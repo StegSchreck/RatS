@@ -199,3 +199,8 @@ Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new/choose), 
 
 The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It is that simple. It is also
 a reference to the movie "Departed".
+
+## Where is this tool used?
+The goal of this project is to have a tool which can transfer your ratings from any site to another without
+the need of any manual steps like configuring an API access or whatever. Just configure you credentials (see steps 
+below), start the tool and relax.
