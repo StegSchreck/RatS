@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 RUN sudo mkdir /RatS
 COPY . /RatS
 WORKDIR /RatS
-RUN sudo chmod -R 777 .
+RUN sudo chown -R seluser: .
 RUN sudo pip3 install --no-cache-dir -r ./requirements.txt
 
 CMD ["/bin/true"]
