@@ -38,10 +38,27 @@ This project is currently still under development. Please be patient, as I'm onl
       * Or execute `sudo ./InstallGeckodriver.sh`.
         For this you will need to have tar, wget and curl installed.
 
-1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there
+1. Set your credentials
+
+    1. Copy the `credentials.cfg.orig` file to `credentials.cfg` and insert your credentials for the sites you need there
     (without any quotation marks etc.).
 
-    Copying the file will conserve the possibility to do a `git pull` later on without overwriting your credentials.
+        Copying the file will conserve the possibility to do a `git pull` later on without overwriting your credentials.
+
+    1. Alternatively, you can set the credentials via environment variables. For example, if you want to set the 
+    credentials for your IMDB and Trakt accounts you would need to set these environment variables:
+        ```sh
+        export IMDB_USERNAME=abc@def.de
+        export IMDB_PASWORD=def
+        export TRAKT_USERNAME=abc
+        export TRAKT_PASWORD=def
+        ```
+        It is important to use the variable names completely in uppercase!
+
+    1. The third way is to set the environment variables when running the transfer script, like this:
+    `IMDB_USERNAME=abc@def.de IMDB_PASWORD=def TRAKT_USERNAME=abc TRAKT_PASWORD=def python3 transfer_ratings.py --source trakt --destination imdb`
+
+    The credentials in environment variables are overruling the ones in the `credentials.cfg` file.
 1. Execute the script with **Python3**
     `python3 transfer_ratings.py --source trakt --destination movielens`
 
