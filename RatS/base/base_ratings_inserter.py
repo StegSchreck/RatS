@@ -5,7 +5,7 @@ import time
 
 from progressbar import ProgressBar
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
-    ElementNotInteractableException, TimeoutException
+    ElementNotInteractableException, TimeoutException, WebDriverException
 
 from RatS.utils import file_impex
 
@@ -140,7 +140,8 @@ class RatingsInserter:
             try:
                 self._click_rating(my_rating)
                 break
-            except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException) as e:
+            except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException,
+                    WebDriverException) as e:
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
