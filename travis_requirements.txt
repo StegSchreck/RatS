@@ -1,5 +1,5 @@
 pytest==3.3.0
-pytest-cov==3.3.0
+pytest-cov==2.6.1
 pytest-mccabe==3.3.0
 pytest-flakes==3.3.0
 pytest-pep8==3.3.0
