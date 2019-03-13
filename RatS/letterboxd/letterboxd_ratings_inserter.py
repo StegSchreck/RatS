@@ -104,7 +104,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
         )
 
     def _print_progress(self, movies_count):
-        while len(self.site.browser.find_elements_by_css_selector(self.progress_counter_selector)) is not 0:
+        while len(self.site.browser.find_elements_by_css_selector(self.progress_counter_selector)) != 0:
             try:
                 counter = int(self.site.browser.find_element_by_css_selector(self.progress_counter_selector).text)
                 if not self.progress_bar:
