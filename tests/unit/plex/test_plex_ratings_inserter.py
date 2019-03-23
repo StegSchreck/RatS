@@ -27,12 +27,13 @@ class PlexRatingsInserterTest(TestCase):
             self.search_result_tile_list = [result_tile.read()]
 
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_server_id')
-    @patch('RatS.plex.plex_ratings_inserter.Plex._determine_movies_section_id')
+    @patch('RatS.plex.plex_ratings_inserter.Plex')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock, section_id_mock, server_id_mock):
+    def test_init(self, browser_mock, base_init_mock, site_mock, server_id_mock):
         PlexRatingsInserter(None)
 
+        self.assertTrue(site_mock.called)
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')

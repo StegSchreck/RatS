@@ -22,13 +22,15 @@ class PlexRatingsParser(RatingsParser):
 
     def _get_ratings_page(self, i):
         page_size = 100
-        page_start = i * page_size
-        return 'http://{base_url}/library/sections/{section_id}/all' \
-               '?type=1&sort=rating:desc&X-Plex-Container-Start={page_start}&X-Plex-Container-Size={page_size}'.format(
+        page_start = (i - 1) * page_size
+        return 'http://{base_url}/library/all?type=1&userRating!=0' \
+               '&X-Plex-Container-Start={page_start}' \
+               '&X-Plex-Container-Size={page_size}' \
+               '&X-Plex-Token={plex_token}'.format(
                    base_url=self.site.BASE_URL,
-                   section_id=self.site.MOVIE_SECTION_ID,
                    page_start=page_start,
-                   page_size=page_size
+                   page_size=page_size,
+                   plex_token=self.site.PLEX_TOKEN
                )
 
     @staticmethod
@@ -46,7 +48,7 @@ class PlexRatingsParser(RatingsParser):
             movie[self.site.site_name.lower()]['my_rating'] = round(float(movie_tile['userrating']))
             movie[self.site.site_name.lower()]['id'] = movie_tile['ratingkey']
             movie[self.site.site_name.lower()]['url'] = \
-                'http://{base_url}/web/index.html#!/server/{server_id}/details/{library_path}{movie_id}'.format(
+                'http://{base_url}/web/index.html#!/server/{server_id}/details?key={library_path}{movie_id}'.format(
                     base_url=self.site.BASE_URL,
                     server_id=self.site.SERVER_ID,
                     library_path='%2Flibrary%2Fmetadata%2F',

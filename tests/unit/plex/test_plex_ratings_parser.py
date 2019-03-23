@@ -19,12 +19,13 @@ class PlexRatingsParserTest(TestCase):
             self.ratings_tile = BeautifulSoup(ratings_tile.read(), 'html.parser').find('video', attrs={'type': 'movie'})
 
     @patch('RatS.plex.plex_ratings_inserter.Plex._determine_server_id')
-    @patch('RatS.plex.plex_ratings_inserter.Plex._determine_movies_section_id')
+    @patch('RatS.plex.plex_ratings_parser.Plex')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock, section_id_mock, server_id_mock):
+    def test_init(self, browser_mock, base_init_mock, site_mock, server_id_mock):
         PlexRatingsParser(None)
 
+        self.assertTrue(site_mock.called)
         self.assertTrue(base_init_mock.called)
 
     @patch('RatS.plex.plex_ratings_parser.PlexRatingsParser._print_progress_bar')
@@ -69,4 +70,4 @@ class PlexRatingsParserTest(TestCase):
         self.assertEqual('19542', movie['plex']['id'])
         self.assertEqual('http://localhost:12345/web/index.html#!'
                          '/server/ThisIsAMockUUID/'
-                         'details/%2Flibrary%2Fmetadata%2F19542', movie['plex']['url'])
+                         'details?key=%2Flibrary%2Fmetadata%2F19542', movie['plex']['url'])
