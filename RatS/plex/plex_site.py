@@ -1,7 +1,7 @@
-import sys
+import re
 import time
 
-from bs4 import BeautifulSoup
+from selenium.webdriver.support import ui
 
 from RatS.base.base_site import Site
 
@@ -29,28 +29,31 @@ class Plex(Site):
         return self.USERNAME not in self.browser.page_source
 
     def _parse_configuration(self):
+        self.PLEX_TOKEN = self._determine_plex_token()
         self.SERVER_ID = self._determine_server_id()
-        self.MY_RATINGS_URL = 'http://{base_url}/web/index.html#!/server/{server_id}/list' \
-                              '?key=%2Fhubs%2Fhome%2FrecentlyAdded%3Ftype%3D1&type=movie'.format(
+        self.MY_RATINGS_URL = 'http://{base_url}/library/all?type=1&userRating!=0' \
+                              '&X-Plex-Container-Start={page_start}' \
+                              '&X-Plex-Container-Size={page_size}' \
+                              '&X-Plex-Token={plex_token}'.format(
                                   base_url=self.BASE_URL,
-                                  server_id=self.SERVER_ID
+                                  page_start=0,
+                                  page_size=100,
+                                  plex_token=self.PLEX_TOKEN
                               )
 
-    def _determine_movies_section_id(self):
-        sys.stdout.write('\r===== ' + self.site_displayname + ': determine movie section')
-        sys.stdout.flush()
-
+    def _determine_plex_token(self):
         self.browser.get('http://{base_url}/web/index.html#'.format(base_url=self.BASE_URL))
-        time.sleep(1)
-        homepage = BeautifulSoup(self.browser.page_source, 'html.parser')
-        time.sleep(1)
+        wait = ui.WebDriverWait(self.browser, 600)
+        wait.until(lambda driver: driver.find_element_by_xpath("//button[@data-qa-id='metadataPosterMoreButton']"))
 
-        library_navigation_links = homepage.find('div', attrs={'data-qa-id': 'sidebarLibrariesList'})
-        movie_section = library_navigation_links.find('i', class_='plex-icon-movies-560').parent.parent.parent
+        self.browser.find_elements_by_xpath("//button[@data-qa-id='metadataPosterMoreButton']")[0].click()
+        self.browser.find_elements_by_xpath("//button[@role='menuitem']")[-1].click()
+        link_to_xml = self.browser.find_element_by_xpath("//div[@class='modal-footer']//a").get_attribute('href')
+        plex_token = re.findall(r'X-Plex-Token=(\w+)', link_to_xml)[0]
 
-        return movie_section['data-qa-id'].split('--')[-1]
+        return plex_token
 
     def _determine_server_id(self):
         self.browser.get('http://{base_url}/web/index.html#!/settings/server'.format(base_url=self.BASE_URL))
-        time.sleep(1)
+        time.sleep(2)
         return self.browser.current_url.split('/')[-2]
