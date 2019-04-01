@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS.png" width="250px">
+  <img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/RatS.png" width="250px">
 </p>
 
 # RatS
@@ -145,7 +145,7 @@ in order to use the same data from the parser in this run for multiple destinati
 * Trakt
 
 <p align="center">
-  <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS_Ensemble.png">
+  <img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/RatS_Ensemble.png">
 </p>
 
 ### Trying again with former export data
