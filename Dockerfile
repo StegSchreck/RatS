@@ -1,9 +1,8 @@
 FROM selenium/standalone-firefox
 
-MAINTAINER Sebastian Schreck <sebastian@schreck.berlin>
+MAINTAINER Sebastian Schreck <sebastian.schreck@stegschreck.de>
 
-RUN sudo apt-get update
-RUN sudo apt-get install -y vim python3 python3-pip
+RUN sudo apt-get update && sudo apt-get install -y vim python3 python3-pip
 
 ENV PYTHONUNBUFFERED 1
 
