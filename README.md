@@ -140,6 +140,7 @@ in order to use the same data from the parser in this run for multiple destinati
 * Listal
 * Metacritic
 * Movielens
+* MoviePilot
 * Plex (locally hosted server)
 * TMDB (The Movie Database)
 * Trakt

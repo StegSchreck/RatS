@@ -5,6 +5,7 @@ import os
 import sys
 import time
 
+from RatS.moviepilot.moviepilot_ratings_inserter import MoviePilotRatingsInserter
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
@@ -57,6 +58,7 @@ INSERTERS = {
     'LISTAL': ListalRatingsInserter,
     'METACRITIC': MetacriticRatingsInserter,
     'MOVIELENS': MovielensRatingsInserter,
+    'MOVIEPILOT': MoviePilotRatingsInserter,
     'PLEX': PlexRatingsInserter,
     'TMDB': TMDBRatingsInserter,
     'TRAKT': TraktRatingsInserter,
