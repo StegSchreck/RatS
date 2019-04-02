@@ -21,7 +21,9 @@ class MoviePilotRatingsInserter(RatingsInserter):
     @staticmethod
     def _get_search_results(search_result_page):
         search_result_page = BeautifulSoup(search_result_page, 'html.parser')
-        return search_result_page.find('main').find('ul').find_all('a')
+        if search_result_page.find('main').find('ul'):
+            return search_result_page.find('main').find('ul').find_all('a')
+        return []
 
     def _is_requested_movie(self, movie, search_result):
         return self._check_movie_details(movie, search_result)

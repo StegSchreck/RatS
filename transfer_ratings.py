@@ -6,6 +6,7 @@ import sys
 import time
 
 from RatS.moviepilot.moviepilot_ratings_inserter import MoviePilotRatingsInserter
+from RatS.moviepilot.moviepilot_ratings_parser import MoviePilotRatingsParser
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
@@ -44,6 +45,7 @@ PARSERS = {
     'LETTERBOXD': LetterboxdRatingsParser,
     'LISTAL': ListalRatingsParser,
     'MOVIELENS': MovielensRatingsParser,
+    'MOVIEPILOT': MoviePilotRatingsParser,
     'PLEX': PlexRatingsParser,
     'TMDB': TMDBRatingsParser,
     'TRAKT': TraktRatingsParser,

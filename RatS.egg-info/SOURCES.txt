@@ -47,6 +47,10 @@ RatS/movielens/__init__.py
 RatS/movielens/movielens_ratings_inserter.py
 RatS/movielens/movielens_ratings_parser.py
 RatS/movielens/movielens_site.py
+RatS/moviepilot/__init__.py
+RatS/moviepilot/moviepilot_ratings_inserter.py
+RatS/moviepilot/moviepilot_ratings_parser.py
+RatS/moviepilot/moviepilot_site.py
 RatS/plex/__init__.py
 RatS/plex/plex_ratings_inserter.py
 RatS/plex/plex_ratings_parser.py
@@ -75,6 +79,7 @@ tests/functional/sites/test_letterboxd_site.py
 tests/functional/sites/test_listal_site.py
 tests/functional/sites/test_metacritic_site.py
 tests/functional/sites/test_movielens_site.py
+tests/functional/sites/test_moviepilot_site.py
 tests/functional/sites/test_plex_site.py
 tests/functional/sites/test_tmdb_site.py
 tests/functional/sites/test_trakt_site.py
@@ -109,6 +114,9 @@ tests/unit/movielens/__init__.py
 tests/unit/movielens/test_movielens_ratings_inserter.py
 tests/unit/movielens/test_movielens_ratings_parser.py
 tests/unit/movielens/test_movielens_site.py
+tests/unit/moviepilot/__init__.py
+tests/unit/moviepilot/test_moviepilot_ratings_inserter.py
+tests/unit/moviepilot/test_moviepilot_ratings_parser.py
 tests/unit/plex/__init__.py
 tests/unit/plex/test_plex_ratings_inserter.py
 tests/unit/plex/test_plex_ratings_parser.py

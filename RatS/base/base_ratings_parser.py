@@ -43,8 +43,7 @@ class RatingsParser:
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         time.sleep(1)
 
-        pages_count = self._get_pages_count(movie_ratings_page)
-        self.movies_count = self._get_movies_count(movie_ratings_page)
+        pages_count = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.write(self.site.browser.current_url)
@@ -72,6 +71,11 @@ class RatingsParser:
             self.site.browser.get(self._get_ratings_page(i))
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
+
+    def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
+        pages_count = self._get_pages_count(movie_ratings_page)
+        self.movies_count = self._get_movies_count(movie_ratings_page)
+        return pages_count
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):

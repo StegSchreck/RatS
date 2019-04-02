@@ -667,7 +667,7 @@ if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <http://www.gnu.org/licenses/>.
 Description: <p align="center">
-          <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS.png" width="250px">
+          <img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/RatS.png" width="250px">
         </p>
         
         # RatS
@@ -792,6 +792,7 @@ Description: <p align="center">
         * Letterboxd
         * Listal
         * Movielens
+        * MoviePilot
         * Plex (locally hosted server)
         * TMDB (The Movie Database)
         * Trakt
@@ -808,12 +809,13 @@ Description: <p align="center">
         * Listal
         * Metacritic
         * Movielens
+        * MoviePilot
         * Plex (locally hosted server)
         * TMDB (The Movie Database)
         * Trakt
         
         <p align="center">
-          <img src="https://github.com/StegSchreck/RatS/blob/master/RatS/img/RatS_Ensemble.png">
+          <img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/RatS_Ensemble.png">
         </p>
         
         ### Trying again with former export data
