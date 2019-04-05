@@ -6,7 +6,8 @@ from RatS.utils import command_line
 
 class Listal(Site):
     def __init__(self, args):
-        login_form_selector = "//*[contains(concat(' ', normalize-space(@class), ' '), ' login-popup ')]//form[contains(concat(' ', normalize-space(@class), ' '), ' login-form ')]"
+        login_form_selector = "//*[contains(concat(' ', normalize-space(@class), ' '), ' login-popup ')]" \
+                              "//form[contains(concat(' ', normalize-space(@class), ' '), ' login-form ')]"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@name='username']"
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@name='password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + \
