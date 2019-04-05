@@ -19,6 +19,7 @@ class ListalRatingsInserter(RatingsInserter):
             movie_url_path=urllib.parse.quote_plus(movie['title'])
         )
         self.site.browser.get(search_url)
+        self.site.handle_request_blocked_by_website()
 
     @staticmethod
     def _get_search_results(search_result_page):

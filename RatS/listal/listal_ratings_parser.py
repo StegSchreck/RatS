@@ -48,6 +48,8 @@ class ListalRatingsParser(RatingsParser):
         return movie_tile.find_all('div')[1].find('a')['href']
 
     def parse_movie_details_page(self, movie):
+        self.site.handle_request_blocked_by_website()
+
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         movie['year'] = self._get_movie_year(movie_details_page)
         if self.site.site_name.lower() not in movie:
