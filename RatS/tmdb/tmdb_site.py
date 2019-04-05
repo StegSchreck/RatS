@@ -24,3 +24,4 @@ class TMDB(Site):
             if cookie_accept_button is not None and len(cookie_accept_button) > 0:
                 cookie_accept_button[0].click()
                 time.sleep(1)
+        self.browser.refresh()
