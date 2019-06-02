@@ -8,8 +8,10 @@
 [![Coverage Status by Coveralls](https://coveralls.io/repos/github/StegSchreck/RatS/badge.svg?branch=master)](https://coveralls.io/github/StegSchreck/RatS?branch=master)
 [![Maintainability by CodeClimate](https://api.codeclimate.com/v1/badges/9be495ea69fb62e960cb/maintainability)](https://codeclimate.com/github/StegSchreck/RatS/maintainability)
 [![Test Coverage by CodeClimate](https://api.codeclimate.com/v1/badges/9be495ea69fb62e960cb/test_coverage)](https://codeclimate.com/github/StegSchreck/RatS/test_coverage)
-[![Docker image](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
+[![Docker Build Status](https://img.shields.io/docker/build/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
+[![Docker Image Size](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
 [![License](https://img.shields.io/github/license/StegSchreck/RatS.svg)](https://github.com/StegSchreck/RatS/blob/master/LICENSE)
+[![Latest Release](https://img.shields.io/github/release/StegSchreck/AngularCV.svg?logo=github)](https://github.com/StegSchreck/RatS/releases)
 
 This project serves for analyzing, and transfering your ratings from one movie tracking / rating website to another.
 
