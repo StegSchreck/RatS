@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 
 ---
@@ -21,7 +21,7 @@ A clear and concise description of what you expected to happen.
 - Version: <!-- RatS version or commit hash -->
 - Platform OS: <!-- e.g. Linux/MacOS/Windows + version -->
 - Firefox version: <!-- from the about dialogue -->
-- Geckdrover version: <!-- `geckodriver --version` -->
+- Geckodriver version: <!-- `geckodriver --version` -->
 - Python version: <!-- `python3 --version` -->
 - PIP version: <!-- `pip --version` -->
 - Running in a virtualenv?: <!-- yes or no -->
