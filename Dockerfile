@@ -12,6 +12,7 @@ RUN sudo mkdir /RatS
 COPY . /RatS
 WORKDIR /RatS
 RUN sudo chown -R seluser: .
-RUN sudo pip3 install --no-cache-dir -r ./requirements.txt
+RUN sudo pip3 install --no-cache-dir setuptools \
+ && sudo pip3 install --no-cache-dir -r ./requirements.txt
 
 CMD ["/bin/true"]
