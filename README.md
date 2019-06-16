@@ -201,10 +201,22 @@ re-raised and the script will fail.
 
 If you recently updated your Firefox, you might encounter the following exception during the login attempt of the parser:
 
-`selenium.common.exceptions.WebDriverException: Message: Expected [object Undefined] undefined to be a string`
+```
+selenium.common.exceptions.WebDriverException: Message: Expected [object Undefined] undefined to be a string
+```
 
 This can be fixed by installing the latest version of [Mozilla's Geckodriver](https://github.com/mozilla/geckodriver)
 by running again the _Install Geckodriver_ command mentioned [above](#natively-on-the-command-line).
+
+### Script aborts with MoveTargetOutOfBoundsException while inserting to IMDB
+
+IMDB shows special promotional banners for certain movies. If they are too big, they will cause the ratings component to be out of the viewport of the browser and the script fails with something like:
+
+```
+selenium.common.exceptions.MoveTargetOutOfBoundsException: Message: (620, 629) is out of bounds of viewport width (720) and height (538)
+```
+
+For now, the easiest solution is to run the script on your console with the `-x` flag. This will display the browser to you in a maximized window which then has a bigger viewport and prevent the error.
 
 ### Login attempt does not work
 
