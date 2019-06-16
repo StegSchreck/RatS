@@ -6,3 +6,4 @@ pytest-pep8
 pytest-pylint
 coveralls
 coverage
+codacy-coverage

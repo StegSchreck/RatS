@@ -16,6 +16,7 @@ script:
 - pytest --pylint -m pylint
 after_script:
 - ./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code $TRAVIS_TEST_RESULT
+- python-codacy-coverage -r coverage.xml
 notifications:
   email:
     on_success: change
