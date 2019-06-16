@@ -11,11 +11,11 @@ with open('LICENSE') as f:
 
 setup(
     name='RatS',
-    version='0.1.0',
+    version='0.11.5',
     description='Movie ratings synchronisation',
     long_description=readme,
     author='Sebastian Schreck',
-    author_email='sebastian@schreck.berlin',
+    author_email='github@stegschreck.de',
     url='https://github.com/StegSchreck/RatS',
     license=project_license,
     packages=find_packages(exclude=('tests', 'docs')),
