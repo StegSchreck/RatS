@@ -232,5 +232,12 @@ Please [write a ticket](https://github.com/StegSchreck/RatS/issues/new/choose), 
 
 ## Where does the name come from?
 
-The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It is that simple. It is also
-a reference to the movie "Departed".
+The name for this project comes from the first letters of "**rat**ing **s**ynchronisation". It is that simple. It is also a reference to the movie "Departed".
+
+## Acknowledgments
+
+This project uses a free license for PyCharm by benefiting from [JetBrains](https://www.jetbrains.com/?from=RatS)' open source community support program.
+
+<p align="center">
+  <a href="https://www.jetbrains.com/?from=RatS" alt="JetBrains"><img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/jetbrains.svg" width="100px"></a>
+</p>
