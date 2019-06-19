@@ -239,5 +239,5 @@ The name for this project comes from the first letters of "**rat**ing **s**ynchr
 This project uses a free license for PyCharm by benefiting from [JetBrains](https://www.jetbrains.com/?from=RatS)' open source community support program.
 
 <p align="center">
-  <a href="https://www.jetbrains.com/?from=RatS" alt="JetBrains"><img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/jetbrains.svg" width="100px"></a>
+  <a href="https://www.jetbrains.com/?from=RatS" alt="JetBrains"><img src="https://raw.githubusercontent.com/StegSchreck/RatS/master/RatS/img/jetbrains.png" width="100px"></a>
 </p>
