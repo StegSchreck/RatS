@@ -3,6 +3,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from selenium.webdriver import ActionChains
 
 from RatS.base.base_ratings_inserter import RatingsInserter
@@ -44,8 +45,15 @@ class IMDBRatingsInserter(RatingsInserter):
             .find_element_by_tag_name('button')
         stars = self.site.browser.find_element_by_class_name('star-rating-stars').find_elements_by_tag_name('a')
         star_index = int(my_rating) - 1
+        try:
+            self._perform_click(ratings_button, star_index, stars)
+        except MoveTargetOutOfBoundsException:
+            self.site.browser.execute_script("window.scrollTo(0, window.innerHeight)")
+            self._perform_click(ratings_button, star_index, stars)
+
+    def _perform_click(self, ratings_button, star_index, stars):
         builder = ActionChains(self.site.browser)
-        builder.move_to_element(ratings_button).click(ratings_button)\
-            .move_to_element(stars[star_index]).click(stars[star_index])\
+        builder.move_to_element(ratings_button).click(ratings_button) \
+            .move_to_element(stars[star_index]).click(stars[star_index]) \
             .perform()
         time.sleep(0.5)  # wait for POST request to be sent
