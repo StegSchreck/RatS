@@ -1,7 +1,5 @@
 FROM selenium/standalone-firefox
 
-MAINTAINER Sebastian Schreck <github@stegschreck.de>
-
 ENV PYTHONUNBUFFERED 1
 
 RUN sudo apt-get update \

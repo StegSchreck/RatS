@@ -18,7 +18,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Desktop (please complete the following information):**
-- Version: <!-- RatS version or commit hash -->
+- Version: <!-- project version or commit hash -->
 - Platform OS: <!-- e.g. Linux/MacOS/Windows + version -->
 - Firefox version: <!-- from the about dialogue -->
 - Geckodriver version: <!-- `geckodriver --version` -->

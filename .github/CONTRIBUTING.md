@@ -2,7 +2,6 @@
 Thank you for taking the time to read this document! Your interest in contributing to this project is highly appreciated.
 
 #### Table Of Contents
-
 [Code of Conduct](#code-of-conduct)
 [Reporting Bugs](#reporting-bugs)
 [Suggesting Enhancements](#suggesting-enhancements)
