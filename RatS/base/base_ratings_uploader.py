@@ -22,7 +22,7 @@ class RatingsUploader(RatingsInserter):
         ))
         sys.stdout.flush()
 
-        if self.site.site_name == 'movielens':
+        if self.site.site_name.lower() == 'movielens':
             movies = [movie for movie in movies if 'imdb' in movie]
 
         if len(movies) == 0:
