@@ -102,13 +102,13 @@ class FileHandlerTest(TestCase):
                                       'imdb')
         with open(filename) as file:
             reader = csv.reader(file, delimiter=',')
-            next(reader)  # csv header
+            headers = next(reader)
             row = next(reader)
-            self.assertEqual(self.movie['title'], row[5])
-            self.assertEqual(self.movie['year'], int(row[11]))
-            self.assertEqual(self.movie['imdb']['id'], row[1])
-            self.assertEqual(self.movie['imdb']['url'], row[15])
-            self.assertEqual(self.movie['imdb']['my_rating'], int(row[8]))
+            self.assertEqual(self.movie['title'], row[headers.index("Title")])
+            self.assertEqual(self.movie['year'], int(row[headers.index("Year")]))
+            self.assertEqual(self.movie['imdb']['id'], row[headers.index("Const")])
+            self.assertEqual(self.movie['imdb']['url'], row[headers.index("URL")])
+            self.assertEqual(self.movie['imdb']['my_rating'], int(row[headers.index("Your Rating")]))
         os.remove(filename)
 
     def test_save_multiple_movies_to_csv(self):
@@ -133,19 +133,19 @@ class FileHandlerTest(TestCase):
         )
         with open(filename) as file:
             reader = csv.reader(file, delimiter=',')
-            next(reader)  # csv header
+            headers = next(reader)  # csv header
             row1 = next(reader)
-            self.assertEqual(self.movie['title'], row1[5])
-            self.assertEqual(self.movie['year'], int(row1[11]))
-            self.assertEqual(self.movie['imdb']['id'], row1[1])
-            self.assertEqual(self.movie['imdb']['url'], row1[15])
-            self.assertEqual(self.movie['trakt']['my_rating'], int(row1[8]))
+            self.assertEqual(self.movie['title'], row1[headers.index("Title")])
+            self.assertEqual(self.movie['year'], int(row1[headers.index("Year")]))
+            self.assertEqual(self.movie['imdb']['id'], row1[headers.index("Const")])
+            self.assertEqual(self.movie['imdb']['url'], row1[headers.index("URL")])
+            self.assertEqual(self.movie['trakt']['my_rating'], int(row1[headers.index("Your Rating")]))
             row2 = next(reader)
-            self.assertEqual(movie2['title'], row2[5])
-            self.assertEqual(movie2['year'], int(row2[11]))
-            self.assertEqual(movie2['imdb']['id'], row2[1])
-            self.assertEqual(movie2['imdb']['url'], row2[15])
-            self.assertEqual(movie2['trakt']['my_rating'], int(row2[8]))
+            self.assertEqual(movie2['title'], row2[headers.index("Title")])
+            self.assertEqual(movie2['year'], int(row2[headers.index("Year")]))
+            self.assertEqual(movie2['imdb']['id'], row2[headers.index("Const")])
+            self.assertEqual(movie2['imdb']['url'], row2[headers.index("URL")])
+            self.assertEqual(movie2['trakt']['my_rating'], int(row2[headers.index("Your Rating")]))
         os.remove(filename)
 
     def test_extract_file_from_archive(self):

@@ -4,6 +4,7 @@ import sys
 import time
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.utils import command_line
 from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
@@ -20,6 +21,17 @@ class RatingsUploader(RatingsInserter):
             movies_count=len(movies)
         ))
         sys.stdout.flush()
+
+        if self.site.site_name == 'movielens':
+            movies = [movie for movie in movies if 'imdb' in movie]
+
+        if len(movies) == 0:
+            command_line.warn('There are no movies with an IMDB id in the parsed data.'
+                              'As the target site is looking for this id to match the data, '
+                              'there is nothing left to do.')
+            command_line.info('A workaround would be to upload the data to a third site, which knows the IMDB id, '
+                              'and parse again from there.')
+            sys.exit(1)
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=self.csv_filename, rating_source=source)
         self.pre_upload_action()

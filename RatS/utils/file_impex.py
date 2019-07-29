@@ -1,4 +1,5 @@
 import csv
+import datetime
 import json
 import os
 import sys
@@ -6,7 +7,7 @@ import time
 import zipfile
 
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
-CSV_HEADER = '"position","const","created","modified","description","Title","Title type","Directors","You rated","IMDb Rating","Runtime (mins)","Year","Genres","Num. Votes","Release Date (month/day/year)","URL"\n'  # pylint: disable=line-too-long
+CSV_HEADER = 'Const,Your Rating,Date Rated,Title,URL,Title Type,IMDb Rating,Runtime (mins),Year,Genres,Num Votes,Release Date,Directors\n'  # pylint: disable=line-too-long
 
 
 def load_movies_from_json(folder=EXPORTS_FOLDER, filename='import.json'):
@@ -64,28 +65,27 @@ def save_movies_to_csv(movies, folder=EXPORTS_FOLDER, filename='export.csv', rat
     with open(os.path.join(folder, filename), 'w+', encoding='UTF-8') as output_file:
         output_file.write(CSV_HEADER)
         for i in range(len(movies)):
-            output_file.write(convert_movie_to_csv(movies, i, rating_source) + '\n')
+            output_file.write(convert_movie_to_csv(movies, i, rating_source))
 
 
 def convert_movie_to_csv(movies, index, rating_source):
     imdb_id = movies[index]['imdb']['id'] if 'imdb' in movies[index] else ''
     imdb_url = movies[index]['imdb']['url'] if 'imdb' in movies[index] else ''
-    movie_csv = '"' + str(index) + '",' + \
-                '"' + imdb_id + '",' + \
-                '"",' + \
-                '"",' + \
-                '"",' + \
+    movie_csv = '' + \
+                '' + imdb_id + ',' + \
+                '' + str(movies[index][rating_source.lower()]['my_rating']) + ',' + \
+                '' + datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d') + ',' + \
                 '"' + movies[index]['title'] + '",' + \
-                '"Feature Film",' + \
-                '"",' + \
-                '"' + str(movies[index][rating_source.lower()]['my_rating']) + '",' + \
-                '"",' + \
-                '"",' + \
-                '"' + str(movies[index]['year']) + '",' + \
-                '"",' + \
-                '"",' + \
-                '"",' + \
-                '"' + imdb_url + '"'
+                '' + imdb_url + ',' + \
+                'movie,' + \
+                ',' + \
+                ',' + \
+                '' + str(movies[index]['year']) + ',' + \
+                ',' + \
+                ',' + \
+                '' + str(movies[index]['year']) + '-01-01,' + \
+                '' + \
+                '\n'
     return movie_csv
 
 
