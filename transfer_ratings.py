@@ -27,6 +27,7 @@ from RatS.movielens.movielens_ratings_inserter import MovielensRatingsInserter
 from RatS.movielens.movielens_ratings_parser import MovielensRatingsParser
 from RatS.plex.plex_ratings_inserter import PlexRatingsInserter
 from RatS.plex.plex_ratings_parser import PlexRatingsParser
+from RatS.rottentomatoes.rottentomatoes_ratings_inserter import RottenTomatoesRatingsInserter
 from RatS.rottentomatoes.rottentomatoes_ratings_parser import RottenTomatoesRatingsParser
 from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
 from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
@@ -64,6 +65,7 @@ INSERTERS = {
     'MOVIELENS': MovielensRatingsInserter,
     'MOVIEPILOT': MoviePilotRatingsInserter,
     'PLEX': PlexRatingsInserter,
+    'ROTTENTOMATOES': RottenTomatoesRatingsInserter,
     'TMDB': TMDBRatingsInserter,
     'TRAKT': TraktRatingsInserter,
 }
