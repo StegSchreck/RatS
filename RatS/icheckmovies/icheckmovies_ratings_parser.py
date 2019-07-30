@@ -15,6 +15,7 @@ class ICheckMoviesRatingsParser(RatingsParser):
         self._parse_movies_category(self.site.MY_RATINGS_URL_FAVORITED, 'liked')
         liked_movies = list(self.movies)
         self.movies = []
+        self.progress_bar = None
         self._parse_movies_category(self.site.MY_RATINGS_URL_DISLIKED, 'disliked')
         self.movies = self.movies + liked_movies
 
