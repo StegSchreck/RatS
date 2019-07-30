@@ -1,0 +1,23 @@
+{
+  "name": "Fight Club",
+  "year": 1999,
+  "url": "/m/fight_club",
+  "image": "https://resizing.flixster.com/gAGnm_k8Asd73wGLsdsXJv3bGBY=/fit-in/80x80/v1.bTsxMTM3MjQ0ODtqOzE4MjIxOzEyMDA7MTE5MTsxNTg4",
+  "meterClass": "certified_fresh",
+  "meterScore": 79,
+  "castItems": [
+    {
+      "name": "Brad Pitt",
+      "url": "/celebrity/brad_pitt"
+    },
+    {
+      "name": "Edward Norton",
+      "url": "/celebrity/edward_norton"
+    },
+    {
+      "name": "Helena Bonham Carter",
+      "url": "/celebrity/helena-bonham-carter"
+    }
+  ],
+  "subline": "Brad Pitt, Edward Norton, Helena Bonham Carter, "
+}
