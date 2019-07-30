@@ -22,9 +22,11 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
         self.movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/550'
-        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'search_result.json'), encoding='UTF-8') as search_results:
+        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'search_result.json'),
+                  encoding='UTF-8') as search_results:
             self.search_results = json.loads(search_results.read())
-        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'search_result_tile.json'), encoding='UTF-8') as result_tile:
+        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'search_result_tile.json'),
+                  encoding='UTF-8') as result_tile:
             self.search_result_tile_list = [json.loads(result_tile.read())]
 
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
