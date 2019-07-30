@@ -37,7 +37,10 @@ class MoviePilotRatingsInserter(RatingsInserter):
         self.site.browser.get(movie_url)
         time.sleep(1)
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        return movie['year'] == int(movie_details_page.find(attrs={'itemprop': 'copyrightYear'}).get_text())
+        copyright_year = movie_details_page.find(attrs={'itemprop': 'copyrightYear'})
+        if copyright_year:
+            return movie['year'] == int(copyright_year.get_text())
+        return False
 
     def _post_movie_rating(self, my_rating):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
