@@ -38,7 +38,7 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
         self.site.browser.execute_script("""
             return $.post({
                 url: 'https://www.rottentomatoes.com/napi/user/rating',
-                data: { 
+                data: {
                     'score': """ + converted_rating + """,
                     'reviewText': '',
                     'isSuperReviewer': false,
