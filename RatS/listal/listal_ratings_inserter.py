@@ -72,11 +72,12 @@ class ListalRatingsInserter(RatingsInserter):
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):
         movie_details_page = BeautifulSoup(page_source, 'html.parser')
-        external_links = movie_details_page.find(class_='ratingstable').find_all('a')
-        for link in external_links:
-            if external_url_base in link['href']:
-                link_href = link['href'].strip('/')
-                return movie[site_name]['id'] == link_href.split('/')[-1]
+        if movie_details_page.find(class_='ratingstable'):
+            external_links = movie_details_page.find(class_='ratingstable').find_all('a')
+            for link in external_links:
+                if external_url_base in link['href']:
+                    link_href = link['href'].strip('/')
+                    return movie[site_name]['id'] == link_href.split('/')[-1]
         return False
 
     def _post_movie_rating(self, my_rating):
