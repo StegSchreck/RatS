@@ -108,6 +108,7 @@ Furthermore, you can define multiple destinations, e.g. like this: `python3 tran
 * Movielens
 * MoviePilot
 * Plex (locally hosted server)
+* Rotten Tomatoes
 * TMDB (The Movie Database)
 * Trakt
 
