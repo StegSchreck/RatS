@@ -1,10 +1,14 @@
+import json
 import math
 import re
+import sys
+import time
 
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.moviepilot.moviepilot_site import MoviePilot
+from RatS.utils import command_line
 
 
 class MoviePilotRatingsParser(RatingsParser):
@@ -15,14 +19,17 @@ class MoviePilotRatingsParser(RatingsParser):
         return '{url}?page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
-        session = self.site.browser.execute_script("""
-            return $.get({
-                url: 'https://www.moviepilot.de/api/session',
-                success: function(response) {
-                    return response
-                }
-            });
+        get_session_response = self.site.browser.execute_script("""
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "https://www.moviepilot.de/api/session", false );
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
         """)
+        session = json.loads(get_session_response)
+        if 'movie_ratings' not in session:
+            command_line.error('Could not establish a session. '
+                               'Please try again with the -x option if the problem persists.')
+            sys.exit(1)
         self.movies_count = session['movie_ratings']
         pages_count = math.ceil(self.movies_count / 100)
         return pages_count
