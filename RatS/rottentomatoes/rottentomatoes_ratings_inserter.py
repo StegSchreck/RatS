@@ -31,7 +31,7 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
 
     def _click_rating(self, my_rating):
         converted_rating = str(my_rating / 2)
-        if 'rating-root' not in self.site.browser.page_source:
+        if len(self.site.browser.find_elements_by_id('rating-root')) > 0:
             return
         movie_id = self.site.browser.find_element_by_id('rating-root').get_attribute('data-movie-id')
 
