@@ -12,7 +12,8 @@ class RottenTomatoesRatingsParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
             os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
-        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'my_ratings_last_page.json'), encoding='UTF-8') as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, 'rottentomatoes', 'my_ratings_last_page.json'),
+                  encoding='UTF-8') as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
