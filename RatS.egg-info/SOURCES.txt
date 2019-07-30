@@ -55,6 +55,10 @@ RatS/plex/__init__.py
 RatS/plex/plex_ratings_inserter.py
 RatS/plex/plex_ratings_parser.py
 RatS/plex/plex_site.py
+RatS/rottentomatoes/__init__.py
+RatS/rottentomatoes/rottentomatoes_ratings_inserter.py
+RatS/rottentomatoes/rottentomatoes_ratings_parser.py
+RatS/rottentomatoes/rottentomatoes_site.py
 RatS/tmdb/__init__.py
 RatS/tmdb/tmdb_ratings_inserter.py
 RatS/tmdb/tmdb_ratings_parser.py
@@ -81,6 +85,7 @@ tests/functional/sites/test_metacritic_site.py
 tests/functional/sites/test_movielens_site.py
 tests/functional/sites/test_moviepilot_site.py
 tests/functional/sites/test_plex_site.py
+tests/functional/sites/test_rottentomatoes_site.py
 tests/functional/sites/test_tmdb_site.py
 tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
@@ -121,6 +126,9 @@ tests/unit/plex/__init__.py
 tests/unit/plex/test_plex_ratings_inserter.py
 tests/unit/plex/test_plex_ratings_parser.py
 tests/unit/plex/test_plex_site.py
+tests/unit/rottentomatoes/__init__.py
+tests/unit/rottentomatoes/test_rottentomatoes_ratings_inserter.py
+tests/unit/rottentomatoes/test_rottentomatoes_ratings_parser.py
 tests/unit/tmdb/__init__.py
 tests/unit/tmdb/test_tmdb_ratings_inserter.py
 tests/unit/tmdb/test_tmdb_ratings_parser.py
