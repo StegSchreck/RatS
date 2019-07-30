@@ -18,6 +18,8 @@ class MoviePilot(Site):
         return "https://www.moviepilot.de/login"
 
     def _handle_cookie_notice_if_present(self):
+        if len(self.browser.find_elements_by_id('cookies')) == 0:
+            return
         cookie_notice = self.browser.find_element_by_class_name('cookies')
         if cookie_notice is not None:
             cookie_accept_button = cookie_notice.find_elements_by_class_name('cookies--button')

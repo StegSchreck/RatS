@@ -16,6 +16,8 @@ class FilmAffinity(Site):
         return "https://www.filmaffinity.com/en/login.php"
 
     def _handle_cookie_notice_if_present(self):
+        if len(self.browser.find_elements_by_id('info-cookie')) == 0:
+            return
         cookie_notice = self.browser.find_element_by_id('info-cookie')
         if cookie_notice is not None:
             cookie_accept_button = cookie_notice.find_elements_by_class_name('cookies-y')
