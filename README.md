@@ -96,6 +96,23 @@ You can also omit the destination argument in order to just save the parsing res
 
 Furthermore, you can define multiple destinations, e.g. like this: `python3 transfer_ratings.py --source trakt --destination movielens --destination imdb` in order to use the same data from the parser in this run for multiple destinations.
 
+### Mandatory
+`-s` / `--source`: the site where the ratings are parsed from (see [Available Parsers](#currently-available-parsers)). This parameter must be given in even if you use the `-f` option.
+
+### Optional
+`-d` / `--destination`: the site where the ratings should be posted (inserted) to (see [Available Inserters](#currently-available-inserters)).
+If you don't specify any destination, the ratings are only parsed and saved locally.
+
+`-D` / `--all-destinations`: try to insert the parsed ratings in all available sites
+
+`-f` / `--file`: read ratings from a previous run instead of parsing them
+
+`-v` / `--verbose`: increase output verbosity (i.e. print the generated predictions in the console)
+
+`-x` / `--show_browser`: show the browser doing his work (this might help for debugging))
+
+`-h` / `--help`: Display the help, including all possible parameter options
+
 #### Currently Available Parsers
 * Criticker
 * FilmAffinity
