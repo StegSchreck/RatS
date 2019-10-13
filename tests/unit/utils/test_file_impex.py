@@ -56,7 +56,7 @@ class FileHandlerTest(TestCase):
 
     def test_save_single_movie_to_json(self):
         movies = [self.movie]
-        movies_json = [m for m in movies]
+        movies_json = movies
         filename = os.path.join(os.path.join(TESTDATA_PATH, 'exports'), 'TEST_single_movie.json')
         file_impex.save_movies_to_json(movies, os.path.join(TESTDATA_PATH, 'exports'), 'TEST_single_movie.json')
         with open(filename) as file:
