@@ -12,8 +12,7 @@ CSV_HEADER = 'Const,Your Rating,Date Rated,Title,URL,Title Type,IMDb Rating,Runt
 
 def load_movies_from_json(folder=EXPORTS_FOLDER, filename='import.json'):
     with open(os.path.join(folder, filename), encoding='UTF-8') as input_file:
-        movies_json = json.load(input_file)
-        return [movie for movie in movies_json]
+        return json.load(input_file)
 
 
 def save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename='export.json'):
