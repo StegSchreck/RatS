@@ -116,7 +116,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 #### Currently Available Parsers
 * Criticker
 * FilmAffinity
-* Flixster
+* ~~Flixster~~ deactivated until new account feature is implemented at Flixster
 * iCheckMovies
   * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
 * IMDB (with IMDB account)
@@ -132,7 +132,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 #### Currently Available Inserters
 * Criticker
 * FilmAffinity
-* Flixster
+* ~~Flixster~~ deactivated until new account feature is implemented at Flixster
 * iCheckMovies
   * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`
 * IMDB (with IMDB account)
