@@ -84,6 +84,8 @@ def parse_args():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("-s", "--source", help="Source of the movie ratings", required=True)
     argparser.add_argument("-d", "--destination", help="Destination for the ratings", required=False, action='append')
+    argparser.add_argument("-D", "--all-destinations", help="Try to insert in all available destinations",
+                           action="store_true")
     argparser.add_argument("-f", "--file", help="Import ratings from this file instead of parser "
                                                 "(you still have provide the -s/--source argument "
                                                 "to determine which data to use for inserting)", required=False)
@@ -125,7 +127,8 @@ def execute(args):
 
 
 def execute_inserting(args, movies, parser):
-    if args.destination:
+    destinations = INSERTERS.keys() if args.all_destinations else args.destination
+    if destinations:
         if len(movies) == 0:
             command_line.error("There are no files to be inserted. Did the Parser run properly?")
             sys.exit(1)
