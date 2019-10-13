@@ -41,7 +41,7 @@ EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS',
 PARSERS = {
     'CRITICKER': CritickerRatingsParser,
     'FILMAFFINITY': FilmAffinityRatingsParser,
-    'FLIXSTER': FlixsterRatingsParser,
+    # 'FLIXSTER': FlixsterRatingsParser,
     'ICHECKMOVIES': ICheckMoviesRatingsParser,
     'IMDB': IMDBRatingsParser,
     'LETTERBOXD': LetterboxdRatingsParser,
@@ -56,7 +56,7 @@ PARSERS = {
 INSERTERS = {
     'CRITICKER': CritickerRatingsInserter,
     'FILMAFFINITY': FilmAffinityRatingsInserter,
-    'FLIXSTER': FlixsterRatingsInserter,
+    # 'FLIXSTER': FlixsterRatingsInserter,
     'ICHECKMOVIES': ICheckMoviesRatingsInserter,
     'IMDB': IMDBRatingsInserter,
     'LETTERBOXD': LetterboxdRatingsInserter,
