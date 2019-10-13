@@ -43,7 +43,8 @@ class TraktRatingsParser(RatingsParser):
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        movie['year'] = int(movie_details_page.find(class_='year').get_text())
+        movie_year = movie_details_page.find(class_='year').get_text()
+        movie['year'] = int(movie_year) if movie_year else 0
         if self.site.site_name.lower() not in movie:
             movie[self.site.site_name.lower()] = dict()
         movie[self.site.site_name.lower()]['my_rating'] = self._get_movie_my_rating(movie_details_page)
