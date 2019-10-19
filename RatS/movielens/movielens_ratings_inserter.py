@@ -1,5 +1,3 @@
-import sys
-
 from RatS.base.base_ratings_uploader import RatingsUploader
 from RatS.movielens.movielens_site import Movielens
 from RatS.utils import command_line
