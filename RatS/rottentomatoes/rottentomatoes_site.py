@@ -10,6 +10,10 @@ class RottenTomatoes(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='login_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(RottenTomatoes, self).__init__(args)
+
+        if not self.CREDENTIALS_VALID:
+            return
+
         self.MY_RATINGS_URL = self._get_ratings_url()
 
     def _get_login_page_url(self):

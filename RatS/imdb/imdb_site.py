@@ -14,6 +14,10 @@ class IMDB(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='ap_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@id='signInSubmit']"
         super(IMDB, self).__init__(args)
+
+        if not self.CREDENTIALS_VALID:
+            return
+
         self.MY_RATINGS_URL = ''
         time.sleep(1)
 
