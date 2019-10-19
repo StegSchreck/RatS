@@ -103,7 +103,7 @@ Furthermore, you can define multiple destinations, e.g. like this: `python3 tran
 `-d` / `--destination`: the site where the ratings should be posted (inserted) to (see [Available Inserters](#currently-available-inserters)).
 If you don't specify any destination, the ratings are only parsed and saved locally.
 
-`-D` / `--all-destinations`: try to insert the parsed ratings in all available sites
+`-D` / `--all-destinations`: try to insert the parsed ratings to all configured sites for which valid credentials can be found
 
 `-f` / `--file`: read ratings from a previous run instead of parsing them
 

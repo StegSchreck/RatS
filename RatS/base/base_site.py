@@ -27,11 +27,14 @@ class Site:
         self.__read_config_file('credentials.cfg.orig')
         self.__read_config_file('credentials.cfg')
         self._parse_credentials()
-        self.LOGIN_PAGE = self._get_login_page_url()
+        self.CREDENTIALS_VALID = self._validate_credentials()
 
-        self._init_browser()
+        if self.CREDENTIALS_VALID:
+            self.LOGIN_PAGE = self._get_login_page_url()
 
-        self._parse_configuration()
+            self._init_browser()
+
+            self._parse_configuration()
 
     def __read_config_file(self, filename):
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
@@ -45,6 +48,11 @@ class Site:
             self.PASSWORD = os.environ.get(self.site_name.upper() + '_PASSWORD')
         else:
             self.PASSWORD = self.config[self.site_name]['PASSWORD']
+
+    def _validate_credentials(self):
+        return self.USERNAME and self.PASSWORD \
+               and self.USERNAME != 'abc' and self.USERNAME != 'abc@def.de' \
+               and self.PASSWORD != 'def'
 
     def _get_login_page_url(self):
         raise NotImplementedError("This is not the implementation you are looking for.")
