@@ -10,6 +10,8 @@ class RatingsParser:
     def __init__(self, site, args):
         self.site = site
         self.args = args
+        if not self.site.CREDENTIALS_VALID:
+            return
 
         self.movies = []
         self.movies_count = 0
