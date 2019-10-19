@@ -54,8 +54,7 @@ class FilmAffinityRatingsInserter(RatingsInserter):
 
         if movie['year'] == movie_year:
             try:
-                movie_url = 'https://www.filmaffinity.com' + \
-                            search_result.find('div', class_='mc-poster').find('a')['href']
+                movie_url = search_result.find('div', class_='mc-poster').find('a')['href']
                 self.site.browser.get(movie_url)
                 time.sleep(1)
                 return True
