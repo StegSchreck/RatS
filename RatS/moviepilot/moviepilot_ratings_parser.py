@@ -28,6 +28,7 @@ class MoviePilotRatingsParser(RatingsParser):
         if 'movie_ratings' not in session:
             command_line.error('Could not establish a session. '
                                'Please try again with the -x option if the problem persists.')
+            self.site.browser_handler.kill()
             sys.exit(1)
         self.movies_count = session['movie_ratings']
         pages_count = math.ceil(self.movies_count / 100)

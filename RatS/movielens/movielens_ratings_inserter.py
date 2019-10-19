@@ -15,4 +15,4 @@ class MovielensRatingsInserter(RatingsUploader):
     def post_upload_action(self):
         if 'Sorry, a problem occurred while importing your ratings.' in self.site.browser.page_source:
             command_line.error("Couldn't upload CSV.")
-            sys.exit(1)
+            self.site.browser_handler.kill()

@@ -42,6 +42,7 @@ class RatingsDownloader(RatingsParser):
                 continue
             if iteration > 10:
                 command_line.error("The CSV file containing the movies data could not be downloaded.")
+                self.site.browser_handler.kill()
                 sys.exit(1)
 
     def _file_was_downloaded(self):
