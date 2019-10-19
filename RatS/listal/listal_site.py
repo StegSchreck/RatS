@@ -1,5 +1,3 @@
-import sys
-
 from RatS.base.base_site import Site
 from RatS.utils import command_line
 

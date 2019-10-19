@@ -5,14 +5,10 @@ import os
 import sys
 import time
 
-from RatS.moviepilot.moviepilot_ratings_inserter import MoviePilotRatingsInserter
-from RatS.moviepilot.moviepilot_ratings_parser import MoviePilotRatingsParser
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
-from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
-from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
 from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMoviesMisconfigurationException
 from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
@@ -25,6 +21,8 @@ from RatS.listal.listal_ratings_parser import ListalRatingsParser
 from RatS.metacritic.metacritic_ratings_inserter import MetacriticRatingsInserter
 from RatS.movielens.movielens_ratings_inserter import MovielensRatingsInserter
 from RatS.movielens.movielens_ratings_parser import MovielensRatingsParser
+from RatS.moviepilot.moviepilot_ratings_inserter import MoviePilotRatingsInserter
+from RatS.moviepilot.moviepilot_ratings_parser import MoviePilotRatingsParser
 from RatS.plex.plex_ratings_inserter import PlexRatingsInserter
 from RatS.plex.plex_ratings_parser import PlexRatingsParser
 from RatS.rottentomatoes.rottentomatoes_ratings_inserter import RottenTomatoesRatingsInserter
