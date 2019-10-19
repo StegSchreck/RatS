@@ -133,12 +133,17 @@ def execute_inserting(args, movies, parser):
             command_line.error("There are no files to be inserted. Did the Parser run properly?")
             sys.exit(1)
         # INSERT THE DATA
-        for dest in args.destination:
+        for dest in destinations:
             inserter = get_inserter_from_arg(dest)(args)
             insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
 def execute_parsing(args, parser):
+    if not parser.site.CREDENTIALS_VALID:
+        command_line.error("No valid credentials found for {site_name}. Skipping parsing.".format(
+            site_name=parser.site.site_name
+        ))
+        sys.exit(1)
     if args.file:
         # LOAD FROM FILE
         movies = load_data_from_file(args.file)
@@ -176,7 +181,12 @@ def load_data_from_file(filename):
 
 
 def insert_movie_ratings(inserter, movies, source):
-    inserter.insert(movies, source)
+    if inserter.site.CREDENTIALS_VALID:
+        inserter.insert(movies, source)
+    else:
+        command_line.warn("No valid credentials found for {site_name}. Skipping insertion.".format(
+            site_name=inserter.site.site_name
+        ))
 
 
 if __name__ == "__main__":
