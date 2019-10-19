@@ -21,7 +21,7 @@ class Site:
 
         self.site_name = type(self).__name__
         self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END \
-            if sys.stdout.isatty() else self.site_name
+            if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty() else self.site_name
 
         self.config = RawConfigParser()
         self.__read_config_file('credentials.cfg.orig')
