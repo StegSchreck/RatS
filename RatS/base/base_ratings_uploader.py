@@ -31,7 +31,7 @@ class RatingsUploader(RatingsInserter):
                               'there is nothing left to do.')
             command_line.info('A workaround would be to upload the data to a third site, which knows the IMDB id, '
                               'and parse again from there.')
-            sys.exit(1)
+            self.site.browser_handler.kill()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=self.csv_filename, rating_source=source)
         self.pre_upload_action()

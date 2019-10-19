@@ -22,4 +22,3 @@ class Listal(Site):
         if 'stackpath' in self.browser.page_source:
             command_line.error("The request was blocked by the website.")
             self.browser_handler.kill()
-            sys.exit(1)

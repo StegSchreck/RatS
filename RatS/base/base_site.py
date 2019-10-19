@@ -110,7 +110,6 @@ class Site:
             sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
             sys.stdout.flush()
             self.browser_handler.kill()
-            sys.exit(1)
 
     def _user_is_not_logged_in(self):
         return len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \

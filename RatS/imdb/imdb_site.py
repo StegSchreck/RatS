@@ -38,7 +38,6 @@ class IMDB(Site):
             sys.stdout.write("There seems to be a Captcha challenge present for the login. Please try again later.\r\n")
             sys.stdout.flush()
             self.browser_handler.kill()
-            sys.exit(1)
 
     def _get_ratings_url(self):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \
