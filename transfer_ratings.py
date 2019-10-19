@@ -4,6 +4,7 @@ import datetime
 import os
 import sys
 import time
+import traceback
 
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
@@ -182,14 +183,13 @@ def insert_movie_ratings(inserter, movies, source):
     if inserter.site.CREDENTIALS_VALID:
         try:
             inserter.insert(movies, source)
-        except Exception as e:  # pylint: disable=broad-except
+        except Exception:  # pylint: disable=broad-except
             # exception should be logged in a file --> issue #15
             inserter.site.browser_handler.kill()
             command_line.error("There was an exception inside {site_name} (see below). Skipping insertion.".format(
                 site_name=inserter.site.site_name
             ))
-            sys.stdout.write(e)
-            sys.stdout.flush()
+            traceback.print_exc()
     else:
         command_line.warn("No valid credentials found for {site_name}. Skipping insertion.".format(
             site_name=inserter.site.site_name

@@ -4,7 +4,7 @@ from RatS.utils.bash_color import BashColor
 
 
 def info(message):
-    if sys.stdout.isatty():
+    if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
         sys.stdout.write(BashColor.OKBLUE + message + BashColor.END + "\r\n")
     else:
         sys.stdout.write(message + "\r\n")
@@ -12,7 +12,7 @@ def info(message):
 
 
 def warn(message):
-    if sys.stdout.isatty():
+    if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
         sys.stdout.write(BashColor.WARNING + message + BashColor.END + "\r\n")
     else:
         sys.stdout.write(message + "\r\n")
@@ -20,7 +20,7 @@ def warn(message):
 
 
 def error(message):
-    if sys.stdout.isatty():
+    if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
         sys.stderr.write(BashColor.BOLD + BashColor.FAIL + '\r\nERROR: ' + BashColor.END +
                          BashColor.FAIL + message + '\r\n' + BashColor.END)
     else:
