@@ -18,11 +18,12 @@ class MoviePilot(Site):
         return "https://www.moviepilot.de/login"
 
     def _handle_cookie_notice_if_present(self):
-        if len(self.browser.find_elements_by_class_name('cookies')) == 0:
+        cookie_notices = self.browser.find_elements_by_xpath("//*[@data-hypernova-key='CookieNotification']")
+        if len(cookie_notices) == 0:
             return
-        cookie_notice = self.browser.find_element_by_class_name('cookies')
+        cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
-            cookie_accept_button = cookie_notice.find_elements_by_class_name('cookies--button')
+            cookie_accept_button = cookie_notice.find_elements_by_tag_name('button')
             if cookie_accept_button is not None and len(cookie_accept_button) > 0:
                 cookie_accept_button[0].click()
                 time.sleep(1)
