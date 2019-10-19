@@ -182,7 +182,7 @@ def insert_movie_ratings(inserter, movies, source):
     if inserter.site.CREDENTIALS_VALID:
         try:
             inserter.insert(movies, source)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             # exception should be logged in a file --> issue #15
             inserter.site.browser_handler.kill()
             command_line.error("There was an exception inside {site_name} (see below). Skipping insertion.".format(
