@@ -51,17 +51,18 @@ class MoviePilotRatingsInserter(RatingsInserter):
         converted_rating = str(my_rating * 10)
 
         self.site.browser.execute_script("""
-            return $.get({
-                url: 'https://www.moviepilot.de/api/movies/""" + movie_id + """/rating',
-                type: 'DELETE'
-            });
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( 'DELETE', 'https://www.moviepilot.de/api/movies/""" + movie_id + """/rating', false );
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
         """)
         time.sleep(0.2)
 
         self.site.browser.execute_script("""
-            return $.post({
-                url: 'https://www.moviepilot.de/api/movies/""" + movie_id + """/rating',
-                data: { 'rating': { 'value': """ + converted_rating + """} }
-            });
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( 'POST', 'https://www.moviepilot.de/api/movies/""" + movie_id + """/rating', false );
+            xmlHttp.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+            xmlHttp.send( JSON.stringify({ 'rating': { 'value': """ + converted_rating + """} }) );
+            return xmlHttp.responseText;
         """)
         time.sleep(0.2)
