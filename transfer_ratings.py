@@ -126,7 +126,7 @@ def execute(args):
 
 
 def execute_inserting(args, movies, parser):
-    destinations = INSERTERS.keys() if args.all_destinations \
+    destinations = [inserter for inserter in INSERTERS.keys()] if args.all_destinations \
         else [destination.upper() for destination in args.destination]
     _filter_source_site_from_destinations(destinations, parser.site.site_name)
     if destinations:
@@ -195,6 +195,7 @@ def insert_movie_ratings(inserter, movies, source):
             inserter.insert(movies, source)
         except Exception:  # pylint: disable=broad-except
             # exception should be logged in a file --> issue #15
+            sys.stdout.flush()
             inserter.site.browser_handler.kill()
             command_line.error("There was an exception inside {site_name} (see below). Skipping insertion.".format(
                 site_name=inserter.site.site_name
