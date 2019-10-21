@@ -126,7 +126,7 @@ def execute(args):
 
 
 def execute_inserting(args, movies, parser):
-    destinations = [inserter for inserter in INSERTERS.keys()] if args.all_destinations \
+    destinations = list(INSERTERS.keys()) if args.all_destinations \
         else [destination.upper() for destination in args.destination]
     _filter_source_site_from_destinations(destinations, parser.site.site_name)
     if destinations:
@@ -134,8 +134,8 @@ def execute_inserting(args, movies, parser):
             command_line.error("There are no files to be inserted. Did the parser run properly?")
             sys.exit(1)
         # INSERT THE DATA
-        for dest in destinations:
-            inserter = get_inserter_from_arg(dest)(args)
+        for destination in destinations:
+            inserter = get_inserter_from_arg(destination)(args)
             insert_movie_ratings(inserter, movies, type(parser.site).__name__)
 
 
