@@ -16,12 +16,13 @@ class Trakt(Site):
         )
 
     def _handle_privacy_notice_if_present(self):
-        privacy_notice = self.browser.find_element_by_id('sncmp-container')
-        if privacy_notice is not None:
-            privacy_accept_button = privacy_notice.find_elements_by_id('sncmp-popup-ok-button')
-            if privacy_accept_button is not None and len(privacy_accept_button) > 0:
-                privacy_accept_button[0].click()
-                time.sleep(1)
+        privacy_notice = self.browser.find_elements_by_id('sncmp-container')
+        if len(privacy_notice) == 0:
+            return
+        privacy_accept_button = privacy_notice[0].find_elements_by_id('sncmp-popup-ok-button')
+        if privacy_accept_button is not None and len(privacy_accept_button) > 0:
+            privacy_accept_button[0].click()
+            time.sleep(1)
 
     def _get_login_page_url(self):
         return "https://trakt.tv/auth/signin"
