@@ -6,6 +6,7 @@ import sys
 import time
 import traceback
 
+from RatS.allocine.allocine_ratings_parser import AllocineRatingsParser
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
@@ -38,6 +39,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
 PARSERS = {
+    'ALLOCINE': AllocineRatingsParser,
     'CRITICKER': CritickerRatingsParser,
     'FILMAFFINITY': FilmAffinityRatingsParser,
     # 'FLIXSTER': FlixsterRatingsParser,
