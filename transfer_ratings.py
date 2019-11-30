@@ -126,6 +126,8 @@ def execute(args):
 
 
 def execute_inserting(args, movies, parser):
+    if not args.all_destinations and not args.destination:
+        return
     destinations = list(INSERTERS.keys()) if args.all_destinations \
         else [destination.upper() for destination in args.destination]
     _filter_source_site_from_destinations(destinations, parser.site.site_name)

@@ -14,12 +14,13 @@ class TMDBRatingsParser(RatingsParser):
     @staticmethod
     def _get_movies_count(movie_ratings_page):
         return int(movie_ratings_page.find('div', class_='title_header').find('a', attrs={'data-media-type': 'movie'})
-                   .find('span').get_text().replace('.', ''))
+                   .find('span').get_text().replace('.', '').replace(',', ''))
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
         movies_count = int(movie_ratings_page.find('div', class_='title_header')
-                           .find('a', attrs={'data-media-type': 'movie'}).find('span').get_text().replace('.', ''))
+                           .find('a', attrs={'data-media-type': 'movie'}).find('span').get_text()
+                           .replace('.', '').replace(',', ''))
         return math.ceil(movies_count / 50.0)
 
     @staticmethod
