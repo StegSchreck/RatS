@@ -8,7 +8,6 @@ from configparser import RawConfigParser
 from selenium.common.exceptions import NoSuchElementException
 
 from RatS.base.login_failed_exception import LoginFailedException
-from RatS.utils import command_line
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
 
