@@ -1,12 +1,13 @@
+import sys
+import time
+
 import datetime
 import json
 import os
-import sys
-import time
 from configparser import RawConfigParser
-
 from selenium.common.exceptions import NoSuchElementException
 
+from RatS.base.login_failed_exception import LoginFailedException
 from RatS.utils import command_line
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
@@ -106,10 +107,9 @@ class Site:
     def _handle_login_unsuccessful(self):
         time.sleep(1)
         if self._user_is_not_logged_in():
-            command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
-            sys.stdout.write("Please check if the credentials are correctly set in your credentials.cfg\r\n")
-            sys.stdout.flush()
             self.browser_handler.kill()
+            raise LoginFailedException("Login to {site_name} failed.".format(site_name=self.site_name) + "\r\n"
+                                       "Please check if the credentials are correctly set in your credentials.cfg\r\n")
 
     def _user_is_not_logged_in(self):
         return len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \

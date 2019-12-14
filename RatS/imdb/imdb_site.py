@@ -1,10 +1,9 @@
 import time
 
-import sys
 from selenium.common.exceptions import NoSuchElementException
 
 from RatS.base.base_site import Site
-from RatS.utils import command_line
+from RatS.base.captcha_present_exception import CaptchaPresentException
 
 
 class IMDB(Site):
@@ -38,10 +37,11 @@ class IMDB(Site):
 
     def _handle_captcha_challenge_if_present(self):
         if len(self.browser.find_elements_by_xpath("//div[@id='auth-captcha-image-container']")) > 0:
-            command_line.error("Login to {site_name} failed.".format(site_name=self.site_name))
-            sys.stdout.write("There seems to be a Captcha challenge present for the login. Please try again later.\r\n")
-            sys.stdout.flush()
             self.browser_handler.kill()
+            raise CaptchaPresentException(
+                "Login to {site_name} failed.".format(site_name=self.site_name) + "\r\n"
+                "There seems to be a Captcha challenge present for the login. Please try again later.\r\n"
+            )
 
     def _get_ratings_url(self):
         account_link = self.browser.find_element_by_id('consumer_user_nav').find_element_by_tag_name('a') \

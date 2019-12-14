@@ -1,13 +1,14 @@
-import csv
-import datetime
-import os
 import sys
 import time
 
+import csv
+import datetime
+import os
 from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_parser import RatingsParser
-from RatS.utils import file_impex, command_line
+from RatS.base.csv_download_exception import CSVDownloadFailedException
+from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 
@@ -41,9 +42,8 @@ class RatingsDownloader(RatingsParser):
                 time.sleep(iteration * 1)
                 continue
             if iteration > 10:
-                command_line.error("The CSV file containing the movies data could not be downloaded.")
                 self.site.browser_handler.kill()
-                sys.exit(1)
+                CSVDownloadFailedException("The CSV file containing the movies data could not be downloaded.")
 
     def _file_was_downloaded(self):
         filepath = os.path.join(self.exports_folder, self.downloaded_file_name)

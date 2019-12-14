@@ -1,5 +1,5 @@
 from RatS.base.rats_exception import RatSException
 
 
-class ICheckMoviesMisconfigurationException(RatSException):
+class NoValidCredentialsException(RatSException):
     pass

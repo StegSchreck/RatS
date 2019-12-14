@@ -1,13 +1,11 @@
 import json
 import math
 import re
-import sys
-
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.rats_exception import RatSException
 from RatS.moviepilot.moviepilot_site import MoviePilot
-from RatS.utils import command_line
 
 
 class MoviePilotRatingsParser(RatingsParser):
@@ -26,10 +24,11 @@ class MoviePilotRatingsParser(RatingsParser):
         """)
         session = json.loads(get_session_response)
         if 'movie_ratings' not in session:
-            command_line.error('Could not establish a session. '
-                               'Please try again with the -x option if the problem persists.')
             self.site.browser_handler.kill()
-            sys.exit(1)
+            raise RatSException(
+                'Could not establish a session with {site_name}. '.format(site_name=self.site.site_name) + '\r\n' +
+                'Please try again with the -x option if the problem persists.'
+            )
         self.movies_count = session['movie_ratings']
         pages_count = math.ceil(self.movies_count / 100)
         return pages_count

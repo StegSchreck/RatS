@@ -1,0 +1,2 @@
+class RatSException(Exception):
+    pass

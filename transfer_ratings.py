@@ -1,16 +1,19 @@
 #!/usr/bin/env python
+import sys
+import time
+
 import argparse
 import datetime
 import os
-import sys
-import time
 import traceback
 
+from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
+from RatS.base.no_valid_credentials_exception import NoValidCredentialsException
+from RatS.base.rats_exception import RatSException
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
-from RatS.icheckmovies.icheckmovies_misconfiguration_exception import ICheckMoviesMisconfigurationException
 from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
 from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
@@ -74,7 +77,7 @@ def main():
     args = parse_args()
     try:
         execute(args)
-    except ICheckMoviesMisconfigurationException as e:
+    except RatSException as e:
         command_line.error(str(e))
         sys.exit(1)
 
@@ -120,9 +123,12 @@ def get_inserter_from_arg(param):
 
 
 def execute(args):
-    parser = get_parser_from_arg(args.source)(args)
-    movies = execute_parsing(args, parser)
-    execute_inserting(args, movies, parser)
+    try:
+        parser = get_parser_from_arg(args.source)(args)
+        movies = execute_parsing(args, parser)
+        execute_inserting(args, movies, parser)
+    except RatSException as e:
+        command_line.error(str(e))
 
 
 def execute_inserting(args, movies, parser):
@@ -133,12 +139,14 @@ def execute_inserting(args, movies, parser):
     _filter_source_site_from_destinations(destinations, parser.site.site_name)
     if destinations:
         if len(movies) == 0:
-            command_line.error("There are no files to be inserted. Did the parser run properly?")
-            sys.exit(1)
+            NoMoviesForInsertion("There are no files to be inserted. Did the parser run properly?")
         # INSERT THE DATA
         for destination in destinations:
-            inserter = get_inserter_from_arg(destination)(args)
-            insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+            try:
+                inserter = get_inserter_from_arg(destination)(args)
+                insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+            except RatSException as e:
+                command_line.error(str(e))
 
 
 def _filter_source_site_from_destinations(destinations, parser_site_name):
@@ -151,10 +159,9 @@ def _filter_source_site_from_destinations(destinations, parser_site_name):
 
 def execute_parsing(args, parser):
     if not parser.site.CREDENTIALS_VALID:
-        command_line.error("No valid credentials found for {site_name}. Skipping parsing.".format(
+        raise NoValidCredentialsException("No valid credentials found for {site_name}. Skipping parsing.".format(
             site_name=parser.site.site_name
         ))
-        sys.exit(1)
     if args.file:
         # LOAD FROM FILE
         movies = load_data_from_file(args.file)
@@ -166,7 +173,12 @@ def execute_parsing(args, parser):
 
 
 def parse_data_from_source(parser):
-    movies = parser.parse()
+    try:
+        movies = parser.parse()
+    except RatSException as e:
+        command_line.error(str(e))
+        sys.exit(1)
+
     json_filename = '{timestamp}_{sitename}.json'.format(timestamp=TIMESTAMP, sitename=type(parser.site).__name__)
     file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
     sys.stdout.write('\r\n===== {site_displayname}: saved {parsed_movies_count} parsed movies to '
@@ -195,6 +207,8 @@ def insert_movie_ratings(inserter, movies, source):
     if inserter.site.CREDENTIALS_VALID:
         try:
             inserter.insert(movies, source)
+        except RatSException as e:
+            command_line.error(str(e))
         except Exception:  # pylint: disable=broad-except
             # exception should be logged in a file --> issue #15
             sys.stdout.flush()

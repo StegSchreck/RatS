@@ -27,6 +27,7 @@ We must be able to understand the design of your change from this description. I
 <!--
 What process did you follow to verify that your change has the desired effects?
 
+- Did you add appropriate unit and/or integration tests?
 - How did you verify that all new functionality works as expected?
 - How did you verify that all changed functionality works as expected?
 - How did you verify that the change has not introduced any regressions?
