@@ -164,7 +164,7 @@ class RatingsInserter:
         if self.args and self.args.verbose and self.args.verbose >= 1:
             self._print_failed_movies()
         if len(self.failed_movies) > 0:
-            file_impex.save_movies_to_json(movies, folder=self.exports_folder, filename=self.failed_movies_filename)
+            file_impex.save_movies_to_json(self.failed_movies, folder=self.exports_folder, filename=self.failed_movies_filename)
             sys.stdout.write('===== {site_displayname}: export data for {failed_number} failed movies to '
                              '{folder}/{filename}\r\n'.format(
                                  site_displayname=self.site.site_displayname,
