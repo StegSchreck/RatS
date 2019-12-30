@@ -10,9 +10,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Login to GitHub Docker registry
-      run: docker login docker.pkg.github.com --username StegSchreck
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/StegSchreck/rats/rats:$(date +%s) --tag docker.pkg.github.com/StegSchreck/rats/rats:latest
-    - name: Publish to Docker Repository
-      run: docker push docker.pkg.github.com/StegSchreck/rats/rats:latest
+    - name: Publish to GitHub Docker Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: stegschreck/rats
+        username: ${{ secrets.GITHUB_DOCKER_USERNAME }}
+        password: ${{ secrets.GITHUB_DOCKER_PASSWORD }}
+        registry: docker.pkg.github.com
+        tag_names: true
