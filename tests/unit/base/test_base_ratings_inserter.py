@@ -13,20 +13,13 @@ class BaseInserterTest(TestCase):
 
             self.assertEqual(inserter.site, site_mock)
 
-    @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock):
-        with patch('RatS.base.base_site.Site') as site_mock:
-            inserter = RatingsInserter(site_mock, None)
-
-            self.assertEqual(inserter.site, site_mock)
-
     @patch('RatS.utils.file_impex.save_movies_to_json')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._click_rating')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._go_to_movie_details_page')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_one_failed_movie_to_be_printed(self, browser_mock, search_success_mock, click_rating_mock,
-                                            progress_bar_mock, save_movies_to_json_mock):  # pylint: disable=too-many-arguments
+    def test_one_failed_movie_to_be_printed(self, browser_mock, search_success_mock, click_rating_mock,  # pylint: disable=too-many-arguments
+                                            progress_bar_mock, save_movies_to_json_mock):
         with patch('RatS.base.base_site.Site') as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
@@ -60,8 +53,8 @@ class BaseInserterTest(TestCase):
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._click_rating')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._go_to_movie_details_page')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_two_failed_movies_to_be_printed(self, browser_mock, search_success_mock, click_rating_mock,
-                                             progress_bar_mock, save_movies_to_json_mock):  # pylint: disable=too-many-arguments
+    def test_two_failed_movies_to_be_printed(self, browser_mock, search_success_mock, click_rating_mock,  # pylint: disable=too-many-arguments
+                                             progress_bar_mock, save_movies_to_json_mock):
         with patch('RatS.base.base_site.Site') as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
