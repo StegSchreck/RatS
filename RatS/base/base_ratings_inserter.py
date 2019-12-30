@@ -48,7 +48,7 @@ class RatingsInserter:
             self.print_progress(counter, movie, movies)
 
         self._print_summary(movies)
-        self._handle_failed_movies(movies)
+        self._handle_failed_movies()
         self.site.browser_handler.kill()
 
     def _is_field_in_parsed_data_for_this_site(self, movie, field):
@@ -160,7 +160,7 @@ class RatingsInserter:
                          ))
         sys.stdout.flush()
 
-    def _handle_failed_movies(self, movies):
+    def _handle_failed_movies(self):
         if self.args and self.args.verbose and self.args.verbose >= 1:
             self._print_failed_movies()
         if len(self.failed_movies) > 0:
