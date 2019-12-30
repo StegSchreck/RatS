@@ -15,6 +15,6 @@ jobs:
       with:
         name: stegschreck/rats/rats
         username: ${{ secrets.GITHUB_DOCKER_USERNAME }}
-        password: ${{ secrets.GITHUB_DOCKER_PASSWORD }}
+        password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         tag_names: true
