@@ -13,7 +13,7 @@ jobs:
     - name: Publish to GitHub Docker Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: stegschreck/rats
+        name: stegschreck/rats/rats
         username: ${{ secrets.GITHUB_DOCKER_USERNAME }}
         password: ${{ secrets.GITHUB_DOCKER_PASSWORD }}
         registry: docker.pkg.github.com
