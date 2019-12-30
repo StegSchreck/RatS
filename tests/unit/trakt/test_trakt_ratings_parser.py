@@ -19,9 +19,10 @@ class TraktRatingsParserTest(TestCase):
                   encoding='UTF-8') as detail_page_without_imdb_id:
             self.detail_page_without_imdb_id = detail_page_without_imdb_id.read()
 
+    @patch('RatS.trakt.trakt_ratings_parser.Trakt._handle_privacy_notice_if_present')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock):
+    def test_init(self, browser_mock, base_init_mock, cookie_notice_mock):
         TraktRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)

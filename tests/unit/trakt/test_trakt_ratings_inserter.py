@@ -29,9 +29,10 @@ class TraktRatingsInserterTest(TestCase):
                   encoding='UTF-8') as movie_details_page:
             self.movie_details_page = movie_details_page.read()
 
+    @patch('RatS.trakt.trakt_ratings_parser.Trakt._handle_privacy_notice_if_present')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock):
+    def test_init(self, browser_mock, base_init_mock, cookie_notice_mock):
         TraktRatingsInserter(None)
 
         self.assertTrue(base_init_mock.called)
