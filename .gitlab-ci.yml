@@ -1,21 +1,18 @@
 image: python:3.7 # change to match your node version
 
-variables:
-  REPOSITORY_URL: 363480529736.dkr.ecr.us-east-1.amazonaws.com/outsite/outsite-slackbot
-
 stages:
   - test
   - release
 
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - python -m pip install --upgrade pip
   - pip install -r requirements.txt
 
 lint:
   stage: test
-  script:
+  before_script:
     - pip install flake8
+  script:
     # stop the build if there are Python syntax errors or undefined names
     - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
@@ -23,14 +20,17 @@ lint:
 
 test:
   stage: test
-  script:
+  before_script:
     - pip install pytest
+  script:
     - pytest
 
 publish_docker_on_master:
   stage: release
   when: on_success
   image: docker:stable
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   services:
     - docker:dind
   script:
@@ -44,6 +44,8 @@ publish_docker_on_tags:
   stage: release
   when: on_success
   image: docker:stable
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   services:
     - docker:dind
   script:
