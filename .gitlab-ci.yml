@@ -1,0 +1,65 @@
+image: python:3.7 # change to match your node version
+
+variables:
+  REPOSITORY_URL: 363480529736.dkr.ecr.us-east-1.amazonaws.com/outsite/outsite-slackbot
+
+stages:
+  - test
+  - release
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - python -m pip install --upgrade pip
+  - pip install -r requirements.txt
+
+lint:
+  stage: test
+  script:
+    - pip install flake8
+    # stop the build if there are Python syntax errors or undefined names
+    - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+    - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+test:
+  stage: test
+  script:
+    - pip install pytest
+    - pytest
+
+publish_docker_on_master:
+  stage: release
+  when: on_success
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg REGISTRY=$CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE/rats:master .
+    - docker push $CI_REGISTRY_IMAGE/rats:master
+  only:
+    - master
+
+publish_docker_on_tags:
+  stage: release
+  when: on_success
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg REGISTRY=$CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE/rats:$CI_COMMIT_TAG -t $CI_REGISTRY_IMAGE/rats:latest .
+    - docker push $CI_REGISTRY_IMAGE/rats:$CI_COMMIT_TAG
+  only:
+    - tags
+
+release_on_tags:
+  stage: release
+  when: on_success
+  script:
+    - |
+      curl --header 'Content-Type: application/json' --header "PRIVATE-TOKEN: $GITLAB_PAT"
+      --data '{ "name": "$CI_COMMIT_TITLE", "tag_name": "$CI_COMMIT_TAG", "description": "$CI_COMMIT_MESSAGE" }'
+      --request POST https://gitlab.com/api/v4/projects/StegSchreck%2FRatS/releases
+  only:
+    - tags
