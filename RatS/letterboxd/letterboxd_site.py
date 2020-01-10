@@ -12,6 +12,3 @@ class Letterboxd(Site):
 
     def _get_login_page_url(self):
         return "https://letterboxd.com/sign-in/"
-
-    def _user_is_not_logged_in(self):
-        return self.USERNAME not in self.browser.page_source
