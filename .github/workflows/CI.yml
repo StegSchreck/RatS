@@ -26,8 +26,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest
-        pytest
+        pip install pytest codacy-coverage
+        pytest --cov RatS --cov-report term-missing --cov-report xml
+        python-codacy-coverage -r coverage.xml
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
   docker:
     needs: build

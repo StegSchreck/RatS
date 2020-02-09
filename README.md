@@ -4,7 +4,7 @@
 
 # RatS
 
-[![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
+[![Build Status](https://github.com/StegSchreck/RatS/workflows/CI/badge.svg)](https://github.com/StegSchreck/RatS/actions?query=workflow%3ACI)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StegSchreck/RatS&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&utm_medium=referral&utm_content=StegSchreck/RatS&utm_campaign=Badge_Coverage)
 [![Docker Build Status](https://img.shields.io/docker/build/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
