@@ -26,7 +26,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest codacy-coverage
+        pip install pytest pytest-cov codacy-coverage
         pytest --cov RatS --cov-report term-missing --cov-report xml
         python-codacy-coverage -r coverage.xml
       env:
