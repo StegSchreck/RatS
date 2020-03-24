@@ -199,6 +199,18 @@ For now, the easiest solution is to run the script on your console with the `-x`
 ### Login attempt does not work
 This can have multiple explanations. One is, that you are using a password which starts or ends with a space character. RatS is currently not capable of dealing with that. If your credentials have a space character in the middle though, it will work fine.
 
+### Trakt aborts with AttributeError
+While tying to login to Trakt, the script aborts with this error message:
+
+```
+===== Trakt: performing login
+Traceback (most recent call last):
+[...]
+AttributeError: 'NoneType' object has no attribute 'find'
+```
+
+This was observed to happen when the credentials were configured to use the email address for login. Try to set your username instead.
+
 ## You are missing a feature or noticed something is wrong?
 Before submitting a bug ticket, I would ask you to check first whether all dependencies are up-to-date, especially `geckodriver`.
 
