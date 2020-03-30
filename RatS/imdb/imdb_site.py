@@ -16,7 +16,6 @@ class IMDB(Site):
         if not self.CREDENTIALS_VALID:
             return
 
-        self.USERID = self.browser.find_element_by_id('main').get_attribute('data-userid')
         time.sleep(1)
 
     def _get_login_page_url(self):

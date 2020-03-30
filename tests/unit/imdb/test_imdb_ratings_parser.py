@@ -12,19 +12,21 @@ class IMDBParserTest(TestCase):
         if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
             os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
 
+    @patch('RatS.imdb.imdb_ratings_parser.IMDBRatingsParser._get_user_id')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock):
+    def test_init(self, browser_mock, base_init_mock, user_id_mock):
         IMDBRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
 
+    @patch('RatS.imdb.imdb_ratings_parser.IMDBRatingsParser._get_user_id')
     @patch('RatS.utils.file_impex.load_movies_from_csv')
     @patch('RatS.imdb.imdb_ratings_parser.IMDBRatingsParser._rename_csv_file')
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.imdb.imdb_ratings_parser.IMDB')
-    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock):  # pylint: disable=too-many-arguments
+    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock, user_id_mock):  # pylint: disable=too-many-arguments
         parser = IMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
@@ -39,10 +41,11 @@ class IMDBParserTest(TestCase):
         self.assertEqual(1, rename_csv_mock.call_count)
         self.assertEqual(1, parse_csv_mock.call_count)
 
+    @patch('RatS.imdb.imdb_ratings_parser.IMDBRatingsParser._get_user_id')
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.imdb.imdb_ratings_parser.IMDB')
-    def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
+    def test_csv_rename(self, site_mock, base_init_mock, browser_mock, user_id_mock):  # pylint: disable=too-many-arguments
         parser = IMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock

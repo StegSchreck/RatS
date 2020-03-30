@@ -672,7 +672,7 @@ Description: <p align="center">
         
         # RatS
         
-        [![Build Status](https://travis-ci.org/StegSchreck/RatS.svg?branch=master)](https://travis-ci.org/StegSchreck/RatS)
+        [![Build Status](https://github.com/StegSchreck/RatS/workflows/CI/badge.svg)](https://github.com/StegSchreck/RatS/actions?query=workflow%3ACI)
         [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StegSchreck/RatS&amp;utm_campaign=Badge_Grade)
         [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&utm_medium=referral&utm_content=StegSchreck/RatS&utm_campaign=Badge_Coverage)
         [![Docker Build Status](https://img.shields.io/docker/build/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
@@ -764,10 +764,27 @@ Description: <p align="center">
         
         Furthermore, you can define multiple destinations, e.g. like this: `python3 transfer_ratings.py --source trakt --destination movielens --destination imdb` in order to use the same data from the parser in this run for multiple destinations.
         
+        ### Mandatory
+        `-s` / `--source`: the site where the ratings are parsed from (see [Available Parsers](#currently-available-parsers)). This parameter must be given in even if you use the `-f` option.
+        
+        ### Optional
+        `-d` / `--destination`: the site where the ratings should be posted (inserted) to (see [Available Inserters](#currently-available-inserters)).
+        If you don't specify any destination, the ratings are only parsed and saved locally.
+        
+        `-D` / `--all-destinations`: try to insert the parsed ratings to all configured sites for which valid credentials can be found
+        
+        `-f` / `--file`: read ratings from a previous run instead of parsing them
+        
+        `-v` / `--verbose`: increase output verbosity (i.e. print the generated predictions in the console)
+        
+        `-x` / `--show_browser`: show the browser doing his work (this might help for debugging))
+        
+        `-h` / `--help`: Display the help, including all possible parameter options
+        
         #### Currently Available Parsers
         * Criticker
         * FilmAffinity
-        * Flixster
+        * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
         * iCheckMovies
           * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
         * IMDB (with IMDB account)
@@ -783,7 +800,7 @@ Description: <p align="center">
         #### Currently Available Inserters
         * Criticker
         * FilmAffinity
-        * Flixster
+        * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
         * iCheckMovies
           * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`
         * IMDB (with IMDB account)
@@ -849,6 +866,18 @@ Description: <p align="center">
         
         ### Login attempt does not work
         This can have multiple explanations. One is, that you are using a password which starts or ends with a space character. RatS is currently not capable of dealing with that. If your credentials have a space character in the middle though, it will work fine.
+        
+        ### Trakt aborts with AttributeError
+        While tying to login to Trakt, the script aborts with this error message:
+        
+        ```
+        ===== Trakt: performing login
+        Traceback (most recent call last):
+        [...]
+        AttributeError: 'NoneType' object has no attribute 'find'
+        ```
+        
+        This was observed to happen when the credentials were configured to use the email address for login. Try to set your username instead.
         
         ## You are missing a feature or noticed something is wrong?
         Before submitting a bug ticket, I would ask you to check first whether all dependencies are up-to-date, especially `geckodriver`.

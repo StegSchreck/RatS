@@ -11,6 +11,12 @@ RatS/base/base_ratings_inserter.py
 RatS/base/base_ratings_parser.py
 RatS/base/base_ratings_uploader.py
 RatS/base/base_site.py
+RatS/base/captcha_present_exception.py
+RatS/base/csv_download_exception.py
+RatS/base/login_failed_exception.py
+RatS/base/no_movies_for_insertion.py
+RatS/base/no_valid_credentials_exception.py
+RatS/base/rats_exception.py
 RatS/criticker/__init__.py
 RatS/criticker/criticker_ratings_inserter.py
 RatS/criticker/criticker_ratings_parser.py

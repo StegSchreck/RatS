@@ -8,7 +8,11 @@ from RatS.utils import file_impex
 class IMDBRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(IMDBRatingsParser, self).__init__(IMDB(args), args)
+        self.USERID = self._get_user_id()
         self.downloaded_file_name = 'ratings.csv'
+
+    def _get_user_id(self):
+        return self.site.browser.find_element_by_id('main').get_attribute('data-userid')
 
     def _parse_ratings(self):
         self._download_ratings_csv()
@@ -20,5 +24,5 @@ class IMDBRatingsParser(RatingsDownloader):
 
     def _call_download_url(self):
         self.site.browser.get('http://www.imdb.com/list/export?list_id=ratings&author_id={user_id}'.format(
-            user_id=self.site.USERID
+            user_id=self.USERID
         ))
