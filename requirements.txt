@@ -1,4 +1,4 @@
-beautifulsoup4==4.8.1
+beautifulsoup4==4.9.0
 bs4==0.0.1
 configparser==4.0.2
 progressbar2==3.47.0
