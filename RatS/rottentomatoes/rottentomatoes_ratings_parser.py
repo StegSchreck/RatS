@@ -30,8 +30,9 @@ class RottenTomatoesRatingsParser(RatingsParser):
     def _parse_ratings_json(self, ratings_json):
         for movie_json in ratings_json:
             movie = self._parse_movie_json(movie_json)
-            self.movies.append(movie)
-            self.print_progress(movie)
+            if movie:
+                self.movies.append(movie)
+                self.print_progress(movie)
 
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
@@ -62,13 +63,16 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     @staticmethod
     def _parse_movie_json(movie_json):
+        if not movie_json['review']['score']:
+            return None
+
         movie = dict()
-        movie['title'] = movie_json['item']['fullTitle']
+        movie['title'] = movie_json['item']['title']
         movie['year'] = int(movie_json['item']['releaseYear'])
 
         movie['rottentomatoes'] = dict()
-        movie['rottentomatoes']['id'] = movie_json['item']['rootId']
-        movie['rottentomatoes']['url'] = 'https://www.rottentomatoes.com/m/' + movie_json['item']['titleId']
+        movie['rottentomatoes']['id'] = movie_json['item']['rtId']
+        movie['rottentomatoes']['url'] = movie_json['item']['vanityUrl']
         movie['rottentomatoes']['my_rating'] = int(float(movie_json['review']['score']) * 2)
 
         return movie
