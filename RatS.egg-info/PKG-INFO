@@ -782,6 +782,7 @@ Description: <p align="center">
         `-h` / `--help`: Display the help, including all possible parameter options
         
         #### Currently Available Parsers
+        * AlloCine
         * Criticker
         * FilmAffinity
         * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
@@ -798,6 +799,7 @@ Description: <p align="center">
         * Trakt
         
         #### Currently Available Inserters
+        * AlloCine
         * Criticker
         * FilmAffinity
         * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
