@@ -16,9 +16,11 @@ class RottenTomatoesRatingsParserTest(TestCase):
                   encoding='UTF-8') as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 
+    @patch('RatS.rottentomatoes.rottentomatoes_site.RottenTomatoes._user_is_not_logged_in')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock):
+    def test_init(self, browser_mock, base_init_mock, login_check_mock):
+        login_check_mock.return_value = False
         RottenTomatoesRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
@@ -40,9 +42,9 @@ class RottenTomatoesRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual('Sleepless', parser.movies[0]['title'])
-        self.assertEqual(2017, parser.movies[0]['year'])
+        self.assertEqual('Not My Day', parser.movies[0]['title'])
+        self.assertEqual(2014, parser.movies[0]['year'])
 
-        self.assertEqual('12880636', parser.movies[0]['rottentomatoes']['id'])
-        self.assertEqual('https://www.rottentomatoes.com/m/sleepless', parser.movies[0]['rottentomatoes']['url'])
-        self.assertEqual(6, parser.movies[0]['rottentomatoes']['my_rating'])
+        self.assertEqual('771362331', parser.movies[0]['rottentomatoes']['id'])
+        self.assertEqual('https://rottentomatoes.com/m/not_my_day_2014', parser.movies[0]['rottentomatoes']['url'])
+        self.assertEqual(8, parser.movies[0]['rottentomatoes']['my_rating'])

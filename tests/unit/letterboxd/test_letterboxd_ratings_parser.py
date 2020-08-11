@@ -12,11 +12,9 @@ class LetterboxdParserTest(TestCase):
         if not os.path.exists(os.path.join(TESTDATA_PATH, 'exports')):
             os.makedirs(os.path.join(TESTDATA_PATH, 'exports'))
 
-    @patch('RatS.letterboxd.letterboxd_site.Letterboxd._user_is_not_logged_in')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_init(self, browser_mock, base_init_mock, login_check_mock):
-        login_check_mock.return_value = False
+    def test_init(self, browser_mock, base_init_mock):
         LetterboxdRatingsParser(None)
 
         self.assertTrue(base_init_mock.called)
