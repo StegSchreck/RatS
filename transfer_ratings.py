@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-import sys
-import time
-
 import argparse
 import datetime
 import os
+import sys
+import time
 import traceback
 
+from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
+from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
 from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
 from RatS.base.no_valid_credentials_exception import NoValidCredentialsException
 from RatS.base.rats_exception import RatSException
@@ -41,6 +42,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'RatS', 'exports'))
 
 PARSERS = {
+    'ALLOCINE': AlloCineRatingsParser,
     'CRITICKER': CritickerRatingsParser,
     'FILMAFFINITY': FilmAffinityRatingsParser,
     # 'FLIXSTER': FlixsterRatingsParser,
@@ -56,6 +58,7 @@ PARSERS = {
     'TRAKT': TraktRatingsParser,
 }
 INSERTERS = {
+    'ALLOCINE': AlloCineRatingsInserter,
     'CRITICKER': CritickerRatingsInserter,
     'FILMAFFINITY': FilmAffinityRatingsInserter,
     # 'FLIXSTER': FlixsterRatingsInserter,

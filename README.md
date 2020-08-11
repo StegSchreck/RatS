@@ -114,6 +114,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 `-h` / `--help`: Display the help, including all possible parameter options
 
 #### Currently Available Parsers
+* AlloCine
 * Criticker
 * FilmAffinity
 * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
@@ -130,6 +131,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 * Trakt
 
 #### Currently Available Inserters
+* AlloCine
 * Criticker
 * FilmAffinity
 * ~~Flixster~~ deactivated until new account feature is implemented at Flixster

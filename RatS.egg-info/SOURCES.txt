@@ -5,6 +5,10 @@ RatS.egg-info/PKG-INFO
 RatS.egg-info/SOURCES.txt
 RatS.egg-info/dependency_links.txt
 RatS.egg-info/top_level.txt
+RatS/allocine/__init__.py
+RatS/allocine/allocine_ratings_inserter.py
+RatS/allocine/allocine_ratings_parser.py
+RatS/allocine/allocine_site.py
 RatS/base/__init__.py
 RatS/base/base_ratings_downloader.py
 RatS/base/base_ratings_inserter.py
@@ -80,6 +84,7 @@ RatS/utils/command_line.py
 RatS/utils/file_impex.py
 tests/functional/__init__.py
 tests/functional/sites/__init__.py
+tests/functional/sites/test_allocine_site.py
 tests/functional/sites/test_criticker_site.py
 tests/functional/sites/test_filmaffinity_site.py
 tests/functional/sites/test_flixster_site.py
@@ -95,6 +100,9 @@ tests/functional/sites/test_rottentomatoes_site.py
 tests/functional/sites/test_tmdb_site.py
 tests/functional/sites/test_trakt_site.py
 tests/unit/__init__.py
+tests/unit/allocine/__init__.py
+tests/unit/allocine/test_allocine_ratings_inserter.py
+tests/unit/allocine/test_allocine_ratings_parser.py
 tests/unit/base/__init__.py
 tests/unit/base/test_base_ratings_inserter.py
 tests/unit/base/test_base_ratings_parser.py
