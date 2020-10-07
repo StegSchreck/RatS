@@ -12,7 +12,8 @@ class IMDBRatingsParser(RatingsDownloader):
         self.downloaded_file_name = 'ratings.csv'
 
     def _get_user_id(self):
-        return self.site.browser.find_element_by_id('main').get_attribute('data-userid')
+        self.site.browser.get('https://www.imdb.com/profile')
+        return self.site.browser.find_elements_by_xpath('//div[@data-userid]')[0].get_attribute('data-userid')
 
     def _parse_ratings(self):
         self._download_ratings_csv()
