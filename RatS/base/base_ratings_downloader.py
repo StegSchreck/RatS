@@ -17,6 +17,7 @@ class RatingsDownloader(RatingsParser):
     def __init__(self, site, args):
         super(RatingsDownloader, self).__init__(site, args)
         self.csv_filename = '{timestamp}_{sitename}.csv'.format(timestamp=TIMESTAMP, sitename=site.site_name)
+        self.csv_delimiter = ','
 
     def _parse_ratings(self):
         self._download_ratings_csv()
@@ -75,7 +76,7 @@ class RatingsDownloader(RatingsParser):
         sys.stdout.flush()
         file_impex.wait_for_file_to_exist(filepath)
         with open(filepath, newline='', encoding='UTF-8') as input_file:
-            reader = csv.reader(input_file, delimiter=',')
+            reader = csv.reader(input_file, delimiter=self.csv_delimiter)
             headers = next(reader, None)
             return [self._convert_csv_row_to_movie(headers, row) for row in reader]
 
