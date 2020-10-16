@@ -117,6 +117,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 * AlloCine
 * Criticker
 * FilmAffinity
+* Filmtipset
 * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
 * iCheckMovies
   * please configure the conversion value for the like/dislike into a numeric rating yourself in the `credentials.cfg`
