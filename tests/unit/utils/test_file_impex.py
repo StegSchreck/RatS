@@ -20,7 +20,7 @@ class FileHandlerTest(TestCase):
         self.movie['year'] = 1999
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
-        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 10
         self.movie['trakt'] = dict()
         self.movie['trakt']['id'] = '432'
@@ -69,7 +69,7 @@ class FileHandlerTest(TestCase):
         movie2['year'] = 1999
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0133093'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0133093'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0133093'
         movie2['trakt'] = dict()
         movie2['trakt']['id'] = '481'
         movie2['trakt']['url'] = 'https://trakt.tv/movies/the-matrix-1999'
@@ -117,7 +117,7 @@ class FileHandlerTest(TestCase):
         movie2['year'] = 1979
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0079945'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0079945'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0079945'
         movie2['trakt'] = dict()
         movie2['trakt']['id'] = '117'
         movie2['trakt']['url'] = 'https://trakt.tv/movies/star-trek-the-motion-picture-1979'

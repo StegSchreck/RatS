@@ -43,6 +43,6 @@ class CritickerParserTest(TestCase):
         self.assertEqual('https://www.criticker.com/film/Fight-Club', parser.movies[0]['criticker']['url'])
         self.assertEqual(10, parser.movies[0]['criticker']['my_rating'])
         self.assertEqual('tt0137523', parser.movies[0]['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt0137523', parser.movies[0]['imdb']['url'])
+        self.assertEqual('https://www.imdb.com/title/tt0137523', parser.movies[0]['imdb']['url'])
 
         os.remove(os.path.join(TESTDATA_PATH, 'exports', parser.xml_filename))

@@ -16,7 +16,7 @@ class FilmtipsetRatingsInserterTest(TestCase):
         self.movie['year'] = 1999
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
-        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
         with open(os.path.join(TESTDATA_PATH, 'filmtipset', 'search_result.html'), encoding='UTF-8') as search_results:
             self.search_results = search_results.read()
@@ -110,7 +110,7 @@ class FilmtipsetRatingsInserterTest(TestCase):
         movie2['year'] = 1995
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0137523'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie2['imdb']['my_rating'] = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access

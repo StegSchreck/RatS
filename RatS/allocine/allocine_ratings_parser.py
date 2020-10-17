@@ -50,7 +50,7 @@ class AlloCineRatingsParser(RatingsParser):
     @staticmethod
     def _get_movie_url(movie_tile):
         movie_path = movie_tile.find('a', class_='meta-title-link')['href']
-        return 'http://www.allocine.fr{movie_path}'.format(movie_path=movie_path)
+        return 'https://www.allocine.fr{movie_path}'.format(movie_path=movie_path)
 
     def parse_movie_details_page(self, movie):
         rating = 0

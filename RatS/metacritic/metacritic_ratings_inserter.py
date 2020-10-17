@@ -13,7 +13,7 @@ class MetacriticRatingsInserter(RatingsInserter):
         super(MetacriticRatingsInserter, self).__init__(Metacritic(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'http://www.metacritic.com/search/movie/{movie_url_path}/results'.format(
+        search_url = 'https://www.metacritic.com/search/movie/{movie_url_path}/results'.format(
             movie_url_path=urllib.parse.quote_plus(movie['title'])
         )
         self.site.browser.get(search_url)
@@ -28,7 +28,7 @@ class MetacriticRatingsInserter(RatingsInserter):
 
     def _check_movie_details(self, movie, search_result):
         movie_link = search_result.find(class_='product_title').find('a')
-        self.site.browser.get('http://www.metacritic.com' + movie_link['href'])
+        self.site.browser.get('https://www.metacritic.com' + movie_link['href'])
         time.sleep(1)
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         page_title = movie_details_page.find(class_='product_page_title')

@@ -44,7 +44,7 @@ class AlloCineRatingsParserTest(TestCase):
         self.assertEqual(2, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
         self.assertEqual('21189', parser.movies[0]['allocine']['id'])
-        self.assertEqual('http://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html', parser.movies[0]['allocine']['url'])
+        self.assertEqual('https://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html', parser.movies[0]['allocine']['url'])
 
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')

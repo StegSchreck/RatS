@@ -15,7 +15,7 @@ class IMDBRatingsInserter(RatingsInserter):
         super(IMDBRatingsInserter, self).__init__(IMDB(args), args)
 
     def _find_movie(self, movie):
-        search_url = 'http://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&{search_params}'.format(
+        search_url = 'https://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&{search_params}'.format(
             search_params=urllib.parse.urlencode({'q': movie['title']})
         )
         self.site.browser.get(search_url)
@@ -26,7 +26,7 @@ class IMDBRatingsInserter(RatingsInserter):
             search_results = search_results_list.find_all(class_='findResult')
             for search_result in search_results:
                 if self._is_requested_movie(movie, search_result):
-                    movie_url = "http://www.imdb.com" + search_result.find('a')['href']
+                    movie_url = "https://www.imdb.com" + search_result.find('a')['href']
                     self.site.browser.get(movie_url)
                     return True
             return False

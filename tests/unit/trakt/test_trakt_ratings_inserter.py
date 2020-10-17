@@ -16,7 +16,7 @@ class TraktRatingsInserterTest(TestCase):
         self.movie['year'] = 1999
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
-        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
         self.movie['tmdb'] = dict()
         self.movie['tmdb']['id'] = '550'
@@ -87,7 +87,7 @@ class TraktRatingsInserterTest(TestCase):
         movie2['year'] = 1999
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0137523'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie2['imdb']['my_rating'] = 10
 
         result = inserter._compare_external_links(self.movie_details_page, movie2, 'imdb.com', 'imdb')  # pylint: disable=protected-access
@@ -215,7 +215,7 @@ class TraktRatingsInserterTest(TestCase):
         movie2['year'] = 1995
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0137523'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie2['imdb']['my_rating'] = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access

@@ -13,7 +13,7 @@ class AlloCineRatingsInserter(RatingsInserter):
         super(AlloCineRatingsInserter, self).__init__(AlloCine(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'http://www.allocine.fr/recherche/movie/?{search_params}'.format(
+        search_url = 'https://www.allocine.fr/recherche/movie/?{search_params}'.format(
             search_params=urllib.parse.urlencode({'q': movie['title']})
         )
         self.site.browser.get(search_url)
@@ -31,7 +31,7 @@ class AlloCineRatingsInserter(RatingsInserter):
 
     def _check_movie_details(self, movie, search_result):
         try:
-            movie_url = 'http://www.allocine.fr' + search_result.find('a', class_='thumbnail-link')['href']
+            movie_url = 'https://www.allocine.fr' + search_result.find('a', class_='thumbnail-link')['href']
         except KeyError:
             return False
 

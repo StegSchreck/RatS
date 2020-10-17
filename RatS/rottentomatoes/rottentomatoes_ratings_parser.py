@@ -72,7 +72,7 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
         movie['rottentomatoes'] = dict()
         movie['rottentomatoes']['id'] = movie_json['item']['rtId']
-        movie['rottentomatoes']['url'] = movie_json['item']['vanityUrl']
+        movie['rottentomatoes']['url'] = movie_json['item']['vanityUrl'].replace('http://', 'https://')
         movie['rottentomatoes']['my_rating'] = int(float(movie_json['review']['score']) * 2)
 
         return movie

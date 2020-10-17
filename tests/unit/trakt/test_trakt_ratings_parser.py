@@ -68,7 +68,7 @@ class TraktRatingsParserTest(TestCase):
         # Fight Club
         self.assertEqual(1999, movie['year'])
         self.assertEqual('tt0137523', movie['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt0137523', movie['imdb']['url'])
+        self.assertEqual('https://www.imdb.com/title/tt0137523', movie['imdb']['url'])
         self.assertEqual('550', movie['tmdb']['id'])
         self.assertEqual('https://www.themoviedb.org/movie/550', movie['tmdb']['url'])
         self.assertEqual(10, movie['trakt']['my_rating'])

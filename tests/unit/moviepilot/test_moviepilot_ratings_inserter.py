@@ -99,7 +99,7 @@ class MoviePilotRatingsInserterTest(TestCase):
         movie2['year'] = 1995
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'tt0137523'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie2['imdb']['my_rating'] = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access

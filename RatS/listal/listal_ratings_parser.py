@@ -11,7 +11,7 @@ class ListalRatingsParser(RatingsParser):
         super(ListalRatingsParser, self).__init__(Listal(args), args)
 
     def _get_ratings_page(self, i):
-        return 'http://{username}.listal.com/movies/all/{page_number}/?rating=1'.format(
+        return 'https://{username}.listal.com/movies/all/{page_number}/?rating=1'.format(
             username=self.site.USERNAME,
             page_number=i
         )
@@ -45,7 +45,7 @@ class ListalRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_url(movie_tile):
-        return movie_tile.find_all('div')[1].find('a')['href']
+        return movie_tile.find_all('div')[1].find('a')['href'].replace('http://', 'https://')
 
     def parse_movie_details_page(self, movie):
         self.site.handle_request_blocked_by_website()

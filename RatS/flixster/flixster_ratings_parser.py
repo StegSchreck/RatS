@@ -45,7 +45,7 @@ class FlixsterRatingsParser(RatingsParser):
 
         movie['flixster'] = dict()
         movie['flixster']['id'] = movie_json['movie']['id']
-        movie['flixster']['url'] = movie_json['movie']['url']
+        movie['flixster']['url'] = movie_json['movie']['url'].replace('http://', 'https://')
         movie['flixster']['my_rating'] = int(float(movie_json['score']) * 2)
 
         return movie
