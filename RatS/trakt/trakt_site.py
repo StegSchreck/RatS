@@ -16,10 +16,10 @@ class Trakt(Site):
         )
 
     def _handle_privacy_notice_if_present(self):
-        privacy_notice = self.browser.find_elements_by_id('sncmp-container')
+        privacy_notice = self.browser.find_elements_by_id('snigel-cmp-framework')
         if len(privacy_notice) == 0:
             return
-        privacy_accept_button = privacy_notice[0].find_elements_by_id('sncmp-popup-ok-button')
+        privacy_accept_button = privacy_notice[0].find_elements_by_id('accept-choices')
         if privacy_accept_button is not None and len(privacy_accept_button) > 0:
             privacy_accept_button[0].click()
             time.sleep(1)
