@@ -181,11 +181,11 @@ class RatingsParser:
         for link in external_links:
             if 'imdb.com' in link['href'] and 'find?' not in link['href']:
                 movie['imdb'] = dict()
-                movie['imdb']['url'] = link['href'].strip('/')
+                movie['imdb']['url'] = link['href'].strip('/').replace('http://', 'https://')
                 movie['imdb']['id'] = movie['imdb']['url'].split('/')[-1]
             elif 'themoviedb.org' in link['href']:
                 movie['tmdb'] = dict()
-                movie['tmdb']['url'] = link['href'].strip('/')
+                movie['tmdb']['url'] = link['href'].strip('/').replace('http://', 'https://')
                 movie['tmdb']['id'] = movie['tmdb']['url'].split('/')[-1]
 
     @staticmethod

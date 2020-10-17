@@ -51,7 +51,7 @@ class MovielensRatingsParser(RatingsDownloader):
         movie['imdb']['id'] = imdb_id
         if 'tt' not in movie['imdb']['id']:
             movie['imdb']['id'] = 'tt{imdb_id_number}'.format(imdb_id_number=imdb_id)
-        movie['imdb']['url'] = 'http://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
+        movie['imdb']['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
 
     @staticmethod
     def __extract_year(movie, title_field):

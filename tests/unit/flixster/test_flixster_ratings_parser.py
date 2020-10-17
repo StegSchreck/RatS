@@ -44,5 +44,5 @@ class FlixsterParserTest(TestCase):
         self.assertEqual(1999, parser.movies[0]['year'])
 
         self.assertEqual(13153, parser.movies[0]['flixster']['id'])
-        self.assertEqual('http://www.flixster.com/movie/fight-club/', parser.movies[0]['flixster']['url'])
+        self.assertEqual('https://www.flixster.com/movie/fight-club/', parser.movies[0]['flixster']['url'])
         self.assertEqual(10, parser.movies[0]['flixster']['my_rating'])

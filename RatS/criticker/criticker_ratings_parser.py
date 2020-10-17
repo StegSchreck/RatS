@@ -64,13 +64,13 @@ class CritickerRatingsParser(RatingsParser):
         movie['criticker']['id'] = xml_node.find('filmid').text
         movie_link = xml_node.find('filmlink').text
 
-        movie_link = re.sub('/rating/.*', '', movie_link)
+        movie_link = re.sub('/rating/.*', '', movie_link).replace('http://', 'https://')
 
         movie['criticker']['url'] = movie_link
         movie['criticker']['my_rating'] = round(float(xml_node.find('rating').text) / 10)
 
         movie['imdb'] = dict()
         movie['imdb']['id'] = xml_node.find('imdbid').text
-        movie['imdb']['url'] = 'http://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
+        movie['imdb']['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
 
         return movie

@@ -51,7 +51,7 @@ def convert_csv_row_to_movie(headers, row):
     movie['year'] = int(row[headers.index("Year")])
     movie['imdb'] = dict()
     movie['imdb']['id'] = row[headers.index("Const")]
-    movie['imdb']['url'] = row[headers.index("URL")]
+    movie['imdb']['url'] = row[headers.index("URL")].replace('http://', 'https://')
     movie['imdb']['my_rating'] = int(row[headers.index("Your Rating")])
     return movie
 

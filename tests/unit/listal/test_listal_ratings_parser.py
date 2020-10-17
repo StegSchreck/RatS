@@ -45,7 +45,7 @@ class ListalParserTest(TestCase):
         self.assertEqual(dict, type(parser.movies[0]))
         self.assertEqual('Fight Club', parser.movies[0]['title'])
         self.assertEqual('1596', parser.movies[0]['listal']['id'])
-        self.assertEqual('http://www.listal.com/movie/fight-club', parser.movies[0]['listal']['url'])
+        self.assertEqual('https://www.listal.com/movie/fight-club', parser.movies[0]['listal']['url'])
 
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
@@ -65,4 +65,4 @@ class ListalParserTest(TestCase):
         self.assertEqual(1999, movie['year'])
         self.assertEqual(10, movie['listal']['my_rating'])
         self.assertEqual('tt0137523', movie['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt0137523', movie['imdb']['url'])
+        self.assertEqual('https://www.imdb.com/title/tt0137523', movie['imdb']['url'])

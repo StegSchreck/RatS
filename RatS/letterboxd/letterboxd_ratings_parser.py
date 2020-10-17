@@ -46,6 +46,6 @@ class LetterboxdRatingsParser(RatingsDownloader):
         movie['title'] = row[headers.index("Name")]
         movie['year'] = int(row[headers.index("Year")])
         movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]['url'] = row[headers.index("Letterboxd URI")]
+        movie[self.site.site_name.lower()]['url'] = row[headers.index("Letterboxd URI")].replace('http://', 'https://')
         movie[self.site.site_name.lower()]['my_rating'] = int(float(row[headers.index("Rating")]) * 2)
         return movie

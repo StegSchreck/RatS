@@ -70,7 +70,7 @@ class ICheckMoviesParserTest(TestCase):
         self.assertEqual('https://www.icheckmovies.com/movies/fight+club/', parser.movies[0]['icheckmovies']['url'])
         self.assertEqual(1999, parser.movies[0]['year'])
         self.assertEqual('tt0137523', parser.movies[0]['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt0137523', parser.movies[0]['imdb']['url'])
+        self.assertEqual('https://www.imdb.com/title/tt0137523', parser.movies[0]['imdb']['url'])
         self.assertEqual(8, parser.movies[0]['icheckmovies']['my_rating'])
 
     @patch('RatS.base.base_ratings_parser.RatingsParser._print_progress_bar')
@@ -99,5 +99,5 @@ class ICheckMoviesParserTest(TestCase):
                          parser.movies[0]['icheckmovies']['url'])
         self.assertEqual(2004, parser.movies[0]['year'])
         self.assertEqual('tt0421051', parser.movies[0]['imdb']['id'])
-        self.assertEqual('http://www.imdb.com/title/tt0421051', parser.movies[0]['imdb']['url'])
+        self.assertEqual('https://www.imdb.com/title/tt0421051', parser.movies[0]['imdb']['url'])
         self.assertEqual(3, parser.movies[0]['icheckmovies']['my_rating'])

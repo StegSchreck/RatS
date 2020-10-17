@@ -28,7 +28,7 @@ class BaseInserterTest(TestCase):
         movie['year'] = 1999
         movie['imdb'] = dict()
         movie['imdb']['id'] = 'tt0137523'
-        movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie['imdb']['my_rating'] = 9
 
         movie2 = dict()
@@ -36,7 +36,7 @@ class BaseInserterTest(TestCase):
         movie2['year'] = 1111
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'xxx'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/xxx'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/xxx'
         movie2['imdb']['my_rating'] = 4
 
         movies = [movie, movie, movie2]
@@ -63,7 +63,7 @@ class BaseInserterTest(TestCase):
         movie['year'] = 1999
         movie['imdb'] = dict()
         movie['imdb']['id'] = 'tt0137523'
-        movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         movie['imdb']['my_rating'] = 9
 
         movie2 = dict()
@@ -71,7 +71,7 @@ class BaseInserterTest(TestCase):
         movie2['year'] = 1111
         movie2['imdb'] = dict()
         movie2['imdb']['id'] = 'xxx'
-        movie2['imdb']['url'] = 'http://www.imdb.com/title/xxx'
+        movie2['imdb']['url'] = 'https://www.imdb.com/title/xxx'
         movie2['imdb']['my_rating'] = 4
 
         movies = [movie, movie2, movie2]

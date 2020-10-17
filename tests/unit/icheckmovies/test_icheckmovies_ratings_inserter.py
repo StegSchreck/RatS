@@ -15,7 +15,7 @@ class ICheckMoviesInserterTest(TestCase):
         self.movie['title'] = 'Fight Club'
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
-        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         self.movie['imdb']['my_rating'] = 9
 
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')

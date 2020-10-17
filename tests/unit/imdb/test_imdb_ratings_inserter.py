@@ -18,7 +18,7 @@ class IMDBRatingsInserterTest(TestCase):
         self.movie['year'] = 1999
         self.movie['imdb'] = dict()
         self.movie['imdb']['id'] = 'tt0137523'
-        self.movie['imdb']['url'] = 'http://www.imdb.com/title/tt0137523'
+        self.movie['imdb']['url'] = 'https://www.imdb.com/title/tt0137523'
         self.movie['trakt'] = dict()
         self.movie['trakt']['id'] = '432'
         self.movie['trakt']['url'] = 'https://trakt.tv/movies/fight-club-1999'
