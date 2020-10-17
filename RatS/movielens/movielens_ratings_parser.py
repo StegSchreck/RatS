@@ -34,19 +34,19 @@ class MovielensRatingsParser(RatingsDownloader):
         )
         movie[self.site.site_name.lower()]['my_rating'] = int(float(row[headers.index("rating")]) * 2)
 
-        self.__extract_imdb_informations(movie, row[headers.index("imdb_id")])
-        self.__extract_tmdb_informations(movie, row[headers.index("tmdb_id")])
+        self.__extract_imdb_information(movie, row[headers.index("imdb_id")])
+        self.__extract_tmdb_information(movie, row[headers.index("tmdb_id")])
 
         return movie
 
     @staticmethod
-    def __extract_tmdb_informations(movie, tmdb_id):
+    def __extract_tmdb_information(movie, tmdb_id):
         movie['tmdb'] = dict()
         movie['tmdb']['id'] = tmdb_id
         movie['tmdb']['url'] = 'https://www.themoviedb.org/movie/{tmdb_id}'.format(tmdb_id=movie['tmdb']['id'])
 
     @staticmethod
-    def __extract_imdb_informations(movie, imdb_id):
+    def __extract_imdb_information(movie, imdb_id):
         movie['imdb'] = dict()
         movie['imdb']['id'] = imdb_id
         if 'tt' not in movie['imdb']['id']:

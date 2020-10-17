@@ -29,6 +29,9 @@ RatS/filmaffinity/__init__.py
 RatS/filmaffinity/filmaffinity_ratings_inserter.py
 RatS/filmaffinity/filmaffinity_ratings_parser.py
 RatS/filmaffinity/filmaffinity_site.py
+RatS/filmtipset/__init__.py
+RatS/filmtipset/filmtipset_ratings_parser.py
+RatS/filmtipset/filmtipset_site.py
 RatS/flixster/__init__.py
 RatS/flixster/flixster_ratings_inserter.py
 RatS/flixster/flixster_ratings_parser.py

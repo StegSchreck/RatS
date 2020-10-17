@@ -28,8 +28,8 @@ class FilmtipetParserTest(TestCase):
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.filmtipset.filmtipset_ratings_parser.Filmtipset')
-    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock, repair_mock,
-                    file_was_downloaded_mock):  # pylint: disable=too-many-arguments
+    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock, repair_mock,  # pylint: disable=too-many-arguments
+                    file_was_downloaded_mock):
         parser = FilmtipsetRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
@@ -77,7 +77,7 @@ class FilmtipetParserTest(TestCase):
             newline = FilmtipsetRatingsParser._repair_csv_row(line)  # pylint: disable=protected-access
             self.assertEqual(expected_line, newline)
 
-    @patch('RatS.filmtipset.filmtipset_ratings_parser.FilmtipsetRatingsParser._extract_imdb_informations')
+    @patch('RatS.filmtipset.filmtipset_ratings_parser.FilmtipsetRatingsParser._extract_imdb_information')
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.filmtipset.filmtipset_ratings_parser.Filmtipset')
@@ -96,7 +96,7 @@ class FilmtipetParserTest(TestCase):
         self.assertEqual(1, imdb_mock.call_count)
         self.assertDictEqual(movie, expected_movie)
 
-    def test_extract_imdb_informations(self):
+    def test_extract_imdb_information(self):
         tests = [
             ('1234567', {
                 'imdb': {
