@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.imdb.imdb_site import IMDB
 from RatS.listal.listal_site import Listal
 from RatS.utils import command_line
 
@@ -77,7 +78,8 @@ class ListalRatingsInserter(RatingsInserter):
             for link in external_links:
                 if external_url_base in link['href']:
                     link_href = link['href'].strip('/')
-                    return movie[site_name]['id'] == link_href.split('/')[-1]
+                    return IMDB.normalize_imdb_id(movie[site_name]['id']) == \
+                           IMDB.normalize_imdb_id(link_href.split('/')[-1])
         return False
 
     def _post_movie_rating(self, my_rating):
