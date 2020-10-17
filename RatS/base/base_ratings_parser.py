@@ -16,7 +16,7 @@ class RatingsParser:
         self.movies = []
         self.movies_count = 0
 
-        self.site.browser.get(self.site.MY_RATINGS_URL)
+        self.site.open_url_with_521_retry(self.site.MY_RATINGS_URL)
 
         self.exports_folder = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
@@ -57,7 +57,6 @@ class RatingsParser:
                 site_displayname=self.site.site_displayname,
                 movies_count=self.movies_count
             ))
-            # sys.stdout.write(str(self.site.browser.page_source))
             sys.stdout.write('\r\n ================================================== \r\n')
             sys.stdout.flush()
 
@@ -70,7 +69,7 @@ class RatingsParser:
         sys.stdout.flush()
 
         for i in range(1, pages_count + 1):
-            self.site.browser.get(self._get_ratings_page(i))
+            self.site.open_url_with_521_retry(self._get_ratings_page(i))
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
 
@@ -159,7 +158,7 @@ class RatingsParser:
         return movie
 
     def _go_to_movie_details_page(self, movie):
-        self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+        self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]['url'])
 
     @staticmethod
     def _get_movie_title(movie_tile):

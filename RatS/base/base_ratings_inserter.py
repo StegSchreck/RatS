@@ -90,7 +90,7 @@ class RatingsInserter:
 
     def _go_to_movie_details_page(self, movie):
         if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
-            self.site.browser.get(movie[self.site.site_name.lower()]['url'])
+            self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]['url'])
             success = True
         else:
             success = self._find_movie(movie)
