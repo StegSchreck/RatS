@@ -16,7 +16,7 @@ class TraktRatingsInserter(RatingsInserter):
         search_url = 'https://trakt.tv/search/?{search_params}'.format(
             search_params=urllib.parse.urlencode({'query': movie['title']})
         )
-        self.site.browser.get(search_url)
+        self.site.open_url_with_521_retry(search_url)
 
     @staticmethod
     def _get_search_results(search_result_page):
@@ -35,7 +35,7 @@ class TraktRatingsInserter(RatingsInserter):
         except KeyError:
             return False
 
-        self.site.browser.get(movie_url)
+        self.site.open_url_with_521_retry(movie_url)
         time.sleep(1)
         if 'imdb' in movie and movie['imdb']['id'] != '':
             return self._compare_external_links(self.site.browser.page_source, movie, 'imdb.com', 'imdb')
@@ -62,7 +62,7 @@ class TraktRatingsInserter(RatingsInserter):
             current_rating = int(user_rating[0].text)
         else:
             current_rating = 0
-        if current_rating is not my_rating:  # prevent unrating if same score
+        if current_rating is not my_rating:  # prevent un-rating if same score
             user_rating_section.click()
             time.sleep(1)
             star_index = 10 - int(my_rating)

@@ -8,6 +8,7 @@ from configparser import RawConfigParser
 from selenium.common.exceptions import NoSuchElementException
 
 from RatS.base.login_failed_exception import LoginFailedException
+from RatS.base.site_not_reachable_exception import SiteNotReachableException
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
 
@@ -70,7 +71,7 @@ class Site:
     def login(self):
         sys.stdout.write('===== {site_displayname}: performing login'.format(site_displayname=self.site_displayname))
         sys.stdout.flush()
-        self.browser.get(self.LOGIN_PAGE)
+        self.open_url_with_521_retry(self.LOGIN_PAGE)
         time.sleep(1)
 
         self._pre_login_action()
@@ -131,3 +132,13 @@ class Site:
     def get_json_from_html(self):
         response = self.browser.find_element_by_tag_name("pre").text.strip()
         return json.loads(response)
+
+    def open_url_with_521_retry(self, url):
+        iteration = 0
+        self.browser.get(url)
+
+        while len(self.browser.find_elements_by_id('cf-error-details')) > 0:
+            if iteration >= 10:
+                raise SiteNotReachableException
+            iteration += 1
+            self.browser.get(url)
