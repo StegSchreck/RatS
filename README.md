@@ -135,6 +135,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 * AlloCine
 * Criticker
 * FilmAffinity
+* Filmtipset
 * ~~Flixster~~ deactivated until new account feature is implemented at Flixster
 * iCheckMovies
   * please configure the boundaries for the ratings conversion yourself in the `credentials.cfg`

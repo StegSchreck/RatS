@@ -30,6 +30,7 @@ RatS/filmaffinity/filmaffinity_ratings_inserter.py
 RatS/filmaffinity/filmaffinity_ratings_parser.py
 RatS/filmaffinity/filmaffinity_site.py
 RatS/filmtipset/__init__.py
+RatS/filmtipset/filmtipset_ratings_inserter.py
 RatS/filmtipset/filmtipset_ratings_parser.py
 RatS/filmtipset/filmtipset_site.py
 RatS/flixster/__init__.py
@@ -90,6 +91,7 @@ tests/functional/sites/__init__.py
 tests/functional/sites/test_allocine_site.py
 tests/functional/sites/test_criticker_site.py
 tests/functional/sites/test_filmaffinity_site.py
+tests/functional/sites/test_filmtipset_site.py
 tests/functional/sites/test_flixster_site.py
 tests/functional/sites/test_icheckmovies_site.py
 tests/functional/sites/test_imdb_site.py
@@ -115,6 +117,9 @@ tests/unit/criticker/test_criticker_ratings_parser.py
 tests/unit/filmaffinity/__init__.py
 tests/unit/filmaffinity/test_filmaffinity_ratings_inserter.py
 tests/unit/filmaffinity/test_filmaffinity_ratings_parser.py
+tests/unit/filmtipset/__init__.py
+tests/unit/filmtipset/test_filmtipset_ratings_inserter.py
+tests/unit/filmtipset/test_filmtipset_ratings_parser.py
 tests/unit/flixster/__init__.py
 tests/unit/flixster/test_flixster_ratings_inserter.py
 tests/unit/flixster/test_flixster_ratings_parser.py

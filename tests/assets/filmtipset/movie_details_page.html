@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<title>Fight Club &raquo; Filmtipset</title>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://www.filmtipset.se/images/favicon.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://www.filmtipset.se/assets/marquee.js"></script>
+
+<script type="text/javascript" src="https://www.filmtipset.se/assets/loginForm.js"></script>
+<script type="text/javascript" src="https://www.filmtipset.se/assets/dynamicSearch.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700|Roboto:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://www.filmtipset.se/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://www.filmtipset.se/style.css?24" />
+<link rel="stylesheet" type="text/css" href="https://www.filmtipset.se/movie.css" />
+
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+
+    googletag.defineSlot('/21756427176/filmtipset.se_toppano_980x240-120-728x90', [[980, 300], [980, 120], [728, 90], [980, 240]], 'div-gpt-ad-1559912356892-0').addService(googletag.pubads());
+    googletag.defineSlot('/21756427176/filmtipset.se_right1_250x360', [[160, 600], [250, 360], [300, 250], [300, 600]], 'div-gpt-ad-1559912398523-0').addService(googletag.pubads());
+    googletag.defineSlot('/21756427176/filmtipset.se_right2_250x360', [[300, 250], [160, 600], [250, 360], [300, 600]], 'div-gpt-ad-1559912422481-0').addService(googletag.pubads());
+    googletag.defineSlot('/21756427176/filmtipset.se_right3_250x360', [[160, 600], [250, 360], [300, 250], [300, 600]], 'div-gpt-ad-1559912439815-0').addService(googletag.pubads());
+    googletag.defineSlot('/21756427176/filmtipset.se_mpu1_300x250', [[250, 250], [728, 90], [300, 250], [468, 60]], 'div-gpt-ad-1559912457308-0').addService(googletag.pubads());
+    googletag.defineSlot('/21756427176/filmtipset.se_botpano_980x240-120-728x90', [[980, 300], [980, 120], [980, 240], [728, 90]], 'div-gpt-ad-1559912486949-0').addService(googletag.pubads());
+
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+  });
+</script>
+<script>
+$(document).ready(function(){
+  $('.commentlink').on('click', function(e){
+    e.preventDefault();
+    $('#commentform').slideToggle();
+  });
+
+  $('.commentEdit').click(function(e){
+    e.preventDefault();
+    $(this).closest('.display').next().toggle();
+    $(this).closest('.display').toggle();
+  });
+
+  $(".personalComment input[type='submit']").on("click", function() {
+    var $edit = $(this).closest('.edit');
+    $.post("https://www.filmtipset.se/ajaxUpdateComment.php", $(this).parent().serialize()).done(function( data ) {
+      $edit.closest('.personalComment').find('.display').show();
+      $edit.closest('.personalComment').find('.display').find('.commentText').html(data);
+      $edit.hide();
+    });
+    return false;
+  });
+
+  $(".commentDelete").confirm({
+      boxWidth: '350px',
+      useBootstrap: false,
+      title: 'Bekräfta',
+      content: 'Vill du radera kommentaren?',
+      type: 'red',
+      buttons: {
+        delete: {
+            text: 'Radera',
+            btnClass: 'btn-red',
+            action: function(){
+              $.post("https://www.filmtipset.se/ajaxUpdateComment.php", { deleteID: this.$target.data('id') })
+              .done(function(data) {
+                location.reload(); // $('.personalComment').parent().hide();
+              });
+            }
+        },
+        stop: {
+          text: 'Avbryt',
+          action: function(){
+            backgroundDismiss: true;
+          }
+        }
+      }
+    }); /* confirm */
+
+});
+</script>
+
+</head>
+<body>
+
+<div id="header-wrapper">
+  <div id="top-wrapper">
+    <div class="container">
+      <a href="https://www.filmtipset.se"><img src="/images/toplogo.png" id="logo" alt="Personliga filmtips"></a>
+
+          <div id="loginstatus">
+        <a href="?logout=true" id="logoutbutton"><i class="fa fa-power-off" style="margin:0 4px;"></i></a>
+        <div class="userstatus">
+          <a href="/medlem/StegSchreck"><strong>StegSchreck</strong></a><br/>
+                    <span style="font-size:0.7em;"><a href="https://www.filmtipset.se/meddelanden">0 nya meddelanden</a></span>
+        </div>
+      </div>
+    
+    <form id="searchbar" action="https://www.filmtipset.se/hitta" method="get"><input type="text" autocomplete="off" id="q" name="q" value="" placeholder="Sök filmtitel, genre eller person...">
+    <div id="searchDropdown"><ul></ul></div>
+    </form>
+
+    </div>
+  </div>
+  <div id="menu-wrapper">
+    <div class="container">
+      <ul id="nav">
+        <li class="nav-item"><a href="https://www.filmtipset.se">Aktuellt</a></li>
+        <li class="nav-item"><a href="https://www.filmtipset.se/filmtips">Filmtips</a></li>
+        <li class="nav-item"><a href="https://www.filmtipset.se/topplistor">Filmlistor</a></li>
+        <li class="nav-item"><a href="https://www.filmtipset.se/forum">Forum</a></li>
+        <li class="nav-item"><a href="https://www.filmtipset.se/redaktionen">Information</a></li>
+      </ul>
+
+      <div id="marquee" class="hideTablet"></div>
+
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+<div id="divider"></div>
+<div class="container">
+<div class="ad-panorama hideTablet"><!-- /21756427176/filmtipset.se_toppano_980x240-120-728x90 -->
+<div id='div-gpt-ad-1559912356892-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559912356892-0'); });
+</script>
+</div></div><div class="outer"><!-- /21756427176/filmtipset.se_right1_250x360 -->
+<div id='div-gpt-ad-1559912398523-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559912398523-0'); });
+</script>
+</div>
+
+<!-- /21756427176/filmtipset.se_right2_250x360 -->
+<div id='div-gpt-ad-1559912422481-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559912422481-0'); });
+</script>
+</div>
+
+<!-- /21756427176/filmtipset.se_right3_250x360 -->
+<div id='div-gpt-ad-1559912439815-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559912439815-0'); });
+</script>
+</div></div><!-- .outer -->
+<div class="content">
+  <div class="row">
+    
+    <span class="score-big">BETYG<br/><span class="score">4.2</span><br/>av 5</span>
+        <span class="score-small" title="Ditt förväntade betyg">AI<br/><span class="score">4</span></span>    <h1>Fight Club</h1>
+    <span class="postmeta"><i class="fa fa-calendar"></i> 1999</span>
+    <span class="postmeta hideMobile"><i class="fa fa-globe"></i> Tyskland, USA</span>
+    <span class="postmeta"><i class="fa fa-clock-o"></i> 139min</span>
+    <span class="postmeta hideMobile"><i class="fa fa-film"></i> <a href="https://www.imdb.com/title/tt00137523" target="_blank" rel="nofollow noindex">IMDb</a></span><br/>
+
+    <p>Vår berättare lever ett vanligt liv och hatar det. En dag träffar han Tyler Durden som anser att det bara är genom smärtan och kampen som en man kan känna att han lever. Tillsammans startar de en hemlig klubb där unga män får utlopp för sina frustrationer genom slagsmål.</p><br/>
+
+    <img src="https://www.filmtipset.se/uploads/2020/iynae8u6vux9371j.jpg" class="movieposter">
+    <table id="moviedata">
+      <tr>
+        <td class="label">Originaltitel</td>
+        <td>Fight Club</td>
+      </tr>
+            <tr>
+        <td class="label">Regissör</td>
+        <td><a href="/person/David+Fincher">David Fincher</a></td>
+      </tr>
+      <tr>
+        <td class="label">Manus</td>
+        <td><a href="/person/Jim+Uhls">Jim Uhls</a></td>
+      </tr>      <tr>
+        <td class="label">Genre</td>
+        <td><a href="/genre/drama">Drama</a>, <a href="/genre/thriller">Thriller</a>, <a href="/genre/1990-talet">90-tal</a></td>
+      </tr>
+      <tr>
+        <td class="label" valign="top">Skådespelare</td>
+        <td><a href="/person/Brad+Pitt">Brad Pitt</a>, <a href="/person/Edward+Norton">Edward Norton</a>, <a href="/person/Helena+Bonham+Carter">Helena Bonham Carter</a>, <a href="/person/Meat+Loaf">Meat Loaf</a>, <a href="/person/Jared+Leto">Jared Leto</a>, <a href="/person/Zach+Grenier">Zach Grenier</a>, <a href="/person/Richmond+Arquette">Richmond Arquette</a>, <a href="/person/David+Andrews">David Andrews</a>, <a href="/person/Tim+DeZarn">Tim DeZarn</a>, <a href="/person/Ezra+Buzzington">Ezra Buzzington</a>, <a href="/person/Thom+Gossom+Jr">Thom Gossom Jr</a>, <a href="/person/Peter+Iacangelo">Peter Iacangelo</a></td>
+      </tr>      <tr>
+        <td class="label">Betygsätt</td>
+        <td>
+                    <a href="/film/fight-club?vote=1" class="votebutton one "><div>1</div></a>
+          <a href="/film/fight-club?vote=2" class="votebutton two "><div>2</div></a>
+          <a href="/film/fight-club?vote=3" class="votebutton three "><div>3</div></a>
+          <a href="/film/fight-club?vote=4" class="votebutton four "><div>4</div></a>
+          <a href="/film/fight-club?vote=5" class="votebutton five "><div>5</div></a>
+                            </td>
+      </tr>
+      <tr>
+        <td class="label">Betygsantal</td>
+        <td>42537</td>
+      </tr>
+      <tr>
+        <td class="label">Filmnummer</td>
+        <td>76</td>
+      </tr>
+    </table>
+
+    <div style="clear:both;"></div><br/>
+
+  </div>
+
+  
+  <div class="row">
+    <a href="/skriv-recension/fight-club" class="reactbutton">Skriv recension</a>    <h2>Recensioner</h2>
+    <p><span class="commentmeta">Skapad 2019-12-21 av <a href="../medlem/connya"><strong>connya</strong></a></span><br/><em>Av någon anledning tänkte jag se den samtidigt bioauktuella tarzan istället för figt club eftersom jag tyckte att affischen såg så tråkig ut. Att regissören David Fincher gjort Seven och The G...</em> &nbsp; <a href="../recension/3060">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-12-21 av <a href="../medlem/"><strong></strong></a></span><br/><em>The things you own ends up owning you
+
+Detta citat är sagt av Tyler Durden, spelad av Brad Pitt i filmen Fight Club. Den meningen skulle passa bra in när man beskriver vad denna film spelar ...</em> &nbsp; <a href="../recension/7008">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-12-20 av <a href="../medlem/Tastyburger"><strong>Tastyburger</strong></a></span><br/><em>Fight club är en skrämmande, omskakande och faktiskt stundtals komisk thriller av David Fincher. Filmens huvudperson lider av kronisk sömnlöshet, han plågas av sitt meningslösa liv och fyller si...</em> &nbsp; <a href="../recension/14851">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-12-15 av <a href="../medlem/fejs"><strong>fejs</strong></a></span><br/><em>Fight Club är en film som får dig att tänka till. Hur lever du ditt liv egentligen? 
+Filmen handlar om en ung man , Jack (Edward Norton), som har ett trist kontorsjobb. Hans liv är så tråkigt at...</em> &nbsp; <a href="../recension/499">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-12-15 av <a href="../medlem/Ola_Schubert"><strong>Ola_Schubert</strong></a></span><br/><em>Det är välkänt att Fight Club är en bra och omskakande film, så:
+Varför bidrar jag med ytterligare en recension när det redan finns sex stycken?
+Och: Varför bryr jag mig överhuvudtaget om att...</em> &nbsp; <a href="../recension/13673">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-12-05 av <a href="../medlem/alexandero"><strong>alexandero</strong></a></span><br/><em>För att gå rakt på sak:
+Fight Club är ett mästerverk som på ett genialiskt och mycket välgenomtänkt sätt ransakar hela vår livsstil. Det är en film som skrämmer oss med vad som kan hända ...</em> &nbsp; <a href="../recension/1238">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-11-09 av <a href="../medlem/souldepression"><strong>souldepression</strong></a></span><br/><em>Det här är en film som är lite bättre än \"superbra\". 
+Det är en tanke bakom, och det märks i filmen och höjer den. 
+Filmen kritiserar/varnar för vårt sätt att leva ett sorts ekorrhjulsliv...</em> &nbsp; <a href="../recension/1406">Läs mer &raquo;</a></p><p><span class="commentmeta">Skapad 2019-11-09 av <a href="../medlem/soderbaum"><strong>soderbaum</strong></a></span><br/><em>Fight Club är troligen en av 90-talets mest kontroversiella och omtalade filmer, jämförbar med klassiker som Rebell i bojor och Mandomsprovet. Det ligger en mycket mörk, satirisk humor över handl...</em> &nbsp; <a href="../recension/12967">Läs mer &raquo;</a></p>
+  </div>
+  <div class="row">
+    <a href="#" class="reactbutton commentlink">Kommentera</a>    <a name="comments"></a>
+    <h2>Kommentarer</h2>
+
+    <form id="commentform" method="post">
+      <textarea id="comment" name="comment" placeholder="Skriv en ny kommentar" minlength="10" required></textarea>
+      <input type="submit" id="submit" name="submit" value="Skicka" class="button submitComment" style="width:120px;float:right;" /><br/>
+    </form>
+
+    <div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/MovieNerd"><strong>MovieNerd</strong></a><br/>2020-06-14<br/></div><div style="width:calc(100% - 120px);float:left">En av den moderna filmens stora vattendelare, personligen kan jag inte uttrycka någon annan känsla än fascination. Fantastisk!</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/djonipony"><strong>djonipony</strong></a><br/>2020-01-19<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Höjer fr 1a till en svag 3a efter omtitt</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/dudson"><strong>dudson</strong></a><br/>2019-03-16<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Verkligen en Fincher film då allt verkligen ställs på sin spets&quot;
+Skum story då allt verkligen smälter in i varandra & extremt snygga mörka skugg färger som Finch är känd för. Det man kommer ihåg med filmen är det nedgågna skabbiga huset samt Brads gökande.
+Sen är såklart slutet en given förebådelse vad som skulle hända 9/11 då man ser 2 skyskrapor falla samman. Och såklart det är ingen random slump&quot;</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/Pi-R"><strong>Pi-R</strong></a><br/>2018-12-25<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Jag erkänner att har lite svårt för de här nittiotalsrullarna som är så tokhöga på sin egenkänsla av coolhet (Pitts KLÄDER överspelar t.ex. värre än hjältinnan i ett 1920-talsmelodram).Och det blir dessutom ännu mer påtagligt, i jämförelse med boken,som i princip inte åldrats alls. Samtidig går det på inget vis att förneka att skådespelet (främst Nortons) och foto är riktigt starkt, och Finchers genuina hantverk syns ju. Av hans fyra tidigaste sevärda filmer (alltså inte inräknat Alien 3), så har dock Fight Club åldrats sämst.</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/Paramis"><strong>Paramis</strong></a><br/>2018-11-30<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Wow ! Vilket flum, enda behållningen var Meatloaf. Den var säkert supercool när den kom, nu är det mest töntigt.
+Se den fantastiska &quot;The Game&quot; istället.</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/Qhorinhalfhand"><strong>Qhorinhalfhand</strong></a><br/>2018-09-19<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">En genialisk och extremt genomtänkt film. Den känns väldigt lång andra gången man ser den och det är nästan intressantare att spekulera i filmens budskap än att faktiskt kolla på filmen, men det höjer bara betyget på filmen ännu högre. Solklar femma.</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/sawa"><strong>sawa</strong></a><br/>2018-03-19<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Intressant plot fast kanske lite väl skruvad. The first rule of Fight Club is: you do not talk about Fight Club.</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/Rai"><strong>Rai</strong></a><br/>2017-11-16<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Helt ok...</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/"><strong></strong></a><br/>2017-08-20<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Den originella idén och skådespelarnas insatser höjer betyget lite men den färdiga filmen kunde ha blivit en aning bättre. Men den är ändå väldigt bra.</div></div><div style="clear:both;margin:8px 0;padding:10px 5px;border-top:1px solid #eee;"><div style="float:left;font-size:0.8em;margin:5px 5px 15px 0;width:100px;line-height:1.2em;"><a href="../medlem/idaho1981"><strong>idaho1981</strong></a><br/>2017-03-30<br/><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star" title="Mitt betyg"></i><i class="fa fa-star-o" title="Mitt betyg"></i></div><div style="width:calc(100% - 120px);float:left">Galen film som har mer att komma med än man först tror. Det allra bästa är ju ändå skådespeleriet som är helt fantastiskt. Svag femma eller stark fyra.</div></div><div style="clear:both;padding-top:20px;"><a href="?p=1#comments" style="float:right;">Visa äldre kommentarer &raquo;</a></div>    <div style="clear:both;"></div>
+
+  </div>
+</div>
+
+<div class="sidebar">
+<strong>Relaterade filmtips</strong><br/>
+
+<a href="/film/inglourious-basterds" title="Inglourious Basterds"><div class="relatedmovie" style="background:url(https://www.filmtipset.se/uploads/2020/sn5e5vbskxs23lju.jpg);">&nbsp;</div></a><a href="/film/enid" title="Den sanna Enid Blyton"><div class="relatedmovie" style="background:url(https://www.filmtipset.se/uploads/posters/49796182.jpg);">&nbsp;</div></a><a href="/film/kingdom-of-heaven" title="Kingdom of Heaven"><div class="relatedmovie" style="background:url(https://www.filmtipset.se/uploads/2020/rn4jvfycle18o7t.jpg);">&nbsp;</div></a><a href="/film/les-miserables-2012-3" title="Les Misérables"><div class="relatedmovie" style="background:url(https://www.filmtipset.se/uploads/2020/mrg1znzmvptki5xp.jpg);">&nbsp;</div></a>
+<div style="clear:both;height:20px;"></div>
+
+<strong>Alla filmgenrer</strong><br/>
+<a href="/genre/aventyrsfilm" class="genrelink">&Auml;ventyr</a> <a href="/genre/action" class="genrelink">Action</a> <a href="/genre/amatorfilm" class="genrelink">Amat&ouml;rfilm</a> <a href="/genre/anime" class="genrelink">Anime</a> <a href="/genre/animerat" class="genrelink">Animerad</a> <a href="/genre/biografi" class="genrelink">Biografi</a> <a href="/genre/dokumentar" class="genrelink">Dokument&auml;r</a> <a href="/genre/drama" class="genrelink">Drama</a> <a href="/genre/familjefilm" class="genrelink">Familjefilm</a> <a href="/genre/fantasy" class="genrelink">Fantasy</a> <a href="/genre/film-noir" class="genrelink">Film-Noir</a> <a href="/genre/komedi" class="genrelink">Komedi</a> <a href="/genre/kortfilm" class="genrelink">Kortfilm</a> <a href="/genre/krigsfilm" class="genrelink">Krig</a> <a href="/genre/kriminalfilm" class="genrelink">Kriminalare</a> <a href="/genre/musikal" class="genrelink">Musikal</a> <a href="/genre/mysterium" class="genrelink">Mysterium</a> <a href="/genre/roadmovie" class="genrelink">Roadmovie</a> <a href="/genre/romantik" class="genrelink">Romantik</a> <a href="/genre/science-fiction" class="genrelink">Science Fiction</a> <a href="/genre/skrack-horror" class="genrelink">Skr&auml;ck</a> <a href="/genre/stumfilm" class="genrelink">Stumfilm</a> <a href="/genre/thriller" class="genrelink">Thriller</a> <a href="/genre/vuxenfilm" class="genrelink">Vuxenfilm</a> <a href="/genre/western" class="genrelink">Western</a> 
+</div>
+<div class="ad-panorama hideTablet"><!-- /21756427176/filmtipset.se_botpano_980x240-120-728x90 -->
+  <div id='div-gpt-ad-1559912486949-0'>
+  <script>
+  googletag.cmd.push(function() { googletag.display('div-gpt-ad-1559912486949-0'); });
+  </script>
+  </div></div>
+</div><!-- .container -->
+<div style="clear:both;"></div>
+
+<div id="footer">
+  <div class="container">
+
+    <div class="column">
+      <img src="https://www.filmtipset.se/images/logo-white.png" style="max-width:200px;">
+    </div>
+
+    <div class="column last" style="display:none;">
+      
+      <span class="quote">“Houston, we have a problem.”</span><br/>
+      <span class="quote-credit">Apollo 13</span>
+    </div>
+
+<div class="credits">
+  &copy; 2020 Adhype AB &nbsp;
+  <a href="../information/anvandarvillkor">Användarvillkor</a> &nbsp;
+  <a href="../information/integritetspolicy">Integritetspolicy</a>
+</div>
+
+  <div style="clear:both;padding:5px;"></div>
+
+</div><!-- container -->
+</div><!-- footer -->
+
+</body>
+</html>

@@ -15,6 +15,7 @@ from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
+from RatS.filmtipset.filmtipset_ratings_inserter import FilmtipsetRatingsInserter
 from RatS.filmtipset.filmtipset_ratings_parser import FilmtipsetRatingsParser
 from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
@@ -63,6 +64,7 @@ INSERTERS = {
     'ALLOCINE': AlloCineRatingsInserter,
     'CRITICKER': CritickerRatingsInserter,
     'FILMAFFINITY': FilmAffinityRatingsInserter,
+    'FILMTIPSET': FilmtipsetRatingsInserter,
     # 'FLIXSTER': FlixsterRatingsInserter,
     'ICHECKMOVIES': ICheckMoviesRatingsInserter,
     'IMDB': IMDBRatingsInserter,
