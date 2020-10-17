@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.criticker.criticker_site import Criticker
+from RatS.imdb.imdb_site import IMDB
 
 
 class CritickerRatingsInserter(RatingsInserter):
@@ -50,7 +51,8 @@ class CritickerRatingsInserter(RatingsInserter):
             return False
         for link in external_links:
             if external_url_base in link['href']:
-                return movie[site_name]['id'] == link['href'].rstrip('/').split('/')[-1]
+                return IMDB.normalize_imdb_id(movie[site_name]['id']) == \
+                       IMDB.normalize_imdb_id(link['href'].rstrip('/').split('/')[-1])
         return False
 
     def _post_movie_rating(self, my_rating):

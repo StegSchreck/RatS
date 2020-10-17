@@ -28,3 +28,7 @@ class IMDB(Site):
                 "Login to {site_name} failed.".format(site_name=self.site_name) + "\r\n"
                 "There seems to be a Captcha challenge present for the login. Please try again later.\r\n"
             )
+
+    @classmethod
+    def normalize_imdb_id(cls, imdb_id):
+        return int(imdb_id.replace('tt', ''))
