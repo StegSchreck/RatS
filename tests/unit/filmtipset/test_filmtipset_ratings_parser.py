@@ -1,4 +1,3 @@
-import sys
 import os
 from unittest import TestCase
 from unittest.mock import patch
@@ -6,9 +5,7 @@ from shutil import copyfile
 
 from RatS.filmtipset.filmtipset_ratings_parser import FilmtipsetRatingsParser
 
-
-TESTDATA_PATH = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'assets'))
 EXPORT_PATH = os.path.join(TESTDATA_PATH, 'exports')
 
 
@@ -31,7 +28,8 @@ class FilmtipetParserTest(TestCase):
     @patch('RatS.utils.browser_handler.Firefox')
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')
     @patch('RatS.filmtipset.filmtipset_ratings_parser.Filmtipset')
-    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock, repair_mock, file_was_mock):  # pylint: disable=too-many-arguments
+    def test_parser(self, site_mock, base_init_mock, browser_mock, rename_csv_mock, parse_csv_mock, repair_mock,
+                    file_was_downloaded_mock):  # pylint: disable=too-many-arguments
         parser = FilmtipsetRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
@@ -40,24 +38,22 @@ class FilmtipetParserTest(TestCase):
         parser.exports_folder = EXPORT_PATH
         parser.downloaded_file_name = 'my_ratings.csv'
         parser.csv_filename = '1234567890_filmtipset.csv'
-        file_was_mock.return_value = True
+        file_was_downloaded_mock.return_value = True
 
         parser.parse()
 
-        self.assertEqual(1, file_was_mock.call_count)
+        self.assertEqual(1, file_was_downloaded_mock.call_count)
         self.assertEqual(1, rename_csv_mock.call_count)
         self.assertEqual(1, repair_mock.call_count)
         self.assertEqual(1, parse_csv_mock.call_count)
 
     @patch('RatS.filmtipset.filmtipset_ratings_parser.FilmtipsetRatingsParser._repair_csv_row')
     def test_repair_csv_file(self, line_mock):
-        original_test_file = os.path.join(
-            TESTDATA_PATH, 'filmtipset', 'my_ratings.csv')
+        original_test_file = os.path.join(TESTDATA_PATH, 'filmtipset', 'my_ratings.csv')
         copied_file = original_test_file + '.cp'
         copyfile(original_test_file, copied_file)
         line_mock.return_value = 'a line\n'
-        FilmtipsetRatingsParser._repair_csv_file(
-            copied_file)  # pylint: disable=protected-access
+        FilmtipsetRatingsParser._repair_csv_file(copied_file)  # pylint: disable=protected-access
         self.assertEqual(8, line_mock.call_count)
         os.remove(copied_file)
 
@@ -78,8 +74,7 @@ class FilmtipetParserTest(TestCase):
         ]
         for test in tests:
             line, expected_line = test
-            newline = FilmtipsetRatingsParser._repair_csv_row(
-                line)  # pylint: disable=protected-access
+            newline = FilmtipsetRatingsParser._repair_csv_row(line)  # pylint: disable=protected-access
             self.assertEqual(expected_line, newline)
 
     @patch('RatS.filmtipset.filmtipset_ratings_parser.FilmtipsetRatingsParser._extract_imdb_informations')
@@ -93,8 +88,7 @@ class FilmtipetParserTest(TestCase):
         parser.site.site_name = 'Filmtipset'
         parser.site.browser = browser_mock
 
-        expected_movie = {'title': 'Hunt for the Wilderpeople',
-                          'filmtipset': {'my_rating': 10}}
+        expected_movie = {'title': 'Hunt for the Wilderpeople', 'filmtipset': {'my_rating': 10}}
         headers = ['VoteDate', 'MovieTitle', 'IMDB', 'Score']
         row = ['2020-10-10', 'Hunt for the Wilderpeople', '4698684', '5']
         movie = parser._convert_csv_row_to_movie(
@@ -108,16 +102,16 @@ class FilmtipetParserTest(TestCase):
                 'imdb': {
                     'id': 'tt1234567',
                     'url': 'https://www.imdb.com/title/tt1234567'}}),
-            ('12345', {'imdb': {
-                'id': 'tt0012345',
-                'url': 'https://www.imdb.com/title/tt0012345'}}),
+            ('12345', {
+                'imdb': {
+                    'id': 'tt0012345',
+                    'url': 'https://www.imdb.com/title/tt0012345'}}),
             ('', {})
         ]
         for test in tests:
             movie = dict()
             num, expected_movie = test
-            FilmtipsetRatingsParser._extract_imdb_informations(
-                movie, num)  # pylint: disable=protected-access
+            FilmtipsetRatingsParser._extract_imdb_information(movie, num)  # pylint: disable=protected-access
             self.assertDictEqual(movie, expected_movie)
 
     @patch('RatS.base.base_ratings_parser.RatingsParser.__init__')

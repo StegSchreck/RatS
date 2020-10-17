@@ -14,11 +14,10 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         self.downloaded_file_name = ''
         self.csv_delimiter = ';'
 
-    # TODO remove when filmtipset has cleaned up thier "csv" file
+    # TODO remove when filmtipset has cleaned up their "csv" file
     @staticmethod
     def _repair_csv_row(row):
-        output = re.search(
-            r'([0-9]{4}-[0-9]{2}-[0-9]{2}),(.*)(;[\-0-9]*;[1-5])$', row)
+        output = re.search(r'([0-9]{4}-[0-9]{2}-[0-9]{2}),(.*)(;[\-0-9]*;[1-5])$', row)
 
         if output is None:
             return row
@@ -36,8 +35,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
             print(FilmtipsetRatingsParser._repair_csv_row(line), end="")
 
     def _file_was_downloaded(self):
-        pattern = self.exports_folder + \
-            '/ft_betyg_[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv'
+        pattern = self.exports_folder + '/ft_betyg_2[0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv'
         files = glob.glob(pattern)
         for filename in files:
             self.downloaded_file_name = os.path.basename(filename)
@@ -59,14 +57,14 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         movie = dict()
         movie['title'] = row[headers.index("MovieTitle")]
         movie[self.site.site_name.lower()] = dict()
-        my_rating = int(row[headers.index("Score")])
-        movie[self.site.site_name.lower()]['my_rating'] = my_rating * 2
-        self._extract_imdb_informations(movie, row[headers.index("IMDB")])
+        parsed_rating = int(row[headers.index("Score")])
+        movie[self.site.site_name.lower()]['my_rating'] = parsed_rating * 2
+        self._extract_imdb_information(movie, row[headers.index("IMDB")])
 
         return movie
 
     @staticmethod
-    def _extract_imdb_informations(movie, imdb_id):
+    def _extract_imdb_information(movie, imdb_id):
         try:
             i = int(imdb_id)
             if i < 1:
@@ -75,9 +73,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
             return
 
         imdb = dict()
-        imdb['id'] = 'tt{imdb_id_number:07d}'.format(
-            imdb_id_number=int(imdb_id))
-        imdb['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(
-            imdb_id=imdb['id'])
+        imdb['id'] = 'tt{imdb_id_number:07d}'.format(imdb_id_number=int(imdb_id))
+        imdb['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(imdb_id=imdb['id'])
 
         movie['imdb'] = imdb
