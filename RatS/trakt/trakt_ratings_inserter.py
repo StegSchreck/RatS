@@ -51,8 +51,10 @@ class TraktRatingsInserter(RatingsInserter):
         external_links = movie_details_page.find(id='info-wrapper').find('ul', class_='external').find_all('a')
         for link in external_links:
             if external_url_base in link['href']:
-                return IMDB.normalize_imdb_id(movie[site_name]['id']) == \
-                       IMDB.normalize_imdb_id(link['href'].split('/')[-1])
+                if site_name == 'imdb':
+                    return IMDB.normalize_imdb_id(movie['imdb']['id']) == \
+                           IMDB.normalize_imdb_id(link['href'].split('/')[-1])
+                return movie[site_name]['id'] == link['href'].split('/')[-1]
         return False
 
     def _click_rating(self, my_rating):
