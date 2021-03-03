@@ -5,6 +5,18 @@ import os
 import sys
 import time
 import traceback
+import urllib.request
+import re
+
+version = '0.14'
+url = 'http://github.com/StegSchreck/RatS/releases/latest'
+data = urllib.parse.urlencode
+resp = urllib.request.urlopen(url)
+respData = resp.read()
+nversion = re.findall(r'<title>Release Release v(.*?) \\xc2\\xb7 StegSchreck/RatS \\xc2\\xb7 GitHub</title>',str(respData))
+print("Current Version", (version))
+for eachP in nversion:
+    print("Latest Version ", (eachP))
 
 from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
 from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
