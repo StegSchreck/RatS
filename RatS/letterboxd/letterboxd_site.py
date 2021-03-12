@@ -16,6 +16,7 @@ class Letterboxd(Site):
         return "https://letterboxd.com/sign-in/"
 
     def _pre_login_action(self):
+        time.sleep(2)
         video_elements = self.browser.find_elements_by_id('tyche_trendi_video_container')
         if len(video_elements) == 0:
             return

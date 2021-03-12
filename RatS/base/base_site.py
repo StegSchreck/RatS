@@ -74,8 +74,8 @@ class Site:
         self.open_url_with_521_retry(self.LOGIN_PAGE)
         time.sleep(1)
 
-        self._pre_login_action()
         self._handle_cookie_notice_if_present()
+        self._pre_login_action()
 
         iteration = 0
         while self._user_is_not_logged_in():
