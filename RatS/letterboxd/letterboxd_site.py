@@ -25,7 +25,7 @@ class Letterboxd(Site):
             close_video_buttons = video_element.find_elements_by_id('pw-close-btn')
             if close_video_buttons is not None and len(close_video_buttons) > 0:
                 close_video_buttons[0].click()
-                time.sleep(1)
+                time.sleep(10)
 
     def _handle_cookie_notice_if_present(self):
         cookie_notices = self.browser.find_elements_by_id('tyche_cmp_modal')
