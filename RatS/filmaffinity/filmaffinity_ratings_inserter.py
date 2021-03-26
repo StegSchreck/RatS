@@ -79,4 +79,4 @@ class FilmAffinityRatingsInserter(RatingsInserter):
                 function(data, status) {{}}
             );
         """.format(my_rating=my_rating, movie_id=movie_id, itk=itk))
-        time.sleep(0.5)
+        time.sleep(1)

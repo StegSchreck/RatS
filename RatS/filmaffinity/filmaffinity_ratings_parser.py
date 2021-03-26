@@ -36,7 +36,7 @@ class FilmAffinityRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_title(movie_tile):
-        return movie_tile.find(class_='mc-title').find('a').get_text()
+        return movie_tile.find(class_='mc-title').find('a').get_text().strip()
 
     @staticmethod
     def _get_movie_id(movie_tile):
@@ -44,11 +44,10 @@ class FilmAffinityRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_url(movie_tile):
-        movie_path = movie_tile.find(class_='mc-title').find('a')['href']
-        return 'https://www.filmaffinity.com{movie_path}'.format(movie_path=movie_path)
+        return movie_tile.find(class_='mc-title').find('a')['href']
 
     def _go_to_movie_details_page(self, movie):
-        # all necessary infomation is displayed on the search results page
+        # all necessary information is displayed on the search results page
         # so there is no need to go to the movie details page
         pass
 

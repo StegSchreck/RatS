@@ -16,12 +16,18 @@ class FilmAffinity(Site):
         return "https://www.filmaffinity.com/en/login.php"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_notices = self.browser.find_elements_by_id('info-cookie')
+        cookie_notices = self.browser.find_elements_by_id('qc-cmp2-container')
         if len(cookie_notices) == 0:
             return
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
-            cookie_accept_button = cookie_notice.find_elements_by_class_name('cookies-y')
-            if cookie_accept_button is not None and len(cookie_accept_button) > 0:
-                cookie_accept_button[0].click()
-                time.sleep(1)
+            # agree
+            cookie_accept_button = cookie_notice.find_elements_by_css_selector('div.qc-cmp2-summary-buttons button')
+            if cookie_accept_button is not None and len(cookie_accept_button) > 1:
+                cookie_accept_button[1].click()
+                time.sleep(2)
+                # agree all
+                cookie_accept_button = cookie_notice.find_elements_by_css_selector('div.qc-cmp2-buttons-desktop button')
+                if cookie_accept_button is not None and len(cookie_accept_button) > 1:
+                    cookie_accept_button[1].click()
+                    time.sleep(2)
