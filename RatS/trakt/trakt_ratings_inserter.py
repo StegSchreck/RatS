@@ -43,7 +43,8 @@ class TraktRatingsInserter(RatingsInserter):
             return self._compare_external_links(self.site.browser.page_source, movie, 'themoviedb.org', 'tmdb')
         else:
             movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-            return movie['year'] == int(movie_details_page.find(class_='year').get_text())
+            year_str = movie_details_page.find(class_='year').get_text().strip()
+            return year_str != '' and movie['year'] == int(year_str)
 
     @staticmethod
     def _compare_external_links(page_source, movie, external_url_base, site_name):
@@ -71,3 +72,4 @@ class TraktRatingsInserter(RatingsInserter):
             self.site.browser.execute_script("$('.rating-hearts').find('label')[{star_index}].click()".format(
                 star_index=star_index
             ))
+            time.sleep(1)
