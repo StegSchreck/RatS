@@ -7,8 +7,8 @@
 [![Build Status](https://github.com/StegSchreck/RatS/workflows/CI/badge.svg)](https://github.com/StegSchreck/RatS/actions?query=workflow%3ACI)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StegSchreck/RatS&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/c0601ed8ba1a4ba5ac1a205521f00622)](https://www.codacy.com/app/StegSchreck/RatS?utm_source=github.com&utm_medium=referral&utm_content=StegSchreck/RatS&utm_campaign=Badge_Coverage)
-[![Docker Build Status](https://img.shields.io/docker/build/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
-[![Docker Image Size](https://images.microbadger.com/badges/image/stegschreck/rats.svg)](https://microbadger.com/images/stegschreck/rats)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
+[![Docker Image Size](https://img.shields.io/docker/image-size/stegschreck/rats.svg?logo=docker)](https://hub.docker.com/r/stegschreck/rats/builds)
 [![License](https://img.shields.io/github/license/StegSchreck/RatS.svg)](https://github.com/StegSchreck/RatS/blob/master/LICENSE)
 [![Latest Release](https://img.shields.io/github/release/StegSchreck/RatS.svg?logo=github)](https://github.com/StegSchreck/RatS/releases)
 
