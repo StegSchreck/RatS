@@ -39,8 +39,8 @@ class FilmAffinityRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual('Jurassic World: Fallen Kingdom', parser.movies[0]['title'])
-        self.assertEqual('283552', parser.movies[0]['filmaffinity']['id'])
-        self.assertEqual('https://www.filmaffinity.com/en/film283552.html', parser.movies[0]['filmaffinity']['url'])
-        self.assertEqual(2018, parser.movies[0]['year'])
-        self.assertEqual(6, parser.movies[0]['filmaffinity']['my_rating'])
+        self.assertEqual('Vollidiot', parser.movies[0]['title'])
+        self.assertEqual('125089', parser.movies[0]['filmaffinity']['id'])
+        self.assertEqual('https://www.filmaffinity.com/us/film125089.html', parser.movies[0]['filmaffinity']['url'])
+        self.assertEqual(2007, parser.movies[0]['year'])
+        self.assertEqual(7, parser.movies[0]['filmaffinity']['my_rating'])
