@@ -37,12 +37,11 @@ class IMDBRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch('RatS.imdb.imdb_ratings_inserter.ActionChains')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar')
     @patch('RatS.imdb.imdb_ratings_inserter.IMDB')
     @patch('RatS.base.base_ratings_inserter.RatingsInserter.__init__')
     @patch('RatS.utils.browser_handler.Firefox')
-    def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock, action_mock):  # pylint: disable=too-many-arguments
+    def test_insert(self, browser_mock, base_init_mock, site_mock, progress_print_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
         inserter.args = False

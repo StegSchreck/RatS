@@ -3,8 +3,6 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
-from selenium.common.exceptions import MoveTargetOutOfBoundsException
-from selenium.webdriver import ActionChains
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.imdb.imdb_site import IMDB
@@ -41,19 +39,21 @@ class IMDBRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        ratings_button = self.site.browser.find_element_by_class_name('star-rating-button')\
-            .find_element_by_tag_name('button')
-        stars = self.site.browser.find_element_by_class_name('star-rating-stars').find_elements_by_tag_name('a')
-        star_index = int(my_rating) - 1
-        try:
-            self._perform_click(ratings_button, star_index, stars)
-        except MoveTargetOutOfBoundsException:
-            self.site.browser.execute_script("window.scrollTo(0, window.innerHeight)")
-            self._perform_click(ratings_button, star_index, stars)
+        user_rating_button = self.site.browser.find_element_by_xpath("//div[@data-testid='hero-rating-bar__user-rating']/button")
+        self.site.browser.execute_script("arguments[0].click();", user_rating_button)
 
-    def _perform_click(self, ratings_button, star_index, stars):
-        builder = ActionChains(self.site.browser)
-        builder.move_to_element(ratings_button).click(ratings_button) \
-            .move_to_element(stars[star_index]).click(stars[star_index]) \
-            .perform()
-        time.sleep(0.5)  # wait for POST request to be sent
+        stars = self.site.browser.find_elements_by_class_name('ipc-starbar__rating__button')
+        rate_button = self.site.browser.find_element_by_class_name('ipc-rating-prompt__rate-button')
+        current_rating = len(self.site.browser.find_elements_by_class_name('ipc-starbar__star--active'))
+        if current_rating == my_rating:
+            return
+        star_index = int(my_rating) - 1
+
+        self.site.browser.execute_script("""
+            var element = document.querySelector(".ipc-starbar__touch");
+            if (element)
+                element.parentNode.removeChild(element);
+        """)
+        stars[star_index].click()
+        rate_button.click()
+        time.sleep(0.2)  # wait for POST request to be sent
