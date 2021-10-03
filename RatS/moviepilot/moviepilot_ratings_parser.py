@@ -1,6 +1,7 @@
 import json
 import math
 import re
+
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
@@ -56,20 +57,13 @@ class MoviePilotRatingsParser(RatingsParser):
         movie['year'] = int(movie_details_page.find(attrs={'itemprop': 'copyrightYear'}).get_text())
         if self.site.site_name.lower() not in movie:
             movie[self.site.site_name.lower()] = dict()
-        json_from_script = movie_details_page.find('script', attrs={'data-hypernova-key': 'FriendsOpinionsModule'}) \
-            .get_text()
-        movie_id = str(re.findall(r'itemId.*:(\d*),', json_from_script)[0])
+        json_from_script = movie_details_page.find('script', attrs={'data-hypernova-key': 'FriendsOpinionsModule'})
+        movie_id = str(re.findall(r'itemId.*:(\d*),', str(json_from_script))[0])
         rating = self._get_movie_my_rating(movie_id)
         movie[self.site.site_name.lower()]['id'] = movie_id
         movie[self.site.site_name.lower()]['my_rating'] = rating
 
     def _get_movie_my_rating(self, movie_id):
-        my_rating = self.site.browser.execute_script("""
-            return $.get({
-                url: 'https://www.moviepilot.de/api/movies/""" + movie_id + """/rating',
-                success: function(response) {
-                    return response
-                }
-            });
-        """)
+        self.site.browser.get(f"https://www.moviepilot.de/api/movies/{movie_id}/rating")
+        my_rating = self.site.get_json_from_html()
         return max(math.ceil(int(my_rating['value']) / 10), 1)

@@ -18,7 +18,7 @@ class AlloCineRatingsParser(RatingsParser):
         # Only add the number of movie on the last page
         self.site.browser.get(self._get_ratings_page(pages_count))
         last_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
-        last_page_count = len(last_page.find_all('div', class_='card'))
+        last_page_count = len(last_page.find_all('div', class_='userprofile-entity-card-simple'))
         self.movies_count = (pages_count - 1) * 36 + last_page_count
         return pages_count
 
@@ -33,7 +33,7 @@ class AlloCineRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
-        return movie_listing_page.find_all('div', class_='card')
+        return movie_listing_page.find_all('div', class_='userprofile-entity-card-simple')
 
     @staticmethod
     def _get_movie_title(movie_tile):
