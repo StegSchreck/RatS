@@ -1,4 +1,4 @@
-image: python:3.7 # change to match your node version
+image: python:3.10 # change to match your python version
 
 stages:
   - test
