@@ -12,8 +12,10 @@ from RatS.base.site_not_reachable_exception import SiteNotReachableException
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
 
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
-EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
+EXPORTS_FOLDER = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports")
+)
 
 
 class Site:
@@ -21,12 +23,15 @@ class Site:
         self.args = args
 
         self.site_name = type(self).__name__
-        self.site_displayname = BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END \
-            if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty() else self.site_name
+        self.site_displayname = (
+            BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END
+            if hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
+            else self.site_name
+        )
 
         self.config = RawConfigParser()
-        self.__read_config_file('credentials.cfg.orig')
-        self.__read_config_file('credentials.cfg')
+        self.__read_config_file("credentials.cfg.orig")
+        self.__read_config_file("credentials.cfg")
         self._parse_credentials()
         self.CREDENTIALS_VALID = self._validate_credentials()
 
@@ -38,22 +43,30 @@ class Site:
             self._parse_configuration()
 
     def __read_config_file(self, filename):
-        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
+        self.config.read(
+            os.path.abspath(
+                os.path.join(os.path.dirname(__file__), os.pardir, filename)
+            )
+        )
 
     def _parse_credentials(self):
-        if os.environ.get(self.site_name.upper() + '_USERNAME'):
-            self.USERNAME = os.environ.get(self.site_name.upper() + '_USERNAME')
+        if os.environ.get(self.site_name.upper() + "_USERNAME"):
+            self.USERNAME = os.environ.get(self.site_name.upper() + "_USERNAME")
         else:
-            self.USERNAME = self.config[self.site_name]['USERNAME']
-        if os.environ.get(self.site_name.upper() + '_PASSWORD'):
-            self.PASSWORD = os.environ.get(self.site_name.upper() + '_PASSWORD')
+            self.USERNAME = self.config[self.site_name]["USERNAME"]
+        if os.environ.get(self.site_name.upper() + "_PASSWORD"):
+            self.PASSWORD = os.environ.get(self.site_name.upper() + "_PASSWORD")
         else:
-            self.PASSWORD = self.config[self.site_name]['PASSWORD']
+            self.PASSWORD = self.config[self.site_name]["PASSWORD"]
 
     def _validate_credentials(self):
-        return self.USERNAME and self.PASSWORD \
-               and self.USERNAME != 'abc' and self.USERNAME != 'abc@def.de' \
-               and self.PASSWORD != 'def'
+        return (
+            self.USERNAME
+            and self.PASSWORD
+            and self.USERNAME != "abc"
+            and self.USERNAME != "abc@def.de"
+            and self.PASSWORD != "def"
+        )
 
     def _get_login_page_url(self):
         raise NotImplementedError("This is not the implementation you are looking for.")
@@ -108,19 +121,29 @@ class Site:
         time.sleep(1)
         if self._user_is_not_logged_in():
             self.browser_handler.kill()
-            raise LoginFailedException(f"Login to {self.site_name} failed.\r\n"
-                                       "Please check if the credentials are correctly set in your credentials.cfg\r\n")
+            raise LoginFailedException(
+                f"Login to {self.site_name} failed.\r\n"
+                "Please check if the credentials are correctly set in your credentials.cfg\r\n"
+            )
 
     def _user_is_not_logged_in(self):
-        return len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0 \
-               and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR)) > 0 \
-               and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR)) > 0
+        return (
+            len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0
+            and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR))
+            > 0
+            and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR))
+            > 0
+        )
 
     def _insert_login_credentials(self):
-        login_field_user = self.browser.find_element_by_xpath(self.LOGIN_USERNAME_SELECTOR)
+        login_field_user = self.browser.find_element_by_xpath(
+            self.LOGIN_USERNAME_SELECTOR
+        )
         login_field_user.clear()
         login_field_user.send_keys(self.USERNAME)
-        login_field_password = self.browser.find_element_by_xpath(self.LOGIN_PASSWORD_SELECTOR)
+        login_field_password = self.browser.find_element_by_xpath(
+            self.LOGIN_PASSWORD_SELECTOR
+        )
         login_field_password.clear()
         login_field_password.send_keys(self.PASSWORD)
 
@@ -137,7 +160,7 @@ class Site:
         iteration = 0
         self.browser.get(url)
 
-        while len(self.browser.find_elements_by_id('cf-error-details')) > 0:
+        while len(self.browser.find_elements_by_id("cf-error-details")) > 0:
             if iteration >= 10:
                 raise SiteNotReachableException
             iteration += 1

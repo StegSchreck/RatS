@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.icheckmovies.icheckmovies_site import ICheckMovies
 
 
-@skip('this test is unstable on travis')
+@skip("this test is unstable on travis")
 class ICheckMoviesSiteTest(TestCase):
     def setUp(self):
         self.site = ICheckMovies(None)

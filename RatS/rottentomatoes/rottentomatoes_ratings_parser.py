@@ -13,17 +13,19 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
-        sys.stdout.write(f"\r===== {self.site.site_displayname}: Parsing all pages with movie ratings.\r\n")
+        sys.stdout.write(
+            f"\r===== {self.site.site_displayname}: Parsing all pages with movie ratings.\r\n"
+        )
         sys.stdout.flush()
 
-        self._parse_ratings_json(json_data['ratings'])
-        has_next_page = json_data['pageInfo']['hasNextPage']
+        self._parse_ratings_json(json_data["ratings"])
+        has_next_page = json_data["pageInfo"]["hasNextPage"]
         while has_next_page:
-            end_cursor = json_data['pageInfo']['endCursor']
+            end_cursor = json_data["pageInfo"]["endCursor"]
             self.site.browser.get(self._get_ratings_page(end_cursor))
             json_data = self.site.get_json_from_html()
-            self._parse_ratings_json(json_data['ratings'])
-            has_next_page = json_data['pageInfo']['hasNextPage']
+            self._parse_ratings_json(json_data["ratings"])
+            has_next_page = json_data["pageInfo"]["hasNextPage"]
 
     def _parse_ratings_json(self, ratings_json):
         for movie_json in ratings_json:
@@ -34,7 +36,9 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write(f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed {movie} \r\n")
+            sys.stdout.write(
+                f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed {movie} \r\n"
+            )
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
@@ -48,16 +52,20 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     @staticmethod
     def _parse_movie_json(movie_json):
-        if not movie_json['review']['score']:
+        if not movie_json["review"]["score"]:
             return None
 
         movie = dict()
-        movie['title'] = movie_json['item']['title']
-        movie['year'] = int(movie_json['item']['releaseYear'])
+        movie["title"] = movie_json["item"]["title"]
+        movie["year"] = int(movie_json["item"]["releaseYear"])
 
-        movie['rottentomatoes'] = dict()
-        movie['rottentomatoes']['id'] = movie_json['item']['rtId']
-        movie['rottentomatoes']['url'] = movie_json['item']['vanityUrl'].replace('http://', 'https://')
-        movie['rottentomatoes']['my_rating'] = int(float(movie_json['review']['score']) * 2)
+        movie["rottentomatoes"] = dict()
+        movie["rottentomatoes"]["id"] = movie_json["item"]["rtId"]
+        movie["rottentomatoes"]["url"] = movie_json["item"]["vanityUrl"].replace(
+            "http://", "https://"
+        )
+        movie["rottentomatoes"]["my_rating"] = int(
+            float(movie_json["review"]["score"]) * 2
+        )
 
         return movie

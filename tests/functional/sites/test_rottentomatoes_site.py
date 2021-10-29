@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.rottentomatoes.rottentomatoes_site import RottenTomatoes
 
 
-@skip('this test is unstable on travis')
+@skip("this test is unstable on travis")
 class RottenTomatoesSiteTest(TestCase):
     def setUp(self):
         self.site = RottenTomatoes(None)
