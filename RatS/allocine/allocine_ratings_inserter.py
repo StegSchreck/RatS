@@ -13,9 +13,8 @@ class AlloCineRatingsInserter(RatingsInserter):
         super(AlloCineRatingsInserter, self).__init__(AlloCine(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.allocine.fr/recherche/movie/?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'q': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'q': movie['title']})
+        search_url = f"https://www.allocine.fr/recherche/movie/?{search_params}"
         self.site.browser.get(search_url)
 
     @staticmethod

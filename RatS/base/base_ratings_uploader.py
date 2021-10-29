@@ -17,10 +17,7 @@ class RatingsUploader(RatingsInserter):
         self.csv_filename = TIMESTAMP + '_converted_for_' + site.site_name + '.csv'
 
     def insert(self, movies, source):
-        sys.stdout.write('\r===== {site_displayname}: posting {movies_count} movies\r\n'.format(
-            site_displayname=self.site.site_displayname,
-            movies_count=len(movies)
-        ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n")
         sys.stdout.flush()
 
         if self.site.site_name.lower() == 'movielens':
@@ -40,14 +37,10 @@ class RatingsUploader(RatingsInserter):
         self.upload_csv_file()
         self.post_upload_action()
 
-        sys.stdout.write('\r\n===== {site_displayname}: The file with {movies_count} movies was uploaded '
-                         'and will be process by the servers. '
-                         'You may check your {site_name} account later.\r\n'
-                         'Note, that this might not overwrite any existing ratings.\r\n'.format(
-                             site_displayname=self.site.site_displayname,
-                             movies_count=len(movies),
-                             site_name=self.site.site_name
-                         ))
+        sys.stdout.write(f"\r\n===== {self.site.site_displayname}: The file with {len(movies)} movies was uploaded "
+                         "and will be process by the servers. "
+                         f"You may check your {self.site.site_name} account later.\r\n"
+                         "Note, that this might not overwrite any existing ratings.\r\n")
         sys.stdout.flush()
 
         self.site.browser_handler.kill()

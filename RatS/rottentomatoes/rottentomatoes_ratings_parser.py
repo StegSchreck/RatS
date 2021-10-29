@@ -8,14 +8,12 @@ class RottenTomatoesRatingsParser(RatingsParser):
     def __init__(self, args):
         super(RottenTomatoesRatingsParser, self).__init__(RottenTomatoes(args), args)
 
-    def _get_ratings_page(self, i):
-        return '{url}?endCursor={page_end_cursor}'.format(url=self.site.MY_RATINGS_URL, page_end_cursor=i)
+    def _get_ratings_page(self, page_number):
+        return f"{self.site.MY_RATINGS_URL}?endCursor={page_number}"
 
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
-        sys.stdout.write('\r===== {site_displayname}: Parsing all pages with movie ratings.\r\n'.format(
-                             site_displayname=self.site.site_displayname,
-                         ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: Parsing all pages with movie ratings.\r\n")
         sys.stdout.flush()
 
         self._parse_ratings_json(json_data['ratings'])
@@ -36,29 +34,16 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write(
-                '\r===== {site_displayname}: [{movie_index}] '
-                'parsed {movie} \r\n'.format(
-                    site_displayname=self.site.site_displayname,
-                    movie=movie,
-                    movie_index=len(self.movies)
-                ))
+            sys.stdout.write(f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed {movie} \r\n")
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
-                '\r===== {site_displayname}: [{movie_index}] '
-                'parsed {movie_title} ({movie_year}) \r\n'.format(
-                    site_displayname=self.site.site_displayname,
-                    movie_title=movie['title'],
-                    movie_year=movie['year'],
-                    movie_index=len(self.movies)
-                ))
+                f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed"
+                f" {movie['title']} ({movie['year']}) \r\n"
+            )
             sys.stdout.flush()
         else:
-            sys.stdout.write(
-                '\r      Parsed {movies_count} movies so far...'.format(
-                    movies_count=len(self.movies)
-                ))
+            sys.stdout.write(f"\r      Parsed {len(self.movies)} movies so far...")
             sys.stdout.flush()
 
     @staticmethod

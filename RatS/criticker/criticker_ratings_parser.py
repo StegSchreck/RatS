@@ -17,10 +17,7 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S'
 class CritickerRatingsParser(RatingsParser):
     def __init__(self, args):
         super(CritickerRatingsParser, self).__init__(Criticker(args), args)
-        self.xml_filename = '{timestamp}_{site_name}.xml'.format(
-            timestamp=TIMESTAMP,
-            site_name='Criticker'
-        )
+        self.xml_filename = f"{TIMESTAMP}_Criticker.xml"
 
     def _parse_ratings(self):
         self._get_ratings_xml()
@@ -29,9 +26,7 @@ class CritickerRatingsParser(RatingsParser):
         self.movies = self._parse_xml()
 
     def _get_ratings_xml(self):
-        sys.stdout.write('\r===== {site_displayname}: Retrieving ratings XML'.format(
-            site_displayname=self.site.site_displayname
-        ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: Retrieving ratings XML")
         sys.stdout.flush()
         time.sleep(1)
 
@@ -58,7 +53,7 @@ class CritickerRatingsParser(RatingsParser):
 
         movie = dict()
         movie['year'] = int(re.findall(r'\((\d{4})\)', film_header)[0])
-        movie['title'] = film_header.replace('({movie_year})'.format(movie_year=movie['year']), '').strip()
+        movie['title'] = film_header.replace(f"({movie['year']})", '').strip()
 
         movie['criticker'] = dict()
         movie['criticker']['id'] = xml_node.find('filmid').text
@@ -71,6 +66,6 @@ class CritickerRatingsParser(RatingsParser):
 
         movie['imdb'] = dict()
         movie['imdb']['id'] = xml_node.find('imdbid').text
-        movie['imdb']['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(imdb_id=movie['imdb']['id'])
+        movie['imdb']['url'] = f"https://www.imdb.com/title/{movie['imdb']['id']}"
 
         return movie

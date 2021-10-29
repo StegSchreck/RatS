@@ -30,6 +30,4 @@ class RottenTomatoes(Site):
         time.sleep(1)  # wait for user login status to be checked
         account_link = self.browser.find_element_by_class_name("masthead-account__user-link").get_attribute('href')
         self.USERID = account_link.replace('https://www.rottentomatoes.com/user/id/', '').split('/')[0]
-        return 'https://www.rottentomatoes.com/napi/userProfile/movieRatings/{user_id}'.format(
-            user_id=self.USERID
-        )
+        return f"https://www.rottentomatoes.com/napi/userProfile/movieRatings/{self.USERID}"

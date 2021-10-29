@@ -12,9 +12,8 @@ class FilmtipsetRatingsInserter(RatingsInserter):
         super(FilmtipsetRatingsInserter, self).__init__(Filmtipset(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.filmtipset.se/hitta?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'q': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'q': movie['title']})
+        search_url = f"https://www.filmtipset.se/hitta?{search_params}"
         self.site.browser.get(search_url)
 
     @staticmethod
@@ -53,8 +52,6 @@ class FilmtipsetRatingsInserter(RatingsInserter):
 
     def _post_movie_rating(self, my_rating):
         rating_to_insert = math.ceil(my_rating / 2)
-        search_url = '{movie_detail_page_url}?{my_rating}'.format(
-            movie_detail_page_url=self.site.browser.current_url,
-            my_rating=urllib.parse.urlencode({'vote': rating_to_insert})
-        )
+        url_params = urllib.parse.urlencode({'vote': rating_to_insert})
+        search_url = f"{self.site.browser.current_url}?{url_params}"
         self.site.browser.get(search_url)

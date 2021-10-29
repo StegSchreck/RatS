@@ -10,8 +10,8 @@ class FilmAffinityRatingsParser(RatingsParser):
     def __init__(self, args):
         super(FilmAffinityRatingsParser, self).__init__(FilmAffinity(args), args)
 
-    def _get_ratings_page(self, i):
-        return '{url}?p={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
+    def _get_ratings_page(self, page_number):
+        return f"{self.site.MY_RATINGS_URL}?p={page_number}"
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):

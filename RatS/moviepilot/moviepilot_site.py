@@ -10,9 +10,7 @@ class MoviePilot(Site):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@name='password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(MoviePilot, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://www.moviepilot.de/users/{username}/rated/movies'.format(
-            username=self.USERNAME
-        )
+        self.MY_RATINGS_URL = f"https://www.moviepilot.de/users/{self.USERNAME}/rated/movies"
 
     def _get_login_page_url(self):
         return "https://www.moviepilot.de/login"

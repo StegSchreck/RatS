@@ -13,9 +13,8 @@ class MetacriticRatingsInserter(RatingsInserter):
         super(MetacriticRatingsInserter, self).__init__(Metacritic(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.metacritic.com/search/movie/{movie_url_path}/results'.format(
-            movie_url_path=urllib.parse.quote_plus(movie['title'])
-        )
+        movie_url_path = urllib.parse.quote_plus(movie['title'])
+        search_url = f"https://www.metacritic.com/search/movie/{movie_url_path}/results"
         self.site.browser.get(search_url)
 
     @staticmethod
@@ -38,14 +37,9 @@ class MetacriticRatingsInserter(RatingsInserter):
                 return movie['year'] == int(release_year.get_text())
         if self.args and self.args.verbose and self.args.verbose >= 3:
             command_line.info(
-                '{movie_title} ({movie_year}): '
-                'No release year displayed on {site_displayname} movie detail page {movie_detail_page} '
-                '... skipping '.format(
-                    site_displayname=self.site.site_name,
-                    movie_title=movie['title'],
-                    movie_year=movie['year'],
-                    movie_detail_page=self.site.browser.current_url
-                )
+                f"{movie['title']} ({movie['year']}): "
+                f"No release year displayed on {self.site.site_name} movie detail page {self.site.browser.current_url} "
+                "... skipping "
             )
         return False
 

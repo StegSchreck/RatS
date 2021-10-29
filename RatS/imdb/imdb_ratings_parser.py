@@ -24,6 +24,4 @@ class IMDBRatingsParser(RatingsDownloader):
         )
 
     def _call_download_url(self):
-        self.site.browser.get('https://www.imdb.com/list/export?list_id=ratings&author_id={user_id}'.format(
-            user_id=self.USERID
-        ))
+        self.site.browser.get(f"https://www.imdb.com/list/export?list_id=ratings&author_id={self.USERID}")

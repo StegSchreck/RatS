@@ -13,8 +13,8 @@ class MoviePilotRatingsParser(RatingsParser):
     def __init__(self, args):
         super(MoviePilotRatingsParser, self).__init__(MoviePilot(args), args)
 
-    def _get_ratings_page(self, i):
-        return '{url}?page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
+    def _get_ratings_page(self, page_number):
+        return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
         get_session_response = self.site.browser.execute_script("""
@@ -27,8 +27,8 @@ class MoviePilotRatingsParser(RatingsParser):
         if 'movie_ratings' not in session:
             self.site.browser_handler.kill()
             raise RatSException(
-                'Could not establish a session with {site_name}. '.format(site_name=self.site.site_name) + '\r\n' +
-                'Please try again with the -x option if the problem persists.'
+                f"Could not establish a session with {self.site.site_name}.\r\n"
+                "Please try again with the -x option if the problem persists."
             )
         self.movies_count = session['movie_ratings']
         pages_count = math.ceil(self.movies_count / 100)
@@ -50,7 +50,7 @@ class MoviePilotRatingsParser(RatingsParser):
     @staticmethod
     def _get_movie_url(movie_tile):
         movie_path = movie_tile.find('a')['href']
-        return 'https://www.moviepilot.de{movie_path}'.format(movie_path=movie_path)
+        return f"https://www.moviepilot.de{movie_path}"
 
     def parse_movie_details_page(self, movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')

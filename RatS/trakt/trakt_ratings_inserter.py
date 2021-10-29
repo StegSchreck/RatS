@@ -13,9 +13,8 @@ class TraktRatingsInserter(RatingsInserter):
         super(TraktRatingsInserter, self).__init__(Trakt(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://trakt.tv/search/?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'query': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'query': movie['title']})
+        search_url = f"https://trakt.tv/search/?{search_params}"
         self.site.open_url_with_521_retry(search_url)
 
     @staticmethod
@@ -69,7 +68,5 @@ class TraktRatingsInserter(RatingsInserter):
             user_rating_section.click()
             time.sleep(1)
             star_index = 10 - int(my_rating)
-            self.site.browser.execute_script("$('.rating-hearts').find('label')[{star_index}].click()".format(
-                star_index=star_index
-            ))
+            self.site.browser.execute_script(f"$('.rating-hearts').find('label')[{star_index}].click()")
             time.sleep(1)

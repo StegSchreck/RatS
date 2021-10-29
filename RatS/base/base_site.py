@@ -69,7 +69,7 @@ class Site:
         self.login()
 
     def login(self):
-        sys.stdout.write('===== {site_displayname}: performing login'.format(site_displayname=self.site_displayname))
+        sys.stdout.write(f"===== {self.site_displayname}: performing login")
         sys.stdout.flush()
         self.open_url_with_521_retry(self.LOGIN_PAGE)
         time.sleep(1)
@@ -108,7 +108,7 @@ class Site:
         time.sleep(1)
         if self._user_is_not_logged_in():
             self.browser_handler.kill()
-            raise LoginFailedException("Login to {site_name} failed.".format(site_name=self.site_name) + "\r\n"
+            raise LoginFailedException(f"Login to {self.site_name} failed.\r\n"
                                        "Please check if the credentials are correctly set in your credentials.cfg\r\n")
 
     def _user_is_not_logged_in(self):

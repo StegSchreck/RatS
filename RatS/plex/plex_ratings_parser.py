@@ -20,18 +20,13 @@ class PlexRatingsParser(RatingsParser):
     def _get_movies_count(movie_ratings_page):
         return int(movie_ratings_page.find('mediacontainer')['totalsize'])
 
-    def _get_ratings_page(self, i):
+    def _get_ratings_page(self, page_number):
         page_size = 100
-        page_start = (i - 1) * page_size
-        return 'http://{base_url}/library/all?type=1&userRating!=0' \
-               '&X-Plex-Container-Start={page_start}' \
-               '&X-Plex-Container-Size={page_size}' \
-               '&X-Plex-Token={plex_token}'.format(
-                   base_url=self.site.BASE_URL,
-                   page_start=page_start,
-                   page_size=page_size,
-                   plex_token=self.site.PLEX_TOKEN
-               )
+        page_start = (page_number - 1) * page_size
+        return f"http://{self.site.BASE_URL}/library/all?type=1&userRating!=0" \
+               f"&X-Plex-Container-Start={page_start}" \
+               f"&X-Plex-Container-Size={page_size}" \
+               f"&X-Plex-Token={self.site.PLEX_TOKEN}"
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
@@ -47,13 +42,11 @@ class PlexRatingsParser(RatingsParser):
             movie[self.site.site_name.lower()] = dict()
             movie[self.site.site_name.lower()]['my_rating'] = round(float(movie_tile['userrating']))
             movie[self.site.site_name.lower()]['id'] = movie_tile['ratingkey']
+            library_path = '%2Flibrary%2Fmetadata%2F'
+            movie_id = movie[self.site.site_name.lower()]['id']
             movie[self.site.site_name.lower()]['url'] = \
-                'http://{base_url}/web/index.html#!/server/{server_id}/details?key={library_path}{movie_id}'.format(
-                    base_url=self.site.BASE_URL,
-                    server_id=self.site.SERVER_ID,
-                    library_path='%2Flibrary%2Fmetadata%2F',
-                    movie_id=movie[self.site.site_name.lower()]['id']
-            )
+                f"http://{self.site.BASE_URL}/web/index.html#!" \
+                f"/server/{self.site.SERVER_ID}/details?key={library_path}{movie_id}"
 
         self.processed_movies_count += 1
 

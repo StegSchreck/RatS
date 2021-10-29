@@ -12,9 +12,8 @@ class FilmAffinityRatingsInserter(RatingsInserter):
         super(FilmAffinityRatingsInserter, self).__init__(FilmAffinity(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.filmaffinity.com/en/search.php?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'stype': 'title', 'stext': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'stype': 'title', 'stext': movie['title']})
+        search_url = f"https://www.filmaffinity.com/en/search.php?{search_params}"
         self.site.browser.get(search_url)
 
     @staticmethod

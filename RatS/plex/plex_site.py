@@ -16,8 +16,8 @@ class Plex(Site):
         super(Plex, self).__init__(args)
 
     def _get_login_page_url(self):
-        self.BASE_URL = self.config[self.site_name]['BASE_URL'] + ":" + self.config[self.site_name]['BASE_PORT']
-        return "http://{base_url}/web/index.html#!/login".format(base_url=self.BASE_URL)
+        self.BASE_URL = f"{self.config[self.site_name]['BASE_URL']}:{self.config[self.site_name]['BASE_PORT']}"
+        return f"http://{self.BASE_URL}/web/index.html#!/login"
 
     def _insert_login_credentials(self):
         time.sleep(2)
@@ -31,18 +31,13 @@ class Plex(Site):
     def _parse_configuration(self):
         self.PLEX_TOKEN = self._determine_plex_token()
         self.SERVER_ID = self._determine_server_id()
-        self.MY_RATINGS_URL = 'http://{base_url}/library/all?type=1&userRating!=0' \
-                              '&X-Plex-Container-Start={page_start}' \
-                              '&X-Plex-Container-Size={page_size}' \
-                              '&X-Plex-Token={plex_token}'.format(
-                                  base_url=self.BASE_URL,
-                                  page_start=0,
-                                  page_size=100,
-                                  plex_token=self.PLEX_TOKEN
-                              )
+        self.MY_RATINGS_URL = f"http://{self.BASE_URL}/library/all?type=1&userRating!=0" \
+                              f"&X-Plex-Container-Start=0" \
+                              f"&X-Plex-Container-Size=100" \
+                              f"&X-Plex-Token={self.PLEX_TOKEN}"
 
     def _determine_plex_token(self):
-        self.browser.get('http://{base_url}/web/index.html#'.format(base_url=self.BASE_URL))
+        self.browser.get(f"http://{self.BASE_URL}/web/index.html#'")
         wait = ui.WebDriverWait(self.browser, 600)
         wait.until(lambda driver: driver.find_element_by_xpath("//button[@data-qa-id='metadataPosterMoreButton']"))
 
@@ -54,6 +49,6 @@ class Plex(Site):
         return plex_token
 
     def _determine_server_id(self):
-        self.browser.get('http://{base_url}/web/index.html#!/settings/server'.format(base_url=self.BASE_URL))
+        self.browser.get(f"http://{self.BASE_URL}/web/index.html#!/settings/server")
         time.sleep(2)
         return self.browser.current_url.split('/')[-2]

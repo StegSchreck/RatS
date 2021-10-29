@@ -11,7 +11,7 @@ class Listal(Site):
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + \
             "//button[contains(concat(' ', normalize-space(@class), ' '), ' submit ')]"
         super(Listal, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://{username}.listal.com/movies/all/1/?rating=1'.format(username=self.USERNAME)
+        self.MY_RATINGS_URL = f"https://{self.USERNAME}.listal.com/movies/all/1/?rating=1"
 
     def _get_login_page_url(self):
         return "https://www.listal.com/login"

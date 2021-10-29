@@ -55,9 +55,8 @@ class FlixsterRatingsInserter(RatingsInserter):
                self.site.browser.find_element_by_tag_name('h1').text
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.flixster.com/search/?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'search': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'search': movie['title']})
+        search_url = f"https://www.flixster.com/search/?{search_params}"
         self.site.browser.get(search_url)
         time.sleep(1)
         return '/movie/' in self.site.browser.current_url  # already on movie_details_page
