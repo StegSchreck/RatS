@@ -1,10 +1,10 @@
 import time
 
-from RatS.base.base_site import Site
 from selenium.webdriver.common.by import By
+from RatS.base.base_site import BaseSite
 
 
-class Trakt(Site):
+class Trakt(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form[@id='new_user']"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='user_login']"

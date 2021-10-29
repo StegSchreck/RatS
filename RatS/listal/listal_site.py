@@ -1,11 +1,11 @@
-from RatS.base.base_site import Site
 import sys
 import time
 
+from RatS.base.base_site import BaseSite
 from RatS.utils import command_line
 
 
-class Listal(Site):
+class Listal(BaseSite):
     def __init__(self, args):
         login_form_selector = (
             "//*[contains(concat(' ', normalize-space(@class), ' '), ' login-popup ')]"

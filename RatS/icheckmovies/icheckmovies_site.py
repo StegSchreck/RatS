@@ -1,10 +1,10 @@
-from RatS.base.base_site import Site
+from RatS.base.base_site import BaseSite
 from RatS.icheckmovies.icheckmovies_misconfiguration_exception import (
     ICheckMoviesMisconfigurationException,
 )
 
 
-class ICheckMovies(Site):
+class ICheckMovies(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form"
         self.LOGIN_USERNAME_SELECTOR = (

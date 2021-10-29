@@ -1,7 +1,7 @@
-from RatS.base.base_site import Site
+from RatS.base.base_site import BaseSite
 
 
-class Metacritic(Site):
+class Metacritic(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form"
         self.LOGIN_USERNAME_SELECTOR = (

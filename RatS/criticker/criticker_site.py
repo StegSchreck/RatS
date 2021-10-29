@@ -1,10 +1,10 @@
-from RatS.base.base_site import Site
 import time
 
 from selenium.webdriver.common.by import By
+from RatS.base.base_site import BaseSite
 
 
-class Criticker(Site):
+class Criticker(BaseSite):
     def __init__(self, args):
         login_form_selector = "//*[@id='i_body']//form"
         self.LOGIN_USERNAME_SELECTOR = (

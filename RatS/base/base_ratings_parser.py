@@ -5,10 +5,13 @@ import time
 from bs4 import BeautifulSoup
 from progressbar import ProgressBar
 
+from RatS.base.base_site import BaseSite
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
+
 
 class RatingsParser:
     def __init__(self, site, args):
-        self.site = site
+        self.site: BaseSite = site
         self.args = args
         if not self.site.CREDENTIALS_VALID:
             return
@@ -48,7 +51,7 @@ class RatingsParser:
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         time.sleep(1)
 
-        pages_count = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
+        pages_count: int = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write(
                 "\r\n ================================================== \r\n"
@@ -78,20 +81,20 @@ class RatingsParser:
             )
             self._parse_movie_listing_page(movie_listing_page)
 
-    def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
+    def _retrieve_pages_count_and_movies_count(self, movie_ratings_page) -> int:
         pages_count = self._get_pages_count(movie_ratings_page)
         self.movies_count = self._get_movies_count(movie_ratings_page)
         return pages_count
 
     @staticmethod
-    def _get_pages_count(movie_ratings_page):
+    def _get_pages_count(movie_ratings_page) -> int:
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     @staticmethod
-    def _get_movies_count(movie_ratings_page):
+    def _get_movies_count(movie_ratings_page) -> int:
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _parse_movie_listing_page(self, movie_listing_page):
@@ -102,7 +105,7 @@ class RatingsParser:
                 self.movies.append(movie)
             self.print_progress(movie)
 
-    def print_progress(self, movie):
+    def print_progress(self, movie: Movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}] parsed {movie} \r\n"
@@ -111,7 +114,7 @@ class RatingsParser:
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}]"
-                f" parsed {movie['title']} ({movie['year']}) \r\n"
+                f" parsed {movie.title} ({movie.year}) \r\n"
             )
             sys.stdout.flush()
         else:
@@ -131,11 +134,12 @@ class RatingsParser:
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _parse_movie_tile(self, movie_tile):
-        movie = dict()
-        movie["title"] = self._get_movie_title(movie_tile)
-        movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["id"] = self._get_movie_id(movie_tile)
-        movie[self.site.site_name.lower()]["url"] = self._get_movie_url(movie_tile)
+        movie = Movie()
+        movie.title = self._get_movie_title(movie_tile)
+        site_specific_movie_data = SiteSpecificMovieData()
+        movie.site_data.append(site_specific_movie_data)
+        site_specific_movie_data.id = self._get_movie_id(movie_tile)
+        site_specific_movie_data.url = self._get_movie_url(movie_tile)
 
         self._go_to_movie_details_page(movie)
         time.sleep(1)
@@ -154,7 +158,7 @@ class RatingsParser:
 
         return movie
 
-    def _go_to_movie_details_page(self, movie):
+    def _go_to_movie_details_page(self, movie: Movie):
         self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]["url"])
 
     @staticmethod
@@ -169,10 +173,10 @@ class RatingsParser:
     def _get_movie_url(movie_tile):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _parse_external_links(self, movie, movie_details_page):
+    def _parse_external_links(self, movie: Movie, movie_details_page):
         external_links = self._get_external_links(movie_details_page)
         for link in external_links:
             if "imdb.com" in link["href"] and "find?" not in link["href"]:

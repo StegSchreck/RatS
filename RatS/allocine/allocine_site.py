@@ -3,10 +3,10 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from RatS.base.base_site import Site
+from RatS.base.base_site import BaseSite
 
 
-class AlloCine(Site):
+class AlloCine(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form[@name='sign_in']"
         self.LOGIN_USERNAME_SELECTOR = (
