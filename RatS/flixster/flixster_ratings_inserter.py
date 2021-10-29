@@ -22,7 +22,9 @@ class FlixsterRatingsInserter(RatingsInserter):
             return False  # no search results
 
         try:
-            self.site.browser.find_element_by_xpath("//a[@href='#results_movies_tab']").click()
+            self.site.browser.find_element_by_xpath(
+                "//a[@href='#results_movies_tab']"
+            ).click()
         except NoSuchElementException:
             return False
 
@@ -48,32 +50,43 @@ class FlixsterRatingsInserter(RatingsInserter):
         return False  # Not Found in search results
 
     def _is_empty_search_result(self):
-        return 'Sorry, no results found for' in self.site.browser.find_element_by_tag_name('h1').text
+        return (
+            "Sorry, no results found for"
+            in self.site.browser.find_element_by_tag_name("h1").text
+        )
 
     def _is_internal_server_error(self):
-        return "Sorry, we're having some technical difficulties" in \
-               self.site.browser.find_element_by_tag_name('h1').text
+        return (
+            "Sorry, we're having some technical difficulties"
+            in self.site.browser.find_element_by_tag_name("h1").text
+        )
 
     def _search_for_movie(self, movie):
-        search_params = urllib.parse.urlencode({'search': movie['title']})
+        search_params = urllib.parse.urlencode({"search": movie["title"]})
         search_url = f"https://www.flixster.com/search/?{search_params}"
         self.site.browser.get(search_url)
         time.sleep(1)
-        return '/movie/' in self.site.browser.current_url  # already on movie_details_page
+        return (
+            "/movie/" in self.site.browser.current_url
+        )  # already on movie_details_page
 
     @staticmethod
     def _get_search_results(search_result_page):
-        search_result_page = BeautifulSoup(search_result_page, 'html.parser')
-        return search_result_page.find('ul', id='movie_results_ul').find_all('li', class_='media')
+        search_result_page = BeautifulSoup(search_result_page, "html.parser")
+        return search_result_page.find("ul", id="movie_results_ul").find_all(
+            "li", class_="media"
+        )
 
     def _is_requested_movie(self, movie, search_result):
-        movie_heading = search_result.find('p', class_='heading').find('a')
-        movie_url = 'https://www.flixster.com' + movie_heading['href']
-        if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
-            success = movie[self.site.site_name.lower()]['url'] == movie_url
+        movie_heading = search_result.find("p", class_="heading").find("a")
+        movie_url = "https://www.flixster.com" + movie_heading["href"]
+        if self._is_field_in_parsed_data_for_this_site(movie, "url"):
+            success = movie[self.site.site_name.lower()]["url"] == movie_url
         else:
             try:
-                success = movie['year'] == int(re.findall(r'\((\d{4})\)', movie_heading.get_text())[-1])
+                success = movie["year"] == int(
+                    re.findall(r"\((\d{4})\)", movie_heading.get_text())[-1]
+                )
             except IndexError:
                 return False
         if success:
@@ -82,14 +95,16 @@ class FlixsterRatingsInserter(RatingsInserter):
         return success
 
     def _click_rating(self, my_rating):
-        movie_id = self.site.browser.find_element_by_xpath("//meta[@name='movieID']").get_attribute('content')
+        movie_id = self.site.browser.find_element_by_xpath(
+            "//meta[@name='movieID']"
+        ).get_attribute("content")
         converted_rating = str(float(my_rating) / 2)
 
         rating_script = self._get_insert_javascript_template().format(
             movie_id=movie_id,
             user_id=str(self.site.USERID),
             movie_url=self.site.browser.current_url,
-            rating=converted_rating
+            rating=converted_rating,
         )
 
         self.site.browser.execute_script(rating_script)

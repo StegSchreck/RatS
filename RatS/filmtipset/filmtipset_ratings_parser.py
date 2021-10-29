@@ -11,28 +11,30 @@ from RatS.filmtipset.filmtipset_site import Filmtipset
 class FilmtipsetRatingsParser(RatingsDownloader):
     def __init__(self, args):
         super(FilmtipsetRatingsParser, self).__init__(Filmtipset(args), args)
-        self.downloaded_file_name = ''
-        self.csv_delimiter = ';'
+        self.downloaded_file_name = ""
+        self.csv_delimiter = ";"
 
     # TODO remove when filmtipset has cleaned up their "csv" file
     @staticmethod
     def _repair_csv_row(row):
-        output = re.search(r'([0-9]{4}-[0-9]{2}-[0-9]{2}),(.*)(;[\-0-9]*;[1-5])$', row)
+        output = re.search(r"([0-9]{4}-[0-9]{2}-[0-9]{2}),(.*)(;[\-0-9]*;[1-5])$", row)
 
         if output is None:
             return row
         escaped_title_value = output.group(2).replace('"', '""')
-        repaired_row = f"{output.group(1)};\"{escaped_title_value}\"{output.group(3)}\n"
+        repaired_row = f'{output.group(1)};"{escaped_title_value}"{output.group(3)}\n'
         return repaired_row
 
     @staticmethod
     def _repair_csv_file(filepath):
-        copyfile(filepath, filepath + '.bak')
+        copyfile(filepath, filepath + ".bak")
         for line in fileinput.input(filepath, inplace=True):
             print(FilmtipsetRatingsParser._repair_csv_row(line), end="")
 
     def _file_was_downloaded(self):
-        pattern = self.exports_folder + '/ft_betyg_2[0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv'
+        pattern = (
+            self.exports_folder + "/ft_betyg_2[0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv"
+        )
         files = glob.glob(pattern)
         for filename in files:
             self.downloaded_file_name = os.path.basename(filename)
@@ -52,10 +54,10 @@ class FilmtipsetRatingsParser(RatingsDownloader):
 
     def _convert_csv_row_to_movie(self, headers, row):
         movie = dict()
-        movie['title'] = row[headers.index("MovieTitle")]
+        movie["title"] = row[headers.index("MovieTitle")]
         movie[self.site.site_name.lower()] = dict()
         parsed_rating = int(row[headers.index("Score")])
-        movie[self.site.site_name.lower()]['my_rating'] = parsed_rating * 2
+        movie[self.site.site_name.lower()]["my_rating"] = parsed_rating * 2
         self._extract_imdb_information(movie, row[headers.index("IMDB")])
 
         return movie
@@ -70,7 +72,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
             return
 
         imdb = dict()
-        imdb['id'] = f"tt{int(imdb_id):07d}"
-        imdb['url'] = f"https://www.imdb.com/title/{imdb['id']}"
+        imdb["id"] = f"tt{int(imdb_id):07d}"
+        imdb["url"] = f"https://www.imdb.com/title/{imdb['id']}"
 
-        movie['imdb'] = imdb
+        movie["imdb"] = imdb

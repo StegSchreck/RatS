@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.tmdb.tmdb_site import TMDB
 
 
-@skip('this test is unstable on travis')
+@skip("this test is unstable on travis")
 class TMDBSiteTest(TestCase):
     def setUp(self):
         self.site = TMDB(None)

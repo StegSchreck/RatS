@@ -4,12 +4,17 @@ import sys
 import time
 
 from progressbar import ProgressBar
-from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException, \
-    ElementNotInteractableException, TimeoutException, WebDriverException
+from selenium.common.exceptions import (
+    ElementNotVisibleException,
+    NoSuchElementException,
+    ElementNotInteractableException,
+    TimeoutException,
+    WebDriverException,
+)
 
 from RatS.utils import file_impex
 
-TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
+TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 
 
 class RatingsInserter:
@@ -21,7 +26,10 @@ class RatingsInserter:
         self.failed_movies_filename = f"{TIMESTAMP}_{self.site.site_name}_failed.json"
 
         self.exports_folder = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'RatS', 'exports'))
+            os.path.join(
+                os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports"
+            )
+        )
         if not os.path.exists(self.exports_folder):
             os.makedirs(self.exports_folder)
 
@@ -29,13 +37,15 @@ class RatingsInserter:
 
     def insert(self, movies, source):
         counter = 0
-        sys.stdout.write(f"\r===== {self.site.site_displayname}: posting {len(movies)} movies                     \r\n")
+        sys.stdout.write(
+            f"\r===== {self.site.site_displayname}: posting {len(movies)} movies                     \r\n"
+        )
         sys.stdout.flush()
 
         for movie in movies:
             movie_details_page_found = self._go_to_movie_details_page(movie)
             if movie_details_page_found:
-                self._post_movie_rating(movie[source.lower()]['my_rating'])
+                self._post_movie_rating(movie[source.lower()]["my_rating"])
             else:
                 self.failed_movies.append(movie)
             counter += 1
@@ -46,19 +56,24 @@ class RatingsInserter:
         self.site.browser_handler.kill()
 
     def _is_field_in_parsed_data_for_this_site(self, movie, field):
-        return self.site.site_name.lower() in movie and field in movie[self.site.site_name.lower()] and \
-               movie[self.site.site_name.lower()][field] != ''
+        return (
+            self.site.site_name.lower() in movie
+            and field in movie[self.site.site_name.lower()]
+            and movie[self.site.site_name.lower()][field] != ""
+        )
 
     def print_progress(self, counter, movie, movies):
         movie_index = movies.index(movie) + 1
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] posted {movie}\r\n")
+                f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] posted {movie}\r\n"
+            )
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] "
-                f"posted {movie['title']} ({movie['year']})\r\n")
+                f"posted {movie['title']} ({movie['year']})\r\n"
+            )
             sys.stdout.flush()
         else:
             self._print_progress_bar(counter, movies)
@@ -71,8 +86,8 @@ class RatingsInserter:
             self.progress_bar.finish()
 
     def _go_to_movie_details_page(self, movie):
-        if self._is_field_in_parsed_data_for_this_site(movie, 'url'):
-            self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]['url'])
+        if self._is_field_in_parsed_data_for_this_site(movie, "url"):
+            self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]["url"])
             success = True
         else:
             success = self._find_movie(movie)
@@ -122,8 +137,12 @@ class RatingsInserter:
             try:
                 self._click_rating(my_rating)
                 break
-            except (ElementNotVisibleException, NoSuchElementException, ElementNotInteractableException,
-                    WebDriverException) as e:
+            except (
+                ElementNotVisibleException,
+                NoSuchElementException,
+                ElementNotInteractableException,
+                WebDriverException,
+            ) as e:
                 if iteration > 10:
                     raise e
                 time.sleep(iteration * 1)
@@ -134,20 +153,29 @@ class RatingsInserter:
 
     def _print_summary(self, movies):
         success_number = len(movies) - len(self.failed_movies)
-        sys.stdout.write(f"\r\n===== {self.site.site_displayname}: sucessfully posted {success_number}"
-                         f" of {len(movies)} movies\r\n")
+        sys.stdout.write(
+            f"\r\n===== {self.site.site_displayname}: sucessfully posted {success_number}"
+            f" of {len(movies)} movies\r\n"
+        )
         sys.stdout.flush()
 
     def _handle_failed_movies(self):
         if self.args and self.args.verbose and self.args.verbose >= 1:
             self._print_failed_movies()
         if len(self.failed_movies) > 0:
-            file_impex.save_movies_to_json(self.failed_movies, folder=self.exports_folder,
-                                           filename=self.failed_movies_filename)
-            sys.stdout.write(f"===== {self.site.site_displayname}: export data for {len(self.failed_movies)}"
-                             f" failed movies to {self.exports_folder}/{self.failed_movies_filename}\r\n")
+            file_impex.save_movies_to_json(
+                self.failed_movies,
+                folder=self.exports_folder,
+                filename=self.failed_movies_filename,
+            )
+            sys.stdout.write(
+                f"===== {self.site.site_displayname}: export data for {len(self.failed_movies)}"
+                f" failed movies to {self.exports_folder}/{self.failed_movies_filename}\r\n"
+            )
         sys.stdout.flush()
 
     def _print_failed_movies(self):
         for failed_movie in self.failed_movies:
-            sys.stdout.write(f"FAILED TO FIND: {failed_movie['title']} ({failed_movie['year']})\r\n")
+            sys.stdout.write(
+                f"FAILED TO FIND: {failed_movie['title']} ({failed_movie['year']})\r\n"
+            )

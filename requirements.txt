@@ -4,3 +4,4 @@ configparser==5.0.2
 progressbar2==3.55.0
 selenium==4.0.0
 xvfbwrapper==0.2.9
+black

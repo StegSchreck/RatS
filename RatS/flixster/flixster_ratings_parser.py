@@ -13,19 +13,21 @@ class FlixsterRatingsParser(RatingsParser):
 
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
-        self.movies_count = json_data['pagination']['totalCount']
-        pages_count = json_data['pagination']['pageCount']
-        ratings = json_data['ratings']
+        self.movies_count = json_data["pagination"]["totalCount"]
+        pages_count = json_data["pagination"]["pageCount"]
+        ratings = json_data["ratings"]
 
-        sys.stdout.write(f"\r===== {self.site.site_displayname}: Parsing {pages_count} pages"
-                         f" with {self.movies_count} movies in total\r\n")
+        sys.stdout.write(
+            f"\r===== {self.site.site_displayname}: Parsing {pages_count} pages"
+            f" with {self.movies_count} movies in total\r\n"
+        )
         sys.stdout.flush()
 
         self._parse_ratings_json(ratings)
         for page_number in range(2, pages_count + 1):
             self.site.browser.get(self._get_ratings_page(page_number))
             json_data = self.site.get_json_from_html()
-            self._parse_ratings_json(json_data['ratings'])
+            self._parse_ratings_json(json_data["ratings"])
 
     def _parse_ratings_json(self, ratings_json):
         for movie_json in ratings_json:
@@ -36,12 +38,14 @@ class FlixsterRatingsParser(RatingsParser):
     @staticmethod
     def _parse_movie_json(movie_json):
         movie = dict()
-        movie['title'] = movie_json['movie']['title']
-        movie['year'] = int(movie_json['movie']['year'])
+        movie["title"] = movie_json["movie"]["title"]
+        movie["year"] = int(movie_json["movie"]["year"])
 
-        movie['flixster'] = dict()
-        movie['flixster']['id'] = movie_json['movie']['id']
-        movie['flixster']['url'] = movie_json['movie']['url'].replace('http://', 'https://')
-        movie['flixster']['my_rating'] = int(float(movie_json['score']) * 2)
+        movie["flixster"] = dict()
+        movie["flixster"]["id"] = movie_json["movie"]["id"]
+        movie["flixster"]["url"] = movie_json["movie"]["url"].replace(
+            "http://", "https://"
+        )
+        movie["flixster"]["my_rating"] = int(float(movie_json["score"]) * 2)
 
         return movie

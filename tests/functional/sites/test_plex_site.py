@@ -4,13 +4,13 @@ from unittest import skip
 from RatS.plex.plex_site import Plex
 
 
-@skip('this test is unstable on travis')
+@skip("this test is unstable on travis")
 class PlexSiteTest(TestCase):
     def setUp(self):
         self.site = Plex(None)
 
     def test_login(self):
-        self.assertIn('signed-in', self.site.browser.page_source)
+        self.assertIn("signed-in", self.site.browser.page_source)
 
     def tearDown(self):
         self.site.browser_handler.kill()

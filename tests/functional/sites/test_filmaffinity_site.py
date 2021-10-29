@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.filmaffinity.filmaffinity_site import FilmAffinity
 
 
-@skip('this test is unstable on travis')
+@skip("this test is unstable on travis")
 class FilmAffinitySiteTest(TestCase):
     def setUp(self):
         self.site = FilmAffinity(None)

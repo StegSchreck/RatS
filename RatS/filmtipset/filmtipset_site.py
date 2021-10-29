@@ -9,7 +9,7 @@ class Filmtipset(Site):
         self.LOGIN_PASSWORD_SELECTOR = '//input[@id="pass"]'
         self.LOGIN_BUTTON_SELECTOR = LOGIN_BUTTON_SELECTOR
         super(Filmtipset, self).__init__(args)
-        self.MY_RATINGS_URL = 'https://www.filmtipset.se/installningar'
+        self.MY_RATINGS_URL = "https://www.filmtipset.se/installningar"
 
     def _get_login_page_url(self):
         return "https://www.filmtipset.se"
