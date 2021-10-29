@@ -14,9 +14,8 @@ class CritickerRatingsInserter(RatingsInserter):
         super(CritickerRatingsInserter, self).__init__(Criticker(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.criticker.com/?{search_params}&type=films'.format(
-            search_params=urllib.parse.urlencode({'search': movie['title']})
-        )
+        search_params = urllib.parse.urlencode({'search': movie['title']})
+        search_url = f"https://www.criticker.com/?{search_params}&type=films"
         self.site.browser.get(search_url)
 
     @staticmethod

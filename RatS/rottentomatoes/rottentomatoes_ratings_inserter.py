@@ -10,9 +10,8 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
         super(RottenTomatoesRatingsInserter, self).__init__(RottenTomatoes(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.rottentomatoes.com/api/private/v2.0/search?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'q': movie['title'], 't': 'movie'})
-        )
+        search_params = urllib.parse.urlencode({'q': movie['title'], 't': 'movie'})
+        search_url = f"https://www.rottentomatoes.com/api/private/v2.0/search?{search_params}"
         self.site.browser.get(search_url)
 
     def _get_search_results(self, search_result_page):

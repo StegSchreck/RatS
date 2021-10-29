@@ -47,29 +47,19 @@ class RatingsParser:
 
         pages_count = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
         if self.args and self.args.verbose and self.args.verbose >= 3:
-            sys.stdout.write('\r\n ================================================== \r\n')
+            sys.stdout.write("\r\n ================================================== \r\n")
             sys.stdout.write(self.site.browser.current_url)
-            sys.stdout.write('\r\n ===== {site_displayname}: getting page count: {pages_count} \r\n'.format(
-                site_displayname=self.site.site_displayname,
-                pages_count=pages_count
-            ))
-            sys.stdout.write('\r\n ===== {site_displayname}: getting movies count: {movies_count} \r\n'.format(
-                site_displayname=self.site.site_displayname,
-                movies_count=self.movies_count
-            ))
-            sys.stdout.write('\r\n ================================================== \r\n')
+            sys.stdout.write(f"\r\n ===== {self.site.site_displayname}: getting page count: {pages_count} \r\n")
+            sys.stdout.write(f"\r\n ===== {self.site.site_displayname}: getting movies count: {self.movies_count} \r\n")
+            sys.stdout.write("\r\n ================================================== \r\n")
             sys.stdout.flush()
 
-        sys.stdout.write('\r===== {site_displayname}: Parsing {pages_count} pages '
-                         'with {movies_count} movies in total\r\n'.format(
-                             site_displayname=self.site.site_displayname,
-                             pages_count=pages_count,
-                             movies_count=self.movies_count
-                         ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: Parsing {pages_count} pages"
+                         f" with {self.movies_count} movies in total\r\n")
         sys.stdout.flush()
 
-        for i in range(1, pages_count + 1):
-            self.site.open_url_with_521_retry(self._get_ratings_page(i))
+        for page_number in range(1, pages_count + 1):
+            self.site.open_url_with_521_retry(self._get_ratings_page(page_number))
             movie_listing_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
             self._parse_movie_listing_page(movie_listing_page)
 
@@ -86,7 +76,7 @@ class RatingsParser:
     def _get_movies_count(movie_ratings_page):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _get_ratings_page(self, i):
+    def _get_ratings_page(self, page_number):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _parse_movie_listing_page(self, movie_listing_page):
@@ -100,24 +90,13 @@ class RatingsParser:
     def print_progress(self, movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write(
-                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
-                'parsed {movie} \r\n'.format(
-                    site_displayname=self.site.site_displayname,
-                    movie=movie,
-                    movie_index=len(self.movies),
-                    movies_count=self.movies_count
-                ))
+                f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}] parsed {movie} \r\n")
             sys.stdout.flush()
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
-                '\r===== {site_displayname}: [{movie_index}/{movies_count}] '
-                'parsed {movie_title} ({movie_year}) \r\n'.format(
-                    site_displayname=self.site.site_displayname,
-                    movie_title=movie['title'],
-                    movie_year=movie['year'],
-                    movie_index=len(self.movies),
-                    movies_count=self.movies_count
-                ))
+                f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}]"
+                f" parsed {movie['title']} ({movie['year']}) \r\n"
+            )
             sys.stdout.flush()
         else:
             self._print_progress_bar()

@@ -27,7 +27,7 @@ class BrowserHandler:
             firefox_profile=profile,
             capabilities=capabilities,
             firefox_options=options,
-            log_path="{timestamp}_geckodriver.log".format(timestamp=TIMESTAMP)
+            log_path=f"{TIMESTAMP}_geckodriver.log"
         )
         # https://stackoverflow.com/questions/42754877/cant-upload-file-using-selenium-with-python-post-post-session-b90ee4c1-ef51-4  # pylint: disable=line-too-long
         self.browser._is_remote = False  # pylint: disable=protected-access

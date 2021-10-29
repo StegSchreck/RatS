@@ -25,22 +25,15 @@ class LetterboxdRatingsInserter(RatingsInserter):
         self.progress_counter_selector = '.import-progress #import-count strong'
 
     def insert(self, movies, source):
-        sys.stdout.write('\r===== {site_displayname}: posting {movies_count} movies\r\n'.format(
-            site_displayname=self.site.site_displayname,
-            movies_count=len(movies)
-        ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n")
         sys.stdout.flush()
 
         save_movies_to_csv(movies, folder=self.exports_folder, filename=CSV_FILE_NAME, rating_source=source)
         self.upload_csv_file(len(movies))
 
-        sys.stdout.write('\r\n===== {site_displayname}: The file with {movies_count} movies was uploaded '
-                         'and successfully processed by the servers. '
-                         'You may check your {site_name} account later.\r\n'.format(
-                             site_displayname=self.site.site_displayname,
-                             movies_count=len(movies),
-                             site_name=self.site.site_name
-                         ))
+        sys.stdout.write(f"\r\n===== {self.site.site_displayname}: The file with {len(movies)} movies was uploaded "
+                         "and successfully processed by the servers. "
+                         f"You may check your {self.site.site_name} account later.\r\n")
         sys.stdout.flush()
 
         self.site.browser_handler.kill()
@@ -78,9 +71,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
         enabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and not(contains(@class, 'import-button-disabled'))]"  # pylint: disable=line-too-long
 
         wait.until(lambda driver: driver.find_element_by_xpath(disabled_import_button_selector))
-        sys.stdout.write('\r\n===== {site_displayname}: matching the movies...\r\n'.format(
-            site_displayname=self.site.site_displayname
-        ))
+        sys.stdout.write(f"\r\n===== {self.site.site_displayname}: matching the movies...\r\n")
         sys.stdout.flush()
 
         self._print_progress(movies_count)
@@ -92,9 +83,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
         time.sleep(5)
 
         wait.until(lambda driver: driver.find_element_by_id('import-count'))
-        sys.stdout.write('\r\n===== {site_displayname}: processing the movies...\r\n'.format(
-            site_displayname=self.site.site_displayname
-        ))
+        sys.stdout.write(f"\r\n===== {self.site.site_displayname}: processing the movies...\r\n")
         sys.stdout.flush()
 
         self._print_progress(movies_count)

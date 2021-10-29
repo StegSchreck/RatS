@@ -25,7 +25,7 @@ class IMDB(Site):
         if len(self.browser.find_elements_by_xpath("//div[@id='auth-captcha-image-container']")) > 0:
             self.browser_handler.kill()
             raise CaptchaPresentException(
-                "Login to {site_name} failed.".format(site_name=self.site_name) + "\r\n"
+                f"Login to {self.site_name} failed.\r\n"
                 "There seems to be a Captcha challenge present for the login. Please try again later.\r\n"
             )
 

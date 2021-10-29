@@ -10,8 +10,8 @@ class AlloCineRatingsParser(RatingsParser):
     def __init__(self, args):
         super(AlloCineRatingsParser, self).__init__(AlloCine(args), args)
 
-    def _get_ratings_page(self, i):
-        return '{url}?page={page_number}'.format(url=self.site.MY_RATINGS_URL, page_number=i)
+    def _get_ratings_page(self, page_number):
+        return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
         pages_count = self._get_pages_count(movie_ratings_page)
@@ -50,7 +50,7 @@ class AlloCineRatingsParser(RatingsParser):
     @staticmethod
     def _get_movie_url(movie_tile):
         movie_path = movie_tile.find('a', class_='meta-title-link')['href']
-        return 'https://www.allocine.fr{movie_path}'.format(movie_path=movie_path)
+        return f"https://www.allocine.fr{movie_path}"
 
     def parse_movie_details_page(self, movie):
         rating = 0

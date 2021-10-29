@@ -13,9 +13,8 @@ class MoviePilotRatingsInserter(RatingsInserter):
         super(MoviePilotRatingsInserter, self).__init__(MoviePilot(args), args)
 
     def _search_for_movie(self, movie):
-        search_url = 'https://www.moviepilot.de/suche?{search_params}'.format(
-            search_params=urllib.parse.urlencode({'q': movie['title'], 'type': 'movie'})
-        )
+        search_params = urllib.parse.urlencode({'q': movie['title'], 'type': 'movie'})
+        search_url = f"https://www.moviepilot.de/suche?{search_params}"
         self.site.browser.get(search_url)
 
     @staticmethod

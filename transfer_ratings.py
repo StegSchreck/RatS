@@ -109,10 +109,10 @@ def get_parser_from_arg(param):
     try:
         return PARSERS[param.upper()]
     except KeyError:
-        command_line.error("No parser matching '{entered_parser}' found.".format(entered_parser=param))
+        command_line.error(f"No parser matching '{param}' found.")
         sys.stdout.write("Available parsers:\r\n")
         for parser in PARSERS:
-            sys.stdout.write(' - {parser} \n'.format(parser=parser))
+            sys.stdout.write(f" - {parser} \n")
         sys.stdout.flush()
         sys.exit(1)
 
@@ -121,10 +121,10 @@ def get_inserter_from_arg(param):
     try:
         return INSERTERS[param.upper()]
     except KeyError:
-        command_line.error("No inserter matching '{entered_inserter}' found.".format(entered_inserter=param))
+        command_line.error(f"No inserter matching '{param}' found.")
         sys.stdout.write("Available inserters:\r\n")
         for inserter in INSERTERS:
-            sys.stdout.write(' - {inserter} \n'.format(inserter=inserter))
+            sys.stdout.write(f" - {inserter} \n")
         sys.stdout.flush()
         sys.exit(1)
 
@@ -159,16 +159,12 @@ def execute_inserting(args, movies, parser):
 def _filter_source_site_from_destinations(destinations, parser_site_name):
     if parser_site_name.upper() in destinations:
         destinations.remove(parser_site_name.upper())
-        command_line.info("Will not insert ratings to their source. Skipping {site_name}.".format(
-            site_name=parser_site_name
-        ))
+        command_line.info(f"Will not insert ratings to their source. Skipping {parser_site_name}.")
 
 
 def execute_parsing(args, parser):
     if not parser.site.CREDENTIALS_VALID:
-        raise NoValidCredentialsException("No valid credentials found for {site_name}. Skipping parsing.".format(
-            site_name=parser.site.site_name
-        ))
+        raise NoValidCredentialsException(f"No valid credentials found for {parser.site.site_name}. Skipping parsing.")
     if args.file:
         # LOAD FROM FILE
         movies = load_data_from_file(args.file)
@@ -186,26 +182,17 @@ def parse_data_from_source(parser):
         command_line.error(str(e))
         sys.exit(1)
 
-    json_filename = '{timestamp}_{sitename}.json'.format(timestamp=TIMESTAMP, sitename=type(parser.site).__name__)
+    json_filename = f"{TIMESTAMP}_{type(parser.site).__name__}.json"
     file_impex.save_movies_to_json(movies, folder=EXPORTS_FOLDER, filename=json_filename)
-    sys.stdout.write('\r\n===== {site_displayname}: saved {parsed_movies_count} parsed movies to '
-                     '{folder}/{filename}\r\n'.format(
-                         site_displayname=parser.site.site_displayname,
-                         parsed_movies_count=len(movies),
-                         folder=EXPORTS_FOLDER,
-                         filename=json_filename
-                     ))
+    sys.stdout.write(f"\r\n===== {parser.site.site_displayname}: saved {len(movies)} parsed movies to "
+                     f"{EXPORTS_FOLDER}/{json_filename}\r\n")
     sys.stdout.flush()
     return movies
 
 
 def load_data_from_file(filename):
     movies = file_impex.load_movies_from_json(folder=EXPORTS_FOLDER, filename=filename)
-    sys.stdout.write('\r\n===== loaded {loaded_movies_count} movies from {folder}/{filename}\r\n'.format(
-        loaded_movies_count=len(movies),
-        folder=EXPORTS_FOLDER,
-        filename=filename
-    ))
+    sys.stdout.write(f"\r\n===== loaded {len(movies)} movies from {EXPORTS_FOLDER}/{filename}\r\n")
     sys.stdout.flush()
     return movies
 
@@ -220,14 +207,11 @@ def insert_movie_ratings(inserter, movies, source):
             # exception should be logged in a file --> issue #15
             sys.stdout.flush()
             inserter.site.browser_handler.kill()
-            command_line.error("There was an exception inside {site_name} (see below). Skipping insertion.".format(
-                site_name=inserter.site.site_name
-            ))
+            command_line.error(f"There was an exception inside {inserter.site.site_name} (see below). "
+                               f"Skipping insertion.")
             traceback.print_exc()
     else:
-        command_line.warn("No valid credentials found for {site_name}. Skipping insertion.".format(
-            site_name=inserter.site.site_name
-        ))
+        command_line.warn(f"No valid credentials found for {inserter.site.site_name}. Skipping insertion.")
 
 
 if __name__ == "__main__":

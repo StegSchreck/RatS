@@ -22,10 +22,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         if output is None:
             return row
         escaped_title_value = output.group(2).replace('"', '""')
-        repaired_row = '{date};"{title}"{rest}\n'.format(
-            date=output.group(1),
-            title=escaped_title_value,
-            rest=output.group(3))
+        repaired_row = f"{output.group(1)};\"{escaped_title_value}\"{output.group(3)}\n"
         return repaired_row
 
     @staticmethod
@@ -73,7 +70,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
             return
 
         imdb = dict()
-        imdb['id'] = 'tt{imdb_id_number:07d}'.format(imdb_id_number=int(imdb_id))
-        imdb['url'] = 'https://www.imdb.com/title/{imdb_id}'.format(imdb_id=imdb['id'])
+        imdb['id'] = f"tt{int(imdb_id):07d}"
+        imdb['url'] = f"https://www.imdb.com/title/{imdb['id']}"
 
         movie['imdb'] = imdb

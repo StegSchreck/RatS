@@ -10,11 +10,8 @@ class ListalRatingsParser(RatingsParser):
     def __init__(self, args):
         super(ListalRatingsParser, self).__init__(Listal(args), args)
 
-    def _get_ratings_page(self, i):
-        return 'https://{username}.listal.com/movies/all/{page_number}/?rating=1'.format(
-            username=self.site.USERNAME,
-            page_number=i
-        )
+    def _get_ratings_page(self, page_number):
+        return f"https://{self.site.USERNAME}.listal.com/movies/all/{page_number}/?rating=1"
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):

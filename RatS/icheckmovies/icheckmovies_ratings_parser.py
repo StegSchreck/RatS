@@ -24,11 +24,7 @@ class ICheckMoviesRatingsParser(RatingsParser):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, 'html.parser')
         time.sleep(1)
         self.movies_count = self._get_movies_count(movie_ratings_page)
-        sys.stdout.write('\r===== {site_displayname}: Parsing {movies_count} {category} movies\r\n'.format(
-            site_displayname=self.site.site_displayname,
-            movies_count=self.movies_count,
-            category=category
-        ))
+        sys.stdout.write(f"\r===== {self.site.site_displayname}: Parsing {self.movies_count} {category} movies\r\n")
         sys.stdout.flush()
         self._parse_movie_listing_page(movie_ratings_page)
 
@@ -70,9 +66,8 @@ class ICheckMoviesRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_url(movie_tile):
-        return 'https://www.icheckmovies.com{movie_url_path}'.format(
-            movie_url_path=movie_tile.find('h2').find('a')['href']
-        )
+        movie_url_path = movie_tile.find('h2').find('a')['href']
+        return f"https://www.icheckmovies.com{movie_url_path}"
 
     @staticmethod
     def _get_external_links(movie_tile):  # pylint: disable=arguments-differ
