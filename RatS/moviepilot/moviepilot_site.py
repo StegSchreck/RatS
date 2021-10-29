@@ -1,10 +1,10 @@
 import time
 
-from RatS.base.base_site import Site
 from selenium.webdriver.common.by import By
+from RatS.base.base_site import BaseSite
 
 
-class MoviePilot(Site):
+class MoviePilot(BaseSite):
     def __init__(self, args):
         login_form_selector = "//*[@data-hypernova-key='LoginModule']//form"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@name='username']"

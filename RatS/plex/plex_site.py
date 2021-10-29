@@ -4,10 +4,10 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import ui
 
-from RatS.base.base_site import Site
+from RatS.base.base_site import BaseSite
 
 
-class Plex(Site):
+class Plex(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='email']"
@@ -24,7 +24,7 @@ class Plex(Site):
         time.sleep(2)
         self.browser.find_element(By.XPATH, self.LOGIN_METHOD_EMAIL_SELECTOR).click()
         time.sleep(0.5)
-        Site._insert_login_credentials(self)
+        BaseSite._insert_login_credentials(self)
 
     def _user_is_not_logged_in(self):
         return self.USERNAME not in self.browser.page_source

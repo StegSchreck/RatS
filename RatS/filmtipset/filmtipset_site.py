@@ -1,10 +1,10 @@
-from RatS.base.base_site import Site
 from selenium.webdriver.common.by import By
+from RatS.base.base_site import BaseSite
 
 LOGIN_BUTTON_SELECTOR = '//span[@id="submit" and @class="loginbutton"]'
 
 
-class Filmtipset(Site):
+class Filmtipset(BaseSite):
     def __init__(self, args):
         self.LOGIN_USERNAME_SELECTOR = '//input[@id="user"]'
         self.LOGIN_PASSWORD_SELECTOR = '//input[@id="pass"]'

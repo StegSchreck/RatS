@@ -9,6 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from RatS.base.login_failed_exception import LoginFailedException
+from RatS.base.movie_entity import Site
 from RatS.base.site_not_reachable_exception import SiteNotReachableException
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
@@ -19,13 +20,14 @@ EXPORTS_FOLDER = os.path.abspath(
 )
 
 
-class Site:
+class BaseSite:
     def __init__(self, args):
         self.args = args
 
         self.site_name = type(self).__name__
+        self.site = Site.get(self.site_name, None)
         self.site_displayname = (
-            BashColor.HEADER + BashColor.BOLD + self.site_name + BashColor.END
+            f"{BashColor.HEADER}{BashColor.BOLD}{self.site_name}{BashColor.END}"
             if hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
             else self.site_name
         )

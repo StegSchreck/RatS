@@ -1,11 +1,11 @@
 import time
 
-from RatS.base.base_site import Site
+from RatS.base.base_site import BaseSite
 from RatS.base.captcha_present_exception import CaptchaPresentException
 from selenium.webdriver.common.by import By
 
 
-class IMDB(Site):
+class IMDB(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form[@name='signIn']"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='ap_email']"
