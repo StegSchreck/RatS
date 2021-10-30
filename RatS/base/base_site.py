@@ -8,9 +8,8 @@ from configparser import RawConfigParser
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from RatS.base.login_failed_exception import LoginFailedException
+from RatS.base.base_exceptions import LoginFailedException, SiteNotReachableException
 from RatS.base.movie_entity import Site
-from RatS.base.site_not_reachable_exception import SiteNotReachableException
 from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
 

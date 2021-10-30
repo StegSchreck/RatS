@@ -13,8 +13,10 @@ from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.base.movie_entity import Site, Movie
 from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
-from RatS.base.no_valid_credentials_exception import NoValidCredentialsException
-from RatS.base.rats_exception import RatSException
+from RatS.base.exceptions.no_valid_credentials_exception import (
+    NoValidCredentialsException,
+)
+from RatS.base.base_exceptions import RatSException
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
@@ -143,7 +145,9 @@ def parse_args():
     return args
 
 
-def get_parser_from_arg(param: str) -> type:  # TODO make the argument a Site and the return type a RatingsParser
+def get_parser_from_arg(
+    param: str,
+) -> type:  # TODO make the argument a Site and the return type a RatingsParser
     try:
         return PARSERS.get(Site(param.upper()))
     except (KeyError, ValueError):
@@ -155,7 +159,9 @@ def get_parser_from_arg(param: str) -> type:  # TODO make the argument a Site an
         sys.exit(1)
 
 
-def get_inserter_from_arg(param: str) -> type:  # TODO make the argument a Site and the return type a RatingsInserter
+def get_inserter_from_arg(
+    param: str,
+) -> type:  # TODO make the argument a Site and the return type a RatingsInserter
     try:
         return INSERTERS.get(Site(param.upper()))
     except (KeyError, ValueError):
@@ -194,12 +200,14 @@ def execute_inserting(args, movies: List[Movie], parser: RatingsParser):
         for destination in destinations:
             try:
                 inserter: RatingsInserter = get_inserter_from_arg(destination)(args)
-                insert_movie_ratings(inserter, movies, type(parser.site).__name__)
+                insert_movie_ratings(inserter, movies, parser.site.site)
             except RatSException as e:
                 command_line.error(str(e))
 
 
-def _filter_source_site_from_destinations(destinations: List[str], parser_site_name: str):
+def _filter_source_site_from_destinations(
+    destinations: List[str], parser_site_name: str
+):
     if parser_site_name.upper() in destinations:
         destinations.remove(parser_site_name.upper())
         command_line.info(
@@ -242,7 +250,9 @@ def parse_data_from_source(parser: RatingsParser) -> List[Movie]:
 
 
 def load_data_from_file(filename: str) -> List[Movie]:
-    movies: List[Movie] = file_impex.load_movies_from_json(folder=EXPORTS_FOLDER, filename=filename)
+    movies: List[Movie] = file_impex.load_movies_from_json(
+        folder=EXPORTS_FOLDER, filename=filename
+    )
     sys.stdout.write(
         f"\r\n===== loaded {len(movies)} movies from {EXPORTS_FOLDER}/{filename}\r\n"
     )
@@ -250,7 +260,7 @@ def load_data_from_file(filename: str) -> List[Movie]:
     return movies
 
 
-def insert_movie_ratings(inserter: RatingsInserter, movies: List[Movie], source: str):
+def insert_movie_ratings(inserter: RatingsInserter, movies: List[Movie], source: Site):
     if inserter.site.CREDENTIALS_VALID:
         try:
             inserter.insert(movies, source)

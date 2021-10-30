@@ -3,10 +3,13 @@ import time
 
 import datetime
 import os
+from typing import List
 
 from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.base_site import BaseSite
+from RatS.base.movie_entity import Site, Movie
 from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
 from RatS.utils.file_impex import save_movies_to_csv
 
@@ -14,9 +17,9 @@ TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S"
 
 
 class RatingsUploader(RatingsInserter):
-    def __init__(self, site, args):
+    def __init__(self, site: BaseSite, args):
         super(RatingsUploader, self).__init__(site, args)
-        self.csv_filename = TIMESTAMP + "_converted_for_" + site.site_name + ".csv"
+        self.csv_filename = f"{TIMESTAMP}_converted_for_{site.site_name}.csv"
 
     def insert(self, movies, source):
         sys.stdout.write(
@@ -24,8 +27,10 @@ class RatingsUploader(RatingsInserter):
         )
         sys.stdout.flush()
 
-        if self.site.site_name.lower() == "movielens":
-            movies = [movie for movie in movies if "imdb" in movie]
+        if self.site.site == Site.MOVIELENS:
+            movies: List[Movie] = [
+                movie for movie in movies if Site.IMDB in movie.site_data
+            ]
 
         if len(movies) == 0:
             self.site.browser_handler.kill()

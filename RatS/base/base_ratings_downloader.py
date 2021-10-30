@@ -6,8 +6,8 @@ import datetime
 import os
 from selenium.common.exceptions import TimeoutException
 
+from RatS.base.base_exceptions import CSVDownloadFailedException
 from RatS.base.base_ratings_parser import RatingsParser
-from RatS.base.csv_download_exception import CSVDownloadFailedException
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")

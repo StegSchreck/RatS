@@ -10,7 +10,7 @@ class ListalRatingsParser(RatingsParser):
     def __init__(self, args):
         super(ListalRatingsParser, self).__init__(Listal(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"https://{self.site.USERNAME}.listal.com/movies/all/{page_number}/?rating=1"
 
     @staticmethod
@@ -60,14 +60,14 @@ class ListalRatingsParser(RatingsParser):
             .replace("http://", "https://")
         )
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         self.site.handle_request_blocked_by_website()
 
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        movie["year"] = self._get_movie_year(movie_details_page)
-        if self.site.site_name.lower() not in movie:
-            movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["my_rating"] = self._get_movie_my_rating(
+        movie.year = self._get_movie_year(movie_details_page)
+        if self.site.site not in movie.site_data:
+            movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
             movie_details_page
         )
         self._parse_external_links(movie, movie_details_page)

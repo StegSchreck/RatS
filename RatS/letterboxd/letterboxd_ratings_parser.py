@@ -1,6 +1,7 @@
 import os
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
+from RatS.base.movie_entity import SiteSpecificMovieData, Movie
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils import command_line
 from RatS.utils import file_impex
@@ -46,16 +47,14 @@ class LetterboxdRatingsParser(RatingsDownloader):
         self.site.browser.get("https://letterboxd.com/data/export/")
 
     def _convert_csv_row_to_movie(self, headers, row):
-        movie = dict()
-        movie["title"] = row[headers.index("Name")]
-        movie["year"] = (
-            int(row[headers.index("Year")]) if row[headers.index("Year")] else None
-        )
-        movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["url"] = row[
+        movie = Movie()
+        movie.title = row[headers.index("Name")]
+        movie.year = int(row[headers.index("Year")]) if row[headers.index("Year")] else None
+        movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].url = row[
             headers.index("Letterboxd URI")
         ].replace("http://", "https://")
-        movie[self.site.site_name.lower()]["my_rating"] = int(
+        movie.site_data[self.site.site].my_rating = int(
             float(row[headers.index("Rating")]) * 2
         )
         return movie

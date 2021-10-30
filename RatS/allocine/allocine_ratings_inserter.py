@@ -7,14 +7,15 @@ from selenium.webdriver.common.by import By
 
 from RatS.allocine.allocine_site import AlloCine
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie
 
 
 class AlloCineRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(AlloCineRatingsInserter, self).__init__(AlloCine(args), args)
 
-    def _search_for_movie(self, movie):
-        search_params = urllib.parse.urlencode({"q": movie["title"]})
+    def _search_for_movie(self, movie: Movie):
+        search_params = urllib.parse.urlencode({"q": movie.title})
         search_url = f"https://www.allocine.fr/recherche/movie/?{search_params}"
         self.site.browser.get(search_url)
 
@@ -23,16 +24,13 @@ class AlloCineRatingsInserter(RatingsInserter):
         search_result_page = BeautifulSoup(search_result_page, "html.parser")
         return search_result_page.find_all("div", class_="entity-card")
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         if self._is_field_in_parsed_data_for_this_site(movie, "id"):
-            return (
-                movie[self.site.site_name.lower()]["id"]
-                == search_result["data-movie-id"]
-            )
+            return movie.site_data[self.site.site].id == search_result["data-movie-id"]
         else:
             return self._check_movie_details(movie, search_result)
 
-    def _check_movie_details(self, movie, search_result):
+    def _check_movie_details(self, movie: Movie, search_result):
         try:
             movie_url = (
                 "https://www.allocine.fr"
@@ -53,11 +51,11 @@ class AlloCineRatingsInserter(RatingsInserter):
             result_year_list = re.findall(r"(\d{4})", release_date_text)
             if len(result_year_list) > 0:
                 result_year = result_year_list[-1]
-                year_equal = int(result_year) == int(movie["year"])
+                year_equal = int(result_year) == int(movie.year)
                 return year_equal
         return False
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating: int):
         user_rating_section = self.site.browser.find_element(
             By.CLASS_NAME, "bam-container"
         )

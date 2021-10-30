@@ -2,9 +2,9 @@ import datetime
 import os
 import sys
 import time
+from typing import List
 
 from progressbar import ProgressBar
-
 from selenium.common.exceptions import (
     StaleElementReferenceException,
     ElementNotInteractableException,
@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions, ui
 from selenium.webdriver.support.wait import WebDriverWait
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie, Site
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils.file_impex import save_movies_to_csv
 
@@ -27,7 +28,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
         super(LetterboxdRatingsInserter, self).__init__(Letterboxd(args), args)
         self.progress_counter_selector = ".import-progress #import-count strong"
 
-    def insert(self, movies, source):
+    def insert(self, movies: List[Movie], source: Site):
         sys.stdout.write(
             f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n"
         )

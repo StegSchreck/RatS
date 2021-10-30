@@ -1,6 +1,7 @@
 import sys
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.rottentomatoes.rottentomatoes_site import RottenTomatoes
 
 
@@ -8,7 +9,7 @@ class RottenTomatoesRatingsParser(RatingsParser):
     def __init__(self, args):
         super(RottenTomatoesRatingsParser, self).__init__(RottenTomatoes(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?endCursor={page_number}"
 
     def _parse_ratings(self):
@@ -34,7 +35,7 @@ class RottenTomatoesRatingsParser(RatingsParser):
                 self.movies.append(movie)
                 self.print_progress(movie)
 
-    def print_progress(self, movie):
+    def print_progress(self, movie: Movie):
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed {movie} \r\n"
@@ -43,7 +44,7 @@ class RottenTomatoesRatingsParser(RatingsParser):
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed"
-                f" {movie['title']} ({movie['year']}) \r\n"
+                f" {movie.title} ({movie.year}) \r\n"
             )
             sys.stdout.flush()
         else:
@@ -55,16 +56,16 @@ class RottenTomatoesRatingsParser(RatingsParser):
         if not movie_json["review"]["score"]:
             return None
 
-        movie = dict()
-        movie["title"] = movie_json["item"]["title"]
-        movie["year"] = int(movie_json["item"]["releaseYear"])
+        movie = Movie()
+        movie.title = movie_json["item"]["title"]
+        movie.year = int(movie_json["item"]["releaseYear"])
 
-        movie["rottentomatoes"] = dict()
-        movie["rottentomatoes"]["id"] = movie_json["item"]["rtId"]
-        movie["rottentomatoes"]["url"] = movie_json["item"]["vanityUrl"].replace(
-            "http://", "https://"
-        )
-        movie["rottentomatoes"]["my_rating"] = int(
+        movie.site_data[Site.ROTTENTOMATOES] = SiteSpecificMovieData()
+        movie.site_data[Site.ROTTENTOMATOES].id = movie_json["item"]["rtId"]
+        movie.site_data[Site.ROTTENTOMATOES].url = movie_json["item"][
+            "vanityUrl"
+        ].replace("http://", "https://")
+        movie.site_data[Site.ROTTENTOMATOES].my_rating = int(
             float(movie_json["review"]["score"]) * 2
         )
 

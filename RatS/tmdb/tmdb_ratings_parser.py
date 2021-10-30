@@ -1,6 +1,7 @@
 import math
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import SiteSpecificMovieData, Movie
 from RatS.tmdb.tmdb_site import TMDB
 
 
@@ -8,7 +9,7 @@ class TMDBRatingsParser(RatingsParser):
     def __init__(self, args):
         super(TMDBRatingsParser, self).__init__(TMDB(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     @staticmethod
@@ -45,13 +46,13 @@ class TMDBRatingsParser(RatingsParser):
         return movie_tile.find(class_="title").find("a").find("h2").get_text()
 
     def _parse_movie_tile(self, movie_tile):
-        movie = dict()
-        movie["title"] = self._get_movie_title(movie_tile)
-        movie["year"] = self._get_movie_year(movie_tile)
-        movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["id"] = self._get_movie_id(movie_tile)
-        movie[self.site.site_name.lower()]["url"] = self._get_movie_url(movie_tile)
-        movie[self.site.site_name.lower()]["my_rating"] = self._get_movie_my_rating(
+        movie = Movie()
+        movie.title = self._get_movie_title(movie_tile)
+        movie.year = self._get_movie_year(movie_tile)
+        movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
+        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
             movie_tile
         )
 

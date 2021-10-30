@@ -161,7 +161,7 @@ class FilmtipetParserTest(TestCase):
             ("", {}),
         ]
         for test in tests:
-            movie = dict()
+            movie = Movie()
             num, expected_movie = test
             FilmtipsetRatingsParser._extract_imdb_information(
                 movie, num

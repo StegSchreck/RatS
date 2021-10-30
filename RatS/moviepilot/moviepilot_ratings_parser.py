@@ -5,7 +5,8 @@ import re
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
-from RatS.base.rats_exception import RatSException
+from RatS.base.base_exceptions import RatSException
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.moviepilot.moviepilot_site import MoviePilot
 
 
@@ -13,7 +14,7 @@ class MoviePilotRatingsParser(RatingsParser):
     def __init__(self, args):
         super(MoviePilotRatingsParser, self).__init__(MoviePilot(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
@@ -54,20 +55,20 @@ class MoviePilotRatingsParser(RatingsParser):
         movie_path = movie_tile.find("a")["href"]
         return f"https://www.moviepilot.de{movie_path}"
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        movie["year"] = int(
+        movie.year = int(
             movie_details_page.find(attrs={"itemprop": "copyrightYear"}).get_text()
         )
-        if self.site.site_name.lower() not in movie:
-            movie[self.site.site_name.lower()] = dict()
+        if self.site.site not in movie.site_data:
+            movie.site_data[self.site.site] = SiteSpecificMovieData()
         json_from_script = movie_details_page.find(
             "script", attrs={"data-hypernova-key": "FriendsOpinionsModule"}
         )
         movie_id = str(re.findall(r"itemId.*:(\d*),", str(json_from_script))[0])
         rating = self._get_movie_my_rating(movie_id)
-        movie[self.site.site_name.lower()]["id"] = movie_id
-        movie[self.site.site_name.lower()]["my_rating"] = rating
+        movie.site_data[self.site.site].id = movie_id
+        movie.site_data[self.site.site].my_rating = rating
 
     def _get_movie_my_rating(self, movie_id):
         self.site.browser.get(f"https://www.moviepilot.de/api/movies/{movie_id}/rating")

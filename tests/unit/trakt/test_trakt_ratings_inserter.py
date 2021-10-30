@@ -13,14 +13,14 @@ class TraktRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = dict()
-        self.movie["title"] = "Fight Club"
-        self.movie["year"] = 1999
-        self.movie["imdb"] = dict()
-        self.movie["imdb"]["id"] = "tt0137523"
-        self.movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie["imdb"]["my_rating"] = 9
-        self.movie["tmdb"] = dict()
+        self.movie = Movie()
+        self.movie.title = "Fight Club"
+        self.movie.year = 1999
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.IMDB].id = "tt0137523"
+        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie["tmdb"] = SiteSpecificMovieData()
         self.movie["tmdb"]["id"] = "550"
         self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
         with open(
@@ -104,10 +104,10 @@ class TraktRatingsInserterTest(TestCase):
         inserter.site.site_name = "Trakt"
         inserter.failed_movies = []
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "tt0137523"
         movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
         movie2["imdb"]["my_rating"] = 10
@@ -148,10 +148,10 @@ class TraktRatingsInserterTest(TestCase):
         inserter.site.site_name = "Trakt"
         inserter.failed_movies = []
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Arrival"
         movie2["year"] = 2006
-        movie2["tmdb"] = dict()
+        movie2["tmdb"] = SiteSpecificMovieData()
         movie2["tmdb"]["id"] = "329865"
         movie2["tmdb"]["url"] = "https://www.themoviedb.org/movie/329865"
         movie2["tmdb"]["my_rating"] = 7
@@ -200,10 +200,10 @@ class TraktRatingsInserterTest(TestCase):
         inserter.failed_movies = []
         compare_mock.return_value = True
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
-        movie2["tmdb"] = dict()
+        movie2["tmdb"] = SiteSpecificMovieData()
         movie2["tmdb"]["id"] = "550"
         movie2["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
         movie2["tmdb"]["my_rating"] = 9
@@ -229,7 +229,7 @@ class TraktRatingsInserterTest(TestCase):
         inserter.failed_movies = []
         compare_mock.return_value = True
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
 
@@ -264,10 +264,10 @@ class TraktRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "The Matrix"
         movie2["year"] = 1995
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "tt0137523"
         movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
         movie2["imdb"]["my_rating"] = 9

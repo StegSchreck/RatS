@@ -76,11 +76,13 @@ class ListalParserTest(TestCase):
         parser.site.site_name = "Listal"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = dict()
+        movie = Movie()
 
         parser.parse_movie_details_page(movie)
 
-        self.assertEqual(1999, movie["year"])
+        self.assertEqual(1999, movie.year)
         self.assertEqual(10, movie["listal"]["my_rating"])
-        self.assertEqual("tt0137523", movie["imdb"]["id"])
-        self.assertEqual("https://www.imdb.com/title/tt0137523", movie["imdb"]["url"])
+        self.assertEqual("tt0137523", movie.site_data[Site.IMDB].id)
+        self.assertEqual(
+            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB]["url"]
+        )

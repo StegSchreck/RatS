@@ -1,7 +1,7 @@
 import time
 
+from RatS.base.base_exceptions import CaptchaPresentException
 from RatS.base.base_site import BaseSite
-from RatS.base.captcha_present_exception import CaptchaPresentException
 from selenium.webdriver.common.by import By
 
 
@@ -40,5 +40,5 @@ class IMDB(BaseSite):
             )
 
     @classmethod
-    def normalize_imdb_id(cls, imdb_id):
+    def normalize_imdb_id(cls, imdb_id: str) -> int:
         return int(imdb_id.replace("tt", ""))

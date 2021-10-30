@@ -48,13 +48,15 @@ def load_movies_from_csv(filepath, encoding="UTF-8"):
 
 
 def convert_csv_row_to_movie(headers, row):
-    movie = dict()
-    movie["title"] = row[headers.index("Title")]
-    movie["year"] = int(row[headers.index("Year")])
-    movie["imdb"] = dict()
-    movie["imdb"]["id"] = row[headers.index("Const")]
-    movie["imdb"]["url"] = row[headers.index("URL")].replace("http://", "https://")
-    movie["imdb"]["my_rating"] = int(row[headers.index("Your Rating")])
+    movie = Movie()
+    movie.title = row[headers.index("Title")]
+    movie.year = int(row[headers.index("Year")])
+    movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+    movie.site_data[Site.IMDB].id = row[headers.index("Const")]
+    movie.site_data[Site.IMDB]["url"] = row[headers.index("URL")].replace(
+        "http://", "https://"
+    )
+    movie.site_data[Site.IMDB]["my_rating"] = int(row[headers.index("Your Rating")])
     return movie
 
 

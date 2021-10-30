@@ -13,12 +13,12 @@ class MovielensUploaderTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = dict()
-        self.movie["title"] = "Fight Club"
-        self.movie["imdb"] = dict()
-        self.movie["imdb"]["id"] = "tt0137523"
-        self.movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie["imdb"]["my_rating"] = 9
+        self.movie = Movie()
+        self.movie.title = "Fight Club"
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.IMDB].id = "tt0137523"
+        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB]["my_rating"] = 9
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

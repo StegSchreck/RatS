@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Site, SiteSpecificMovieData, Movie
 
 
 class BaseInserterTest(TestCase):
@@ -28,18 +29,18 @@ class BaseInserterTest(TestCase):
         with patch("RatS.base.base_site.Site") as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
-        movie = dict()
-        movie["title"] = "Fight Club"
-        movie["year"] = 1999
-        movie["imdb"] = dict()
-        movie["imdb"]["id"] = "tt0137523"
-        movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie["imdb"]["my_rating"] = 9
+        movie = Movie()
+        movie.title = "Fight Club"
+        movie.year = 1999
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie.site_data[Site.IMDB].id = "tt0137523"
+        movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        movie.site_data[Site.IMDB]["my_rating"] = 9
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "unreadable movie"
         movie2["year"] = 1111
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "xxx"
         movie2["imdb"]["url"] = "https://www.imdb.com/title/xxx"
         movie2["imdb"]["my_rating"] = 4
@@ -47,7 +48,7 @@ class BaseInserterTest(TestCase):
         movies = [movie, movie, movie2]
         search_success_mock.side_effect = [True, True, False]
 
-        inserter.insert(movies, "imdb")
+        inserter.insert(movies, Site.IMDB)
 
         self.assertEqual(1, len(inserter.failed_movies))
         save_movies_to_json_mock.assert_called_with(
@@ -72,18 +73,18 @@ class BaseInserterTest(TestCase):
         with patch("RatS.base.base_site.Site") as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
-        movie = dict()
-        movie["title"] = "Fight Club"
-        movie["year"] = 1999
-        movie["imdb"] = dict()
-        movie["imdb"]["id"] = "tt0137523"
-        movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie["imdb"]["my_rating"] = 9
+        movie = Movie()
+        movie.title = "Fight Club"
+        movie.year = 1999
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie.site_data[Site.IMDB].id = "tt0137523"
+        movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        movie.site_data[Site.IMDB]["my_rating"] = 9
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "unreadable movie"
         movie2["year"] = 1111
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "xxx"
         movie2["imdb"]["url"] = "https://www.imdb.com/title/xxx"
         movie2["imdb"]["my_rating"] = 4

@@ -88,12 +88,12 @@ class MoviePilotRatingsParserTest(TestCase):
         parser.site.site_name = "MoviePilot"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = dict()
+        movie = Movie()
         rating_mock.return_value = 10
 
         parser.parse_movie_details_page(movie)
 
         # Star Trek
-        self.assertEqual(1979, movie["year"])
+        self.assertEqual(1979, movie.year)
         self.assertEqual("1442", movie["moviepilot"]["id"])
         self.assertEqual(10, movie["moviepilot"]["my_rating"])

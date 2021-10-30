@@ -1,4 +1,4 @@
-from RatS.base.rats_exception import RatSException
+from RatS.base.base_exceptions import RatSException
 
 
 class ICheckMoviesMisconfigurationException(RatSException):

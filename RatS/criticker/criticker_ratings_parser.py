@@ -8,6 +8,7 @@ from xml.etree import ElementTree
 from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.criticker.criticker_site import Criticker
 from RatS.utils import file_impex
 
@@ -64,23 +65,25 @@ class CritickerRatingsParser(RatingsParser):
     def convert_xml_node_to_movie(xml_node):
         film_header = xml_node.find("filmname").text
 
-        movie = dict()
-        movie["year"] = int(re.findall(r"\((\d{4})\)", film_header)[0])
-        movie["title"] = film_header.replace(f"({movie['year']})", "").strip()
+        movie = Movie()
+        movie.year = int(re.findall(r"\((\d{4})\)", film_header)[0])
+        movie.title = film_header.replace(f"({movie.year})", "").strip()
 
-        movie["criticker"] = dict()
-        movie["criticker"]["id"] = xml_node.find("filmid").text
+        movie.site_data[Site.CRITICKER] = SiteSpecificMovieData()
+        movie.site_data[Site.CRITICKER].id = xml_node.find("filmid").text
         movie_link = xml_node.find("filmlink").text
 
         movie_link = re.sub("/rating/.*", "", movie_link).replace("http://", "https://")
 
-        movie["criticker"]["url"] = movie_link
-        movie["criticker"]["my_rating"] = round(
+        movie.site_data[Site.CRITICKER].url = movie_link
+        movie.site_data[Site.CRITICKER].my_rating = round(
             float(xml_node.find("rating").text) / 10
         )
 
-        movie["imdb"] = dict()
-        movie["imdb"]["id"] = xml_node.find("imdbid").text
-        movie["imdb"]["url"] = f"https://www.imdb.com/title/{movie['imdb']['id']}"
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie.site_data[Site.IMDB].id = xml_node.find("imdbid").text
+        movie.site_data[
+            Site.IMDB
+        ].url = f"https://www.imdb.com/title/{movie['imdb']['id']}"
 
         return movie

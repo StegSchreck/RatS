@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 from progressbar import ProgressBar
 
 from RatS.base.base_site import BaseSite
-from RatS.base.movie_entity import Movie, SiteSpecificMovieData
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 
 
 class RatingsParser:
-    def __init__(self, site, args):
+    def __init__(self, site: BaseSite, args):
         self.site: BaseSite = site
         self.args = args
         if not self.site.CREDENTIALS_VALID:
@@ -51,7 +51,9 @@ class RatingsParser:
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         time.sleep(1)
 
-        pages_count: int = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
+        pages_count: int = self._retrieve_pages_count_and_movies_count(
+            movie_ratings_page
+        )
         if self.args and self.args.verbose and self.args.verbose >= 3:
             sys.stdout.write(
                 "\r\n ================================================== \r\n"
@@ -136,10 +138,9 @@ class RatingsParser:
     def _parse_movie_tile(self, movie_tile):
         movie = Movie()
         movie.title = self._get_movie_title(movie_tile)
-        site_specific_movie_data = SiteSpecificMovieData()
-        movie.site_data.append(site_specific_movie_data)
-        site_specific_movie_data.id = self._get_movie_id(movie_tile)
-        site_specific_movie_data.url = self._get_movie_url(movie_tile)
+        movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
+        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
 
         self._go_to_movie_details_page(movie)
         time.sleep(1)
@@ -159,7 +160,9 @@ class RatingsParser:
         return movie
 
     def _go_to_movie_details_page(self, movie: Movie):
-        self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]["url"])
+        self.site.open_url_with_521_retry(
+            movie.site_data[self.site.site_name.lower()].url
+        )
 
     @staticmethod
     def _get_movie_title(movie_tile):
@@ -180,17 +183,21 @@ class RatingsParser:
         external_links = self._get_external_links(movie_details_page)
         for link in external_links:
             if "imdb.com" in link["href"] and "find?" not in link["href"]:
-                movie["imdb"] = dict()
-                movie["imdb"]["url"] = (
+                movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+                movie.site_data[Site.IMDB].url = (
                     link["href"].strip("/").replace("http://", "https://")
                 )
-                movie["imdb"]["id"] = movie["imdb"]["url"].split("/")[-1]
+                movie.site_data[Site.IMDB].id = movie.site_data[Site.IMDB].url.split(
+                    "/"
+                )[-1]
             elif "themoviedb.org" in link["href"]:
-                movie["tmdb"] = dict()
-                movie["tmdb"]["url"] = (
+                movie.site_data[Site.TMDB] = SiteSpecificMovieData()
+                movie.site_data[Site.TMDB].url = (
                     link["href"].strip("/").replace("http://", "https://")
                 )
-                movie["tmdb"]["id"] = movie["tmdb"]["url"].split("/")[-1]
+                movie.site_data[Site.TMDB].id = movie.site_data[Site.TMDB].url.split(
+                    "/"
+                )[-1]
 
     @staticmethod
     def _get_external_links(movie_details_page):

@@ -1,2 +1,0 @@
-class RatSException(Exception):
-    pass

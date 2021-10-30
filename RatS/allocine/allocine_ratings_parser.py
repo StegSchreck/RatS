@@ -10,7 +10,7 @@ class AlloCineRatingsParser(RatingsParser):
     def __init__(self, args):
         super(AlloCineRatingsParser, self).__init__(AlloCine(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page):
@@ -67,7 +67,7 @@ class AlloCineRatingsParser(RatingsParser):
         movie_path = movie_tile.find("a", class_="meta-title-link")["href"]
         return f"https://www.allocine.fr{movie_path}"
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         rating = 0
         iteration = 0
         movie_details_page = None
@@ -81,11 +81,11 @@ class AlloCineRatingsParser(RatingsParser):
             )
             rating = self._get_movie_my_rating(movie_details_page)
 
-        movie["year"] = self._get_movie_year(movie_details_page)
-        movie["title"] = self._get_movie_original_title(movie_details_page)
-        if self.site.site_name.lower() not in movie:
-            movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["my_rating"] = rating
+        movie.year = self._get_movie_year(movie_details_page)
+        movie.title = self._get_movie_original_title(movie_details_page)
+        if self.site.site not in movie.site_data:
+            movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].my_rating = rating
 
     @staticmethod
     def _get_movie_year(movie_details_page):
