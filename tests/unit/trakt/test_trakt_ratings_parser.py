@@ -83,14 +83,16 @@ class TraktRatingsParserTest(TestCase):
         parser.site.site_name = "Trakt"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = dict()
+        movie = Movie()
 
         parser.parse_movie_details_page(movie)
 
         # Fight Club
-        self.assertEqual(1999, movie["year"])
-        self.assertEqual("tt0137523", movie["imdb"]["id"])
-        self.assertEqual("https://www.imdb.com/title/tt0137523", movie["imdb"]["url"])
+        self.assertEqual(1999, movie.year)
+        self.assertEqual("tt0137523", movie.site_data[Site.IMDB].id)
+        self.assertEqual(
+            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB]["url"]
+        )
         self.assertEqual("550", movie["tmdb"]["id"])
         self.assertEqual("https://www.themoviedb.org/movie/550", movie["tmdb"]["url"])
         self.assertEqual(10, movie["trakt"]["my_rating"])
@@ -108,12 +110,12 @@ class TraktRatingsParserTest(TestCase):
         parser.site.site_name = "Trakt"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page_without_imdb_id
-        movie = dict()
+        movie = Movie()
 
         parser.parse_movie_details_page(movie)
 
         # Top Gear Patagonia
-        self.assertEqual(2014, movie["year"])
+        self.assertEqual(2014, movie.year)
         self.assertNotIn("imdb", movie)
         self.assertEqual("314390", movie["tmdb"]["id"])
         self.assertEqual(

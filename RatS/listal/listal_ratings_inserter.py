@@ -15,8 +15,8 @@ class ListalRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(ListalRatingsInserter, self).__init__(Listal(args), args)
 
-    def _search_for_movie(self, movie):
-        movie_url_path = urllib.parse.quote_plus(movie["title"])
+    def _search_for_movie(self, movie: Movie):
+        movie_url_path = urllib.parse.quote_plus(movie.title)
         search_url = f"https://www.listal.com/search/movies/{movie_url_path}"
         self.site.browser.get(search_url)
         self.site.handle_request_blocked_by_website()
@@ -26,7 +26,7 @@ class ListalRatingsInserter(RatingsInserter):
         search_result_page = BeautifulSoup(search_result_page, "html.parser")
         return search_result_page.find_all("div", class_="itemcell")
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         self.site.browser.set_page_load_timeout(10)
 
         iteration = 0
@@ -43,14 +43,14 @@ class ListalRatingsInserter(RatingsInserter):
                 continue
 
         time.sleep(1)
-        if "imdb" in movie and movie["imdb"]["id"] != "":
+        if "imdb" in movie and movie.site_data[Site.IMDB].id != "":
             return self._compare_external_links(
                 self.site.browser.page_source, movie, "imdb.com", "imdb"
             )
         else:
             return self._check_movie_details(movie)
 
-    def _check_movie_details(self, movie):
+    def _check_movie_details(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         movie_annotation = movie_details_page.find(
             "h1", class_="itemheadingmedium"
@@ -58,11 +58,11 @@ class ListalRatingsInserter(RatingsInserter):
         release_year = re.findall(r"\((\d{4})\)", movie_annotation)
         if release_year:
             movie_year = int(release_year[-1])
-            return movie["year"] == movie_year
+            return movie.year == movie_year
         else:
             if self.args and self.args.verbose and self.args.verbose >= 3:
                 command_line.info(
-                    f"{movie['title']} ({movie['year']}): "
+                    f"{movie.title} ({movie.year}): "
                     f"No release year displayed on {self.site.site_name} movie detail page "
                     f"{self.site.browser.current_url} ... skipping "
                 )
@@ -83,7 +83,7 @@ class ListalRatingsInserter(RatingsInserter):
                     ) == IMDB.normalize_imdb_id(link_href.split("/")[-1])
         return False
 
-    def _post_movie_rating(self, my_rating):
+    def _post_movie_rating(self, my_rating: int):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         movie_id = movie_details_page.find("a", class_="rateproduct")["data-productid"]
 

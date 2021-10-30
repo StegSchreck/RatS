@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie
 from RatS.flixster.flixster_site import Flixster
 
 
@@ -14,7 +15,7 @@ class FlixsterRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(FlixsterRatingsInserter, self).__init__(Flixster(args), args)
 
-    def _find_movie(self, movie):
+    def _find_movie(self, movie: Movie):
         directly_found = self._search_for_movie(movie)
 
         if directly_found:
@@ -32,7 +33,7 @@ class FlixsterRatingsInserter(RatingsInserter):
         time.sleep(1)
         return self._process_search_results(movie)
 
-    def _process_search_results(self, movie):
+    def _process_search_results(self, movie: Movie):
         iteration = 0
         search_results = None
         while not search_results:
@@ -62,8 +63,8 @@ class FlixsterRatingsInserter(RatingsInserter):
             in self.site.browser.find_element(By.TAG_NAME, "h1").text
         )
 
-    def _search_for_movie(self, movie):
-        search_params = urllib.parse.urlencode({"search": movie["title"]})
+    def _search_for_movie(self, movie: Movie):
+        search_params = urllib.parse.urlencode({"search": movie.title})
         search_url = f"https://www.flixster.com/search/?{search_params}"
         self.site.browser.get(search_url)
         time.sleep(1)
@@ -78,14 +79,14 @@ class FlixsterRatingsInserter(RatingsInserter):
             "li", class_="media"
         )
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         movie_heading = search_result.find("p", class_="heading").find("a")
         movie_url = "https://www.flixster.com" + movie_heading["href"]
         if self._is_field_in_parsed_data_for_this_site(movie, "url"):
-            success = movie[self.site.site_name.lower()]["url"] == movie_url
+            success = movie.site_data[self.site.site].url == movie_url
         else:
             try:
-                success = movie["year"] == int(
+                success = movie.year == int(
                     re.findall(r"\((\d{4})\)", movie_heading.get_text())[-1]
                 )
             except IndexError:
@@ -95,7 +96,7 @@ class FlixsterRatingsInserter(RatingsInserter):
             time.sleep(1)
         return success
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating: int):
         movie_id = self.site.browser.find_element(
             By.XPATH, "//meta[@name='movieID']"
         ).get_attribute("content")

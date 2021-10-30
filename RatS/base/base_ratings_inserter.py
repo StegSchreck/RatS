@@ -2,6 +2,7 @@ import datetime
 import os
 import sys
 import time
+from typing import List
 
 from progressbar import ProgressBar
 from selenium.common.exceptions import (
@@ -12,17 +13,19 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 
+from RatS.base.base_site import BaseSite
+from RatS.base.movie_entity import Movie, Site
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 
 
 class RatingsInserter:
-    def __init__(self, site, args):
-        self.site = site
+    def __init__(self, site: BaseSite, args):
+        self.site: BaseSite = site
         self.args = args
 
-        self.failed_movies = []
+        self.failed_movies: List[Movie] = []
         self.failed_movies_filename = f"{TIMESTAMP}_{self.site.site_name}_failed.json"
 
         self.exports_folder = os.path.abspath(
@@ -35,7 +38,7 @@ class RatingsInserter:
 
         self.progress_bar = None
 
-    def insert(self, movies, source):
+    def insert(self, movies: List[Movie], source: Site):
         counter = 0
         sys.stdout.write(
             f"\r===== {self.site.site_displayname}: posting {len(movies)} movies                     \r\n"
@@ -45,7 +48,7 @@ class RatingsInserter:
         for movie in movies:
             movie_details_page_found = self._go_to_movie_details_page(movie)
             if movie_details_page_found:
-                self._post_movie_rating(movie[source.lower()]["my_rating"])
+                self._post_movie_rating(movie.site_data[source].my_rating)
             else:
                 self.failed_movies.append(movie)
             counter += 1
@@ -55,14 +58,16 @@ class RatingsInserter:
         self._handle_failed_movies()
         self.site.browser_handler.kill()
 
-    def _is_field_in_parsed_data_for_this_site(self, movie, field):
+    def _is_field_in_parsed_data_for_this_site(
+        self, movie: Movie, field: str
+    ):  # TODO check if usage of either id or url is sufficient
         return (
-            self.site.site_name.lower() in movie
-            and field in movie[self.site.site_name.lower()]
-            and movie[self.site.site_name.lower()][field] != ""
+            self.site.site in movie.site_data
+            and field in movie.site_data[self.site.site]
+            and movie.site_data[self.site.site][field] != ""
         )
 
-    def print_progress(self, counter, movie, movies):
+    def print_progress(self, counter: int, movie: Movie, movies: List[Movie]):
         movie_index = movies.index(movie) + 1
         if self.args and self.args.verbose and self.args.verbose >= 2:
             sys.stdout.write(
@@ -72,28 +77,28 @@ class RatingsInserter:
         elif self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] "
-                f"posted {movie['title']} ({movie['year']})\r\n"
+                f"posted {movie.title} ({movie.year})\r\n"
             )
             sys.stdout.flush()
         else:
             self._print_progress_bar(counter, movies)
 
-    def _print_progress_bar(self, counter, movies):
+    def _print_progress_bar(self, counter: int, movies: List[Movie]):
         if not self.progress_bar:
             self.progress_bar = ProgressBar(max_value=len(movies), redirect_stdout=True)
         self.progress_bar.update(counter)
         if counter == len(movies):
             self.progress_bar.finish()
 
-    def _go_to_movie_details_page(self, movie):
+    def _go_to_movie_details_page(self, movie: Movie):
         if self._is_field_in_parsed_data_for_this_site(movie, "url"):
-            self.site.open_url_with_521_retry(movie[self.site.site_name.lower()]["url"])
+            self.site.open_url_with_521_retry(movie.site_data[self.site.site].url)
             success = True
         else:
             success = self._find_movie(movie)
         return success
 
-    def _find_movie(self, movie):
+    def _find_movie(self, movie: Movie):
         try:
             self._search_for_movie(movie)
         except TimeoutException:
@@ -114,23 +119,23 @@ class RatingsInserter:
 
         return self._is_movie_in_search_results(movie, search_results)
 
-    def _is_movie_in_search_results(self, movie, search_results):
+    def _is_movie_in_search_results(self, movie: Movie, search_results):
         for search_result in search_results:
             if self._is_requested_movie(movie, search_result):
                 return True  # Found
         return False  # Not Found
 
-    def _search_for_movie(self, movie):
+    def _search_for_movie(self, movie: Movie):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     @staticmethod
     def _get_search_results(search_result_page):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _post_movie_rating(self, my_rating):
+    def _post_movie_rating(self, my_rating: int):
         iteration = 0
         while True:
             iteration += 1
@@ -148,10 +153,10 @@ class RatingsInserter:
                 time.sleep(iteration * 1)
                 continue
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating: int):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _print_summary(self, movies):
+    def _print_summary(self, movies: List[Movie]):
         success_number = len(movies) - len(self.failed_movies)
         sys.stdout.write(
             f"\r\n===== {self.site.site_displayname}: sucessfully posted {success_number}"
@@ -177,5 +182,5 @@ class RatingsInserter:
     def _print_failed_movies(self):
         for failed_movie in self.failed_movies:
             sys.stdout.write(
-                f"FAILED TO FIND: {failed_movie['title']} ({failed_movie['year']})\r\n"
+                f"FAILED TO FIND: {failed_movie.title} ({failed_movie.year})\r\n"
             )

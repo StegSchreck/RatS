@@ -3,6 +3,7 @@ import re
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.filmaffinity.filmaffinity_site import FilmAffinity
 
 
@@ -10,7 +11,7 @@ class FilmAffinityRatingsParser(RatingsParser):
     def __init__(self, args):
         super(FilmAffinityRatingsParser, self).__init__(FilmAffinity(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?p={page_number}"
 
     @staticmethod
@@ -54,20 +55,20 @@ class FilmAffinityRatingsParser(RatingsParser):
     def _get_movie_url(movie_tile):
         return movie_tile.find(class_="mc-title").find("a")["href"]
 
-    def _go_to_movie_details_page(self, movie):
+    def _go_to_movie_details_page(self, movie: Movie):
         # all necessary information is displayed on the search results page
         # so there is no need to go to the movie details page
         pass
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        movie["year"] = self._get_movie_year(
-            movie_details_page, movie[self.site.site_name.lower()]["id"]
+        movie.year = self._get_movie_year(
+            movie_details_page, movie.site_data[self.site.site].id
         )
-        if self.site.site_name.lower() not in movie:
-            movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["my_rating"] = self._get_movie_my_rating(
-            movie_details_page, movie[self.site.site_name.lower()]["id"]
+        if self.site.site not in movie.site_data:
+            movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
+            movie_details_page, movie.site_data[self.site.site].id
         )
 
     @staticmethod

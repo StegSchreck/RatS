@@ -4,6 +4,7 @@ import time
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.icheckmovies.icheckmovies_site import ICheckMovies
 
 
@@ -31,15 +32,15 @@ class ICheckMoviesRatingsParser(RatingsParser):
         self._parse_movie_listing_page(movie_ratings_page)
 
     def _parse_movie_tile(self, movie_tile):
-        movie = dict()
-        movie["title"] = self._get_movie_title(movie_tile)
-        movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["id"] = self._get_movie_id(movie_tile)
-        movie[self.site.site_name.lower()]["url"] = self._get_movie_url(movie_tile)
-        movie[self.site.site_name.lower()]["my_rating"] = self._get_movie_my_rating(
+        movie = Movie()
+        movie.title = self._get_movie_title(movie_tile)
+        movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
+        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
             movie_tile
         )
-        movie["year"] = int(movie_tile.find("span", class_="info").find("a").get_text())
+        movie.year = int(movie_tile.find("span", class_="info").find("a").get_text())
 
         self._parse_external_links(movie, movie_tile)
 

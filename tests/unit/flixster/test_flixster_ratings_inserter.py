@@ -13,14 +13,14 @@ class FlixsterRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = dict()
-        self.movie["title"] = "Fight Club"
-        self.movie["year"] = 1999
-        self.movie["imdb"] = dict()
-        self.movie["imdb"]["id"] = "tt0137523"
-        self.movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie["imdb"]["my_rating"] = 9
-        self.movie["tmdb"] = dict()
+        self.movie = Movie()
+        self.movie.title = "Fight Club"
+        self.movie.year = 1999
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.IMDB].id = "tt0137523"
+        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie["tmdb"] = SiteSpecificMovieData()
         self.movie["tmdb"]["id"] = "550"
         self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
         with open(
@@ -90,10 +90,10 @@ class FlixsterRatingsInserterTest(TestCase):
         inserter.site.site_name = "Flixster"
         inserter.failed_movies = []
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
-        movie2["flixster"] = dict()
+        movie2["flixster"] = SiteSpecificMovieData()
         movie2["flixster"]["url"] = "https://www.flixster.com/movie/fight-club/"
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
@@ -113,7 +113,7 @@ class FlixsterRatingsInserterTest(TestCase):
         inserter.site.site_name = "Flixster"
         inserter.failed_movies = []
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
 
@@ -142,10 +142,10 @@ class FlixsterRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "The Matrix"
         movie2["year"] = 1995
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "tt0137523"
         movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
         movie2["imdb"]["my_rating"] = 9
@@ -171,7 +171,7 @@ class FlixsterRatingsInserterTest(TestCase):
         inserter.failed_movies = []
         search_mock.return_value = True
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
 
@@ -200,7 +200,7 @@ class FlixsterRatingsInserterTest(TestCase):
         search_mock.return_value = False
         empty_result_mock.return_value = True
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Not A Movie"
         movie2["year"] = 1999
 

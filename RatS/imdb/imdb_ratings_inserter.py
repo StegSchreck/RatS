@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie
 from RatS.imdb.imdb_site import IMDB
 
 
@@ -13,8 +14,8 @@ class IMDBRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(IMDBRatingsInserter, self).__init__(IMDB(args), args)
 
-    def _find_movie(self, movie):
-        search_params = urllib.parse.urlencode({"q": movie["title"]})
+    def _find_movie(self, movie: Movie):
+        search_params = urllib.parse.urlencode({"q": movie.title})
         search_url = f"https://www.imdb.com/find?s=tt&ref_=fn_al_tt_mr&{search_params}"
         self.site.browser.get(search_url)
         time.sleep(1)
@@ -30,15 +31,15 @@ class IMDBRatingsInserter(RatingsInserter):
             return False
         return False
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         result_annotation = search_result.find(class_="result_text").get_text()
         result_year_list = re.findall(r"\((\d{4})\)", result_annotation)
         if len(result_year_list) > 0:
             result_year = result_year_list[-1]
-            return int(result_year) == movie["year"]
+            return int(result_year) == movie.year
         return False
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating: int):
         user_rating_button = self.site.browser.find_element(
             By.XPATH, "//div[@data-testid='hero-rating-bar__user-rating']/button"
         )

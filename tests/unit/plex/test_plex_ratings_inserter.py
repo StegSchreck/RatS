@@ -13,14 +13,14 @@ class PlexRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = dict()
-        self.movie["title"] = "Fight Club"
-        self.movie["year"] = 1999
-        self.movie["imdb"] = dict()
-        self.movie["imdb"]["id"] = "tt0137523"
-        self.movie["imdb"]["url"] = "http://www.imdb.com/title/tt0137523"
-        self.movie["imdb"]["my_rating"] = 9
-        self.movie["tmdb"] = dict()
+        self.movie = Movie()
+        self.movie.title = "Fight Club"
+        self.movie.year = 1999
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.IMDB].id = "tt0137523"
+        self.movie.site_data[Site.IMDB]["url"] = "http://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie["tmdb"] = SiteSpecificMovieData()
         self.movie["tmdb"]["id"] = "550"
         self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
         with open(
@@ -109,10 +109,10 @@ class PlexRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "The Matrix"
         movie2["year"] = 1995
-        movie2["imdb"] = dict()
+        movie2["imdb"] = SiteSpecificMovieData()
         movie2["imdb"]["id"] = "tt0137523"
         movie2["imdb"]["url"] = "http://www.imdb.com/title/tt0137523"
         movie2["imdb"]["my_rating"] = 9

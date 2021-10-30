@@ -3,6 +3,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
+from RatS.base.movie_entity import Site
 
 TESTDATA_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
@@ -13,13 +14,13 @@ class AlloCineRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = dict()
-        self.movie["title"] = "Fight Club"
-        self.movie["year"] = 1999
-        self.movie["imdb"] = dict()
-        self.movie["imdb"]["id"] = "tt0137523"
-        self.movie["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie["imdb"]["my_rating"] = 9
+        self.movie = Movie()
+        self.movie.title = "Fight Club"
+        self.movie.year = 1999
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.IMDB].id = "tt0137523"
+        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB]["my_rating"] = 9
         with open(
             os.path.join(TESTDATA_PATH, "allocine", "search_result.html"),
             encoding="UTF-8",
@@ -71,7 +72,7 @@ class AlloCineRatingsInserterTest(TestCase):
         inserter.site.site_name = "AlloCine"
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -87,7 +88,7 @@ class AlloCineRatingsInserterTest(TestCase):
         inserter.site.site_name = "AlloCine"
         inserter.failed_movies = []
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "Fight Club"
         movie2["year"] = 1999
 
@@ -116,7 +117,7 @@ class AlloCineRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = dict()
+        movie2 = Movie()
         movie2["title"] = "The Matrix"
         movie2["year"] = 1995
 

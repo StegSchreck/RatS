@@ -1,6 +1,7 @@
 import sys
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.flixster.flixster_site import Flixster
 
 
@@ -8,7 +9,7 @@ class FlixsterRatingsParser(RatingsParser):
     def __init__(self, args):
         super(FlixsterRatingsParser, self).__init__(Flixster(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}&page={page_number}"
 
     def _parse_ratings(self):
@@ -37,15 +38,15 @@ class FlixsterRatingsParser(RatingsParser):
 
     @staticmethod
     def _parse_movie_json(movie_json):
-        movie = dict()
-        movie["title"] = movie_json["movie"]["title"]
-        movie["year"] = int(movie_json["movie"]["year"])
+        movie = Movie()
+        movie.title = movie_json["movie"]["title"]
+        movie.year = int(movie_json["movie"]["year"])
 
-        movie["flixster"] = dict()
-        movie["flixster"]["id"] = movie_json["movie"]["id"]
-        movie["flixster"]["url"] = movie_json["movie"]["url"].replace(
+        movie.site_data[Site.FLIXSTER] = SiteSpecificMovieData()
+        movie.site_data[Site.FLIXSTER].id = movie_json["movie"]["id"]
+        movie.site_data[Site.FLIXSTER].url = movie_json["movie"]["url"].replace(
             "http://", "https://"
         )
-        movie["flixster"]["my_rating"] = int(float(movie_json["score"]) * 2)
+        movie.site_data[Site.FLIXSTER].my_rating = int(float(movie_json["score"]) * 2)
 
         return movie

@@ -76,10 +76,10 @@ class AlloCineRatingsParserTest(TestCase):
         parser.site.site_name = "AlloCine"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = dict()
+        movie = Movie()
 
         parser.parse_movie_details_page(movie)
 
-        self.assertEqual(1999, movie["year"])
-        self.assertEqual("Fight Club", movie["title"])
+        self.assertEqual(1999, movie.year)
+        self.assertEqual("Fight Club", movie.title)
         self.assertEqual(9, movie["allocine"]["my_rating"])

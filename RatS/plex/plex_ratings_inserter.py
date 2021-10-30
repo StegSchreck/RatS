@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions, ui
 from selenium.webdriver.support.wait import WebDriverWait
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie
 from RatS.plex.plex_site import Plex
 
 
@@ -13,8 +14,8 @@ class PlexRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(PlexRatingsInserter, self).__init__(Plex(args), args)
 
-    def _search_for_movie(self, movie):
-        movie_title = urllib.request.quote(movie["title"])
+    def _search_for_movie(self, movie: Movie):
+        movie_title = urllib.request.quote(movie.title)
         search_url = (
             f"http://{self.site.BASE_URL}/library/all?type=1&title={movie_title}"
             "&X-Plex-Container-Start=0"
@@ -30,11 +31,11 @@ class PlexRatingsInserter(RatingsInserter):
         search_results = search_result_page.find_all("video", attrs={"type": "movie"})
         return search_results
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         is_requested_movie = False
 
         if search_result.has_attr("year"):  # some movies might not have a year in Plex
-            is_requested_movie = movie["year"] == int(search_result["year"])
+            is_requested_movie = movie.year == int(search_result["year"])
 
         if is_requested_movie:
             movie_id = search_result["ratingkey"]
@@ -58,7 +59,7 @@ class PlexRatingsInserter(RatingsInserter):
             )
         )
 
-    def _click_rating(self, my_rating):
+    def _click_rating(self, my_rating: int):
         movie_id = self.site.browser.current_url.split("%2Flibrary%2Fmetadata%2F")[-1]
         rate_url = (
             f"http://{self.site.BASE_URL}/:/rate"

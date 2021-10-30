@@ -7,6 +7,7 @@ from shutil import copyfile
 from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.filmtipset.filmtipset_site import Filmtipset
 
 
@@ -55,17 +56,17 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         self.site.browser.find_element(By.XPATH, input_xpath).click()
 
     def _convert_csv_row_to_movie(self, headers, row):
-        movie = dict()
-        movie["title"] = row[headers.index("MovieTitle")]
-        movie[self.site.site_name.lower()] = dict()
+        movie = Movie()
+        movie.title = row[headers.index("MovieTitle")]
+        movie.site_data[self.site.site] = SiteSpecificMovieData()
         parsed_rating = int(row[headers.index("Score")])
-        movie[self.site.site_name.lower()]["my_rating"] = parsed_rating * 2
+        movie.site_data[self.site.site].my_rating = parsed_rating * 2
         self._extract_imdb_information(movie, row[headers.index("IMDB")])
 
         return movie
 
     @staticmethod
-    def _extract_imdb_information(movie, imdb_id):
+    def _extract_imdb_information(movie: Movie, imdb_id):
         try:
             i = int(imdb_id)
             if i < 1:
@@ -73,8 +74,8 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         except ValueError:
             return
 
-        imdb = dict()
-        imdb["id"] = f"tt{int(imdb_id):07d}"
-        imdb["url"] = f"https://www.imdb.com/title/{imdb['id']}"
+        imdb = SiteSpecificMovieData()
+        imdb.id = f"tt{int(imdb_id):07d}"
+        imdb.url = f"https://www.imdb.com/title/{imdb.id}"
 
-        movie["imdb"] = imdb
+        movie.site_data[Site.IMDB] = imdb

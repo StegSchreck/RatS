@@ -4,15 +4,17 @@ import urllib.parse
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Site, Movie
 from RatS.filmtipset.filmtipset_site import Filmtipset
+from RatS.imdb.imdb_site import IMDB
 
 
 class FilmtipsetRatingsInserter(RatingsInserter):
     def __init__(self, args):
         super(FilmtipsetRatingsInserter, self).__init__(Filmtipset(args), args)
 
-    def _search_for_movie(self, movie):
-        search_params = urllib.parse.urlencode({"q": movie["title"]})
+    def _search_for_movie(self, movie: Movie):
+        search_params = urllib.parse.urlencode({"q": movie.title})
         search_url = f"https://www.filmtipset.se/hitta?{search_params}"
         self.site.browser.get(search_url)
 
@@ -24,20 +26,20 @@ class FilmtipsetRatingsInserter(RatingsInserter):
             return result_list.find_all("tr")[1:]
         return list()
 
-    def _is_requested_movie(self, movie, search_result):
+    def _is_requested_movie(self, movie: Movie, search_result):
         movie_year = search_result.find_all("td")[1].get_text()
-        if int(movie_year) == int(movie["year"]):
+        if int(movie_year) == int(movie.year):
             movie_url = search_result.find("a")["href"]
             self.site.browser.get(movie_url)
             return self._check_movie_details(movie)
         return False
 
-    def _check_movie_details(self, movie):
+    def _check_movie_details(self, movie: Movie):
         if "imdb" in movie:
             return self._compare_external_links(movie)
         return True
 
-    def _compare_external_links(self, movie):
+    def _compare_external_links(self, movie: Movie):
         try:
             movie_detail_page = BeautifulSoup(
                 self.site.browser.page_source, "html.parser"
@@ -47,18 +49,14 @@ class FilmtipsetRatingsInserter(RatingsInserter):
                 .find("a")["href"]
                 .split("/")[-1]
             )
-            normalized_parsed_imdb_id = self.normalize_imdb_id(parsed_imdb_id)
-            return normalized_parsed_imdb_id == self.normalize_imdb_id(
-                movie["imdb"]["id"]
+            normalized_parsed_imdb_id = IMDB.normalize_imdb_id(parsed_imdb_id)
+            return normalized_parsed_imdb_id == IMDB.normalize_imdb_id(
+                movie.site_data[Site.IMDB].id
             )
         except IndexError:
             return True
 
-    @staticmethod
-    def normalize_imdb_id(imdb_id):
-        return int(imdb_id.replace("tt", ""))
-
-    def _post_movie_rating(self, my_rating):
+    def _post_movie_rating(self, my_rating: int):
         rating_to_insert = math.ceil(my_rating / 2)
         url_params = urllib.parse.urlencode({"vote": rating_to_insert})
         search_url = f"{self.site.browser.current_url}?{url_params}"

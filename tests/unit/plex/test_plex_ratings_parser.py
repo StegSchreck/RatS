@@ -81,8 +81,8 @@ class PlexRatingsParserTest(TestCase):
         )  # pylint: disable=protected-access
 
         self.assertEqual(dict, type(movie))
-        self.assertEqual("Fight Club", movie["title"])
-        self.assertEqual(1999, movie["year"])
+        self.assertEqual("Fight Club", movie.title)
+        self.assertEqual(1999, movie.year)
         self.assertEqual(10, movie["plex"]["my_rating"])
         self.assertEqual("19542", movie["plex"]["id"])
         self.assertEqual(

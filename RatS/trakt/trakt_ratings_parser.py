@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.trakt.trakt_site import Trakt
 
 
@@ -8,7 +9,7 @@ class TraktRatingsParser(RatingsParser):
     def __init__(self, args):
         super(TraktRatingsParser, self).__init__(Trakt(args), args)
 
-    def _get_ratings_page(self, page_number):
+    def _get_ratings_page(self, page_number: int):
         return f"{self.site.MY_RATINGS_URL}?page={page_number}"
 
     @staticmethod
@@ -49,13 +50,13 @@ class TraktRatingsParser(RatingsParser):
     def _get_movie_url(movie_tile):
         return f"https://trakt.tv{movie_tile['data-url']}"
 
-    def parse_movie_details_page(self, movie):
+    def parse_movie_details_page(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         movie_year = movie_details_page.find(class_="year").get_text()
-        movie["year"] = int(movie_year) if movie_year else 0
-        if self.site.site_name.lower() not in movie:
-            movie[self.site.site_name.lower()] = dict()
-        movie[self.site.site_name.lower()]["my_rating"] = self._get_movie_my_rating(
+        movie.year = int(movie_year) if movie_year else 0
+        if self.site.site not in movie.site_data:
+            movie.site_data[self.site.site] = SiteSpecificMovieData()
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
             movie_details_page
         )
         self._parse_external_links(movie, movie_details_page)
