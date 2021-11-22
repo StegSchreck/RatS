@@ -8,7 +8,6 @@ import traceback
 
 from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
 from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
-from RatS.base.movie_entity import Site
 from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
 from RatS.base.no_valid_credentials_exception import NoValidCredentialsException
 from RatS.base.rats_exception import RatSException
@@ -142,7 +141,7 @@ def parse_args():
 
 def get_parser_from_arg(param):
     try:
-        return PARSERS[Site(param.upper())]
+        return PARSERS[param.upper()]
     except KeyError:
         command_line.error(f"No parser matching '{param}' found.")
         sys.stdout.write("Available parsers:\r\n")
@@ -154,7 +153,7 @@ def get_parser_from_arg(param):
 
 def get_inserter_from_arg(param):
     try:
-        return INSERTERS[Site(param.upper())]
+        return INSERTERS[param.upper()]
     except KeyError:
         command_line.error(f"No inserter matching '{param}' found.")
         sys.stdout.write("Available inserters:\r\n")
