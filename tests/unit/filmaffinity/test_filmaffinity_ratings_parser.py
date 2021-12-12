@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -38,6 +39,7 @@ class FilmAffinityRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.FILMAFFINITY
         parser.site.site_name = "FilmAffinity"
         parser.site.browser = browser_mock
         parser.args = None
@@ -45,12 +47,13 @@ class FilmAffinityRatingsParserTest(TestCase):
         parser.parse()
 
         self.assertEqual(20, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Vollidiot", parser.movies[0]["title"])
-        self.assertEqual("125089", parser.movies[0]["filmaffinity"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FILMAFFINITY]))
+        self.assertEqual("Vollidiot", parser.movies[0].title)
+        self.assertEqual("125089", parser.movies[0].site_data[Site.FILMAFFINITY].id)
         self.assertEqual(
             "https://www.filmaffinity.com/us/film125089.html",
-            parser.movies[0]["filmaffinity"]["url"],
+            parser.movies[0].site_data[Site.FILMAFFINITY].url,
         )
-        self.assertEqual(2007, parser.movies[0]["year"])
-        self.assertEqual(7, parser.movies[0]["filmaffinity"]["my_rating"])
+        self.assertEqual(2007, parser.movies[0].year)
+        self.assertEqual(7, parser.movies[0].site_data[Site.FILMAFFINITY].my_rating)

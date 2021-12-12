@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.plex.plex_site import Plex
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class PlexSiteTest(TestCase):
     def setUp(self):
         self.site = Plex(None)

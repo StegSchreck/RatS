@@ -2,6 +2,7 @@ import re
 import sys
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.movielens.movielens_site import Movielens
 
 
@@ -32,9 +33,7 @@ class MovielensRatingsParser(RatingsDownloader):
         movie.site_data[self.site.site] = SiteSpecificMovieData()
         movie.site_data[self.site.site].id = row[headers.index("movie_id")]
         movie_url_path = row[headers.index("movie_id")]
-        movie.site_data[self.site.site][
-            "url"
-        ] = f"https://movielens.org/movies/{movie_url_path}"
+        movie.site_data[self.site.site].url = f"https://movielens.org/movies/{movie_url_path}"
         movie.site_data[self.site.site].my_rating = int(
             float(row[headers.index("rating")]) * 2
         )
@@ -45,20 +44,18 @@ class MovielensRatingsParser(RatingsDownloader):
         return movie
 
     @staticmethod
-    def __extract_tmdb_information(movie, tmdb_id):
-        movie["tmdb"] = SiteSpecificMovieData()
-        movie["tmdb"]["id"] = tmdb_id
-        movie["tmdb"]["url"] = f"https://www.themoviedb.org/movie/{movie['tmdb']['id']}"
+    def __extract_tmdb_information(movie: Movie, tmdb_id: str):
+        movie.site_data[Site.TMDB] = SiteSpecificMovieData()
+        movie.site_data[Site.TMDB].id = tmdb_id
+        movie.site_data[Site.TMDB].url = f"https://www.themoviedb.org/movie/{movie.site_data[Site.TMDB].id}"
 
     @staticmethod
-    def __extract_imdb_information(movie, imdb_id):
+    def __extract_imdb_information(movie: Movie, imdb_id: str):
         movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         movie.site_data[Site.IMDB].id = imdb_id
         if "tt" not in movie.site_data[Site.IMDB].id:
             movie.site_data[Site.IMDB].id = f"tt{imdb_id}"
-        movie.site_data[Site.IMDB][
-            "url"
-        ] = f"https://www.imdb.com/title/{movie['imdb']['id']}"
+        movie.site_data[Site.IMDB].url = f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}"
 
     @staticmethod
     def __extract_year(movie, title_field):

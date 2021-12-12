@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from bs4 import BeautifulSoup
 
+from RatS.base.movie_entity import Movie, Site
 from RatS.plex.plex_ratings_parser import PlexRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -54,6 +55,7 @@ class PlexRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.PLEX
         parser.site.site_name = "Plex"
         parser.site.browser = browser_mock
         parser.args = None
@@ -71,6 +73,7 @@ class PlexRatingsParserTest(TestCase):
         parser = PlexRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.PLEX
         parser.site.site_name = "Plex"
         parser.site.BASE_URL = "localhost:12345"
         parser.site.SERVER_ID = "ThisIsAMockUUID"
@@ -80,14 +83,14 @@ class PlexRatingsParserTest(TestCase):
             self.ratings_tile
         )  # pylint: disable=protected-access
 
-        self.assertEqual(dict, type(movie))
+        self.assertEqual(Movie, type(movie))
         self.assertEqual("Fight Club", movie.title)
         self.assertEqual(1999, movie.year)
-        self.assertEqual(10, movie["plex"]["my_rating"])
-        self.assertEqual("19542", movie["plex"]["id"])
+        self.assertEqual(10, movie.site_data[Site.PLEX].my_rating)
+        self.assertEqual("19542", movie.site_data[Site.PLEX].id)
         self.assertEqual(
             "http://localhost:12345/web/index.html#!"
             "/server/ThisIsAMockUUID/"
             "details?key=%2Flibrary%2Fmetadata%2F19542",
-            movie["plex"]["url"],
+            movie.site_data[Site.PLEX].url,
         )

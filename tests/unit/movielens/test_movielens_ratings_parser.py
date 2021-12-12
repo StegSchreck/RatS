@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site, Movie
 from RatS.movielens.movielens_ratings_parser import MovielensRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -36,6 +37,7 @@ class MovielensParserTest(TestCase):
         parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.MOVIELENS
         parser.site.site_name = "Movielens"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -58,6 +60,7 @@ class MovielensParserTest(TestCase):
         parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.MOVIELENS
         parser.site.site_name = "Movielens"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -104,6 +107,7 @@ class MovielensParserTest(TestCase):
         parser = MovielensRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.MOVIELENS
         parser.site.site_name = "Movielens"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -118,19 +122,19 @@ class MovielensParserTest(TestCase):
         )  # pylint: disable=protected-access
 
         self.assertEqual(1063, len(movies))
-        self.assertEqual(dict, type(movies[0]))
+        self.assertEqual(Movie, type(movies[0]))
 
-        self.assertEqual("Toy Story", movies[0]["title"])
-        self.assertEqual(1995, movies[0]["year"])
-        self.assertEqual("1", movies[0]["movielens"]["id"])
+        self.assertEqual("Toy Story", movies[0].title)
+        self.assertEqual(1995, movies[0].year)
+        self.assertEqual("1", movies[0].site_data[Site.MOVIELENS].id)
         self.assertEqual(
-            "https://movielens.org/movies/1", movies[0]["movielens"]["url"]
+            "https://movielens.org/movies/1", movies[0].site_data[Site.MOVIELENS].url
         )
-        self.assertEqual(8, movies[0]["movielens"]["my_rating"])
+        self.assertEqual(8, movies[0].site_data[Site.MOVIELENS].my_rating)
 
-        self.assertEqual("tt0114709", movies[0]["imdb"]["id"])
+        self.assertEqual("tt0114709", movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0114709", movies[0]["imdb"]["url"]
+            "https://www.imdb.com/title/tt0114709", movies[0].site_data[Site.IMDB].url
         )
         self.assertEqual("862", movies[0]["tmdb"]["id"])
         self.assertEqual(

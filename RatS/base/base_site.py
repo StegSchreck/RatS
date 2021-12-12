@@ -23,9 +23,9 @@ class BaseSite:
     def __init__(self, args):
         self.args = args
 
-        self.site_name = type(self).__name__
-        self.site = Site.get(self.site_name, None)
-        self.site_displayname = (
+        self.site_name: str = type(self).__name__
+        self.site: Site = Site(self.site_name.upper())
+        self.site_displayname: str = (
             f"{BashColor.HEADER}{BashColor.BOLD}{self.site_name}{BashColor.END}"
             if hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
             else self.site_name
@@ -38,13 +38,13 @@ class BaseSite:
         self.CREDENTIALS_VALID = self._validate_credentials()
 
         if self.CREDENTIALS_VALID:
-            self.LOGIN_PAGE = self._get_login_page_url()
+            self.LOGIN_PAGE: str = self._get_login_page_url()
 
             self._init_browser()
 
             self._parse_configuration()
 
-    def __read_config_file(self, filename):
+    def __read_config_file(self, filename: str):
         self.config.read(
             os.path.abspath(
                 os.path.join(os.path.dirname(__file__), os.pardir, filename)
@@ -53,13 +53,13 @@ class BaseSite:
 
     def _parse_credentials(self):
         if os.environ.get(self.site_name.upper() + "_USERNAME"):
-            self.USERNAME = os.environ.get(self.site_name.upper() + "_USERNAME")
+            self.USERNAME: str = os.environ.get(self.site_name.upper() + "_USERNAME")
         else:
-            self.USERNAME = self.config[self.site_name]["USERNAME"]
+            self.USERNAME: str = self.config[self.site_name]["USERNAME"]
         if os.environ.get(self.site_name.upper() + "_PASSWORD"):
-            self.PASSWORD = os.environ.get(self.site_name.upper() + "_PASSWORD")
+            self.PASSWORD: str = os.environ.get(self.site_name.upper() + "_PASSWORD")
         else:
-            self.PASSWORD = self.config[self.site_name]["PASSWORD"]
+            self.PASSWORD: str = self.config[self.site_name]["PASSWORD"]
 
     def _validate_credentials(self):
         return (
@@ -158,7 +158,7 @@ class BaseSite:
         response = self.browser.find_element(By.TAG_NAME, "pre").text.strip()
         return json.loads(response)
 
-    def open_url_with_521_retry(self, url):
+    def open_url_with_521_retry(self, url: str):
         iteration = 0
         self.browser.get(url)
 

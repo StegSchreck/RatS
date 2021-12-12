@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.trakt.trakt_site import Trakt
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class TraktSiteTest(TestCase):
     def setUp(self):
         self.site = Trakt(None)

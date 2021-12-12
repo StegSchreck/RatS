@@ -34,16 +34,16 @@ class BaseInserterTest(TestCase):
         movie.year = 1999
         movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         movie.site_data[Site.IMDB].id = "tt0137523"
-        movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie.site_data[Site.IMDB]["my_rating"] = 9
+        movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie.site_data[Site.IMDB].my_rating = 9
 
         movie2 = Movie()
-        movie2["title"] = "unreadable movie"
-        movie2["year"] = 1111
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "xxx"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/xxx"
-        movie2["imdb"]["my_rating"] = 4
+        movie2.title = "unreadable movie"
+        movie2.year = 1111
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "xxx"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/xxx"
+        movie2.site_data[Site.IMDB].my_rating = 4
 
         movies = [movie, movie, movie2]
         search_success_mock.side_effect = [True, True, False]
@@ -78,21 +78,21 @@ class BaseInserterTest(TestCase):
         movie.year = 1999
         movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         movie.site_data[Site.IMDB].id = "tt0137523"
-        movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie.site_data[Site.IMDB]["my_rating"] = 9
+        movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie.site_data[Site.IMDB].my_rating = 9
 
         movie2 = Movie()
-        movie2["title"] = "unreadable movie"
-        movie2["year"] = 1111
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "xxx"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/xxx"
-        movie2["imdb"]["my_rating"] = 4
+        movie2.title = "unreadable movie"
+        movie2.year = 1111
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "xxx"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/xxx"
+        movie2.site_data[Site.IMDB].my_rating = 4
 
         movies = [movie, movie2, movie2]
         search_success_mock.side_effect = [True, False, False]
 
-        inserter.insert(movies, "imdb")
+        inserter.insert(movies, Site.IMDB)
 
         self.assertEqual(2, len(inserter.failed_movies))
         save_movies_to_json_mock.assert_called_with(

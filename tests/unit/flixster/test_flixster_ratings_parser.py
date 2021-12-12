@@ -3,6 +3,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -39,19 +40,21 @@ class FlixsterParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.FLIXSTER
         parser.site.site_name = "Flixster"
         parser.site.browser = browser_mock
 
         parser.parse()
 
         self.assertEqual(330 - 9, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Fight Club", parser.movies[0]["title"])
-        self.assertEqual(1999, parser.movies[0]["year"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FLIXSTER]))
+        self.assertEqual("Fight Club", parser.movies[0].title)
+        self.assertEqual(1999, parser.movies[0].year)
 
-        self.assertEqual(13153, parser.movies[0]["flixster"]["id"])
+        self.assertEqual(13153, parser.movies[0].site_data[Site.FLIXSTER].id)
         self.assertEqual(
             "https://www.flixster.com/movie/fight-club/",
-            parser.movies[0]["flixster"]["url"],
+            parser.movies[0].site_data[Site.FLIXSTER].url,
         )
-        self.assertEqual(10, parser.movies[0]["flixster"]["my_rating"])
+        self.assertEqual(10, parser.movies[0].site_data[Site.FLIXSTER].my_rating)

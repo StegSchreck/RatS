@@ -3,6 +3,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.rottentomatoes.rottentomatoes_ratings_parser import (
     RottenTomatoesRatingsParser,
 )
@@ -45,19 +46,21 @@ class RottenTomatoesRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.ROTTENTOMATOES
         parser.site.site_name = "RottenTomatoes"
         parser.site.browser = browser_mock
 
         parser.parse()
 
         self.assertEqual(20, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Not My Day", parser.movies[0]["title"])
-        self.assertEqual(2014, parser.movies[0]["year"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ROTTENTOMATOES]))
+        self.assertEqual("Not My Day", parser.movies[0].title)
+        self.assertEqual(2014, parser.movies[0].year)
 
-        self.assertEqual("771362331", parser.movies[0]["rottentomatoes"]["id"])
+        self.assertEqual("771362331", parser.movies[0].site_data[Site.ROTTENTOMATOES].id)
         self.assertEqual(
             "https://rottentomatoes.com/m/not_my_day_2014",
-            parser.movies[0]["rottentomatoes"]["url"],
+            parser.movies[0].site_data[Site.ROTTENTOMATOES].url,
         )
-        self.assertEqual(8, parser.movies[0]["rottentomatoes"]["my_rating"])
+        self.assertEqual(8, parser.movies[0].site_data[Site.ROTTENTOMATOES].my_rating)

@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from bs4 import BeautifulSoup
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.listal.listal_ratings_inserter import ListalRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(
@@ -20,11 +21,11 @@ class ListalRatingsInserterTest(TestCase):
         self.movie.year = 1999
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
-        self.movie["tmdb"] = SiteSpecificMovieData()
-        self.movie["tmdb"]["id"] = "550"
-        self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 9
+        self.movie.site_data[Site.TMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.TMDB].id = "550"
+        self.movie.site_data[Site.TMDB].url = "https://www.themoviedb.org/movie/550"
         with open(
             os.path.join(TESTDATA_PATH, "listal", "search_result.html"),
             encoding="UTF-8",
@@ -80,7 +81,7 @@ class ListalRatingsInserterTest(TestCase):
         inserter.site.site_name = "Listal"
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -98,7 +99,7 @@ class ListalRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         result = inserter._compare_external_links(
-            self.movie_details_page, self.movie, "imdb.com", "imdb"
+            self.movie_details_page, self.movie, "imdb.com", Site.IMDB
         )  # pylint: disable=protected-access
 
         self.assertTrue(result)
@@ -116,15 +117,15 @@ class ListalRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "The Simpsons"
-        movie2["year"] = 2007
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0462538"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0462538"
-        movie2["imdb"]["my_rating"] = 10
+        movie2.title = "The Simpsons"
+        movie2.year = 2007
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0462538"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0462538"
+        movie2.site_data[Site.IMDB].my_rating = 10
 
         result = inserter._compare_external_links(
-            self.movie_details_page, movie2, "imdb.com", "imdb"
+            self.movie_details_page, movie2, "imdb.com", Site.IMDB
         )  # pylint: disable=protected-access
 
         self.assertFalse(result)
@@ -172,8 +173,8 @@ class ListalRatingsInserterTest(TestCase):
         equality_mock.return_value = True
 
         movie2 = Movie()
-        movie2["title"] = "Fight Club"
-        movie2["year"] = 1999
+        movie2.title = "Fight Club"
+        movie2.year = 1999
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -211,12 +212,12 @@ class ListalRatingsInserterTest(TestCase):
         equality_mock.return_value = False
 
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1995
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0137523"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie2["imdb"]["my_rating"] = 9
+        movie2.title = "The Matrix"
+        movie2.year = 1995
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0137523"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie2.site_data[Site.IMDB].my_rating = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -236,8 +237,8 @@ class ListalRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "Fight Club"
-        movie2["year"] = 1999
+        movie2.title = "Fight Club"
+        movie2.year = 1999
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
         result = inserter._is_requested_movie(
@@ -260,12 +261,12 @@ class ListalRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "Fight Club"
-        movie2["year"] = 1998
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0137523"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie2["imdb"]["my_rating"] = 9
+        movie2.title = "Fight Club"
+        movie2.year = 1998
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0137523"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie2.site_data[Site.IMDB].my_rating = 9
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
         result = inserter._is_requested_movie(
@@ -288,8 +289,8 @@ class ListalRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1995
+        movie2.title = "The Matrix"
+        movie2.year = 1995
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
         result = inserter._is_requested_movie(
@@ -323,8 +324,8 @@ class ListalRatingsInserterTest(TestCase):
         inserter.args = None
 
         movie2 = Movie()
-        movie2["title"] = "Fight Club"
-        movie2["year"] = 1999
+        movie2.title = "Fight Club"
+        movie2.year = 1999
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
         result = inserter._is_requested_movie(

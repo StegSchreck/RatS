@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.icheckmovies.icheckmovies_ratings_inserter import ICheckMoviesRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(
@@ -17,8 +18,8 @@ class ICheckMoviesInserterTest(TestCase):
         self.movie.title = "Fight Club"
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 9
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -43,7 +44,7 @@ class ICheckMoviesInserterTest(TestCase):
         inserter.exports_folder = TESTDATA_PATH
         inserter.csv_filename = "converted.csv"
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(impex_mock.called)

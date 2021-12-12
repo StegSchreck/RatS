@@ -35,7 +35,7 @@ class FilmtipsetRatingsInserter(RatingsInserter):
         return False
 
     def _check_movie_details(self, movie: Movie):
-        if "imdb" in movie:
+        if Site.IMDB in movie.site_data:
             return self._compare_external_links(movie)
         return True
 

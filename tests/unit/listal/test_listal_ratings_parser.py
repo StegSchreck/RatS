@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.listal.listal_ratings_parser import ListalRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -50,6 +51,7 @@ class ListalParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.LISTAL
         parser.site.site_name = "Listal"
         parser.site.browser = browser_mock
         parser.args = None
@@ -58,11 +60,12 @@ class ListalParserTest(TestCase):
 
         self.assertEqual(60, parse_movie_mock.call_count)
         self.assertEqual(60, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Fight Club", parser.movies[0]["title"])
-        self.assertEqual("1596", parser.movies[0]["listal"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
+        self.assertEqual("Fight Club", parser.movies[0].title)
+        self.assertEqual("1596", parser.movies[0].site_date[Site.LISTAL].id)
         self.assertEqual(
-            "https://www.listal.com/movie/fight-club", parser.movies[0]["listal"]["url"]
+            "https://www.listal.com/movie/fight-club", parser.movies[0].site_date[Site.LISTAL].url
         )
 
     @patch("RatS.utils.browser_handler.Firefox")
@@ -73,6 +76,7 @@ class ListalParserTest(TestCase):
         parser = ListalRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.LISTAL
         parser.site.site_name = "Listal"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
@@ -81,8 +85,8 @@ class ListalParserTest(TestCase):
         parser.parse_movie_details_page(movie)
 
         self.assertEqual(1999, movie.year)
-        self.assertEqual(10, movie["listal"]["my_rating"])
+        self.assertEqual(10, movie.site_data[Site.LISTAL].my_rating)
         self.assertEqual("tt0137523", movie.site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB]["url"]
+            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB].url
         )

@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.flixster.flixster_site import Flixster
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class FlixsterSiteTest(TestCase):
     def setUp(self):
         self.site = Flixster(None)
