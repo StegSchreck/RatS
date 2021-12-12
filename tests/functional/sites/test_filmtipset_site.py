@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.filmtipset.filmtipset_site import Filmtipset
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class FilmtipsetSiteTest(TestCase):
     def setUp(self):
         self.site = Filmtipset(None)

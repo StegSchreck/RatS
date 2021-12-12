@@ -51,7 +51,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
 
         self.site.browser_handler.kill()
 
-    def upload_csv_file(self, movies_count):
+    def upload_csv_file(self, movies_count: int):
         self.site.browser.get("https://letterboxd.com/import/")
         time.sleep(1)
         filename = os.path.join(self.exports_folder, CSV_FILE_NAME)

@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.moviepilot.moviepilot_ratings_parser import MoviePilotRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -55,6 +56,7 @@ class MoviePilotRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.MOVIEPILOT
         parser.site.site_name = "MoviePilot"
         parser.site.browser = browser_mock
         parser.args = None
@@ -65,11 +67,12 @@ class MoviePilotRatingsParserTest(TestCase):
 
         self.assertEqual(1, parse_movie_mock.call_count)
         self.assertEqual(1, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Star Trek - Der Film", parser.movies[0]["title"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.MOVIEPILOT]))
+        self.assertEqual("Star Trek - Der Film", parser.movies[0].title)
         self.assertEqual(
             "https://www.moviepilot.de/movies/star-trek-der-film",
-            parser.movies[0]["moviepilot"]["url"],
+            parser.movies[0].site_data[Site.MOVIEPILOT].url,
         )
 
     @patch(
@@ -85,6 +88,7 @@ class MoviePilotRatingsParserTest(TestCase):
         parser = MoviePilotRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.MOVIEPILOT
         parser.site.site_name = "MoviePilot"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
@@ -95,5 +99,5 @@ class MoviePilotRatingsParserTest(TestCase):
 
         # Star Trek
         self.assertEqual(1979, movie.year)
-        self.assertEqual("1442", movie["moviepilot"]["id"])
-        self.assertEqual(10, movie["moviepilot"]["my_rating"])
+        self.assertEqual("1442", movie.site_data[Site.MOVIEPILOT].id)
+        self.assertEqual(10, movie.site_data[Site.MOVIEPILOT].my_rating)

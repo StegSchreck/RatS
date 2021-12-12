@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(
@@ -18,8 +19,8 @@ class FilmAffinityRatingsInserterTest(TestCase):
         self.movie.year = 1995
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0113568"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0113568"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0113568"
+        self.movie.site_data[Site.IMDB].my_rating = 9
         with open(
             os.path.join(TESTDATA_PATH, "filmaffinity", "search_result.html"),
             encoding="UTF-8",
@@ -76,7 +77,7 @@ class FilmAffinityRatingsInserterTest(TestCase):
         inserter.site.site_name = "FilmAffinity"
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -99,8 +100,8 @@ class FilmAffinityRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "Ghost in the Shell"
-        movie2["year"] = 1995
+        movie2.title = "Ghost in the Shell"
+        movie2.year = 1995
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -138,8 +139,8 @@ class FilmAffinityRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "Ghost in the Shell"
-        movie2["year"] = 1995
+        movie2.title = "Ghost in the Shell"
+        movie2.year = 1995
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -167,12 +168,12 @@ class FilmAffinityRatingsInserterTest(TestCase):
         equality_mock.return_value = False
 
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1995
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0137523"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie2["imdb"]["my_rating"] = 9
+        movie2.title = "The Matrix"
+        movie2.year = 1995
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0137523"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie2.site_data[Site.IMDB].my_rating = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 

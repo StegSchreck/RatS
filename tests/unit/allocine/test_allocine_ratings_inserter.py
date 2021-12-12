@@ -3,7 +3,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
-from RatS.base.movie_entity import Site
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 
 TESTDATA_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
@@ -19,8 +19,8 @@ class AlloCineRatingsInserterTest(TestCase):
         self.movie.year = 1999
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 9
         with open(
             os.path.join(TESTDATA_PATH, "allocine", "search_result.html"),
             encoding="UTF-8",
@@ -89,8 +89,8 @@ class AlloCineRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie()
-        movie2["title"] = "Fight Club"
-        movie2["year"] = 1999
+        movie2.title = "Fight Club"
+        movie2.year = 1999
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -118,8 +118,8 @@ class AlloCineRatingsInserterTest(TestCase):
         equality_mock.return_value = False
 
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1995
+        movie2.title = "The Matrix"
+        movie2.year = 1995
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 

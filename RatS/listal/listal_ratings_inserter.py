@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie, Site
 from RatS.imdb.imdb_site import IMDB
 from RatS.listal.listal_site import Listal
 from RatS.utils import command_line
@@ -43,9 +44,9 @@ class ListalRatingsInserter(RatingsInserter):
                 continue
 
         time.sleep(1)
-        if "imdb" in movie and movie.site_data[Site.IMDB].id != "":
+        if Site.IMDB in movie.site_data and movie.site_data[Site.IMDB].id != "":
             return self._compare_external_links(
-                self.site.browser.page_source, movie, "imdb.com", "imdb"
+                self.site.browser.page_source, movie, "imdb.com", Site.IMDB
             )
         else:
             return self._check_movie_details(movie)
@@ -69,7 +70,7 @@ class ListalRatingsInserter(RatingsInserter):
             return False
 
     @staticmethod
-    def _compare_external_links(page_source, movie, external_url_base, site_name):
+    def _compare_external_links(page_source, movie: Movie, external_url_base: str, site: Site):
         movie_details_page = BeautifulSoup(page_source, "html.parser")
         if movie_details_page.find(class_="ratingstable"):
             external_links = movie_details_page.find(class_="ratingstable").find_all(
@@ -79,7 +80,7 @@ class ListalRatingsInserter(RatingsInserter):
                 if external_url_base in link["href"]:
                     link_href = link["href"].strip("/")
                     return IMDB.normalize_imdb_id(
-                        movie[site_name]["id"]
+                        movie.site_data[site].id
                     ) == IMDB.normalize_imdb_id(link_href.split("/")[-1])
         return False
 

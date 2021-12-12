@@ -7,10 +7,10 @@ from typing import List
 
 from selenium.webdriver.common.by import By
 
+from RatS.base.base_exceptions import NoMoviesForInsertion
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.base.base_site import BaseSite
 from RatS.base.movie_entity import Site, Movie
-from RatS.base.no_movies_for_insertion import NoMoviesForInsertion
 from RatS.utils.file_impex import save_movies_to_csv
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
@@ -21,7 +21,7 @@ class RatingsUploader(RatingsInserter):
         super(RatingsUploader, self).__init__(site, args)
         self.csv_filename = f"{TIMESTAMP}_converted_for_{site.site_name}.csv"
 
-    def insert(self, movies, source):
+    def insert(self, movies: List[Movie], source: Site):
         sys.stdout.write(
             f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n"
         )

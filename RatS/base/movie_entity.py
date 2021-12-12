@@ -31,4 +31,4 @@ class SiteSpecificMovieData:
 class Movie:
     title: str
     year: Optional[int]
-    site_data: Dict[Site, SiteSpecificMovieData]
+    site_data: Dict[Site, SiteSpecificMovieData] = dict()

@@ -1,7 +1,7 @@
 import os
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
-from RatS.base.movie_entity import SiteSpecificMovieData, Movie
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.letterboxd.letterboxd_site import Letterboxd
 from RatS.utils import command_line
 from RatS.utils import file_impex

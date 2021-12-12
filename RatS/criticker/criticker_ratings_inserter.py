@@ -26,7 +26,7 @@ class CritickerRatingsInserter(RatingsInserter):
         return search_result_page.find_all("div", class_="titlerow")
 
     def _is_requested_movie(self, movie: Movie, search_result):
-        if self._is_field_in_parsed_data_for_this_site(movie, "id"):
+        if self._is_id_in_parsed_data_for_this_site(movie):
             return (
                 movie.site_data[self.site.site].id
                 == search_result.find(_class="psi_rateit").find("a")["titleid"]

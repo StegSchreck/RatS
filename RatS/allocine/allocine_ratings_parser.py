@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.allocine.allocine_site import AlloCine
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 
 
 class AlloCineRatingsParser(RatingsParser):

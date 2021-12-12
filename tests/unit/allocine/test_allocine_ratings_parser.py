@@ -3,6 +3,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 
 TESTDATA_PATH = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
@@ -58,11 +59,12 @@ class AlloCineRatingsParserTest(TestCase):
 
         self.assertEqual(2, parse_movie_mock.call_count)
         self.assertEqual(2, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("21189", parser.movies[0]["allocine"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
+        self.assertEqual("21189", parser.movies[0].site_data[parser.site.site].id)
         self.assertEqual(
             "https://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html",
-            parser.movies[0]["allocine"]["url"],
+            parser.movies[0].site_data[parser.site.site].url,
         )
 
     @patch("RatS.utils.browser_handler.Firefox")
@@ -73,6 +75,7 @@ class AlloCineRatingsParserTest(TestCase):
         parser = AlloCineRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.ALLOCINE
         parser.site.site_name = "AlloCine"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
@@ -82,4 +85,4 @@ class AlloCineRatingsParserTest(TestCase):
 
         self.assertEqual(1999, movie.year)
         self.assertEqual("Fight Club", movie.title)
-        self.assertEqual(9, movie["allocine"]["my_rating"])
+        self.assertEqual(9, movie.site_data[Site.ALLOCINE].my_rating)

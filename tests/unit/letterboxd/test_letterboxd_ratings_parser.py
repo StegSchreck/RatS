@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site, Movie
 from RatS.letterboxd.letterboxd_ratings_parser import LetterboxdRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -47,6 +48,7 @@ class LetterboxdParserTest(TestCase):
         parser = LetterboxdRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.LETTERBOXD
         parser.site.site_name = "Letterboxd"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -71,6 +73,7 @@ class LetterboxdParserTest(TestCase):
         parser = LetterboxdRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.LETTERBOXD
         parser.site.site_name = "Letterboxd"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -107,6 +110,7 @@ class LetterboxdParserTest(TestCase):
         parser = LetterboxdRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.LETTERBOXD
         parser.site.site_name = "Letterboxd"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -120,10 +124,10 @@ class LetterboxdParserTest(TestCase):
         )  # pylint: disable=protected-access
 
         self.assertEqual(1056, len(movies))
-        self.assertEqual(dict, type(movies[0]))
-        self.assertEqual("Life", movies[0]["title"])
-        self.assertEqual(2017, movies[0]["year"])
+        self.assertEqual(Movie, type(movies[0]))
+        self.assertEqual("Life", movies[0].title)
+        self.assertEqual(2017, movies[0].year)
         self.assertEqual(
-            "https://letterboxd.com/film/life-2017/", movies[0]["letterboxd"]["url"]
+            "https://letterboxd.com/film/life-2017/", movies[0][Site.LETTERBOXD].url
         )
-        self.assertEqual(7, movies[0]["letterboxd"]["my_rating"])
+        self.assertEqual(7, movies[0][Site.LETTERBOXD].my_rating)

@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.criticker.criticker_site import Criticker
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class CritickerSiteTest(TestCase):
     def setUp(self):
         self.site = Criticker(None)

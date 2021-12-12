@@ -58,13 +58,16 @@ class RatingsInserter:
         self._handle_failed_movies()
         self.site.browser_handler.kill()
 
-    def _is_field_in_parsed_data_for_this_site(
-        self, movie: Movie, field: str
-    ):  # TODO check if usage of either id or url is sufficient
+    def _is_id_in_parsed_data_for_this_site(self, movie: Movie):
         return (
             self.site.site in movie.site_data
-            and field in movie.site_data[self.site.site]
-            and movie.site_data[self.site.site][field] != ""
+            and movie.site_data[self.site.site].id != ""
+        )
+
+    def _is_url_in_parsed_data_for_this_site(self, movie: Movie):
+        return (
+            self.site.site in movie.site_data
+            and movie.site_data[self.site.site].url != ""
         )
 
     def print_progress(self, counter: int, movie: Movie, movies: List[Movie]):
@@ -91,7 +94,7 @@ class RatingsInserter:
             self.progress_bar.finish()
 
     def _go_to_movie_details_page(self, movie: Movie):
-        if self._is_field_in_parsed_data_for_this_site(movie, "url"):
+        if self._is_url_in_parsed_data_for_this_site(movie):
             self.site.open_url_with_521_retry(movie.site_data[self.site.site].url)
             success = True
         else:

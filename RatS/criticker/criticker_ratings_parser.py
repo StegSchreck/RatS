@@ -69,6 +69,7 @@ class CritickerRatingsParser(RatingsParser):
         movie.year = int(re.findall(r"\((\d{4})\)", film_header)[0])
         movie.title = film_header.replace(f"({movie.year})", "").strip()
 
+        movie.site_data = dict()
         movie.site_data[Site.CRITICKER] = SiteSpecificMovieData()
         movie.site_data[Site.CRITICKER].id = xml_node.find("filmid").text
         movie_link = xml_node.find("filmlink").text
@@ -84,6 +85,6 @@ class CritickerRatingsParser(RatingsParser):
         movie.site_data[Site.IMDB].id = xml_node.find("imdbid").text
         movie.site_data[
             Site.IMDB
-        ].url = f"https://www.imdb.com/title/{movie['imdb']['id']}"
+        ].url = f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}"
 
         return movie

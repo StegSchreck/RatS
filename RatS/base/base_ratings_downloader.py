@@ -8,13 +8,14 @@ from selenium.common.exceptions import TimeoutException
 
 from RatS.base.base_exceptions import CSVDownloadFailedException
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.base_site import BaseSite
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 
 
 class RatingsDownloader(RatingsParser):
-    def __init__(self, site, args):
+    def __init__(self, site: BaseSite, args):
         super(RatingsDownloader, self).__init__(site, args)
         self.csv_filename = f"{TIMESTAMP}_{site.site_name}.csv"
         self.csv_delimiter = ","
@@ -74,7 +75,7 @@ class RatingsDownloader(RatingsParser):
             )
             sys.stdout.flush()
 
-    def _parse_movies_from_csv(self, filepath):
+    def _parse_movies_from_csv(self, filepath: str):
         sys.stdout.write("===== getting movies from CSV\r\n")
         sys.stdout.flush()
         file_impex.wait_for_file_to_exist(filepath)

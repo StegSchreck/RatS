@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.allocine.allocine_site import AlloCine
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class AlloCineSiteTest(TestCase):
     def setUp(self):
         self.site = AlloCine(None)

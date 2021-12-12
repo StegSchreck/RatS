@@ -4,8 +4,10 @@ import json
 import os
 import time
 from shutil import copyfile
+from typing import List
 from unittest import TestCase
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.utils import file_impex
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
@@ -24,15 +26,15 @@ class FileHandlerTest(TestCase):
         self.movie.year = 1999
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 10
-        self.movie["trakt"] = SiteSpecificMovieData()
-        self.movie["trakt"]["id"] = "432"
-        self.movie["trakt"]["url"] = "https://trakt.tv/movies/fight-club-1999"
-        self.movie["trakt"]["my_rating"] = 10
-        self.movie["tmdb"] = SiteSpecificMovieData()
-        self.movie["tmdb"]["id"] = "550"
-        self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 10
+        self.movie.site_data[Site.TRAKT] = SiteSpecificMovieData()
+        self.movie.site_data[Site.TRAKT].id = "432"
+        self.movie.site_data[Site.TRAKT].url = "https://trakt.tv/movies/fight-club-1999"
+        self.movie.site_data[Site.TRAKT].my_rating = 10
+        self.movie.site_data[Site.TMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.TMDB].id = "550"
+        self.movie.site_data[Site.TMDB].url = "https://www.themoviedb.org/movie/550"
 
     def test_load_movies_from_json(self):
         movies = file_impex.load_movies_from_json(
@@ -40,8 +42,8 @@ class FileHandlerTest(TestCase):
         )
         self.assertEqual(1, len(movies))
         self.assertEqual(list, type(movies))
-        self.assertEqual(dict, type(movies[0]))
-        self.assertEqual("Fight Club", movies[0]["title"])
+        self.assertEqual(Movie, type(movies[0]))
+        self.assertEqual("Fight Club", movies[0].title)
 
     def test_save_empty_movies_to_json(self):
         movies = []
@@ -67,7 +69,7 @@ class FileHandlerTest(TestCase):
         os.removedirs(TESTDATA_NEW_PATH)
 
     def test_save_single_movie_to_json(self):
-        movies = [self.movie]
+        movies: List[Movie] = [self.movie]
         movies_json = movies
         filename = os.path.join(
             os.path.join(TESTDATA_PATH, "exports"), "TEST_single_movie.json"
@@ -81,15 +83,15 @@ class FileHandlerTest(TestCase):
 
     def test_save_multiple_movies_to_json(self):
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1999
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0133093"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0133093"
-        movie2["trakt"] = SiteSpecificMovieData()
-        movie2["trakt"]["id"] = "481"
-        movie2["trakt"]["url"] = "https://trakt.tv/movies/the-matrix-1999"
-        movie2["trakt"]["my_rating"] = 9
+        movie2.title = "The Matrix"
+        movie2.year = 1999
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0133093"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0133093"
+        movie2.site_data[Site.TRAKT] = SiteSpecificMovieData()
+        movie2.site_data[Site.TRAKT].id = "481"
+        movie2.site_data[Site.TRAKT].url = "https://trakt.tv/movies/the-matrix-1999"
+        movie2.site_data[Site.TRAKT].my_rating = 9
 
         movies = [self.movie, movie2]
         movies_json = movies
@@ -109,14 +111,14 @@ class FileHandlerTest(TestCase):
         )
 
         self.assertEqual(2, len(parsed_movies))
-        self.assertEqual(dict, type(parsed_movies[0]))
-        self.assertEqual("Arrival", parsed_movies[0]["title"])
-        self.assertEqual(2016, parsed_movies[0]["year"])
-        self.assertEqual("tt2543164", parsed_movies[0]["imdb"]["id"])
+        self.assertEqual(Movie, type(parsed_movies[0]))
+        self.assertEqual("Arrival", parsed_movies[0].title)
+        self.assertEqual(2016, parsed_movies[0].year)
+        self.assertEqual("tt2543164", parsed_movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt2543164/", parsed_movies[0]["imdb"]["url"]
+            "https://www.imdb.com/title/tt2543164/", parsed_movies[0].site_data[Site.IMDB].url
         )
-        self.assertEqual(7, parsed_movies[0]["imdb"]["my_rating"])
+        self.assertEqual(7, parsed_movies[0].site_data[Site.IMDB].my_rating)
 
     def test_save_single_movie_to_csv(self):
         movies = [self.movie]
@@ -127,7 +129,7 @@ class FileHandlerTest(TestCase):
             movies,
             os.path.join(TESTDATA_PATH, "exports"),
             "TEST_single_movie.csv",
-            "imdb",
+            Site.IMDB,
         )
         with open(filename) as file:
             reader = csv.reader(file, delimiter=",")
@@ -139,27 +141,25 @@ class FileHandlerTest(TestCase):
                 self.movie.site_data[Site.IMDB].id, row[headers.index("Const")]
             )
             self.assertEqual(
-                self.movie.site_data[Site.IMDB]["url"], row[headers.index("URL")]
+                self.movie.site_data[Site.IMDB].url, row[headers.index("URL")]
             )
             self.assertEqual(
-                self.movie.site_data[Site.IMDB]["my_rating"],
+                self.movie.site_data[Site.IMDB].my_rating,
                 int(row[headers.index("Your Rating")]),
             )
         os.remove(filename)
 
     def test_save_multiple_movies_to_csv(self):
         movie2 = Movie()
-        movie2["title"] = "Star Trek - Der Film"
-        movie2["year"] = 1979
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0079945"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0079945"
-        movie2["trakt"] = SiteSpecificMovieData()
-        movie2["trakt"]["id"] = "117"
-        movie2["trakt"][
-            "url"
-        ] = "https://trakt.tv/movies/star-trek-the-motion-picture-1979"
-        movie2["trakt"]["my_rating"] = 8
+        movie2.title = "Star Trek - Der Film"
+        movie2.year = 1979
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0079945"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0079945"
+        movie2.site_data[Site.TRAKT] = SiteSpecificMovieData()
+        movie2.site_data[Site.TRAKT].id = "117"
+        movie2.site_data[Site.TRAKT].url = "https://trakt.tv/movies/star-trek-the-motion-picture-1979"
+        movie2.site_data[Site.TRAKT].my_rating = 8
 
         movies = [self.movie, movie2]
         filename = os.path.join(
@@ -169,7 +169,7 @@ class FileHandlerTest(TestCase):
             movies,
             os.path.join(TESTDATA_PATH, "exports"),
             "TEST_multiple_movies.csv",
-            "trakt",
+            Site.TRAKT,
         )
         with open(filename) as file:
             reader = csv.reader(file, delimiter=",")
@@ -181,19 +181,19 @@ class FileHandlerTest(TestCase):
                 self.movie.site_data[Site.IMDB].id, row1[headers.index("Const")]
             )
             self.assertEqual(
-                self.movie.site_data[Site.IMDB]["url"], row1[headers.index("URL")]
+                self.movie.site_data[Site.IMDB].url, row1[headers.index("URL")]
             )
             self.assertEqual(
-                self.movie["trakt"]["my_rating"],
+                self.movie.site_data[Site.TRAKT].my_rating,
                 int(row1[headers.index("Your Rating")]),
             )
             row2 = next(reader)
-            self.assertEqual(movie2["title"], row2[headers.index("Title")])
-            self.assertEqual(movie2["year"], int(row2[headers.index("Year")]))
-            self.assertEqual(movie2["imdb"]["id"], row2[headers.index("Const")])
-            self.assertEqual(movie2["imdb"]["url"], row2[headers.index("URL")])
+            self.assertEqual(movie2.title, row2[headers.index("Title")])
+            self.assertEqual(movie2.year, int(row2[headers.index("Year")]))
+            self.assertEqual(movie2.site_data[Site.IMDB].id, row2[headers.index("Const")])
+            self.assertEqual(movie2.site_data[Site.IMDB].url, row2[headers.index("URL")])
             self.assertEqual(
-                movie2["trakt"]["my_rating"], int(row2[headers.index("Your Rating")])
+                movie2.site_data[Site.TRAKT].my_rating, int(row2[headers.index("Your Rating")])
             )
         os.remove(filename)
 

@@ -3,6 +3,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.rottentomatoes.rottentomatoes_ratings_inserter import (
     RottenTomatoesRatingsInserter,
 )
@@ -21,11 +22,11 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         self.movie.year = 1999
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
-        self.movie["tmdb"] = SiteSpecificMovieData()
-        self.movie["tmdb"]["id"] = "550"
-        self.movie["tmdb"]["url"] = "https://www.themoviedb.org/movie/550"
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 9
+        self.movie.site_data[Site.TMDB] = SiteSpecificMovieData()
+        self.movie.site_data[Site.TMDB].id = "550"
+        self.movie.site_data[Site.TMDB].url = "https://www.themoviedb.org/movie/550"
         with open(
             os.path.join(TESTDATA_PATH, "rottentomatoes", "search_result.json"),
             encoding="UTF-8",
@@ -76,7 +77,7 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         inserter.site.site_name = "RottenTomatoes"
         inserter.failed_movies = []
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
@@ -124,12 +125,12 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         equality_mock.return_value = False
 
         movie2 = Movie()
-        movie2["title"] = "The Matrix"
-        movie2["year"] = 1995
-        movie2["imdb"] = SiteSpecificMovieData()
-        movie2["imdb"]["id"] = "tt0137523"
-        movie2["imdb"]["url"] = "https://www.imdb.com/title/tt0137523"
-        movie2["imdb"]["my_rating"] = 9
+        movie2.title = "The Matrix"
+        movie2.year = 1995
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
+        movie2.site_data[Site.IMDB].id = "tt0137523"
+        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        movie2.site_data[Site.IMDB].my_rating = 9
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 

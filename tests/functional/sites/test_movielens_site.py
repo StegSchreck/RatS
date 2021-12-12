@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.movielens.movielens_site import Movielens
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class MovielensSiteTest(TestCase):
     def setUp(self):
         self.site = Movielens(None)

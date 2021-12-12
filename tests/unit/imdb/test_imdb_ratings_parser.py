@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site
 from RatS.imdb.imdb_ratings_parser import IMDBRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -41,6 +42,7 @@ class IMDBParserTest(TestCase):
         parser.movies = []
         parser.site = site_mock
         parser.site.site_name = "IMDB"
+        parser.site.site = Site.IMDB
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
         parser.csv_filename = "1234567890_imdb.csv"
@@ -61,6 +63,7 @@ class IMDBParserTest(TestCase):
         parser = IMDBRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.IMDB
         parser.site.site_name = "IMDB"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))

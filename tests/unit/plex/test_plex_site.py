@@ -16,7 +16,7 @@ class PlexSiteTest(TestCase):
 
     @patch("RatS.plex.plex_site.Plex._parse_configuration")
     @patch("RatS.utils.browser_handler.Firefox")
-    @patch("RatS.base.base_site.Site._init_browser")
+    @patch("RatS.base.base_site.BaseSite._init_browser")
     def test_determine_server_id(
         self, init_browser_mock, browser_mock, configuration_mock
     ):
@@ -34,7 +34,7 @@ class PlexSiteTest(TestCase):
     @patch("RatS.base.base_site.Site._insert_login_credentials")
     @patch("RatS.plex.plex_site.Plex._parse_configuration")
     @patch("RatS.utils.browser_handler.Firefox")
-    @patch("RatS.base.base_site.Site._init_browser")
+    @patch("RatS.base.base_site.BaseSite._init_browser")
     def test_insert_login_credentials(
         self, init_browser_mock, browser_mock, configuration_mock, base_site_mock
     ):
@@ -52,7 +52,7 @@ class PlexSiteTest(TestCase):
     @patch("RatS.plex.plex_site.Plex._determine_plex_token")
     @patch("RatS.plex.plex_site.Plex._determine_server_id")
     @patch("RatS.utils.browser_handler.Firefox")
-    @patch("RatS.base.base_site.Site._init_browser")
+    @patch("RatS.base.base_site.BaseSite._init_browser")
     def test_parse_configuration(
         self, init_browser_mock, browser_mock, server_id_mock, plex_token_mock
     ):
@@ -79,7 +79,7 @@ class PlexSiteTest(TestCase):
     @patch("re.findall")
     @patch("RatS.plex.plex_site.Plex._parse_configuration")
     @patch("RatS.utils.browser_handler.Firefox")
-    @patch("RatS.base.base_site.Site._init_browser")
+    @patch("RatS.base.base_site.BaseSite._init_browser")
     def test_determine_plex_token(
         self, init_browser_mock, browser_mock, configuration_mock, regex_mock
     ):

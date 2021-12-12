@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
+from RatS.base.movie_entity import Movie
 from RatS.metacritic.metacritic_site import Metacritic
 from RatS.utils import command_line
 

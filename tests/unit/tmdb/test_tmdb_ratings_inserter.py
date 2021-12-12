@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
 
 TESTDATA_PATH = os.path.abspath(
@@ -17,8 +18,8 @@ class TMDBRatingsInserterTest(TestCase):
         self.movie.title = "Fight Club"
         self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
         self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB]["url"] = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB]["my_rating"] = 9
+        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
+        self.movie.site_data[Site.IMDB].my_rating = 9
 
     @patch(
         "RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload"
@@ -48,7 +49,7 @@ class TMDBRatingsInserterTest(TestCase):
         inserter.exports_folder = TESTDATA_PATH
         inserter.csv_filename = "converted.csv"
 
-        inserter.insert([self.movie], "IMDB")
+        inserter.insert([self.movie], Site.IMDB)
 
         self.assertTrue(base_init_mock.called)
         self.assertTrue(impex_mock.called)

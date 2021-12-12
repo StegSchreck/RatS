@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.letterboxd.letterboxd_site import Letterboxd
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class LetterboxdSiteTest(TestCase):
     def setUp(self):
         self.site = Letterboxd(None)

@@ -25,7 +25,7 @@ class TraktRatingsInserter(RatingsInserter):
         return search_result_page.find_all("div", attrs={"data-type": "movie"})
 
     def _is_requested_movie(self, movie: Movie, search_result):
-        if self._is_field_in_parsed_data_for_this_site(movie, "id"):
+        if self._is_id_in_parsed_data_for_this_site(movie):
             return movie.site_data[self.site.site].id == search_result["data-movie-id"]
         else:
             return self._check_movie_details(movie, search_result)

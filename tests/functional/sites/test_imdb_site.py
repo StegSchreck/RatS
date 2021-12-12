@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.imdb.imdb_site import IMDB
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class IMDBSiteTest(TestCase):
     def setUp(self):
         self.site = IMDB(None)

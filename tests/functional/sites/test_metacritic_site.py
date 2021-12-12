@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.metacritic.metacritic_site import Metacritic
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class MetacriticSiteTest(TestCase):
     def setUp(self):
         self.site = Metacritic(None)

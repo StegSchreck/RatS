@@ -161,7 +161,7 @@ class RatingsParser:
 
     def _go_to_movie_details_page(self, movie: Movie):
         self.site.open_url_with_521_retry(
-            movie.site_data[self.site.site_name.lower()].url
+            movie.site_data[self.site.site].url
         )
 
     @staticmethod

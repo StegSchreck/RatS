@@ -4,7 +4,7 @@ from unittest import skip
 from RatS.listal.listal_site import Listal
 
 
-@skip("this test is unstable on travis")
+@skip("this test is unstable on CI")
 class ListalSiteTest(TestCase):
     def setUp(self):
         self.site = Listal(None)

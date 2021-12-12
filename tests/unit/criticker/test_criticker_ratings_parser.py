@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -33,6 +34,7 @@ class CritickerParserTest(TestCase):
         parser = CritickerRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.CRITICKER
         parser.site.site_name = "Criticker"
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
@@ -40,18 +42,20 @@ class CritickerParserTest(TestCase):
         parser.parse()
 
         self.assertEqual(1531, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Fight Club", parser.movies[0]["title"])
-        self.assertEqual(1999, parser.movies[0]["year"])
-        self.assertEqual("1077", parser.movies[0]["criticker"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
+        self.assertEqual("Fight Club", parser.movies[0].title)
+        self.assertEqual(1999, parser.movies[0].year)
+        self.assertEqual("1077", parser.movies[0].site_data[Site.CRITICKER].id)
         self.assertEqual(
             "https://www.criticker.com/film/Fight-Club",
-            parser.movies[0]["criticker"]["url"],
+            parser.movies[0].site_data[Site.CRITICKER].url,
         )
-        self.assertEqual(10, parser.movies[0]["criticker"]["my_rating"])
-        self.assertEqual("tt0137523", parser.movies[0]["imdb"]["id"])
+        self.assertEqual(10, parser.movies[0].site_data[Site.CRITICKER].my_rating)
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
+        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.CRITICKER].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", parser.movies[0]["imdb"]["url"]
+            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.CRITICKER].url
         )
 
         os.remove(os.path.join(TESTDATA_PATH, "exports", parser.xml_filename))

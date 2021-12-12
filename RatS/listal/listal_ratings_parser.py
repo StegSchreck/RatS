@@ -3,6 +3,7 @@ import re
 from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.listal.listal_site import Listal
 
 

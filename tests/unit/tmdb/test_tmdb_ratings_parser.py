@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Movie, Site
 from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -37,6 +38,7 @@ class TMDBParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.TMDB
         parser.site.site_name = "TMDB"
         parser.site.browser = browser_mock
         parser.args = None
@@ -44,11 +46,12 @@ class TMDBParserTest(TestCase):
         parser.parse()
 
         self.assertEqual(50, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Ghost in the Shell: The New Movie", parser.movies[0]["title"])
-        self.assertEqual(2017, parser.movies[0]["year"])
-        self.assertEqual("334376", parser.movies[0]["tmdb"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        parsed_movie: Movie = parser.movies[0]
+        self.assertEqual("Ghost in the Shell: The New Movie", parsed_movie.title)
+        self.assertEqual(2017, parsed_movie.year)
+        self.assertEqual("334376", parsed_movie.site_data[Site.TMDB].id)
         self.assertEqual(
-            "https://www.themoviedb.org/movie/334376", parser.movies[0]["tmdb"]["url"]
+            "https://www.themoviedb.org/movie/334376", parsed_movie.site_data[Site.TMDB].url
         )
-        self.assertEqual(6, parser.movies[0]["tmdb"]["my_rating"])
+        self.assertEqual(6, parsed_movie.site_data[Site.TMDB].my_rating)

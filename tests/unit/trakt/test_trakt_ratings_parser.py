@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
 
 TESTDATA_PATH = os.path.abspath(
@@ -57,6 +58,7 @@ class TraktRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.TRAKT
         parser.site.site_name = "Trakt"
         parser.site.browser = browser_mock
         parser.args = None
@@ -65,11 +67,12 @@ class TraktRatingsParserTest(TestCase):
 
         self.assertEqual(60, parse_movie_mock.call_count)
         self.assertEqual(60, len(parser.movies))
-        self.assertEqual(dict, type(parser.movies[0]))
-        self.assertEqual("Arrival", parser.movies[0]["title"])
-        self.assertEqual("210803", parser.movies[0]["trakt"]["id"])
+        self.assertEqual(Movie, type(parser.movies[0]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.TRAKT]))
+        self.assertEqual("Arrival", parser.movies[0].title)
+        self.assertEqual("210803", parser.movies[0].site_data[Site.TRAKT].id)
         self.assertEqual(
-            "https://trakt.tv/movies/arrival-2016", parser.movies[0]["trakt"]["url"]
+            "https://trakt.tv/movies/arrival-2016", parser.movies[0].site_data[Site.TRAKT].url
         )
 
     @patch("RatS.utils.browser_handler.Firefox")
@@ -80,6 +83,7 @@ class TraktRatingsParserTest(TestCase):
         parser = TraktRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.TRAKT
         parser.site.site_name = "Trakt"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
@@ -91,11 +95,11 @@ class TraktRatingsParserTest(TestCase):
         self.assertEqual(1999, movie.year)
         self.assertEqual("tt0137523", movie.site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB]["url"]
+            "https://www.imdb.com/title/tt0137523", movie.site_data[Site.IMDB].url
         )
-        self.assertEqual("550", movie["tmdb"]["id"])
-        self.assertEqual("https://www.themoviedb.org/movie/550", movie["tmdb"]["url"])
-        self.assertEqual(10, movie["trakt"]["my_rating"])
+        self.assertEqual("550", movie.site_data[Site.TMDB].id)
+        self.assertEqual("https://www.themoviedb.org/movie/550", movie.site_data[Site.TMDB].url)
+        self.assertEqual(10, int(movie.site_data[Site.TRAKT].my_rating))
 
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
@@ -107,6 +111,7 @@ class TraktRatingsParserTest(TestCase):
         parser = TraktRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.TRAKT
         parser.site.site_name = "Trakt"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page_without_imdb_id
@@ -116,9 +121,10 @@ class TraktRatingsParserTest(TestCase):
 
         # Top Gear Patagonia
         self.assertEqual(2014, movie.year)
-        self.assertNotIn("imdb", movie)
-        self.assertEqual("314390", movie["tmdb"]["id"])
+        self.assertNotIn(Site.IMDB, movie.site_data)
+        self.assertIn(Site.TMDB, movie.site_data)
+        self.assertEqual("314390", movie.site_data[Site.TMDB].id)
         self.assertEqual(
-            "https://www.themoviedb.org/movie/314390", movie["tmdb"]["url"]
+            "https://www.themoviedb.org/movie/314390", movie.site_data[Site.TMDB].url
         )
-        self.assertEqual(8, movie["trakt"]["my_rating"])
+        self.assertEqual(8, movie.site_data[Site.TRAKT].my_rating)

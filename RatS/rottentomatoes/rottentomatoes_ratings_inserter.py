@@ -24,7 +24,7 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
         return json_data["movies"]
 
     def _is_requested_movie(self, movie: Movie, search_result):
-        if self._is_field_in_parsed_data_for_this_site(movie, "url"):
+        if self._is_url_in_parsed_data_for_this_site(movie):
             return (
                 movie.site_data[self.site.site].url
                 == "https://www.rottentomatoes.com" + search_result["url"]
