@@ -24,7 +24,7 @@ def save_movies_to_json(movies: List[Movie], folder: str = EXPORTS_FOLDER, filen
     if not os.path.exists(folder):
         os.makedirs(folder)
     with open(os.path.join(folder, filename), "w+", encoding="UTF-8") as output_file:
-        output_file.write(json.dumps(movies))
+        output_file.write(json.dumps(movies))  # TODO convert Movie to dict to json
 
 
 def wait_for_file_to_exist(filepath: str, seconds: int = 30):

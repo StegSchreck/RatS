@@ -121,8 +121,8 @@ class TraktRatingsParserTest(TestCase):
 
         # Top Gear Patagonia
         self.assertEqual(2014, movie.year)
-        self.assertNotIn(Site.IMDB, movie.site_data)
-        self.assertIn(Site.TMDB, movie.site_data)
+        self.assertNotIn(Site.IMDB, movie.site_data.keys())
+        self.assertIn(Site.TMDB, movie.site_data.keys())
         self.assertEqual("314390", movie.site_data[Site.TMDB].id)
         self.assertEqual(
             "https://www.themoviedb.org/movie/314390", movie.site_data[Site.TMDB].url

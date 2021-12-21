@@ -63,9 +63,9 @@ class ListalParserTest(TestCase):
         self.assertEqual(Movie, type(parser.movies[0]))
         self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
         self.assertEqual("Fight Club", parser.movies[0].title)
-        self.assertEqual("1596", parser.movies[0].site_date[Site.LISTAL].id)
+        self.assertEqual("1596", parser.movies[0].site_data[Site.LISTAL].id)
         self.assertEqual(
-            "https://www.listal.com/movie/fight-club", parser.movies[0].site_date[Site.LISTAL].url
+            "https://www.listal.com/movie/fight-club", parser.movies[0].site_data[Site.LISTAL].url
         )
 
     @patch("RatS.utils.browser_handler.Firefox")

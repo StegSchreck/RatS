@@ -139,7 +139,7 @@ class FilmtipetParserTest(TestCase):
             headers, row
         )  # pylint: disable=protected-access
         self.assertEqual(1, imdb_mock.call_count)
-        self.assertEqual(movie, expected_movie)
+        self.assertDictEqual(movie.__dict__, expected_movie.__dict__)
 
     def test_extract_imdb_information(self):
         tests = [

@@ -53,9 +53,9 @@ class CritickerParserTest(TestCase):
         )
         self.assertEqual(10, parser.movies[0].site_data[Site.CRITICKER].my_rating)
         self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
-        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.CRITICKER].id)
+        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.CRITICKER].url
+            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.IMDB].url
         )
 
         os.remove(os.path.join(TESTDATA_PATH, "exports", parser.xml_filename))

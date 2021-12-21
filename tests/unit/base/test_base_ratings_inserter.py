@@ -8,7 +8,7 @@ from RatS.base.movie_entity import Site, SiteSpecificMovieData, Movie
 class BaseInserterTest(TestCase):
     @patch("RatS.utils.browser_handler.Firefox")
     def test_init(self, browser_mock):
-        with patch("RatS.base.base_site.Site") as site_mock:
+        with patch("RatS.base.base_site.BaseSite") as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
             self.assertEqual(inserter.site, site_mock)
@@ -26,7 +26,7 @@ class BaseInserterTest(TestCase):
         progress_bar_mock,
         save_movies_to_json_mock,
     ):
-        with patch("RatS.base.base_site.Site") as site_mock:
+        with patch("RatS.base.base_site.BaseSite") as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
         movie = Movie()
@@ -70,7 +70,7 @@ class BaseInserterTest(TestCase):
         progress_bar_mock,
         save_movies_to_json_mock,
     ):
-        with patch("RatS.base.base_site.Site") as site_mock:
+        with patch("RatS.base.base_site.BaseSite") as site_mock:
             inserter = RatingsInserter(site_mock, None)
 
         movie = Movie()
