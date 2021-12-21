@@ -74,6 +74,7 @@ class ICheckMoviesParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.ICHECKMOVIES
         parser.site.site_name = "ICheckMovies"
         parser.site.browser = browser_mock
         parser.args = None
@@ -84,20 +85,20 @@ class ICheckMoviesParserTest(TestCase):
 
         self.assertEqual(240, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
         self.assertEqual("Fight Club", parser.movies[0].title)
-        self.assertEqual("21", parser.movies[0].site_data[parser.site.site].id)
+        self.assertEqual("21", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
             "https://www.icheckmovies.com/movies/fight+club/",
-            parser.movies[0].site_data[parser.site.site].url,
+            parser.movies[0].site_data[Site.ICHECKMOVIES].url,
         )
         self.assertEqual(1999, parser.movies[0].year)
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
-        self.assertEqual("tt0137523", parser.movies[0].site_data[parser.site.site].id)
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
+        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[parser.site.site].url
+            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.ICHECKMOVIES].url
         )
-        self.assertEqual(8, parser.movies[0].site_data[parser.site.site].my_rating)
+        self.assertEqual(8, parser.movies[0].site_data[Site.ICHECKMOVIES].my_rating)
 
     @patch("RatS.base.base_ratings_parser.RatingsParser._print_progress_bar")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -133,8 +134,8 @@ class ICheckMoviesParserTest(TestCase):
         )
         self.assertEqual(2004, parser.movies[0].year)
         self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
-        self.assertEqual("tt0421051", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
+        self.assertEqual("tt0421051", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0421051", parser.movies[0].site_data[Site.ICHECKMOVIES].url
+            "https://www.imdb.com/title/tt0421051", parser.movies[0].site_data[Site.IMDB].url
         )
         self.assertEqual(3, parser.movies[0].site_data[Site.ICHECKMOVIES].my_rating)

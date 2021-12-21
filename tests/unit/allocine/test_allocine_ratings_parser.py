@@ -51,6 +51,7 @@ class AlloCineRatingsParserTest(TestCase):
         parser.args = False
         parser.movies = []
         parser.site = site_mock
+        parser.site.site = Site.ALLOCINE
         parser.site.site_name = "AlloCine"
         parser.site.browser = browser_mock
         parser.args = None
@@ -60,11 +61,11 @@ class AlloCineRatingsParserTest(TestCase):
         self.assertEqual(2, parse_movie_mock.call_count)
         self.assertEqual(2, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
-        self.assertEqual("21189", parser.movies[0].site_data[parser.site.site].id)
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ALLOCINE]))
+        self.assertEqual("21189", parser.movies[0].site_data[Site.ALLOCINE].id)
         self.assertEqual(
             "https://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html",
-            parser.movies[0].site_data[parser.site.site].url,
+            parser.movies[0].site_data[Site.ALLOCINE].url,
         )
 
     @patch("RatS.utils.browser_handler.Firefox")

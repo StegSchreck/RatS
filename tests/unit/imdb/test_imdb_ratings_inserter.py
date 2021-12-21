@@ -53,6 +53,7 @@ class IMDBRatingsInserterTest(TestCase):
         inserter = IMDBRatingsInserter(None)
         inserter.args = False
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
 
@@ -68,6 +69,7 @@ class IMDBRatingsInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
@@ -88,6 +90,7 @@ class IMDBRatingsInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
@@ -114,6 +117,7 @@ class IMDBRatingsInserterTest(TestCase):
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
@@ -139,6 +143,7 @@ class IMDBRatingsInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
 
@@ -154,6 +159,7 @@ class IMDBRatingsInserterTest(TestCase):
         browser_mock.page_source = self.search_result
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
+        inserter.site.site = Site.IMDB
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
 

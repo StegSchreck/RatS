@@ -1,4 +1,5 @@
 import os
+from typing import List
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -119,7 +120,7 @@ class LetterboxdParserTest(TestCase):
             os.pardir, "letterboxd", "my_ratings.csv"
         )
 
-        movies = parser._parse_movies_from_csv(
+        movies: List[Movie] = parser._parse_movies_from_csv(
             os.path.join(TESTDATA_PATH, "letterboxd", "my_ratings.csv")
         )  # pylint: disable=protected-access
 
@@ -128,6 +129,6 @@ class LetterboxdParserTest(TestCase):
         self.assertEqual("Life", movies[0].title)
         self.assertEqual(2017, movies[0].year)
         self.assertEqual(
-            "https://letterboxd.com/film/life-2017/", movies[0][Site.LETTERBOXD].url
+            "https://letterboxd.com/film/life-2017/", movies[0].site_data[Site.LETTERBOXD].url
         )
-        self.assertEqual(7, movies[0][Site.LETTERBOXD].my_rating)
+        self.assertEqual(7, movies[0].site_data[Site.LETTERBOXD].my_rating)

@@ -2,6 +2,8 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
+from RatS.base.base_site import BaseSite
+from RatS.base.movie_entity import Site
 from RatS.plex.plex_site import Plex
 
 TESTDATA_PATH = os.path.abspath(
@@ -31,7 +33,7 @@ class PlexSiteTest(TestCase):
 
         self.assertEqual("ThisIsAMockUUID", result)
 
-    @patch("RatS.base.base_site.Site._insert_login_credentials")
+    @patch("RatS.base.base_site.BaseSite._insert_login_credentials")
     @patch("RatS.plex.plex_site.Plex._parse_configuration")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_site.BaseSite._init_browser")
@@ -41,7 +43,8 @@ class PlexSiteTest(TestCase):
         browser_mock.current_url = (
             "http://localhost/web/index.html#!/settings/server/ThisIsAMockUUID/general"
         )
-        site = Plex(None)
+        site: BaseSite = Plex(None)
+        site.site = Site.PLEX
         site.browser = browser_mock
         site.BASE_URL = "localhost"
 
