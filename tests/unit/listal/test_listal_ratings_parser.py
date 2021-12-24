@@ -61,11 +61,14 @@ class ListalParserTest(TestCase):
         self.assertEqual(60, parse_movie_mock.call_count)
         self.assertEqual(60, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[parser.site.site])
+        )
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual("1596", parser.movies[0].site_data[Site.LISTAL].id)
         self.assertEqual(
-            "https://www.listal.com/movie/fight-club", parser.movies[0].site_data[Site.LISTAL].url
+            "https://www.listal.com/movie/fight-club",
+            parser.movies[0].site_data[Site.LISTAL].url,
         )
 
     @patch("RatS.utils.browser_handler.Firefox")
@@ -80,7 +83,7 @@ class ListalParserTest(TestCase):
         parser.site.site_name = "Listal"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = Movie()
+        movie = Movie(title="doesn't matter right now")
 
         parser.parse_movie_details_page(movie)
 

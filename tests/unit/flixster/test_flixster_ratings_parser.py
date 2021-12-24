@@ -48,11 +48,13 @@ class FlixsterParserTest(TestCase):
 
         self.assertEqual(330 - 9, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FLIXSTER]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FLIXSTER])
+        )
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual(1999, parser.movies[0].year)
 
-        self.assertEqual(13153, parser.movies[0].site_data[Site.FLIXSTER].id)
+        self.assertEqual("13153", parser.movies[0].site_data[Site.FLIXSTER].id)
         self.assertEqual(
             "https://www.flixster.com/movie/fight-club/",
             parser.movies[0].site_data[Site.FLIXSTER].url,

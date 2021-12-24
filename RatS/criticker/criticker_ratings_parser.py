@@ -65,26 +65,24 @@ class CritickerRatingsParser(RatingsParser):
     def convert_xml_node_to_movie(xml_node):
         film_header = xml_node.find("filmname").text
 
-        movie = Movie()
-        movie.year = int(re.findall(r"\((\d{4})\)", film_header)[0])
-        movie.title = film_header.replace(f"({movie.year})", "").strip()
+        movie_year = int(re.findall(r"\((\d{4})\)", film_header)[0])
+        movie_title = film_header.replace(f"({movie_year})", "").strip()
+        movie = Movie(title=movie_title, year=movie_year)
 
         movie.site_data = dict()
-        movie.site_data[Site.CRITICKER] = SiteSpecificMovieData()
-        movie.site_data[Site.CRITICKER].id = xml_node.find("filmid").text
         movie_link = xml_node.find("filmlink").text
-
         movie_link = re.sub("/rating/.*", "", movie_link).replace("http://", "https://")
 
-        movie.site_data[Site.CRITICKER].url = movie_link
-        movie.site_data[Site.CRITICKER].my_rating = round(
-            float(xml_node.find("rating").text) / 10
+        movie.site_data[Site.CRITICKER] = SiteSpecificMovieData(
+            id=xml_node.find("filmid").text,
+            url=movie_link,
+            my_rating=round(float(xml_node.find("rating").text) / 10),
         )
 
-        movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        movie.site_data[Site.IMDB].id = xml_node.find("imdbid").text
-        movie.site_data[
-            Site.IMDB
-        ].url = f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}"
+        imdb_id = xml_node.find("imdbid").text
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id=imdb_id,
+            url=f"https://www.imdb.com/title/{imdb_id}",
+        )
 
         return movie

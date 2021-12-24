@@ -16,20 +16,20 @@ class IMDBRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = Movie()
-        self.movie.title = "Fight Club"
-        self.movie.year = 1999
-        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.TRAKT] = SiteSpecificMovieData()
-        self.movie.site_data[Site.TRAKT].id = "432"
-        self.movie.site_data[Site.TRAKT].url = "https://trakt.tv/movies/fight-club-1999"
-        self.movie.site_data[Site.TRAKT].my_rating = "10"
-        # self.movie.site_data[Site.TRAKT]["overall_rating"] = "89%"  # TODO
-        self.movie.site_data[Site.TMDB] = SiteSpecificMovieData()
-        self.movie.site_data[Site.TMDB].id = "550"
-        self.movie.site_data[Site.TMDB].url = "https://www.themoviedb.org/movie/550"
+        self.movie = Movie(title="Fight Club", year=1999)
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id="tt0137523",
+            url="https://www.imdb.com/title/tt0137523",
+        )
+        self.movie.site_data[Site.TRAKT] = SiteSpecificMovieData(
+            id="432",
+            url="https://trakt.tv/movies/fight-club-1999",
+            my_rating="10",
+        )
+        self.movie.site_data[Site.TMDB] = SiteSpecificMovieData(
+            id="550",
+            url="https://www.themoviedb.org/movie/550",
+        )
         with open(
             os.path.join(TESTDATA_PATH, "imdb", "search_result.html"), encoding="UTF-8"
         ) as search_result_tile:
@@ -98,9 +98,7 @@ class IMDBRatingsInserterTest(TestCase):
             class_="findResult"
         )[0]
 
-        movie2 = Movie()
-        movie2.title = "Arrival"
-        movie2.year = 2006
+        movie2 = Movie(title="Arrival", year=2006)
 
         result = inserter._is_requested_movie(
             movie2, search_result
@@ -125,9 +123,7 @@ class IMDBRatingsInserterTest(TestCase):
             class_="findResult"
         )[0]
 
-        movie2 = Movie()
-        movie2.title = "SomeMovie"
-        movie2.year = 1995
+        movie2 = Movie(title="SomeMovie", year=1995)
 
         result = inserter._is_requested_movie(
             movie2, search_result
@@ -163,9 +159,7 @@ class IMDBRatingsInserterTest(TestCase):
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
 
-        movie2 = Movie()
-        movie2.title = "The Matrix"
-        movie2.year = 1995
+        movie2 = Movie(title="The Matrix", year=1995)
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 

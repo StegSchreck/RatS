@@ -21,5 +21,6 @@ class NoValidCredentialsException(RatSException):
 class SiteNotReachableException(RatSException):
     pass
 
+
 class NoMoviesForInsertion(LoginFailedException):
     pass

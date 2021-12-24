@@ -41,19 +41,16 @@ class PlexRatingsParser(RatingsParser):
         movie = None
 
         if movie_tile.has_attr("userrating"):
-            movie = Movie()
-            movie.title = movie_tile["title"]
-            movie.year = int(movie_tile["year"])
-            movie.site_data[self.site.site] = SiteSpecificMovieData()
-            movie.site_data[self.site.site].my_rating = round(
-                float(movie_tile["userrating"])
-            )
-            movie.site_data[self.site.site].id = movie_tile["ratingkey"]
+            movie = Movie(title=movie_tile["title"], year=int(movie_tile["year"]))
             library_path = "%2Flibrary%2Fmetadata%2F"
-            movie_id = movie.site_data[self.site.site].id
-            movie.site_data[self.site.site].url = (
-                f"http://{self.site.BASE_URL}/web/index.html#!"
-                f"/server/{self.site.SERVER_ID}/details?key={library_path}{movie_id}"
+            movie_id = movie_tile["ratingkey"]
+            movie.site_data[self.site.site] = SiteSpecificMovieData(
+                id=movie_id,
+                url=(
+                    f"http://{self.site.BASE_URL}/web/index.html#!"
+                    f"/server/{self.site.SERVER_ID}/details?key={library_path}{movie_id}"
+                ),
+                my_rating=round(float(movie_tile["userrating"])),
             )
 
         self.processed_movies_count += 1

@@ -56,17 +56,15 @@ class RottenTomatoesRatingsParser(RatingsParser):
         if not movie_json["review"]["score"]:
             return None
 
-        movie = Movie()
-        movie.title = movie_json["item"]["title"]
-        movie.year = int(movie_json["item"]["releaseYear"])
+        movie = Movie(
+            title=movie_json["item"]["title"],
+            year=int(movie_json["item"]["releaseYear"]),
+        )
 
-        movie.site_data[Site.ROTTENTOMATOES] = SiteSpecificMovieData()
-        movie.site_data[Site.ROTTENTOMATOES].id = movie_json["item"]["rtId"]
-        movie.site_data[Site.ROTTENTOMATOES].url = movie_json["item"][
-            "vanityUrl"
-        ].replace("http://", "https://")
-        movie.site_data[Site.ROTTENTOMATOES].my_rating = int(
-            float(movie_json["review"]["score"]) * 2
+        movie.site_data[Site.ROTTENTOMATOES] = SiteSpecificMovieData(
+            id=movie_json["item"]["rtId"],
+            url=movie_json["item"]["vanityUrl"].replace("http://", "https://"),
+            my_rating=int(float(movie_json["review"]["score"]) * 2),
         )
 
         return movie

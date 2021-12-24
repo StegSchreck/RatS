@@ -75,6 +75,7 @@ class AlloCineRatingsParser(RatingsParser):
         while rating == 0:
             iteration += 1
             if iteration > 10:
+                # overwrite pass-by-reference variable to ignore this movie
                 movie = None
                 return
             movie_details_page = BeautifulSoup(

@@ -14,12 +14,12 @@ class TMDBRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = Movie()
-        self.movie.title = "Fight Club"
-        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB].my_rating = 9
+        self.movie = Movie(title="Fight Club")
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id="tt0137523",
+            url="https://www.imdb.com/title/tt0137523",
+            my_rating=9,
+        )
 
     @patch(
         "RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload"

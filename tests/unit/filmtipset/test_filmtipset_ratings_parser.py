@@ -128,11 +128,8 @@ class FilmtipetParserTest(TestCase):
         parser.site.site_name = "Filmtipset"
         parser.site.browser = browser_mock
 
-        expected_site_date = SiteSpecificMovieData()
-        expected_site_date.my_rating = 10
-        expected_movie = Movie()
-        expected_movie.title = "Hunt for the Wilderpeople"
-        expected_movie.site_data[Site.FILMTIPSET] = expected_site_date
+        expected_movie = Movie(title="Hunt for the Wilderpeople")
+        expected_movie.site_data[Site.FILMTIPSET] = SiteSpecificMovieData(my_rating=10)
         headers = ["VoteDate", "MovieTitle", "IMDB", "Score"]
         row = ["2020-10-10", "Hunt for the Wilderpeople", "4698684", "5"]
         movie = parser._convert_csv_row_to_movie(
@@ -148,14 +145,14 @@ class FilmtipetParserTest(TestCase):
                 {
                     "id": "tt1234567",
                     "url": "https://www.imdb.com/title/tt1234567",
-                }
+                },
             ),
             (
                 "12345",
                 {
                     "id": "tt0012345",
                     "url": "https://www.imdb.com/title/tt0012345",
-                }
+                },
             ),
         ]
         for test in tests:
@@ -164,8 +161,12 @@ class FilmtipetParserTest(TestCase):
             FilmtipsetRatingsParser._extract_imdb_information(
                 movie, num
             )  # pylint: disable=protected-access
-            self.assertEqual(movie.site_data[Site.IMDB].id, expected_movie_details['id'])
-            self.assertEqual(movie.site_data[Site.IMDB].url, expected_movie_details['url'])
+            self.assertEqual(
+                expected_movie_details["id"], movie.site_data[Site.IMDB].id
+            )
+            self.assertEqual(
+                expected_movie_details["url"], movie.site_data[Site.IMDB].url
+            )
 
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

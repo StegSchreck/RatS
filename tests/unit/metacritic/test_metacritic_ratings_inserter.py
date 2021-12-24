@@ -16,13 +16,12 @@ class MetacriticRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = Movie()
-        self.movie.title = "Fight Club"
-        self.movie.year = 1999
-        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        self.movie.site_data[Site.IMDB].id = "tt0137523"
-        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
-        self.movie.site_data[Site.IMDB].my_rating = 9
+        self.movie = Movie(title="Fight Club", year=1999)
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id="tt0137523",
+            url="https://www.imdb.com/title/tt0137523",
+            my_rating=9,
+        )
         with open(
             os.path.join(TESTDATA_PATH, "metacritic", "search_result.html"),
             encoding="UTF-8",
@@ -125,9 +124,7 @@ class MetacriticRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = Movie()
-        movie2.title = "The Matrix"
-        movie2.year = 1995
+        movie2 = Movie(title="The Matrix", year=1995)
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -168,9 +165,7 @@ class MetacriticRatingsInserterTest(TestCase):
         inserter.failed_movies = []
         inserter.args = None
 
-        movie2 = Movie()
-        movie2.title = "The Matrix"
-        movie2.year = 1995
+        movie2 = Movie(title="The Matrix", year=1995)
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
         result = inserter._is_requested_movie(

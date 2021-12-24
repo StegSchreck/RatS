@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+from typing import List
 
 from bs4 import BeautifulSoup
 from progressbar import ProgressBar
@@ -16,12 +17,12 @@ class RatingsParser:
         if not self.site.CREDENTIALS_VALID:
             return
 
-        self.movies = []
-        self.movies_count = 0
+        self.movies: List[Movie] = []
+        self.movies_count: int = 0
 
         self.site.open_url_with_521_retry(self.site.MY_RATINGS_URL)
 
-        self.exports_folder = os.path.abspath(
+        self.exports_folder: str = os.path.abspath(
             os.path.join(
                 os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports"
             )
@@ -77,7 +78,7 @@ class RatingsParser:
         sys.stdout.flush()
 
         for page_number in range(1, pages_count + 1):
-            self.site.open_url_with_521_retry(self._get_ratings_page(page_number))
+            self.site.open_url_with_521_retry(self._get_ratings_page(1))
             movie_listing_page = BeautifulSoup(
                 self.site.browser.page_source, "html.parser"
             )
@@ -136,11 +137,13 @@ class RatingsParser:
         raise NotImplementedError("This is not the implementation you are looking for.")
 
     def _parse_movie_tile(self, movie_tile):
-        movie = Movie()
-        movie.title = self._get_movie_title(movie_tile)
-        movie.site_data[self.site.site] = SiteSpecificMovieData()
-        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
-        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
+        movie = Movie(title=self._get_movie_title(movie_tile))
+        movie_id = self._get_movie_id(movie_tile)
+        site_specific_movie_data = SiteSpecificMovieData(
+            id=movie_id,
+            url=self._get_movie_url(movie_tile),
+        )
+        movie.site_data[self.site.site] = site_specific_movie_data
 
         self._go_to_movie_details_page(movie)
         time.sleep(1)
@@ -160,9 +163,7 @@ class RatingsParser:
         return movie
 
     def _go_to_movie_details_page(self, movie: Movie):
-        self.site.open_url_with_521_retry(
-            movie.site_data[self.site.site].url
-        )
+        self.site.open_url_with_521_retry(movie.site_data[self.site.site].url)
 
     @staticmethod
     def _get_movie_title(movie_tile):
@@ -182,22 +183,17 @@ class RatingsParser:
     def _parse_external_links(self, movie: Movie, movie_details_page):
         external_links = self._get_external_links(movie_details_page)
         for link in external_links:
+            movie_link = link["href"].strip("/").replace("http://", "https://")
             if "imdb.com" in link["href"] and "find?" not in link["href"]:
-                movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-                movie.site_data[Site.IMDB].url = (
-                    link["href"].strip("/").replace("http://", "https://")
+                movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+                    id=movie_link.split("/")[-1],
+                    url=movie_link,
                 )
-                movie.site_data[Site.IMDB].id = movie.site_data[Site.IMDB].url.split(
-                    "/"
-                )[-1]
             elif "themoviedb.org" in link["href"]:
-                movie.site_data[Site.TMDB] = SiteSpecificMovieData()
-                movie.site_data[Site.TMDB].url = (
-                    link["href"].strip("/").replace("http://", "https://")
+                movie.site_data[Site.TMDB] = SiteSpecificMovieData(
+                    id=movie_link.split("/")[-1],
+                    url=movie_link,
                 )
-                movie.site_data[Site.TMDB].id = movie.site_data[Site.TMDB].url.split(
-                    "/"
-                )[-1]
 
     @staticmethod
     def _get_external_links(movie_details_page):

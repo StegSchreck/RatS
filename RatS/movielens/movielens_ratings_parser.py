@@ -17,7 +17,6 @@ class MovielensRatingsParser(RatingsDownloader):
         )
 
     def _convert_csv_row_to_movie(self, headers, row):
-        movie = Movie()
 
         if self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
@@ -27,15 +26,20 @@ class MovielensRatingsParser(RatingsDownloader):
                 sys.stdout.write(r + "\r\n")
             sys.stdout.flush()
 
-        year = self.__extract_year(movie, row[headers.index("title")])
-        movie.title = row[headers.index("title")].replace(year, "").strip()
+        movie_year = self.__extract_year(row[headers.index("title")])
+        movie = Movie(
+            title=row[headers.index("title")]
+            .replace(str(movie_year), "")
+            .replace("()", "")
+            .strip(),
+            year=movie_year,
+        )
 
-        movie.site_data[self.site.site] = SiteSpecificMovieData()
-        movie.site_data[self.site.site].id = row[headers.index("movie_id")]
         movie_url_path = row[headers.index("movie_id")]
-        movie.site_data[self.site.site].url = f"https://movielens.org/movies/{movie_url_path}"
-        movie.site_data[self.site.site].my_rating = int(
-            float(row[headers.index("rating")]) * 2
+        movie.site_data[self.site.site] = SiteSpecificMovieData(
+            id=row[headers.index("movie_id")],
+            url=f"https://movielens.org/movies/{movie_url_path}",
+            my_rating=int(float(row[headers.index("rating")]) * 2),
         )
 
         self.__extract_imdb_information(movie, row[headers.index("imdb_id")])
@@ -47,23 +51,23 @@ class MovielensRatingsParser(RatingsDownloader):
     def __extract_tmdb_information(movie: Movie, tmdb_id: str):
         movie.site_data[Site.TMDB] = SiteSpecificMovieData()
         movie.site_data[Site.TMDB].id = tmdb_id
-        movie.site_data[Site.TMDB].url = f"https://www.themoviedb.org/movie/{movie.site_data[Site.TMDB].id}"
+        movie.site_data[
+            Site.TMDB
+        ].url = f"https://www.themoviedb.org/movie/{movie.site_data[Site.TMDB].id}"
 
     @staticmethod
     def __extract_imdb_information(movie: Movie, imdb_id: str):
-        movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        movie.site_data[Site.IMDB].id = imdb_id
-        if "tt" not in movie.site_data[Site.IMDB].id:
-            movie.site_data[Site.IMDB].id = f"tt{imdb_id}"
-        movie.site_data[Site.IMDB].url = f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}"
+        if "tt" not in imdb_id:
+            imdb_id = f"tt{imdb_id}"
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id=imdb_id,
+            url=f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}",
+        )
 
     @staticmethod
-    def __extract_year(movie, title_field):
-        find_year = re.findall(r"(\(\d{4}\))", title_field)
+    def __extract_year(title_field):
+        find_year = re.findall(r"\((\d{4})\)", title_field)
         if find_year:
-            year = find_year[-1]
-            movie.year = int(re.findall(r"\((\d{4})\)", title_field)[-1])
-        else:  # no movie year in CSV
-            year = "()"
-            movie.year = 0
-        return year
+            return int(find_year[-1])
+        # no movie year in CSV
+        return 0

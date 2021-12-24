@@ -85,7 +85,9 @@ class ICheckMoviesParserTest(TestCase):
 
         self.assertEqual(240, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
+        )
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual("21", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
@@ -93,10 +95,13 @@ class ICheckMoviesParserTest(TestCase):
             parser.movies[0].site_data[Site.ICHECKMOVIES].url,
         )
         self.assertEqual(1999, parser.movies[0].year)
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
-        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.ICHECKMOVIES].url
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.IMDB])
+        )
+        self.assertEqual("tt0137523", parser.movies[0].site_data[Site.IMDB].id)
+        self.assertEqual(
+            "https://www.imdb.com/title/tt0137523",
+            parser.movies[0].site_data[Site.IMDB].url,
         )
         self.assertEqual(8, parser.movies[0].site_data[Site.ICHECKMOVIES].my_rating)
 
@@ -125,7 +130,9 @@ class ICheckMoviesParserTest(TestCase):
 
         self.assertEqual(25, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
+        )
         self.assertEqual("Daniel der Zauberer", parser.movies[0].title)
         self.assertEqual("119234", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
@@ -133,9 +140,12 @@ class ICheckMoviesParserTest(TestCase):
             parser.movies[0].site_data[Site.ICHECKMOVIES].url,
         )
         self.assertEqual(2004, parser.movies[0].year)
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
+        )
         self.assertEqual("tt0421051", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0421051", parser.movies[0].site_data[Site.IMDB].url
+            "https://www.imdb.com/title/tt0421051",
+            parser.movies[0].site_data[Site.IMDB].url,
         )
         self.assertEqual(3, parser.movies[0].site_data[Site.ICHECKMOVIES].my_rating)

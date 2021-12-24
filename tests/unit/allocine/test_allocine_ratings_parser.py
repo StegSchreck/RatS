@@ -61,7 +61,9 @@ class AlloCineRatingsParserTest(TestCase):
         self.assertEqual(2, parse_movie_mock.call_count)
         self.assertEqual(2, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ALLOCINE]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ALLOCINE])
+        )
         self.assertEqual("21189", parser.movies[0].site_data[Site.ALLOCINE].id)
         self.assertEqual(
             "https://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html",
@@ -80,7 +82,7 @@ class AlloCineRatingsParserTest(TestCase):
         parser.site.site_name = "AlloCine"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = Movie()
+        movie = Movie(title="doesn't matter right now")
 
         parser.parse_movie_details_page(movie)
 
