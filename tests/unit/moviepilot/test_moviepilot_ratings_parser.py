@@ -68,7 +68,9 @@ class MoviePilotRatingsParserTest(TestCase):
         self.assertEqual(1, parse_movie_mock.call_count)
         self.assertEqual(1, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.MOVIEPILOT]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.MOVIEPILOT])
+        )
         self.assertEqual("Star Trek - Der Film", parser.movies[0].title)
         self.assertEqual(
             "https://www.moviepilot.de/movies/star-trek-der-film",
@@ -92,7 +94,7 @@ class MoviePilotRatingsParserTest(TestCase):
         parser.site.site_name = "MoviePilot"
         parser.site.browser = browser_mock
         browser_mock.page_source = self.detail_page
-        movie = Movie()
+        movie = Movie(title="doesn't matter right now")
         rating_mock.return_value = 10
 
         parser.parse_movie_details_page(movie)

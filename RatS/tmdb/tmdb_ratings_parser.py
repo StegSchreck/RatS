@@ -46,14 +46,14 @@ class TMDBRatingsParser(RatingsParser):
         return movie_tile.find(class_="title").find("a").find("h2").get_text()
 
     def _parse_movie_tile(self, movie_tile):
-        movie = Movie()
-        movie.title = self._get_movie_title(movie_tile)
-        movie.year = self._get_movie_year(movie_tile)
-        movie.site_data[self.site.site] = SiteSpecificMovieData()
-        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
-        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
-        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
-            movie_tile
+        movie = Movie(
+            title=self._get_movie_title(movie_tile),
+            year=self._get_movie_year(movie_tile),
+        )
+        movie.site_data[self.site.site] = SiteSpecificMovieData(
+            id=self._get_movie_id(movie_tile),
+            url=self._get_movie_url(movie_tile),
+            my_rating=self._get_movie_my_rating(movie_tile),
         )
 
         return movie

@@ -15,16 +15,26 @@ EXPORTS_FOLDER = os.path.abspath(
 CSV_HEADER = "Const,Your Rating,Date Rated,Title,URL,Title Type,IMDb Rating,Runtime (mins),Year,Genres,Num Votes,Release Date,Directors\n"  # pylint: disable=line-too-long
 
 
-def load_movies_from_json(folder: str = EXPORTS_FOLDER, filename: str = "import.json") -> List[Movie]:
+def default(obj):
+    if hasattr(obj, "to_json"):
+        return obj.to_json()
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+
+def load_movies_from_json(
+    folder: str = EXPORTS_FOLDER, filename: str = "import.json"
+) -> List[Movie]:
     with open(os.path.join(folder, filename), encoding="UTF-8") as input_file:
-        return json.load(input_file)  # TODO convert into Movie
+        return json.load(input_file, object_hook=Movie.from_json)
 
 
-def save_movies_to_json(movies: List[Movie], folder: str = EXPORTS_FOLDER, filename: str = "export.json"):
+def save_movies_to_json(
+    movies: List[Movie], folder: str = EXPORTS_FOLDER, filename: str = "export.json"
+):
     if not os.path.exists(folder):
         os.makedirs(folder)
     with open(os.path.join(folder, filename), "w+", encoding="UTF-8") as output_file:
-        output_file.write(json.dumps(movies))  # TODO convert Movie to dict to json
+        output_file.write(json.dumps(movies, default=default))
 
 
 def wait_for_file_to_exist(filepath: str, seconds: int = 30):
@@ -51,20 +61,22 @@ def load_movies_from_csv(filepath: str, encoding: str = "UTF-8") -> List[Movie]:
 
 
 def convert_csv_row_to_movie(headers, row) -> Movie:
-    movie = Movie()
-    movie.title = row[headers.index("Title")]
-    movie.year = int(row[headers.index("Year")])
-    movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-    movie.site_data[Site.IMDB].id = row[headers.index("Const")]
-    movie.site_data[Site.IMDB].url = row[headers.index("URL")].replace(
-        "http://", "https://"
+    movie = Movie(
+        title=row[headers.index("Title")], year=int(row[headers.index("Year")])
     )
-    movie.site_data[Site.IMDB].my_rating = int(row[headers.index("Your Rating")])
+    movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+        id=row[headers.index("Const")],
+        url=row[headers.index("URL")].replace("http://", "https://"),
+        my_rating=int(row[headers.index("Your Rating")]),
+    )
     return movie
 
 
 def save_movies_to_csv(
-    movies: List[Movie], folder: str = EXPORTS_FOLDER, filename: str = "export.csv", rating_source: Site = Site.IMDB
+    movies: List[Movie],
+    folder: str = EXPORTS_FOLDER,
+    filename: str = "export.csv",
+    rating_source: Site = Site.IMDB,
 ):
     sys.stdout.write("===== saving movies to CSV\r\n")
     sys.stdout.flush()
@@ -77,8 +89,16 @@ def save_movies_to_csv(
 
 
 def convert_movie_to_csv(movies: List[Movie], index: int, rating_source: Site) -> str:
-    imdb_id = movies[index].site_data[Site.IMDB].id if Site.IMDB in movies[index].site_data else ""
-    imdb_url = movies[index].site_data[Site.IMDB].url if Site.IMDB in movies[index].site_data else ""
+    imdb_id = (
+        movies[index].site_data[Site.IMDB].id
+        if Site.IMDB in movies[index].site_data
+        else ""
+    )
+    imdb_url = (
+        movies[index].site_data[Site.IMDB].url
+        if Site.IMDB in movies[index].site_data
+        else ""
+    )
     movie_csv = (
         ""
         + ""

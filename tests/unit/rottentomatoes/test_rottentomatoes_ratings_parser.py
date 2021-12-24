@@ -54,11 +54,15 @@ class RottenTomatoesRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ROTTENTOMATOES]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ROTTENTOMATOES])
+        )
         self.assertEqual("Not My Day", parser.movies[0].title)
         self.assertEqual(2014, parser.movies[0].year)
 
-        self.assertEqual("771362331", parser.movies[0].site_data[Site.ROTTENTOMATOES].id)
+        self.assertEqual(
+            "771362331", parser.movies[0].site_data[Site.ROTTENTOMATOES].id
+        )
         self.assertEqual(
             "https://rottentomatoes.com/m/not_my_day_2014",
             parser.movies[0].site_data[Site.ROTTENTOMATOES].url,

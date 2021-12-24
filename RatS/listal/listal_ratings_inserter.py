@@ -70,7 +70,9 @@ class ListalRatingsInserter(RatingsInserter):
             return False
 
     @staticmethod
-    def _compare_external_links(page_source, movie: Movie, external_url_base: str, site: Site):
+    def _compare_external_links(
+        page_source, movie: Movie, external_url_base: str, site: Site
+    ):
         movie_details_page = BeautifulSoup(page_source, "html.parser")
         if movie_details_page.find(class_="ratingstable"):
             external_links = movie_details_page.find(class_="ratingstable").find_all(

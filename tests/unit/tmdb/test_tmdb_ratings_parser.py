@@ -52,6 +52,7 @@ class TMDBParserTest(TestCase):
         self.assertEqual(2017, parsed_movie.year)
         self.assertEqual("334376", parsed_movie.site_data[Site.TMDB].id)
         self.assertEqual(
-            "https://www.themoviedb.org/movie/334376", parsed_movie.site_data[Site.TMDB].url
+            "https://www.themoviedb.org/movie/334376",
+            parsed_movie.site_data[Site.TMDB].url,
         )
         self.assertEqual(6, parsed_movie.site_data[Site.TMDB].my_rating)

@@ -32,15 +32,15 @@ class ICheckMoviesRatingsParser(RatingsParser):
         self._parse_movie_listing_page(movie_ratings_page)
 
     def _parse_movie_tile(self, movie_tile):
-        movie = Movie()
-        movie.title = self._get_movie_title(movie_tile)
-        movie.site_data[self.site.site] = SiteSpecificMovieData()
-        movie.site_data[self.site.site].id = self._get_movie_id(movie_tile)
-        movie.site_data[self.site.site].url = self._get_movie_url(movie_tile)
-        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
-            movie_tile
+        movie = Movie(
+            title=self._get_movie_title(movie_tile),
+            year=int(movie_tile.find("span", class_="info").find("a").get_text()),
         )
-        movie.year = int(movie_tile.find("span", class_="info").find("a").get_text())
+        movie.site_data[self.site.site] = SiteSpecificMovieData(
+            id=self._get_movie_id(movie_tile),
+            url=self._get_movie_url(movie_tile),
+            my_rating=self._get_movie_my_rating(movie_tile),
+        )
 
         self._parse_external_links(movie, movie_tile)
 

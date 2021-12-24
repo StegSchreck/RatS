@@ -129,6 +129,7 @@ class LetterboxdParserTest(TestCase):
         self.assertEqual("Life", movies[0].title)
         self.assertEqual(2017, movies[0].year)
         self.assertEqual(
-            "https://letterboxd.com/film/life-2017/", movies[0].site_data[Site.LETTERBOXD].url
+            "https://letterboxd.com/film/life-2017/",
+            movies[0].site_data[Site.LETTERBOXD].url,
         )
         self.assertEqual(7, movies[0].site_data[Site.LETTERBOXD].my_rating)

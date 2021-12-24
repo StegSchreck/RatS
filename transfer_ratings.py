@@ -12,7 +12,11 @@ from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.base.movie_entity import Site, Movie
-from RatS.base.base_exceptions import RatSException, NoMoviesForInsertion, NoValidCredentialsException
+from RatS.base.base_exceptions import (
+    RatSException,
+    NoMoviesForInsertion,
+    NoValidCredentialsException,
+)
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter

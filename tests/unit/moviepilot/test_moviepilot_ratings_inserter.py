@@ -14,13 +14,12 @@ class MoviePilotRatingsInserterTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        self.movie = Movie()
-        self.movie.title = "Star Trek"
-        self.movie.year = 1979
-        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData()
-        self.movie.site_data[Site.IMDB].id = "tt0079945"
-        self.movie.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0079945"
-        self.movie.site_data[Site.IMDB].my_rating = 9
+        self.movie = Movie(title="Star Trek", year=1979)
+        self.movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id="tt0079945",
+            url="https://www.imdb.com/title/tt0079945",
+            my_rating=9,
+        )
         with open(
             os.path.join(TESTDATA_PATH, "moviepilot", "search_result.html"),
             encoding="UTF-8",
@@ -99,9 +98,7 @@ class MoviePilotRatingsInserterTest(TestCase):
         inserter.failed_movies = []
         movie_details_mock.return_value = True
 
-        movie2 = Movie()
-        movie2.title = "Fight Club"
-        movie2.year = 1999
+        movie2 = Movie(title="Fight Club", year=1999)
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -128,13 +125,12 @@ class MoviePilotRatingsInserterTest(TestCase):
         tiles_mock.return_value = self.search_result_tile_list
         equality_mock.return_value = False
 
-        movie2 = Movie()
-        movie2.title = "The Matrix"
-        movie2.year = 1995
-        movie2.site_data[Site.IMDB] = SiteSpecificMovieData()
-        movie2.site_data[Site.IMDB].id = "tt0137523"
-        movie2.site_data[Site.IMDB].url = "https://www.imdb.com/title/tt0137523"
-        movie2.site_data[Site.IMDB].my_rating = 9
+        movie2 = Movie(title="The Matrix", year=1995)
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id="tt0137523",
+            url="https://www.imdb.com/title/tt0137523",
+            my_rating=9,
+        )
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 

@@ -38,15 +38,14 @@ class FlixsterRatingsParser(RatingsParser):
 
     @staticmethod
     def _parse_movie_json(movie_json):
-        movie = Movie()
-        movie.title = movie_json["movie"]["title"]
-        movie.year = int(movie_json["movie"]["year"])
-
-        movie.site_data[Site.FLIXSTER] = SiteSpecificMovieData()
-        movie.site_data[Site.FLIXSTER].id = movie_json["movie"]["id"]
-        movie.site_data[Site.FLIXSTER].url = movie_json["movie"]["url"].replace(
-            "http://", "https://"
+        movie = Movie(
+            title=movie_json["movie"]["title"], year=int(movie_json["movie"]["year"])
         )
-        movie.site_data[Site.FLIXSTER].my_rating = int(float(movie_json["score"]) * 2)
+
+        movie.site_data[Site.FLIXSTER] = SiteSpecificMovieData(
+            id=movie_json["movie"]["id"],
+            url=movie_json["movie"]["url"].replace("http://", "https://"),
+            my_rating=int(float(movie_json["score"]) * 2),
+        )
 
         return movie

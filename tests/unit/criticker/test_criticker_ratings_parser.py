@@ -43,7 +43,9 @@ class CritickerParserTest(TestCase):
 
         self.assertEqual(1531, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER])
+        )
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual(1999, parser.movies[0].year)
         self.assertEqual("1077", parser.movies[0].site_data[Site.CRITICKER].id)
@@ -52,10 +54,13 @@ class CritickerParserTest(TestCase):
             parser.movies[0].site_data[Site.CRITICKER].url,
         )
         self.assertEqual(10, parser.movies[0].site_data[Site.CRITICKER].my_rating)
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER])
+        )
         self.assertEqual("tt0137523", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
-            "https://www.imdb.com/title/tt0137523", parser.movies[0].site_data[Site.IMDB].url
+            "https://www.imdb.com/title/tt0137523",
+            parser.movies[0].site_data[Site.IMDB].url,
         )
 
         os.remove(os.path.join(TESTDATA_PATH, "exports", parser.xml_filename))

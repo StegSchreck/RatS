@@ -56,8 +56,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         self.site.browser.find_element(By.XPATH, input_xpath).click()
 
     def _convert_csv_row_to_movie(self, headers, row):
-        movie = Movie()
-        movie.title = row[headers.index("MovieTitle")]
+        movie = Movie(title=row[headers.index("MovieTitle")])
         movie.site_data[self.site.site] = SiteSpecificMovieData()
         parsed_rating = int(row[headers.index("Score")])
         movie.site_data[self.site.site].my_rating = parsed_rating * 2
@@ -74,8 +73,8 @@ class FilmtipsetRatingsParser(RatingsDownloader):
         except ValueError:
             return
 
-        imdb = SiteSpecificMovieData()
-        imdb.id = f"tt{int(imdb_id):07d}"
-        imdb.url = f"https://www.imdb.com/title/{imdb.id}"
-
-        movie.site_data[Site.IMDB] = imdb
+        formatted_imdb_id = f"tt{int(imdb_id):07d}"
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData(
+            id=formatted_imdb_id,
+            url=f"https://www.imdb.com/title/{formatted_imdb_id}",
+        )

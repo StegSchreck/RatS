@@ -48,7 +48,9 @@ class FilmAffinityRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FILMAFFINITY]))
+        self.assertEqual(
+            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FILMAFFINITY])
+        )
         self.assertEqual("Vollidiot", parser.movies[0].title)
         self.assertEqual("125089", parser.movies[0].site_data[Site.FILMAFFINITY].id)
         self.assertEqual(
