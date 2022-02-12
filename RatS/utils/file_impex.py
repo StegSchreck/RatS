@@ -25,7 +25,11 @@ def load_movies_from_json(
     folder: str = EXPORTS_FOLDER, filename: str = "import.json"
 ) -> List[Movie]:
     with open(os.path.join(folder, filename), encoding="UTF-8") as input_file:
-        return json.load(input_file, object_hook=Movie.from_json)
+        print(filename)
+        # return json.load(input_file, object_hook=Movie.from_json)  # TODO #170
+        load = json.loads(input_file.read())
+        print(load)
+        return [Movie.from_json(item) for item in load]
 
 
 def save_movies_to_json(
@@ -61,8 +65,10 @@ def load_movies_from_csv(filepath: str, encoding: str = "UTF-8") -> List[Movie]:
 
 
 def convert_csv_row_to_movie(headers, row) -> Movie:
+    movie_year = row[headers.index("Year")]
     movie = Movie(
-        title=row[headers.index("Title")], year=int(row[headers.index("Year")])
+        title=row[headers.index("Title")],
+        year=int(movie_year) if movie_year else 0,
     )
     movie.site_data[Site.IMDB] = SiteSpecificMovieData(
         id=row[headers.index("Const")],

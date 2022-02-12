@@ -47,10 +47,10 @@ class LetterboxdRatingsParser(RatingsDownloader):
         self.site.browser.get("https://letterboxd.com/data/export/")
 
     def _convert_csv_row_to_movie(self, headers, row):
-        movie_year = int(row[headers.index("Year")]) if row[headers.index("Year")] else None
+        movie_year = row[headers.index("Year")]
         movie = Movie(
             title=row[headers.index("Name")],
-            year=movie_year,
+            year=int(movie_year) if movie_year else None,
         )
         movie_url = row[headers.index("Letterboxd URI")].replace("http://", "https://")
         movie.site_data[self.site.site] = SiteSpecificMovieData(

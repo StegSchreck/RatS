@@ -4,6 +4,6 @@ configparser==5.3.0
 progressbar2==4.0.0
 selenium==4.4.3
 xvfbwrapper==0.2.9
-black==20.8b1
-pydantic==1.7.3
+black==22.1.0
+pydantic==1.9.0
 jsonpickle

@@ -78,7 +78,7 @@ class RatingsParser:
         sys.stdout.flush()
 
         for page_number in range(1, pages_count + 1):
-            self.site.open_url_with_521_retry(self._get_ratings_page(1))
+            self.site.open_url_with_521_retry(self._get_ratings_page(page_number))
             movie_listing_page = BeautifulSoup(
                 self.site.browser.page_source, "html.parser"
             )
@@ -128,9 +128,10 @@ class RatingsParser:
             self.progress_bar = ProgressBar(
                 max_value=self.movies_count, redirect_stdout=True
             )
-        self.progress_bar.update(len(self.movies))
-        if self.movies_count == len(self.movies):
+        if len(self.movies) >= self.movies_count:
             self.progress_bar.finish()
+        else:
+            self.progress_bar.update(len(self.movies))
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):

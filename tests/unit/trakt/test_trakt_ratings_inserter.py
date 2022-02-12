@@ -88,7 +88,7 @@ class TraktRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         result = inserter._compare_external_links(
-            self.movie_details_page, self.movie, "imdb.com", Site.TMDB
+            self.movie_details_page, self.movie, "imdb.com", Site.IMDB
         )  # pylint: disable=protected-access
 
         self.assertTrue(result)
@@ -113,7 +113,7 @@ class TraktRatingsInserterTest(TestCase):
         )
 
         result = inserter._compare_external_links(
-            self.movie_details_page, movie2, "imdb.com", Site.TMDB
+            self.movie_details_page, movie2, "imdb.com", Site.IMDB
         )  # pylint: disable=protected-access
 
         self.assertTrue(result)

@@ -27,10 +27,9 @@ class SiteSpecificMovieData(BaseModel):
     id: Optional[str]
     url: Optional[str]
     my_rating: Optional[int]  # 1 - 10
-    # average_rating: float  # 1.0 - 10.0
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return dict(self)
 
     def __repr__(self):
         return self.__str__()
@@ -58,22 +57,27 @@ class Movie(BaseModel):
         return self.__str__()
 
     def to_json(self):
-        to_return = {"title": self.title, "year": self.year}
+        movie_json = {"title": self.title, "year": self.year}
         site_data = {}
         for key, site_specific_movie_data in self.site_data.items():
             site_data[key] = site_specific_movie_data.to_json()
 
-        to_return["siteData"] = site_data
-        return to_return
+        movie_json["site_data"] = site_data
+        # TODO #170 - somehow the site_data breaks the file_import
+        #   raise JSONDecodeError("Expecting value", s, err.value) from None
+        #   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+        #   --- it's not about "null" values in movielens
+        #   --- maybe it's the Site enum??
+        return movie_json
 
     @staticmethod
-    def from_json(json_dct):
-        if "id" in json_dct.keys():
-            return SiteSpecificMovieData.from_json(json_dct)
-        elif "siteData" in json_dct.keys():
+    def from_json(movie_json):
+        if "id" in movie_json.keys():
+            return SiteSpecificMovieData.from_json(movie_json)
+        elif "siteData" in movie_json.keys():
             return Movie(
-                title=json_dct["title"],
-                year=json_dct["year"] if "year" in json_dct else None,
+                title=movie_json["title"],
+                year=movie_json["year"] if "year" in movie_json else None,
             )
         else:
-            return json_dct
+            return movie_json

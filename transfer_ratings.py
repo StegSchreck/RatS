@@ -147,7 +147,7 @@ def parse_args():
 
 def get_parser_from_arg(
     param: str,
-) -> type:  # TODO make the argument a Site and the return type a RatingsParser
+) -> type:  # TODO #170 - make the argument a Site and the return type a RatingsParser
     try:
         return PARSERS.get(Site(param.upper()))
     except (KeyError, ValueError):
@@ -161,7 +161,7 @@ def get_parser_from_arg(
 
 def get_inserter_from_arg(
     param: str,
-) -> type:  # TODO make the argument a Site and the return type a RatingsInserter
+) -> type:  # TODO #170 - make the argument a Site and the return type a RatingsInserter
     try:
         return INSERTERS.get(Site(param.upper()))
     except (KeyError, ValueError):
@@ -185,7 +185,7 @@ def execute(args):
 def execute_inserting(args, movies: List[Movie], parser: RatingsParser):
     if not args.all_destinations and not args.destination:
         return
-    destinations: List[str] = (  # TODO make this a List[Site]
+    destinations: List[str] = (  # TODO #170 - make this a List[Site]
         [inserter.name for inserter in INSERTERS.keys()]
         if args.all_destinations
         else [destination.upper() for destination in args.destination]

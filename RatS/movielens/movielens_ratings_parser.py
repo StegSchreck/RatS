@@ -61,7 +61,7 @@ class MovielensRatingsParser(RatingsDownloader):
             imdb_id = f"tt{imdb_id}"
         movie.site_data[Site.IMDB] = SiteSpecificMovieData(
             id=imdb_id,
-            url=f"https://www.imdb.com/title/{movie.site_data[Site.IMDB].id}",
+            url=f"https://www.imdb.com/title/{imdb_id}",
         )
 
     @staticmethod
