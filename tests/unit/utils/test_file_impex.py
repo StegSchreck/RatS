@@ -36,8 +36,9 @@ class FileHandlerTest(TestCase):
         )
 
     def test_load_movies_from_json(self):
-        movies = file_impex.load_movies_from_json(
-            folder=os.path.join(TESTDATA_PATH, "trakt"), filename="exports.json"
+        movies: List[Movie] = file_impex.load_movies_from_json(
+            folder=os.path.join(TESTDATA_PATH, "trakt"),
+            filename="exports.json",
         )
         self.assertEqual(1, len(movies))
         self.assertEqual(list, type(movies))
