@@ -78,7 +78,7 @@ _Please note: This is currently not working on Windows. See issue #19_
     ```
 
     Please see the RatS/credentials.cfg.orig in this repository as a template. Please enter your credentials as they are, without any quotation marks.
-3. Get the Docker image: `docker pull stegschreck/rats`
+3. Get the Docker image: `docker pull ghcr.io/stegschreck/rats/rats:latest`
 4. Run the script: `docker run -it -v ~/.RatS.cfg:/RatS/RatS/credentials.cfg stegschreck/rats python3 transfer_ratings.py --source trakt --destination movielens`
 
     The `-v ~/.RatS.cfg:/RatS/RatS/credentials.cfg` option will load the credentials file you just created from your home directory into the docker container, so that the script can use it.
