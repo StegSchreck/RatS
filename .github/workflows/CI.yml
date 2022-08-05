@@ -8,9 +8,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
     - name: Install dependencies
@@ -26,11 +26,14 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install pytest pytest-cov codacy-coverage
+        pip install pytest pytest-cov
         pytest --cov RatS --cov-report term-missing --cov-report xml
-        python-codacy-coverage -r coverage.xml
-      env:
-        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+    - name: Codacy Coverage Reporter
+      uses: codacy/codacy-coverage-reporter-action@v1.3.0
+      with:
+        api-token: ${{ secrets.CODACY_API_TOKEN }}
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        language: python
 
   docker:
     needs: build
@@ -38,7 +41,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: Publish to GitHub Docker Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -54,7 +57,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: Create Release
       if: success() && startsWith(github.ref, 'refs/tags/')
       id: create_release
