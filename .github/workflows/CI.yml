@@ -44,6 +44,7 @@ jobs:
   docker:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref_name == 'master'
 
     steps:
     - name: Checkout code
@@ -60,6 +61,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref_name == 'master'
 
     steps:
     - name: Checkout code
