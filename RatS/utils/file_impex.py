@@ -5,7 +5,7 @@ import os
 import sys
 import time
 import zipfile
-from typing import List
+from typing import List, Dict
 
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 
@@ -25,10 +25,7 @@ def load_movies_from_json(
     folder: str = EXPORTS_FOLDER, filename: str = "import.json"
 ) -> List[Movie]:
     with open(os.path.join(folder, filename), encoding="UTF-8") as input_file:
-        print(filename)
-        # return json.load(input_file, object_hook=Movie.from_json)  # TODO #170
-        load = json.loads(input_file.read())
-        print(load)
+        load: Dict = json.loads(input_file.read())
         return [Movie.from_json(item) for item in load]
 
 

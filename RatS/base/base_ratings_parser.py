@@ -49,8 +49,8 @@ class RatingsParser:
         return self.movies
 
     def _parse_ratings(self):
-        movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         time.sleep(1)
+        movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
 
         pages_count: int = self._retrieve_pages_count_and_movies_count(
             movie_ratings_page

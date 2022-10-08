@@ -35,10 +35,13 @@ class IMDB(BaseSite):
             )
             > 0
         ):
+            # time.sleep(30)  # activate this line and handle the captcha manually once using the -x command line option
             self.browser_handler.kill()
             raise CaptchaPresentException(
                 f"Login to {self.site_name} failed.\r\n"
                 "There seems to be a Captcha challenge present for the login. Please try again later.\r\n"
+                "You can also insert a timeout in the code and use the '-x' command line argument "
+                "to handle the captcha manually once.\r\n"
             )
 
     @classmethod
