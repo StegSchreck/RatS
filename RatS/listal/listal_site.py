@@ -1,4 +1,7 @@
 from RatS.base.base_site import Site
+import sys
+import time
+
 from RatS.utils import command_line
 
 
@@ -19,8 +22,16 @@ class Listal(Site):
             f"https://{self.USERNAME}.listal.com/movies/all/1/?rating=1"
         )
 
+    def login(self):
+        sys.stdout.write(f"===== {self.site_displayname}: performing login")
+        sys.stdout.flush()
+        self.open_url_with_521_retry(self.LOGIN_PAGE)
+        time.sleep(1)
+        self._insert_login_credentials()
+        self._click_login_button()
+
     def _get_login_page_url(self):
-        return "https://www.listal.com/login"
+        return "https://www.listal.com/login-iframe"
 
     def handle_request_blocked_by_website(self):
         if "stackpath" in self.browser.page_source:
