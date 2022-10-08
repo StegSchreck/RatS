@@ -26,9 +26,7 @@ class Criticker(BaseSite):
             return
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
-            cookie_accept_buttons = cookie_notice.find_elements(
-                By.ID, "cookieagree"
-            )
+            cookie_accept_buttons = cookie_notice.find_elements(By.ID, "cookieagree")
             if cookie_accept_buttons is not None and len(cookie_accept_buttons) > 0:
                 cookie_accept_buttons[0].click()
                 time.sleep(1)

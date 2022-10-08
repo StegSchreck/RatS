@@ -10,9 +10,7 @@ class ICheckMovies(BaseSite):
         self.LOGIN_USERNAME_SELECTOR = (
             login_form_selector + "//input[@id='UsernameOrEmail']"
         )
-        self.LOGIN_PASSWORD_SELECTOR = (
-            login_form_selector + "//input[@id='Password']"
-        )
+        self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='Password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(ICheckMovies, self).__init__(args)
         self.MY_RATINGS_URL = "https://www.icheckmovies.com/movies/favorited/"
