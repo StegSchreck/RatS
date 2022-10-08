@@ -26,7 +26,7 @@ class MovielensSiteTest(TestCase):
     def test_get_json_from_html(self, init_browser_mock, browser_mock):
         site = Movielens(None)
         site.browser = browser_mock
-        browser_mock.find_element_by_tag_name.return_value.text = self.my_ratings_pre
+        browser_mock.find_element.return_value.text = self.my_ratings_pre
 
         result = site.get_json_from_html()
 
