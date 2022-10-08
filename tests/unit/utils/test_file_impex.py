@@ -46,14 +46,24 @@ class FileHandlerTest(TestCase):
         self.assertEqual("Fight Club", movies[0].title)
         self.assertEqual(1999, movies[0].year)
 
-        self.assertEqual(SiteSpecificMovieData, type(movies[0].site_data.get(Site.IMDB)))
+        self.assertEqual(
+            SiteSpecificMovieData, type(movies[0].site_data.get(Site.IMDB))
+        )
         self.assertEqual("tt0137523", movies[0].site_data.get(Site.IMDB).id)
-        self.assertEqual("https://www.imdb.com/title/tt0137523/", movies[0].site_data.get(Site.IMDB).url)
+        self.assertEqual(
+            "https://www.imdb.com/title/tt0137523/",
+            movies[0].site_data.get(Site.IMDB).url,
+        )
         self.assertEqual(10, movies[0].site_data.get(Site.IMDB).my_rating)
 
-        self.assertEqual(SiteSpecificMovieData, type(movies[0].site_data.get(Site.TRAKT)))
+        self.assertEqual(
+            SiteSpecificMovieData, type(movies[0].site_data.get(Site.TRAKT))
+        )
         self.assertEqual("432", movies[0].site_data.get(Site.TRAKT).id)
-        self.assertEqual("https://trakt.tv/movies/fight-club-1999", movies[0].site_data.get(Site.TRAKT).url)
+        self.assertEqual(
+            "https://trakt.tv/movies/fight-club-1999",
+            movies[0].site_data.get(Site.TRAKT).url,
+        )
         self.assertEqual(10, movies[0].site_data.get(Site.TRAKT).my_rating)
 
     def test_save_empty_movies_to_json(self):

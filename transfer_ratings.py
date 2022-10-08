@@ -55,7 +55,7 @@ EXPORTS_FOLDER = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "RatS", "exports")
 )
 
-PARSERS: Mapping[Site, type] = {
+PARSERS: Mapping[Site, RatingsParser] = {
     Site.ALLOCINE: AlloCineRatingsParser,
     Site.CRITICKER: CritickerRatingsParser,
     Site.FILMAFFINITY: FilmAffinityRatingsParser,
@@ -72,7 +72,7 @@ PARSERS: Mapping[Site, type] = {
     Site.TMDB: TMDBRatingsParser,
     Site.TRAKT: TraktRatingsParser,
 }
-INSERTERS: Mapping[Site, type] = {
+INSERTERS: Mapping[Site, RatingsInserter] = {
     Site.ALLOCINE: AlloCineRatingsInserter,
     Site.CRITICKER: CritickerRatingsInserter,
     Site.FILMAFFINITY: FilmAffinityRatingsInserter,
@@ -146,12 +146,12 @@ def parse_args():
 
 
 def get_parser_from_arg(
-    param: str,
-) -> type:  # TODO #170 - make the argument a Site and the return type a RatingsParser
+    site: Site,
+) -> RatingsParser:
     try:
-        return PARSERS.get(Site(param.upper()))
+        return PARSERS.get(site)
     except (KeyError, ValueError):
-        command_line.error(f"No parser matching '{param}' found.")
+        command_line.error(f"No parser matching '{site.name}' found.")
         sys.stdout.write("Available parsers:\r\n")
         for parser in PARSERS:
             sys.stdout.write(f" - {parser} \n")
@@ -160,12 +160,12 @@ def get_parser_from_arg(
 
 
 def get_inserter_from_arg(
-    param: str,
-) -> type:  # TODO #170 - make the argument a Site and the return type a RatingsInserter
+    site: Site,
+) -> RatingsInserter:
     try:
-        return INSERTERS.get(Site(param.upper()))
+        return INSERTERS.get(site)
     except (KeyError, ValueError):
-        command_line.error(f"No inserter matching '{param}' found.")
+        command_line.error(f"No inserter matching '{site.name}' found.")
         sys.stdout.write("Available inserters:\r\n")
         for inserter in INSERTERS:
             sys.stdout.write(f" - {inserter} \n")
@@ -175,7 +175,8 @@ def get_inserter_from_arg(
 
 def execute(args):
     try:
-        parser: RatingsParser = get_parser_from_arg(args.source)(args)
+        site: Site = Site(args.source.upper())
+        parser: RatingsParser = get_parser_from_arg(site)(args)
         movies: List[Movie] = execute_parsing(args, parser)
         execute_inserting(args, movies, parser)
     except RatSException as e:
@@ -185,10 +186,10 @@ def execute(args):
 def execute_inserting(args, movies: List[Movie], parser: RatingsParser):
     if not args.all_destinations and not args.destination:
         return
-    destinations: List[str] = (  # TODO #170 - make this a List[Site]
-        [inserter.name for inserter in INSERTERS.keys()]
+    destinations: List[Site] = (
+        [inserter for inserter in INSERTERS.keys()]
         if args.all_destinations
-        else [destination.upper() for destination in args.destination]
+        else [Site(destination.upper()) for destination in args.destination]
     )
     _filter_source_site_from_destinations(destinations, parser.site.site_name)
     if destinations:
@@ -267,7 +268,7 @@ def insert_movie_ratings(inserter: RatingsInserter, movies: List[Movie], source:
         except RatSException as e:
             command_line.error(str(e))
         except Exception:  # pylint: disable=broad-except
-            # exception should be logged in a file --> issue #15
+            # TODO exception should be logged in a file --> issue #15
             sys.stdout.flush()
             inserter.site.browser_handler.kill()
             command_line.error(
