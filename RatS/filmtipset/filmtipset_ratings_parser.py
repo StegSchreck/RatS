@@ -4,6 +4,8 @@ import os
 import re
 from shutil import copyfile
 
+from selenium.webdriver.common.by import By
+
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.filmtipset.filmtipset_site import Filmtipset
 
@@ -50,7 +52,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
 
     def _call_download_url(self):
         input_xpath = '//input[@id="submit-export"]'
-        self.site.browser.find_element_by_xpath(input_xpath).click()
+        self.site.browser.find_element(By.XPATH, input_xpath).click()
 
     def _convert_csv_row_to_movie(self, headers, row):
         movie = dict()

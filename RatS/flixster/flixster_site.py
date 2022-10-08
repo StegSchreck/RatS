@@ -1,4 +1,5 @@
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 
 class Flixster(Site):
@@ -18,8 +19,8 @@ class Flixster(Site):
             "https://www.flixster.com/user/current/ratings/markup/?pagesize=100"
         )
         account_link = (
-            self.browser.find_element_by_id("profileDropdown")
-            .find_element_by_tag_name("a")
+            self.browser.find_element(By.ID, "profileDropdown")
+            .find_element(By.TAG_NAME, "a")
             .get_attribute("href")
         )
         self.USERID = int(account_link.replace("https://www.flixster.com/user/", ""))

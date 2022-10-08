@@ -1,4 +1,5 @@
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 LOGIN_BUTTON_SELECTOR = '//span[@id="submit" and @class="loginbutton"]'
 
@@ -15,4 +16,4 @@ class Filmtipset(Site):
         return "https://www.filmtipset.se"
 
     def _pre_login_action(self):
-        self.browser.find_element_by_xpath("//a[@id='logintoggle']").click()
+        self.browser.find_element(By.XPATH, "//a[@id='logintoggle']").click()

@@ -1,6 +1,7 @@
 import re
 import time
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import ui
 
 from RatS.base.base_site import Site
@@ -21,7 +22,7 @@ class Plex(Site):
 
     def _insert_login_credentials(self):
         time.sleep(2)
-        self.browser.find_element_by_xpath(self.LOGIN_METHOD_EMAIL_SELECTOR).click()
+        self.browser.find_element(By.XPATH, self.LOGIN_METHOD_EMAIL_SELECTOR).click()
         time.sleep(0.5)
         Site._insert_login_credentials(self)
 
@@ -42,17 +43,17 @@ class Plex(Site):
         self.browser.get(f"http://{self.BASE_URL}/web/index.html#'")
         wait = ui.WebDriverWait(self.browser, 600)
         wait.until(
-            lambda driver: driver.find_element_by_xpath(
-                "//button[@data-qa-id='metadataPosterMoreButton']"
+            lambda driver: driver.find_element(
+                By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']"
             )
         )
 
-        self.browser.find_elements_by_xpath(
-            "//button[@data-qa-id='metadataPosterMoreButton']"
+        self.browser.find_elements(
+            By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']"
         )[0].click()
-        self.browser.find_elements_by_xpath("//button[@role='menuitem']")[-1].click()
-        link_to_xml = self.browser.find_element_by_xpath(
-            "//div[@class='modal-footer']//a"
+        self.browser.find_elements(By.XPATH, "//button[@role='menuitem']")[-1].click()
+        link_to_xml = self.browser.find_element(
+            By.XPATH, "//div[@class='modal-footer']//a"
         ).get_attribute("href")
         plex_token = re.findall(r"X-Plex-Token=(\w+)", link_to_xml)[0]
 

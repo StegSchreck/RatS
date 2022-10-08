@@ -2,6 +2,7 @@ import time
 
 from RatS.base.base_site import Site
 from RatS.base.captcha_present_exception import CaptchaPresentException
+from selenium.webdriver.common.by import By
 
 
 class IMDB(Site):
@@ -26,8 +27,8 @@ class IMDB(Site):
     def _handle_captcha_challenge_if_present(self):
         if (
             len(
-                self.browser.find_elements_by_xpath(
-                    "//div[@id='auth-captcha-image-container']"
+                self.browser.find_elements(
+                    By.XPATH, "//div[@id='auth-captcha-image-container']"
                 )
             )
             > 0

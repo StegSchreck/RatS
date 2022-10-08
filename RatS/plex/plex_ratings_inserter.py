@@ -51,7 +51,7 @@ class PlexRatingsInserter(RatingsInserter):
 
     def _wait_for_movie_page_to_be_loaded(self):
         wait = ui.WebDriverWait(self.site.browser, 120)
-        wait.until(lambda driver: driver.find_element_by_class_name("loading"))
+        wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "loading"))
         WebDriverWait(self.site.browser, 120).until(
             expected_conditions.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading")

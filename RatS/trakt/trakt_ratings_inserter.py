@@ -2,6 +2,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.imdb.imdb_site import IMDB
@@ -72,12 +73,12 @@ class TraktRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        user_rating_section = self.site.browser.find_element_by_class_name(
-            "summary-user-rating"
+        user_rating_section = self.site.browser.find_element(
+            By.CLASS_NAME, "summary-user-rating"
         )
-        user_rating = user_rating_section.find_element_by_class_name(
-            "number"
-        ).find_elements_by_class_name("rating")
+        user_rating = user_rating_section.find_element(
+            By.CLASS_NAME, "number"
+        ).find_elements(By.CLASS_NAME, "rating")
         if user_rating:
             current_rating = int(user_rating[0].text)
         else:

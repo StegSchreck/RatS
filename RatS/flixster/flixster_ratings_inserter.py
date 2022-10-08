@@ -4,6 +4,7 @@ import urllib.parse
 
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.flixster.flixster_site import Flixster
@@ -22,8 +23,8 @@ class FlixsterRatingsInserter(RatingsInserter):
             return False  # no search results
 
         try:
-            self.site.browser.find_element_by_xpath(
-                "//a[@href='#results_movies_tab']"
+            self.site.browser.find_element(
+                By.XPATH, "//a[@href='#results_movies_tab']"
             ).click()
         except NoSuchElementException:
             return False
@@ -52,13 +53,13 @@ class FlixsterRatingsInserter(RatingsInserter):
     def _is_empty_search_result(self):
         return (
             "Sorry, no results found for"
-            in self.site.browser.find_element_by_tag_name("h1").text
+            in self.site.browser.find_element(By.TAG_NAME, "h1").text
         )
 
     def _is_internal_server_error(self):
         return (
             "Sorry, we're having some technical difficulties"
-            in self.site.browser.find_element_by_tag_name("h1").text
+            in self.site.browser.find_element(By.TAG_NAME, "h1").text
         )
 
     def _search_for_movie(self, movie):
@@ -95,8 +96,8 @@ class FlixsterRatingsInserter(RatingsInserter):
         return success
 
     def _click_rating(self, my_rating):
-        movie_id = self.site.browser.find_element_by_xpath(
-            "//meta[@name='movieID']"
+        movie_id = self.site.browser.find_element(
+            By.XPATH, "//meta[@name='movieID']"
         ).get_attribute("content")
         converted_rating = str(float(my_rating) / 2)
 
