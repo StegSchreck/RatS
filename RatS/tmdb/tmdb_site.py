@@ -1,6 +1,7 @@
 import time
 
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 
 class TMDB(Site):
@@ -18,12 +19,12 @@ class TMDB(Site):
         return "https://www.themoviedb.org/login"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_notices = self.browser.find_elements_by_id("cookie_notice")
+        cookie_notices = self.browser.find_elements(By.ID, "cookie_notice")
         if len(cookie_notices) == 0:
             return
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
-            cookie_accept_button = cookie_notice.find_elements_by_class_name("accept")
+            cookie_accept_button = cookie_notice.find_elements(By.CLASS_NAME, "accept")
             if cookie_accept_button is not None and len(cookie_accept_button) > 0:
                 cookie_accept_button[0].click()
                 time.sleep(1)

@@ -1,6 +1,7 @@
 import time
 
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 
 class MoviePilot(Site):
@@ -18,8 +19,8 @@ class MoviePilot(Site):
         return "https://www.moviepilot.de/login"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_notice_agree_buttons = self.browser.find_elements_by_id(
-            "didomi-notice-agree-button"
+        cookie_notice_agree_buttons = self.browser.find_elements(
+            By.ID, "didomi-notice-agree-button"
         )
         if len(cookie_notice_agree_buttons) == 0:
             return

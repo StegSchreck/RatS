@@ -6,6 +6,7 @@ import json
 import os
 from configparser import RawConfigParser
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from RatS.base.login_failed_exception import LoginFailedException
 from RatS.base.site_not_reachable_exception import SiteNotReachableException
@@ -128,39 +129,39 @@ class Site:
 
     def _user_is_not_logged_in(self):
         return (
-            len(self.browser.find_elements_by_xpath(self.LOGIN_BUTTON_SELECTOR)) > 0
-            and len(self.browser.find_elements_by_xpath(self.LOGIN_USERNAME_SELECTOR))
+            len(self.browser.find_elements(By.XPATH, self.LOGIN_BUTTON_SELECTOR)) > 0
+            and len(self.browser.find_elements(By.XPATH, self.LOGIN_USERNAME_SELECTOR))
             > 0
-            and len(self.browser.find_elements_by_xpath(self.LOGIN_PASSWORD_SELECTOR))
+            and len(self.browser.find_elements(By.XPATH, self.LOGIN_PASSWORD_SELECTOR))
             > 0
         )
 
     def _insert_login_credentials(self):
-        login_field_user = self.browser.find_element_by_xpath(
-            self.LOGIN_USERNAME_SELECTOR
+        login_field_user = self.browser.find_element(
+            By.XPATH, self.LOGIN_USERNAME_SELECTOR
         )
         login_field_user.clear()
         login_field_user.send_keys(self.USERNAME)
-        login_field_password = self.browser.find_element_by_xpath(
-            self.LOGIN_PASSWORD_SELECTOR
+        login_field_password = self.browser.find_element(
+            By.XPATH, self.LOGIN_PASSWORD_SELECTOR
         )
         login_field_password.clear()
         login_field_password.send_keys(self.PASSWORD)
 
     def _click_login_button(self):
-        login_button = self.browser.find_element_by_xpath(self.LOGIN_BUTTON_SELECTOR)
+        login_button = self.browser.find_element(By.XPATH, self.LOGIN_BUTTON_SELECTOR)
         login_button.click()
         time.sleep(2)  # wait for page to load
 
     def get_json_from_html(self):
-        response = self.browser.find_element_by_tag_name("pre").text.strip()
+        response = self.browser.find_element(By.TAG_NAME, "pre").text.strip()
         return json.loads(response)
 
     def open_url_with_521_retry(self, url):
         iteration = 0
         self.browser.get(url)
 
-        while len(self.browser.find_elements_by_id("cf-error-details")) > 0:
+        while len(self.browser.find_elements(By.ID, "cf-error-details")) > 0:
             if iteration >= 10:
                 raise SiteNotReachableException
             iteration += 1

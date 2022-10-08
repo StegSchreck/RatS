@@ -1,6 +1,8 @@
 import time
 import urllib.parse
 
+from selenium.webdriver.common.by import By
+
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.rottentomatoes.rottentomatoes_site import RottenTomatoes
 
@@ -36,9 +38,9 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
 
     def _click_rating(self, my_rating):
         converted_rating = str(my_rating / 2)
-        if len(self.site.browser.find_elements_by_id("rating-root")) > 0:
+        if len(self.site.browser.find_elements(By.ID, "rating-root")) > 0:
             return
-        movie_id = self.site.browser.find_element_by_id("rating-root").get_attribute(
+        movie_id = self.site.browser.find_element(By.ID, "rating-root").get_attribute(
             "data-movie-id"
         )
 

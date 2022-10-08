@@ -3,6 +3,7 @@ import urllib.parse
 
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.criticker.criticker_site import Criticker
@@ -64,23 +65,23 @@ class CritickerRatingsInserter(RatingsInserter):
     def _post_movie_rating(self, my_rating):
         converted_rating = str(my_rating * 10)
         try:
-            score = self.site.browser.find_element_by_id(
-                "fi_scoring_div"
-            ).find_element_by_class_name("rating")
+            score = self.site.browser.find_element(
+                By.ID, "fi_scoring_div"
+            ).find_element(By.CLASS_NAME, "rating")
             if (
                 score.is_displayed() and not score.text == converted_rating
             ):  # already rated
-                self.site.browser.find_element_by_id("fi_editrating_link").click()
+                self.site.browser.find_element(By.ID, "fi_editrating_link").click()
                 self._insert_rating(converted_rating)
         except NoSuchElementException:  # not rated yet
             self._insert_rating(converted_rating)
 
     def _insert_rating(self, converted_rating):
-        score_input = self.site.browser.find_element_by_xpath(
-            "//*[@id='fi_scoring_div']//input"
+        score_input = self.site.browser.find_element(
+            By.XPATH, "//*[@id='fi_scoring_div']//input"
         )
         score_input.clear()
         score_input.send_keys(str(converted_rating))
-        self.site.browser.find_element_by_xpath(
-            "//*[@id='fi_scoring_div']//button"
+        self.site.browser.find_element(
+            By.XPATH, "//*[@id='fi_scoring_div']//button"
         ).click()

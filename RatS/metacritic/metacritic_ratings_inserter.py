@@ -2,6 +2,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.metacritic.metacritic_site import Metacritic
@@ -44,7 +45,7 @@ class MetacriticRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        stars = self.site.browser.find_element_by_class_name(
-            "user_rating_widget"
-        ).find_elements_by_class_name("ur")
+        stars = self.site.browser.find_element(
+            By.CLASS_NAME, "user_rating_widget"
+        ).find_elements(By.CLASS_NAME, "ur")
         stars[my_rating].click()

@@ -1,6 +1,7 @@
 import time
 
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 
 class RottenTomatoes(Site):
@@ -24,19 +25,23 @@ class RottenTomatoes(Site):
         return "https://www.rottentomatoes.com/"
 
     def _pre_login_action(self):
-        self.browser.find_element_by_xpath("//*[@id='masthead-show-login-btn']").click()
+        self.browser.find_element(
+            By.XPATH, "//*[@id='masthead-show-login-btn']"
+        ).click()
         time.sleep(1)
 
     def _user_is_not_logged_in(self):
         return (
-            len(self.browser.find_elements_by_class_name("masthead-account__user-link"))
+            len(
+                self.browser.find_elements(By.CLASS_NAME, "masthead-account__user-link")
+            )
             == 0
         )
 
     def _get_ratings_url(self):
         time.sleep(1)  # wait for user login status to be checked
-        account_link = self.browser.find_element_by_class_name(
-            "masthead-account__user-link"
+        account_link = self.browser.find_element(
+            By.CLASS_NAME, "masthead-account__user-link"
         ).get_attribute("href")
         self.USERID = account_link.replace(
             "https://www.rottentomatoes.com/user/id/", ""

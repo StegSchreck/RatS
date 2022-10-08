@@ -1,6 +1,7 @@
 import time
 
 from RatS.base.base_site import Site
+from selenium.webdriver.common.by import By
 
 
 class FilmAffinity(Site):
@@ -16,21 +17,23 @@ class FilmAffinity(Site):
         return "https://www.filmaffinity.com/en/login.php"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_notices = self.browser.find_elements_by_id("qc-cmp2-container")
+        cookie_notices = self.browser.find_elements(By.ID, "qc-cmp2-container")
         if len(cookie_notices) == 0:
             return
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
             # agree
-            cookie_accept_button = cookie_notice.find_elements_by_css_selector(
-                "div.qc-cmp2-summary-buttons button"
+            cookie_accept_button = cookie_notice.find_elements(
+                By.CSS_SELECTOR, By.CSS_SELECTOR, "div.qc-cmp2-summary-buttons button"
             )
             if cookie_accept_button is not None and len(cookie_accept_button) > 1:
                 cookie_accept_button[1].click()
                 time.sleep(2)
                 # agree all
-                cookie_accept_button = cookie_notice.find_elements_by_css_selector(
-                    "div.qc-cmp2-buttons-desktop button"
+                cookie_accept_button = cookie_notice.find_elements(
+                    By.CSS_SELECTOR,
+                    By.CSS_SELECTOR,
+                    "div.qc-cmp2-buttons-desktop button",
                 )
                 if cookie_accept_button is not None and len(cookie_accept_button) > 1:
                     cookie_accept_button[1].click()

@@ -1,5 +1,7 @@
 import os
 
+from selenium.webdriver.common.by import By
+
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.imdb.imdb_site import IMDB
 from RatS.utils import file_impex
@@ -13,7 +15,7 @@ class IMDBRatingsParser(RatingsDownloader):
 
     def _get_user_id(self):
         self.site.browser.get("https://www.imdb.com/profile")
-        return self.site.browser.find_elements_by_xpath("//div[@data-userid]")[
+        return self.site.browser.find_elements(By.XPATH, "//div[@data-userid]")[
             0
         ].get_attribute("data-userid")
 

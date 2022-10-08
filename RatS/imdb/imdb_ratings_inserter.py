@@ -3,6 +3,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.imdb.imdb_site import IMDB
@@ -38,19 +39,19 @@ class IMDBRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        user_rating_button = self.site.browser.find_element_by_xpath(
-            "//div[@data-testid='hero-rating-bar__user-rating']/button"
+        user_rating_button = self.site.browser.find_element(
+            By.XPATH, "//div[@data-testid='hero-rating-bar__user-rating']/button"
         )
         self.site.browser.execute_script("arguments[0].click();", user_rating_button)
 
-        stars = self.site.browser.find_elements_by_class_name(
-            "ipc-starbar__rating__button"
+        stars = self.site.browser.find_elements(
+            By.CLASS_NAME, "ipc-starbar__rating__button"
         )
-        rate_button = self.site.browser.find_element_by_class_name(
-            "ipc-rating-prompt__rate-button"
+        rate_button = self.site.browser.find_element(
+            By.CLASS_NAME, "ipc-rating-prompt__rate-button"
         )
         current_rating = len(
-            self.site.browser.find_elements_by_class_name("ipc-starbar__star--active")
+            self.site.browser.find_elements(By.CLASS_NAME, "ipc-starbar__star--active")
         )
         if current_rating == my_rating:
             return

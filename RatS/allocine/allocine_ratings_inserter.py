@@ -3,6 +3,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
 
 from RatS.allocine.allocine_site import AlloCine
 from RatS.base.base_ratings_inserter import RatingsInserter
@@ -57,10 +58,10 @@ class AlloCineRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        user_rating_section = self.site.browser.find_element_by_class_name(
-            "bam-container"
+        user_rating_section = self.site.browser.find_element(
+            By.CLASS_NAME, "bam-container"
         )
-        rating_stars = user_rating_section.find_elements_by_class_name("rating-star")
+        rating_stars = user_rating_section.find_elements(By.CLASS_NAME, "rating-star")
         stars_index = int(my_rating) - 1
         rating_stars[stars_index].click()
         time.sleep(1)

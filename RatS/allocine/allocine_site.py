@@ -1,6 +1,7 @@
 import time
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_site import Site
 
@@ -38,8 +39,8 @@ class AlloCine(Site):
         return "https://mon.allocine.fr/connexion/"
 
     def _get_ratings_url(self):
-        account_link = self.browser.find_element_by_css_selector(
-            "a.icon-profil"
+        account_link = self.browser.find_element(
+            By.CSS_SELECTOR, "a.icon-profil"
         ).get_attribute("href")
         self.USER_ID = account_link.replace("https://www.allocine.fr/", "").split("/")[
             0
@@ -47,13 +48,13 @@ class AlloCine(Site):
         self.MY_RATINGS_URL = f"https://www.allocine.fr/{self.USER_ID}/films/"
 
     def handle_privacy_notice_if_present(self):
-        cookie_notices = self.browser.find_elements_by_id("qcCmpUi")
+        cookie_notices = self.browser.find_elements(By.ID, "qcCmpUi")
         if len(cookie_notices) == 0:
             return
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
-            cookie_accept_button = cookie_notice.find_elements_by_class_name(
-                "qc-cmp-button"
+            cookie_accept_button = cookie_notice.find_elements(
+                By.CLASS_NAME, "qc-cmp-button"
             )
             if cookie_accept_button is not None and len(cookie_accept_button) > 1:
                 cookie_accept_button[1].click()

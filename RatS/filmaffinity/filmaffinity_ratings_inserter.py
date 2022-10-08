@@ -2,6 +2,7 @@ import time
 import urllib.parse
 
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
 
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.filmaffinity.filmaffinity_site import FilmAffinity
@@ -42,8 +43,8 @@ class FilmAffinityRatingsInserter(RatingsInserter):
 
     def _get_displayed_movie_year(self):
         return int(
-            self.site.browser.find_element_by_xpath(
-                "//dd[@itemProp='datePublished']"
+            self.site.browser.find_element(
+                By.XPATH, "//dd[@itemProp='datePublished']"
             ).text
         )
 
@@ -72,11 +73,11 @@ class FilmAffinityRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating):
-        itk = self.site.browser.find_element_by_css_selector(
-            ".rating-select"
+        itk = self.site.browser.find_element(
+            By.CSS_SELECTOR, ".rating-select"
         ).get_attribute("data-itk")
-        movie_id = self.site.browser.find_element_by_css_selector(
-            ".rate-movie-box"
+        movie_id = self.site.browser.find_element(
+            By.CSS_SELECTOR, ".rate-movie-box"
         ).get_attribute("data-movie-id")
 
         self.site.browser.execute_script(
