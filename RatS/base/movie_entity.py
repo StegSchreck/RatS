@@ -73,18 +73,24 @@ class Movie(BaseModel):
             return Movie(
                 title=movie_json["title"],
                 year=movie_json["year"] if "year" in movie_json else None,
-                site_data=_convert_dict_to_movie_site_date(movie_json["site_data"]) if "site_data" in movie_json else None,
+                site_data=_convert_dict_to_movie_site_date(movie_json["site_data"])
+                if "site_data" in movie_json
+                else None,
             )
         else:
             return movie_json
 
 
-def _convert_dict_to_movie_site_date(site_data: Dict) -> Dict[Site, SiteSpecificMovieData]:
+def _convert_dict_to_movie_site_date(
+    site_data: Dict,
+) -> Dict[Site, SiteSpecificMovieData]:
     result: Dict[Site, SiteSpecificMovieData] = dict()
     if not site_data:
         return result
     for site_name, site_data in site_data.items():
         site: Site = Site(site_name.upper())
-        site_specific_movie_data: SiteSpecificMovieData = SiteSpecificMovieData.from_json(site_data)
+        site_specific_movie_data: SiteSpecificMovieData = (
+            SiteSpecificMovieData.from_json(site_data)
+        )
         result[site] = site_specific_movie_data
     return result
