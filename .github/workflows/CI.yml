@@ -44,7 +44,7 @@ jobs:
   docker:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref_name == 'master'
+    if: github.ref_name == 'master' || github.ref_type == 'tag'
 
     steps:
     - name: Checkout code
