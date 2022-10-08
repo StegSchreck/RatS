@@ -48,7 +48,9 @@ class LetterboxdRatingsParser(RatingsDownloader):
     def _convert_csv_row_to_movie(self, headers, row):
         movie = dict()
         movie["title"] = row[headers.index("Name")]
-        movie["year"] = int(row[headers.index("Year")]) if row[headers.index("Year")] else None
+        movie["year"] = (
+            int(row[headers.index("Year")]) if row[headers.index("Year")] else None
+        )
         movie[self.site.site_name.lower()] = dict()
         movie[self.site.site_name.lower()]["url"] = row[
             headers.index("Letterboxd URI")
