@@ -6,12 +6,12 @@ from RatS.icheckmovies.icheckmovies_misconfiguration_exception import (
 
 class ICheckMovies(Site):
     def __init__(self, args):
-        login_form_selector = "//form[@id='login']"
+        login_form_selector = "//form"
         self.LOGIN_USERNAME_SELECTOR = (
-            login_form_selector + "//input[@id='loginUsername']"
+            login_form_selector + "//input[@id='UsernameOrEmail']"
         )
         self.LOGIN_PASSWORD_SELECTOR = (
-            login_form_selector + "//input[@id='loginPassword']"
+            login_form_selector + "//input[@id='Password']"
         )
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(ICheckMovies, self).__init__(args)
