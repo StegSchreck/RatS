@@ -81,19 +81,18 @@ class LetterboxdRatingsInserter(RatingsInserter):
                 continue
 
     def _wait_for_movie_matching(self, wait, movies_count):
-        time.sleep(5)
-        disabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and contains(@class, 'import-button-disabled')]"  # pylint: disable=line-too-long
-        enabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and not(contains(@class, 'import-button-disabled'))]"  # pylint: disable=line-too-long
-
-        wait.until(
-            lambda driver: driver.find_element(
-                By.XPATH, disabled_import_button_selector
-            )
-        )
         sys.stdout.write(
             f"\r\n===== {self.site.site_displayname}: matching the movies...\r\n"
         )
         sys.stdout.flush()
+        # disabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and contains(@class, 'import-button-disabled')]"  # pylint: disable=line-too-long
+        enabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and not(contains(@class, 'import-button-disabled'))]"  # pylint: disable=line-too-long
+
+        # wait.until(
+        #     lambda driver: driver.find_element(
+        #         By.XPATH, disabled_import_button_selector
+        #     )
+        # )
 
         self._print_progress(movies_count)
 
@@ -118,10 +117,14 @@ class LetterboxdRatingsInserter(RatingsInserter):
         )
 
     def _print_progress(self, movies_count):
+        if not self.progress_bar:
+            self.progress_bar = ProgressBar(
+                max_value=movies_count, redirect_stdout=True
+            )
         while (
             len(
                 self.site.browser.find_elements(
-                    By.CSS_SELECTOR, By.CSS_SELECTOR, self.progress_counter_selector
+                    By.CSS_SELECTOR, self.progress_counter_selector
                 )
             )
             != 0
@@ -131,10 +134,6 @@ class LetterboxdRatingsInserter(RatingsInserter):
                     By.CSS_SELECTOR, self.progress_counter_selector
                 ).text
                 counter = int(displayed_counter.replace(",", "").replace(".", ""))
-                if not self.progress_bar:
-                    self.progress_bar = ProgressBar(
-                        max_value=movies_count, redirect_stdout=True
-                    )
                 self.progress_bar.update(counter)
             except (StaleElementReferenceException, NoSuchElementException):
                 pass
