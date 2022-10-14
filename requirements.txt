@@ -5,5 +5,5 @@ progressbar2==4.0.0
 selenium==4.5.0
 xvfbwrapper==0.2.9
 black==22.1.0
-pydantic==1.9.0
+pydantic==1.10.2
 jsonpickle
