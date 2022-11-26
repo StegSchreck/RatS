@@ -1,5 +1,6 @@
 import time
 import urllib.parse
+from typing import List
 
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
@@ -54,16 +55,18 @@ class TraktRatingsInserter(RatingsInserter):
             return year_str != "" and movie.year == int(year_str)
 
     @staticmethod
-    def _compare_external_links(page_source, movie, external_url_base, site: Site):
+    def _compare_external_links(
+        page_source, movie: Movie, external_url_base: str, site: Site
+    ):
         movie_details_page = BeautifulSoup(page_source, "html.parser")
-        external_links = (
+        external_links: List = (
             movie_details_page.find(id="info-wrapper")
             .find("ul", class_="external")
             .find_all("a")
         )
         for link in external_links:
             if external_url_base in link["href"]:
-                if site == Site.IMDB:
+                if site == Site.IMDB and "/title/" in link["href"]:
                     return IMDB.normalize_imdb_id(
                         movie.site_data[Site.IMDB].id
                     ) == IMDB.normalize_imdb_id(link["href"].split("/")[-1])

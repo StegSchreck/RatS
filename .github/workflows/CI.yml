@@ -66,7 +66,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
     - name: Create Release
       uses: softprops/action-gh-release@v0.1.14
       env:
