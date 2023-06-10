@@ -29,7 +29,7 @@ jobs:
         pip install pytest pytest-cov
         pytest --cov RatS --cov-report term-missing --cov-report xml
     - name: Codacy Coverage Reporter
-      if: ${{ github.actor }} != 'dependabot[bot]'
+      if: github.actor != 'dependabot[bot]'
       uses: codacy/codacy-coverage-reporter-action@v1.3.0
       with:
         api-token: ${{ secrets.CODACY_API_TOKEN }}
