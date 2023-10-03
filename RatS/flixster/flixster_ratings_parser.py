@@ -43,7 +43,7 @@ class FlixsterRatingsParser(RatingsParser):
         )
 
         movie.site_data[Site.FLIXSTER] = SiteSpecificMovieData(
-            id=movie_json["movie"]["id"],
+            id=str(movie_json["movie"]["id"]),
             url=movie_json["movie"]["url"].replace("http://", "https://"),
             my_rating=int(float(movie_json["score"]) * 2),
         )

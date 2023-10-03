@@ -4,11 +4,8 @@ import json
 import os
 import time
 from shutil import copyfile
-from types import SimpleNamespace
 from typing import List
 from unittest import TestCase
-
-import jsonpickle
 
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.utils import file_impex

@@ -24,9 +24,9 @@ class Site(str, Enum):
 
 
 class SiteSpecificMovieData(BaseModel):
-    id: Optional[str]
-    url: Optional[str]
-    my_rating: Optional[int]  # 1 - 10
+    id: Optional[str] = None
+    url: Optional[str] = None
+    my_rating: Optional[int] = None  # 1 - 10
 
     def __str__(self):
         return dict(self)
@@ -46,8 +46,8 @@ class SiteSpecificMovieData(BaseModel):
 
 
 class Movie(BaseModel):
-    title: Optional[str]
-    year: Optional[int]
+    title: Optional[str] = None
+    year: Optional[int] = None
     site_data: Dict[Site, SiteSpecificMovieData] = dict()
 
     def __str__(self):
