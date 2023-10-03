@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 
 from RatS.base.base_exceptions import CaptchaPresentException
 from RatS.base.base_site import BaseSite
-from selenium.webdriver.common.by import By
 
 
 class IMDB(BaseSite):
