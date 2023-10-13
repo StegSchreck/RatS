@@ -2,7 +2,7 @@ beautifulsoup4==4.12.2
 bs4==0.0.1
 configparser==6.0.0
 progressbar2==4.2.0
-selenium==4.13.0
+selenium==4.14.0
 xvfbwrapper==0.2.9
 black==23.9.1
 pydantic==2.4.2
