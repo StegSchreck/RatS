@@ -4,7 +4,7 @@ configparser==6.0.0
 progressbar2==4.3.2
 selenium==4.15.2
 xvfbwrapper==0.2.9
-black==23.11.0
+black==23.12.0
 pydantic==2.4.2
 pytest==7.4.3
 pytest-cov==4.1.0
