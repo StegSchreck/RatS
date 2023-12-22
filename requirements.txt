@@ -1,7 +1,7 @@
 beautifulsoup4==4.12.2
 bs4==0.0.1
 configparser==6.0.0
-progressbar2==4.2.0
+progressbar2==4.3.2
 selenium==4.15.2
 xvfbwrapper==0.2.9
 black==23.11.0
