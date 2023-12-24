@@ -14,7 +14,7 @@
 
 This project serves for analyzing, and transferring your ratings from one movie tracking / rating website to another.
 
-The goal of this project is to have a universal tool which can transfer your ratings from any site to another without the need of any manual steps like configuring an API access or whatever. Just configure your credentials (see steps'below), start the tool and relax.
+The goal of this project is to have a universal tool which can transfer your ratings from any site to another without the need of any manual steps like configuring an API access or whatever. Just configure your credentials (see steps below), start the tool and relax.
 
 This also works if your lists are marked as private, as this tool uses a browser to login and get the content.
 
@@ -62,7 +62,7 @@ This project is currently still under development. Please be patient, as I'm onl
 
     For more information about how to use the script, you can call
     `python3 transfer_ratings.py --help`
-7. At the end, the script will print out how many movies were successfully posted. Afterwards all the movies which
+7. At the end, the script will print out how many movies were successfully posted. Afterward, all the movies which
   couldn't be found are printed out, so you can check them manually. The failed movie are also exported to a JSON file, so you can easily try them again (see below).
 
 ### Inside a Docker container
