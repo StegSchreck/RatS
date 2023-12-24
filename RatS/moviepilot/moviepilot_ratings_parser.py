@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.base.base_exceptions import RatSException
-from RatS.base.movie_entity import Movie, SiteSpecificMovieData
+from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
+from RatS.imdb.imdb_site import IMDB
 from RatS.moviepilot.moviepilot_site import MoviePilot
 
 
@@ -62,13 +63,15 @@ class MoviePilotRatingsParser(RatingsParser):
         )
         if self.site.site not in movie.site_data:
             movie.site_data[self.site.site] = SiteSpecificMovieData()
-        json_from_script = movie_details_page.find(
-            "script", attrs={"data-hypernova-key": "FriendsOpinionsModule"}
-        )
-        movie_id = str(re.findall(r"itemId.*:(\d*),", str(json_from_script))[0])
+        json_from_script = movie_details_page.find("script", id="__NEXT_DATA__").get_text()
+        movie_id = str(re.findall(r'"id":\s*(\d*),\s*"title"', str(json_from_script))[0])
+        movie_imdb_id = re.findall(r'"imdbId":\s*"(t?t?\d+)",', str(json_from_script))
         rating = self._get_movie_my_rating(movie_id)
         movie.site_data[self.site.site].id = movie_id
         movie.site_data[self.site.site].my_rating = rating
+        if movie_imdb_id:
+            movie.site_data[Site.IMDB] = SiteSpecificMovieData()
+            movie.site_data[Site.IMDB].id = IMDB.normalize_imdb_id(str(movie_imdb_id[0]))
 
     def _get_movie_my_rating(self, movie_id):
         self.site.browser.get(f"https://www.moviepilot.de/api/movies/{movie_id}/rating")
