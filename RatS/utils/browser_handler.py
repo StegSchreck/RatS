@@ -65,13 +65,13 @@ class BrowserHandler:
         return options
 
     def kill(self):
-        self.browser.service.stop()
         self.browser.stop_client()
         self.browser.close()
         try:
             self.browser.quit()
         except WebDriverException:
             pass
+        self.browser.service.stop()
 
         if self.args and not self.args.show_browser:
             self.display.stop()

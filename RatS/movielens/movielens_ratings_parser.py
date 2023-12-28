@@ -17,7 +17,6 @@ class MovielensRatingsParser(RatingsDownloader):
         )
 
     def _convert_csv_row_to_movie(self, headers, row):
-
         if self.args and self.args.verbose and self.args.verbose >= 1:
             sys.stdout.write(
                 f"\r===== {self.site.site_displayname}: reading movie from CSV: \r\n"
