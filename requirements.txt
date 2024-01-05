@@ -8,4 +8,4 @@ black==23.12.1
 pydantic==2.5.3
 pytest==7.4.4
 pytest-cov==4.1.0
-flake8==6.1.0
+flake8==7.0.0
