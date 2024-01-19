@@ -1,5 +1,5 @@
 beautifulsoup4==4.12.2
-bs4==0.0.1
+bs4==0.0.2
 configparser==6.0.0
 progressbar2==4.3.2
 selenium==4.16.0
