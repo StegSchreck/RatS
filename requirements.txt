@@ -6,6 +6,6 @@ selenium==4.17.2
 xvfbwrapper==0.2.9
 black==24.2.0
 pydantic==2.6.1
-pytest==8.0.0
+pytest==8.0.1
 pytest-cov==4.1.0
 flake8==7.0.0
