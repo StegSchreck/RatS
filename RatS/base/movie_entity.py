@@ -1,6 +1,6 @@
 import json
 from enum import Enum
-from typing import Optional, Dict
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -48,7 +48,7 @@ class SiteSpecificMovieData(BaseModel):
 class Movie(BaseModel):
     title: Optional[str] = None
     year: Optional[int] = None
-    site_data: Dict[Site, SiteSpecificMovieData] = dict()
+    site_data: dict[Site, SiteSpecificMovieData] = dict()
 
     def __str__(self):
         return json.dumps(self.to_json())
@@ -82,15 +82,13 @@ class Movie(BaseModel):
 
 
 def _convert_dict_to_movie_site_date(
-    site_data: Dict,
-) -> Dict[Site, SiteSpecificMovieData]:
-    result: Dict[Site, SiteSpecificMovieData] = dict()
+    site_data: dict,
+) -> dict[Site, SiteSpecificMovieData]:
+    result: dict[Site, SiteSpecificMovieData] = dict()
     if not site_data:
         return result
     for site_name, site_data in site_data.items():
         site: Site = Site(site_name.upper())
-        site_specific_movie_data: SiteSpecificMovieData = (
-            SiteSpecificMovieData.from_json(site_data)
-        )
+        site_specific_movie_data: SiteSpecificMovieData = SiteSpecificMovieData.from_json(site_data)
         result[site] = site_specific_movie_data
     return result

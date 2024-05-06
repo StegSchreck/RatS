@@ -37,9 +37,7 @@ class TMDBRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
-        return movie_listing_page.find(class_="results_page").find_all(
-            "div", class_="card"
-        )
+        return movie_listing_page.find(class_="results_page").find_all("div", class_="card")
 
     @staticmethod
     def _get_movie_title(movie_tile):
@@ -64,10 +62,7 @@ class TMDBRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_url(movie_tile):
-        return (
-            "https://www.themoviedb.org"
-            + movie_tile.find(class_="title").find("a")["href"]
-        )
+        return "https://www.themoviedb.org" + movie_tile.find(class_="title").find("a")["href"]
 
     @staticmethod
     def _get_movie_my_rating(movie_tile):

@@ -14,9 +14,7 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
 
     def _search_for_movie(self, movie: Movie):
         search_params = urllib.parse.urlencode({"q": movie.title, "t": "movie"})
-        search_url = (
-            f"https://www.rottentomatoes.com/api/private/v2.0/search?{search_params}"
-        )
+        search_url = f"https://www.rottentomatoes.com/api/private/v2.0/search?{search_params}"
         self.site.browser.get(search_url)
 
     def _get_search_results(self, search_result_page):
@@ -25,14 +23,9 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
 
     def _is_requested_movie(self, movie: Movie, search_result):
         if self._is_url_in_parsed_data_for_this_site(movie):
-            return (
-                movie.site_data[self.site.site].url
-                == "https://www.rottentomatoes.com" + search_result["url"]
-            )
+            return movie.site_data[self.site.site].url == "https://www.rottentomatoes.com" + search_result["url"]
         elif search_result["year"] and movie.year == int(search_result["year"]):
-            self.site.browser.get(
-                "https://www.rottentomatoes.com" + search_result["url"]
-            )
+            self.site.browser.get("https://www.rottentomatoes.com" + search_result["url"])
             time.sleep(1)
             return True
         return False
@@ -41,9 +34,7 @@ class RottenTomatoesRatingsInserter(RatingsInserter):
         converted_rating = str(my_rating / 2)
         if len(self.site.browser.find_elements(By.ID, "rating-root")) > 0:
             return
-        movie_id = self.site.browser.find_element(By.ID, "rating-root").get_attribute(
-            "data-movie-id"
-        )
+        movie_id = self.site.browser.find_element(By.ID, "rating-root").get_attribute("data-movie-id")
 
         self.site.browser.execute_script(
             """

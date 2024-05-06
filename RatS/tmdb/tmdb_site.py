@@ -11,9 +11,7 @@ class TMDB(BaseSite):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(TMDB, self).__init__(args)
-        self.MY_RATINGS_URL = (
-            f"https://www.themoviedb.org/u/{self.USERNAME}/ratings/movie"
-        )
+        self.MY_RATINGS_URL = f"https://www.themoviedb.org/u/{self.USERNAME}/ratings/movie"
 
     def _get_login_page_url(self):
         return "https://www.themoviedb.org/login"

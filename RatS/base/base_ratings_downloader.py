@@ -1,4 +1,4 @@
-import sys
+import logging
 import time
 
 import csv
@@ -23,15 +23,10 @@ class RatingsDownloader(RatingsParser):
     def _parse_ratings(self):
         self._download_ratings_csv()
         self._rename_csv_file(self.downloaded_file_name)
-        self.movies = self._parse_movies_from_csv(
-            os.path.join(self.exports_folder, self.csv_filename)
-        )
+        self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
 
     def _download_ratings_csv(self):
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Retrieving ratings CSV file"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: Retrieving ratings CSV file")
         self.site.browser.set_page_load_timeout(10)
         time.sleep(1)
 
@@ -47,9 +42,7 @@ class RatingsDownloader(RatingsParser):
                 continue
             if iteration > 10:
                 self.site.browser_handler.kill()
-                CSVDownloadFailedException(
-                    "The CSV file containing the movies data could not be downloaded."
-                )
+                CSVDownloadFailedException("The CSV file containing the movies data could not be downloaded.")
 
     def _file_was_downloaded(self):
         filepath = os.path.join(self.exports_folder, self.downloaded_file_name)
@@ -64,20 +57,12 @@ class RatingsDownloader(RatingsParser):
 
         try:
             os.rename(filepath, os.path.join(self.exports_folder, self.csv_filename))
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: CSV downloaded to "
-                f"{self.exports_folder}/{self.csv_filename}\r\n"
-            )
-            sys.stdout.flush()
-        except FileNotFoundError:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: Could not retrieve ratings CSV\r\n"
-            )
-            sys.stdout.flush()
+            logging.info(f"===== {self.site.site_name}: CSV downloaded to {self.exports_folder}/{self.csv_filename}")
+        except FileNotFoundError as e:
+            logging.error(f"===== {self.site.site_name}: Could not retrieve ratings CSV - {e}")
 
     def _parse_movies_from_csv(self, filepath: str):
-        sys.stdout.write("===== getting movies from CSV\r\n")
-        sys.stdout.flush()
+        logging.info("===== getting movies from CSV")
         file_impex.wait_for_file_to_exist(filepath)
         with open(filepath, newline="", encoding="UTF-8") as input_file:
             reader = csv.reader(input_file, delimiter=self.csv_delimiter)

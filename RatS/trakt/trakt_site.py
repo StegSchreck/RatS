@@ -8,15 +8,11 @@ class Trakt(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form[@id='new_user']"
         self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='user_login']"
-        self.LOGIN_PASSWORD_SELECTOR = (
-            login_form_selector + "//input[@id='user_password']"
-        )
+        self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='user_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//input[@type='submit']"
         super(Trakt, self).__init__(args)
         self._handle_privacy_notice_if_present()
-        self.MY_RATINGS_URL = (
-            f"https://trakt.tv/users/{self.USERNAME}/ratings/movies/all/added"
-        )
+        self.MY_RATINGS_URL = f"https://trakt.tv/users/{self.USERNAME}/ratings/movies/all/added"
 
     def _handle_privacy_notice_if_present(self):
         privacy_notice = self.browser.find_elements(By.ID, "snigel-cmp-framework")

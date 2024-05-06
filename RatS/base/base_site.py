@@ -1,4 +1,4 @@
-import sys
+import logging
 import time
 
 import datetime
@@ -10,13 +10,10 @@ from selenium.webdriver.common.by import By
 
 from RatS.base.base_exceptions import LoginFailedException, SiteNotReachableException
 from RatS.base.movie_entity import Site
-from RatS.utils.bash_color import BashColor
 from RatS.utils.browser_handler import BrowserHandler
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
-EXPORTS_FOLDER = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports")
-)
+EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports"))
 
 
 class BaseSite:
@@ -25,11 +22,6 @@ class BaseSite:
 
         self.site_name: str = type(self).__name__
         self.site: Site = Site(self.site_name.upper())
-        self.site_displayname: str = (
-            f"{BashColor.HEADER}{BashColor.BOLD}{self.site_name}{BashColor.END}"
-            if hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
-            else self.site_name
-        )
 
         self.config = RawConfigParser()
         self.__read_config_file("credentials.cfg.orig")
@@ -45,11 +37,7 @@ class BaseSite:
             self._parse_configuration()
 
     def __read_config_file(self, filename: str):
-        self.config.read(
-            os.path.abspath(
-                os.path.join(os.path.dirname(__file__), os.pardir, filename)
-            )
-        )
+        self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
 
     def _parse_credentials(self):
         if os.environ.get(self.site_name.upper() + "_USERNAME"):
@@ -84,8 +72,7 @@ class BaseSite:
         self.login()
 
     def login(self):
-        sys.stdout.write(f"===== {self.site_displayname}: performing login")
-        sys.stdout.flush()
+        logging.info(f"===== {self.site_name}: performing login")
         self.open_url_with_521_retry(self.LOGIN_PAGE)
         time.sleep(1)
 
@@ -124,28 +111,22 @@ class BaseSite:
         if self._user_is_not_logged_in():
             self.browser_handler.kill()
             raise LoginFailedException(
-                f"Login to {self.site_name} failed.\r\n"
-                "Please check if the credentials are correctly set in your credentials.cfg\r\n"
+                f"Login to {self.site_name} failed. - "
+                "Please check if the credentials are correctly set in your credentials.cfg"
             )
 
     def _user_is_not_logged_in(self):
         return (
             len(self.browser.find_elements(By.XPATH, self.LOGIN_BUTTON_SELECTOR)) > 0
-            and len(self.browser.find_elements(By.XPATH, self.LOGIN_USERNAME_SELECTOR))
-            > 0
-            and len(self.browser.find_elements(By.XPATH, self.LOGIN_PASSWORD_SELECTOR))
-            > 0
+            and len(self.browser.find_elements(By.XPATH, self.LOGIN_USERNAME_SELECTOR)) > 0
+            and len(self.browser.find_elements(By.XPATH, self.LOGIN_PASSWORD_SELECTOR)) > 0
         )
 
     def _insert_login_credentials(self):
-        login_field_user = self.browser.find_element(
-            By.XPATH, self.LOGIN_USERNAME_SELECTOR
-        )
+        login_field_user = self.browser.find_element(By.XPATH, self.LOGIN_USERNAME_SELECTOR)
         login_field_user.clear()
         login_field_user.send_keys(self.USERNAME)
-        login_field_password = self.browser.find_element(
-            By.XPATH, self.LOGIN_PASSWORD_SELECTOR
-        )
+        login_field_password = self.browser.find_element(By.XPATH, self.LOGIN_PASSWORD_SELECTOR)
         login_field_password.clear()
         login_field_password.send_keys(self.PASSWORD)
 

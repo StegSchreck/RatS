@@ -7,9 +7,7 @@ class TMDBRatingsInserter(RatingsUploader):
         super(TMDBRatingsInserter, self).__init__(TMDB(args), args)
         self.url_for_csv_file_upload = self._get_url_for_csv_upload()
         self.css_id_of_file_input_element = "csv_file"
-        self.xpath_selector_for_submit_button = (
-            "//form[@name='import_csv']//input[@type='submit']"
-        )
+        self.xpath_selector_for_submit_button = "//form[@name='import_csv']//input[@type='submit']"
 
     @staticmethod
     def _get_url_for_csv_upload():

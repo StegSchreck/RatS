@@ -1,3 +1,4 @@
+import logging
 import time
 import urllib.parse
 
@@ -7,7 +8,6 @@ from selenium.webdriver.common.by import By
 from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.base.movie_entity import Movie
 from RatS.metacritic.metacritic_site import Metacritic
-from RatS.utils import command_line
 
 
 class MetacriticRatingsInserter(RatingsInserter):
@@ -38,7 +38,7 @@ class MetacriticRatingsInserter(RatingsInserter):
             if release_year and release_year.get_text():
                 return movie.year == int(release_year.get_text())
         if self.args and self.args.verbose and self.args.verbose >= 3:
-            command_line.info(
+            logging.warning(
                 f"{movie.title} ({movie.year}): "
                 f"No release year displayed on {self.site.site_name} movie detail page {self.site.browser.current_url} "
                 "... skipping "
@@ -46,7 +46,5 @@ class MetacriticRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating: int):
-        stars = self.site.browser.find_element(
-            By.CLASS_NAME, "user_rating_widget"
-        ).find_elements(By.CLASS_NAME, "ur")
+        stars = self.site.browser.find_element(By.CLASS_NAME, "user_rating_widget").find_elements(By.CLASS_NAME, "ur")
         stars[my_rating].click()

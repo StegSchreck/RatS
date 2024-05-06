@@ -23,9 +23,7 @@ class FilmAffinity(BaseSite):
         cookie_notice = cookie_notices[0]
         if cookie_notice is not None:
             # agree
-            cookie_accept_button = cookie_notice.find_elements(
-                By.CSS_SELECTOR, "div.qc-cmp2-summary-buttons button"
-            )
+            cookie_accept_button = cookie_notice.find_elements(By.CSS_SELECTOR, "div.qc-cmp2-summary-buttons button")
             if cookie_accept_button is not None and len(cookie_accept_button) > 1:
                 cookie_accept_button[1].click()
                 time.sleep(2)

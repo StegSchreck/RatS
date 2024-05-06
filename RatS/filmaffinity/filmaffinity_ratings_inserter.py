@@ -41,18 +41,11 @@ class FilmAffinityRatingsInserter(RatingsInserter):
         return "/film" in self.site.browser.current_url
 
     def _get_displayed_movie_year(self):
-        return int(
-            self.site.browser.find_element(
-                By.XPATH, "//dd[@itemProp='datePublished']"
-            ).text
-        )
+        return int(self.site.browser.find_element(By.XPATH, "//dd[@itemProp='datePublished']").text)
 
     def _is_requested_movie(self, movie: Movie, search_result):
         if self._is_id_in_parsed_data_for_this_site(movie):
-            return (
-                movie.site_data[self.site.site].id
-                == search_result.find("div", class_="movie-card")["data-movie-id"]
-            )
+            return movie.site_data[self.site.site].id == search_result.find("div", class_="movie-card")["data-movie-id"]
         else:
             return self._check_movie_details(movie, search_result)
 
@@ -61,9 +54,7 @@ class FilmAffinityRatingsInserter(RatingsInserter):
 
         if movie.year == movie_year:
             try:
-                movie_url = search_result.find("div", class_="mc-poster").find("a")[
-                    "href"
-                ]
+                movie_url = search_result.find("div", class_="mc-poster").find("a")["href"]
                 self.site.browser.get(movie_url)
                 time.sleep(1)
                 return True
@@ -72,12 +63,8 @@ class FilmAffinityRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating: int):
-        itk = self.site.browser.find_element(
-            By.CSS_SELECTOR, ".rating-select"
-        ).get_attribute("data-itk")
-        movie_id = self.site.browser.find_element(
-            By.CSS_SELECTOR, ".rate-movie-box"
-        ).get_attribute("data-movie-id")
+        itk = self.site.browser.find_element(By.CSS_SELECTOR, ".rating-select").get_attribute("data-itk")
+        movie_id = self.site.browser.find_element(By.CSS_SELECTOR, ".rate-movie-box").get_attribute("data-movie-id")
 
         self.site.browser.execute_script(
             """

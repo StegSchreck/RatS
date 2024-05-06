@@ -41,18 +41,10 @@ class FilmtipsetRatingsInserter(RatingsInserter):
 
     def _compare_external_links(self, movie: Movie):
         try:
-            movie_detail_page = BeautifulSoup(
-                self.site.browser.page_source, "html.parser"
-            )
-            parsed_imdb_id = (
-                movie_detail_page.find_all("span", class_="postmeta")[3]
-                .find("a")["href"]
-                .split("/")[-1]
-            )
+            movie_detail_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
+            parsed_imdb_id = movie_detail_page.find_all("span", class_="postmeta")[3].find("a")["href"].split("/")[-1]
             normalized_parsed_imdb_id = IMDB.normalize_imdb_id(parsed_imdb_id)
-            return normalized_parsed_imdb_id == IMDB.normalize_imdb_id(
-                movie.site_data[Site.IMDB].id
-            )
+            return normalized_parsed_imdb_id == IMDB.normalize_imdb_id(movie.site_data[Site.IMDB].id)
         except IndexError:
             return True
 

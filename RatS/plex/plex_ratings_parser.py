@@ -15,9 +15,7 @@ class PlexRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
-        return math.ceil(
-            float(movie_ratings_page.find("mediacontainer")["totalsize"]) / 100
-        )
+        return math.ceil(float(movie_ratings_page.find("mediacontainer")["totalsize"]) / 100)
 
     @staticmethod
     def _get_movies_count(movie_ratings_page):
@@ -59,9 +57,7 @@ class PlexRatingsParser(RatingsParser):
 
     def _print_progress_bar(self):
         if not self.progress_bar:
-            self.progress_bar = ProgressBar(
-                max_value=self.movies_count, redirect_stdout=True
-            )
+            self.progress_bar = ProgressBar(max_value=self.movies_count, redirect_stdout=True)
         self.progress_bar.update(self.processed_movies_count)
         if self.movies_count == self.processed_movies_count:
             self.progress_bar.finish()

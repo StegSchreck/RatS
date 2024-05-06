@@ -31,7 +31,7 @@ class MoviePilotRatingsParser(RatingsParser):
         if "movie_ratings" not in session:
             self.site.browser_handler.kill()
             raise RatSException(
-                f"Could not establish a session with {self.site.site_name}.\r\n"
+                f"Could not establish a session with {self.site.site_name}. "
                 "Please try again with the -x option if the problem persists."
             )
         self.movies_count = session["movie_ratings"]
@@ -58,9 +58,7 @@ class MoviePilotRatingsParser(RatingsParser):
 
     def parse_movie_details_page(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        movie.year = int(
-            movie_details_page.find(attrs={"itemprop": "copyrightYear"}).get_text()
-        )
+        movie.year = int(movie_details_page.find(attrs={"itemprop": "copyrightYear"}).get_text())
         if self.site.site not in movie.site_data:
             movie.site_data[self.site.site] = SiteSpecificMovieData()
         json_from_script = movie_details_page.find("script", id="__NEXT_DATA__").get_text()

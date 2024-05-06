@@ -45,15 +45,9 @@ class IMDBRatingsInserter(RatingsInserter):
         )
         self.site.browser.execute_script("arguments[0].click();", user_rating_button)
 
-        stars = self.site.browser.find_elements(
-            By.CLASS_NAME, "ipc-starbar__rating__button"
-        )
-        rate_button = self.site.browser.find_element(
-            By.CLASS_NAME, "ipc-rating-prompt__rate-button"
-        )
-        current_rating = len(
-            self.site.browser.find_elements(By.CLASS_NAME, "ipc-starbar__star--active")
-        )
+        stars = self.site.browser.find_elements(By.CLASS_NAME, "ipc-starbar__rating__button")
+        rate_button = self.site.browser.find_element(By.CLASS_NAME, "ipc-rating-prompt__rate-button")
+        current_rating = len(self.site.browser.find_elements(By.CLASS_NAME, "ipc-starbar__star--active"))
         if current_rating == my_rating:
             return
         star_index = int(my_rating) - 1

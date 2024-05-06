@@ -1,8 +1,7 @@
 import datetime
+import logging
 import os
-import sys
 import time
-from typing import List
 
 from progressbar import ProgressBar
 from selenium.common.exceptions import (
@@ -28,11 +27,8 @@ class LetterboxdRatingsInserter(RatingsInserter):
         super(LetterboxdRatingsInserter, self).__init__(Letterboxd(args), args)
         self.progress_counter_selector = ".import-progress #import-count strong"
 
-    def insert(self, movies: List[Movie], source: Site):
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n"
-        )
-        sys.stdout.flush()
+    def insert(self, movies: list[Movie], source: Site):
+        logging.info(f"===== {self.site.site_name}: posting {len(movies)} movies")
 
         save_movies_to_csv(
             movies,
@@ -42,12 +38,11 @@ class LetterboxdRatingsInserter(RatingsInserter):
         )
         self.upload_csv_file(len(movies))
 
-        sys.stdout.write(
-            f"\r\n===== {self.site.site_displayname}: The file with {len(movies)} movies was uploaded "
+        logging.info(
+            f"===== {self.site.site_name}: The file with {len(movies)} movies was uploaded "
             "and successfully processed by the servers. "
-            f"You may check your {self.site.site_name} account later.\r\n"
+            f"You may check your {self.site.site_name} account later."
         )
-        sys.stdout.flush()
 
         self.site.browser_handler.kill()
 
@@ -70,9 +65,7 @@ class LetterboxdRatingsInserter(RatingsInserter):
                     "document.getElementById('imdb-form').setAttribute('style', 'visibility: visible;')"
                 )
                 self.site.browser.find_element(By.ID, "upload-imdb-import").clear()
-                self.site.browser.find_element(By.ID, "upload-imdb-import").send_keys(
-                    os.path.join(filename)
-                )
+                self.site.browser.find_element(By.ID, "upload-imdb-import").send_keys(os.path.join(filename))
                 break
             except (NoSuchElementException, ElementNotInteractableException) as e:
                 if iteration > 10:
@@ -81,12 +74,13 @@ class LetterboxdRatingsInserter(RatingsInserter):
                 continue
 
     def _wait_for_movie_matching(self, wait, movies_count):
-        sys.stdout.write(
-            f"\r\n===== {self.site.site_displayname}: matching the movies...\r\n"
+        logging.info(f"===== {self.site.site_name}: matching the movies...")
+        # disabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import'
+        # and contains(@class, 'import-button-disabled')]"
+        enabled_import_button_selector = (
+            "//div[@class='import-buttons']//a[@data-track-category='Import' "
+            "and not(contains(@class, 'import-button-disabled'))]"
         )
-        sys.stdout.flush()
-        # disabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and contains(@class, 'import-button-disabled')]"  # pylint: disable=line-too-long
-        enabled_import_button_selector = "//div[@class='import-buttons']//a[@data-track-category='Import' and not(contains(@class, 'import-button-disabled'))]"  # pylint: disable=line-too-long
 
         # wait.until(
         #     lambda driver: driver.find_element(
@@ -96,19 +90,14 @@ class LetterboxdRatingsInserter(RatingsInserter):
 
         self._print_progress(movies_count)
 
-        wait.until(
-            lambda driver: driver.find_element(By.XPATH, enabled_import_button_selector)
-        )
+        wait.until(lambda driver: driver.find_element(By.XPATH, enabled_import_button_selector))
         self.site.browser.find_element(By.XPATH, enabled_import_button_selector).click()
 
     def _wait_for_import_processing(self, wait, movies_count):
         time.sleep(5)
 
         wait.until(lambda driver: driver.find_element(By.ID, "import-count"))
-        sys.stdout.write(
-            f"\r\n===== {self.site.site_displayname}: processing the movies...\r\n"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: processing the movies...")
 
         self._print_progress(movies_count)
 
@@ -118,21 +107,10 @@ class LetterboxdRatingsInserter(RatingsInserter):
 
     def _print_progress(self, movies_count):
         if not self.progress_bar:
-            self.progress_bar = ProgressBar(
-                max_value=movies_count, redirect_stdout=True
-            )
-        while (
-            len(
-                self.site.browser.find_elements(
-                    By.CSS_SELECTOR, self.progress_counter_selector
-                )
-            )
-            != 0
-        ):
+            self.progress_bar = ProgressBar(max_value=movies_count, redirect_stdout=True)
+        while len(self.site.browser.find_elements(By.CSS_SELECTOR, self.progress_counter_selector)) != 0:
             try:
-                displayed_counter = self.site.browser.find_element(
-                    By.CSS_SELECTOR, self.progress_counter_selector
-                ).text
+                displayed_counter = self.site.browser.find_element(By.CSS_SELECTOR, self.progress_counter_selector).text
                 counter = int(displayed_counter.replace(",", "").replace(".", ""))
                 self.progress_bar.update(counter)
             except (StaleElementReferenceException, NoSuchElementException):

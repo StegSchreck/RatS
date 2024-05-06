@@ -1,6 +1,5 @@
 import time
 import urllib.parse
-from typing import List
 
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
@@ -40,46 +39,30 @@ class TraktRatingsInserter(RatingsInserter):
         self.site.open_url_with_521_retry(movie_url)
         time.sleep(1)
         if Site.IMDB in movie.site_data and movie.site_data[Site.IMDB].id:
-            return self._compare_external_links(
-                self.site.browser.page_source, movie, "imdb.com", Site.IMDB
-            )
+            return self._compare_external_links(self.site.browser.page_source, movie, "imdb.com", Site.IMDB)
         elif Site.TMDB in movie and movie.site_data[Site.TMDB].id != "":
-            return self._compare_external_links(
-                self.site.browser.page_source, movie, "themoviedb.org", Site.TMDB
-            )
+            return self._compare_external_links(self.site.browser.page_source, movie, "themoviedb.org", Site.TMDB)
         else:
-            movie_details_page = BeautifulSoup(
-                self.site.browser.page_source, "html.parser"
-            )
+            movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
             year_str = movie_details_page.find(class_="year").get_text().strip()
             return year_str != "" and movie.year == int(year_str)
 
     @staticmethod
-    def _compare_external_links(
-        page_source, movie: Movie, external_url_base: str, site: Site
-    ):
+    def _compare_external_links(page_source, movie: Movie, external_url_base: str, site: Site):
         movie_details_page = BeautifulSoup(page_source, "html.parser")
-        external_links: List = (
-            movie_details_page.find(id="info-wrapper")
-            .find("ul", class_="external")
-            .find_all("a")
-        )
+        external_links: list = movie_details_page.find(id="info-wrapper").find("ul", class_="external").find_all("a")
         for link in external_links:
             if external_url_base in link["href"]:
                 if site == Site.IMDB and "/title/" in link["href"]:
-                    return IMDB.normalize_imdb_id(
-                        movie.site_data[Site.IMDB].id
-                    ) == IMDB.normalize_imdb_id(link["href"].split("/")[-1])
+                    return IMDB.normalize_imdb_id(movie.site_data[Site.IMDB].id) == IMDB.normalize_imdb_id(
+                        link["href"].split("/")[-1]
+                    )
                 return movie.site_data[site].id == link["href"].split("/")[-1]
         return False
 
     def _click_rating(self, my_rating: int):
-        user_rating_section = self.site.browser.find_element(
-            By.CLASS_NAME, "summary-user-rating"
-        )
-        user_rating = user_rating_section.find_element(
-            By.CLASS_NAME, "number"
-        ).find_elements(By.CLASS_NAME, "rating")
+        user_rating_section = self.site.browser.find_element(By.CLASS_NAME, "summary-user-rating")
+        user_rating = user_rating_section.find_element(By.CLASS_NAME, "number").find_elements(By.CLASS_NAME, "rating")
         if user_rating:
             current_rating = int(user_rating[0].text)
         else:
@@ -88,7 +71,5 @@ class TraktRatingsInserter(RatingsInserter):
             user_rating_section.click()
             time.sleep(1)
             star_index = 10 - int(my_rating)
-            self.site.browser.execute_script(
-                f"$('.rating-hearts').find('label')[{star_index}].click()"
-            )
+            self.site.browser.execute_script(f"$('.rating-hearts').find('label')[{star_index}].click()")
             time.sleep(1)

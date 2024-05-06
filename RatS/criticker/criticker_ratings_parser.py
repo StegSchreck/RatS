@@ -1,7 +1,7 @@
 import datetime
+import logging
 import os
 import re
-import sys
 import time
 from xml.etree import ElementTree
 
@@ -22,26 +22,19 @@ class CritickerRatingsParser(RatingsParser):
 
     def _parse_ratings(self):
         self._get_ratings_xml()
-        with open(
-            os.path.join(self.exports_folder, self.xml_filename), "w+"
-        ) as output_file:
+        with open(os.path.join(self.exports_folder, self.xml_filename), "w+") as output_file:
             output_file.write(self.site.browser.page_source)
         self.movies = self._parse_xml()
 
     def _get_ratings_xml(self):
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Retrieving ratings XML"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: Retrieving ratings XML")
         time.sleep(1)
 
         iteration = 0
         while True:
             iteration += 1
             try:
-                self.site.browser.get(
-                    "https://www.criticker.com/resource/ratings/conv.php?type=xml"
-                )
+                self.site.browser.get("https://www.criticker.com/resource/ratings/conv.php?type=xml")
                 break
             except TimeoutException as e:
                 if iteration > 10:
@@ -50,16 +43,9 @@ class CritickerRatingsParser(RatingsParser):
                 continue
 
     def _parse_xml(self):
-        file_impex.wait_for_file_to_exist(
-            os.path.join(self.exports_folder, self.xml_filename)
-        )
-        xml_data = ElementTree.parse(
-            os.path.join(self.exports_folder, self.xml_filename)
-        ).getroot()
-        return [
-            self.convert_xml_node_to_movie(xml_node)
-            for xml_node in xml_data.findall("film")
-        ]
+        file_impex.wait_for_file_to_exist(os.path.join(self.exports_folder, self.xml_filename))
+        xml_data = ElementTree.parse(os.path.join(self.exports_folder, self.xml_filename)).getroot()
+        return [self.convert_xml_node_to_movie(xml_node) for xml_node in xml_data.findall("film")]
 
     @staticmethod
     def convert_xml_node_to_movie(xml_node):

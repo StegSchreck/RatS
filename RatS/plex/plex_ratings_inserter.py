@@ -54,9 +54,7 @@ class PlexRatingsInserter(RatingsInserter):
         wait = ui.WebDriverWait(self.site.browser, 120)
         wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "loading"))
         WebDriverWait(self.site.browser, 120).until(
-            expected_conditions.invisibility_of_element_located(
-                (By.CLASS_NAME, "loading")
-            )
+            expected_conditions.invisibility_of_element_located((By.CLASS_NAME, "loading"))
         )
 
     def _click_rating(self, my_rating: int):

@@ -42,19 +42,11 @@ class Plex(BaseSite):
     def _determine_plex_token(self):
         self.browser.get(f"http://{self.BASE_URL}/web/index.html#'")
         wait = ui.WebDriverWait(self.browser, 600)
-        wait.until(
-            lambda driver: driver.find_element(
-                By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']"
-            )
-        )
+        wait.until(lambda driver: driver.find_element(By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']"))
 
-        self.browser.find_elements(
-            By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']"
-        )[0].click()
+        self.browser.find_elements(By.XPATH, "//button[@data-qa-id='metadataPosterMoreButton']")[0].click()
         self.browser.find_elements(By.XPATH, "//button[@role='menuitem']")[-1].click()
-        link_to_xml = self.browser.find_element(
-            By.XPATH, "//div[@class='modal-footer']//a"
-        ).get_attribute("href")
+        link_to_xml = self.browser.find_element(By.XPATH, "//div[@class='modal-footer']//a").get_attribute("href")
         plex_token = re.findall(r"X-Plex-Token=(\w+)", link_to_xml)[0]
 
         return plex_token

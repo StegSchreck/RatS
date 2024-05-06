@@ -7,12 +7,8 @@ from RatS.base.base_site import BaseSite
 class Criticker(BaseSite):
     def __init__(self, args):
         login_form_selector = "//*[@id='i_body']//form"
-        self.LOGIN_USERNAME_SELECTOR = (
-            login_form_selector + "//input[@id='si_username']"
-        )
-        self.LOGIN_PASSWORD_SELECTOR = (
-            login_form_selector + "//input[@id='si_password']"
-        )
+        self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='si_username']"
+        self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='si_password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(Criticker, self).__init__(args)
         self.MY_RATINGS_URL = "https://www.criticker.com/rankings/"

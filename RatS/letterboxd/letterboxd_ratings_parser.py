@@ -1,9 +1,9 @@
+import logging
 import os
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.base.movie_entity import Movie, SiteSpecificMovieData
 from RatS.letterboxd.letterboxd_site import Letterboxd
-from RatS.utils import command_line
 from RatS.utils import file_impex
 
 
@@ -13,9 +13,7 @@ class LetterboxdRatingsParser(RatingsDownloader):
         self.downloaded_file_name = "ratings.csv"
 
     def _parse_ratings(self):
-        self.before = os.listdir(
-            self.exports_folder
-        )  # pylint: disable=attribute-defined-outside-init
+        self.before = os.listdir(self.exports_folder)  # pylint: disable=attribute-defined-outside-init
         self._download_ratings_csv()
 
         after = os.listdir(self.exports_folder)
@@ -28,11 +26,9 @@ class LetterboxdRatingsParser(RatingsDownloader):
                 self.exports_folder,
             )
             self._rename_csv_file(self.downloaded_file_name)
-            self.movies = self._parse_movies_from_csv(
-                os.path.join(self.exports_folder, self.csv_filename)
-            )
+            self.movies = self._parse_movies_from_csv(os.path.join(self.exports_folder, self.csv_filename))
         else:
-            command_line.error("Could not determine file location")
+            logging.error("Could not determine file location")
 
     def _file_was_downloaded(self):
         after = os.listdir(self.exports_folder)

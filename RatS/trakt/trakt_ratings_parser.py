@@ -34,9 +34,7 @@ class TraktRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
-        return movie_listing_page.find(class_="row posters").find_all(
-            "div", attrs={"data-type": "movie"}
-        )
+        return movie_listing_page.find(class_="row posters").find_all("div", attrs={"data-type": "movie"})
 
     @staticmethod
     def _get_movie_title(movie_tile):
@@ -56,23 +54,13 @@ class TraktRatingsParser(RatingsParser):
         movie.year = int(movie_year) if movie_year else 0
         if self.site.site not in movie.site_data:
             movie.site_data[self.site.site] = SiteSpecificMovieData()
-        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(
-            movie_details_page
-        )
+        movie.site_data[self.site.site].my_rating = self._get_movie_my_rating(movie_details_page)
         self._parse_external_links(movie, movie_details_page)
 
     @staticmethod
     def _get_movie_my_rating(movie_details_page):
-        return int(
-            movie_details_page.find("div", class_="rated-text")
-            .find("div", class_="rating")
-            .get_text()
-        )
+        return int(movie_details_page.find("div", class_="rated-text").find("div", class_="rating").get_text())
 
     @staticmethod
     def _get_external_links(movie_details_page):
-        return (
-            movie_details_page.find(id="info-wrapper")
-            .find("ul", class_="external")
-            .find_all("a")
-        )
+        return movie_details_page.find(id="info-wrapper").find("ul", class_="external").find_all("a")
