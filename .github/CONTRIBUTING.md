@@ -53,6 +53,6 @@ Always write a clear log message for your commits. One-line messages are fine fo
 * Reference issues and pull requests liberally after the first line
 
 ### Coding Conventions
-The project follows [PEP 8](https://www.python.org/dev/peps/pep-0008/) conventions and contains a linting configuration at `.pylintrc`. In order to check if your proposed changes are compliant with that configuration, you can run `pylint --rcfile=.pylintrc RatS`. You can install pylint via `pip install pylint`.
+The project follows [PEP 8](https://www.python.org/dev/peps/pep-0008/) conventions and contains a linting configuration at `.pylintrc`. In order to check if your proposed changes are compliant with that configuration, you can run `poetry run pylint --rcfile=.pylintrc RatS`.
 
-Please make sure that you adapt the existing tests if necessary or write new ones. The unit tests can be executed locally by running `python setup.py test` or via your IDE.
+Please make sure that you adapt the existing tests if necessary or write new ones. The unit tests can be executed locally by running `poetry run pytest .` or via your IDE.
