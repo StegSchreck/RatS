@@ -24,6 +24,7 @@ A clear and concise description of what you expected to happen.
 - Geckodriver version: <!-- `geckodriver --version` -->
 - Python version: <!-- `python3 --version` -->
 - PIP version: <!-- `pip --version` -->
+- Poetry version: <!-- `poetry --version` -->
 - Running in a virtualenv?: <!-- yes or no -->
 - Running in Docker?: <!-- yes or no -->
 - Executed command: <!-- e.g. `python3 transfer_ratings.py -s trakt -d imdb` -->
