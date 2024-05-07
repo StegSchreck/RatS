@@ -1,4 +1,4 @@
-import sys
+import logging
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
@@ -14,10 +14,7 @@ class RottenTomatoesRatingsParser(RatingsParser):
 
     def _parse_ratings(self):
         json_data = self.site.get_json_from_html()
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Parsing all pages with movie ratings.\r\n"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: Parsing all pages with movie ratings.")
 
         self._parse_ratings_json(json_data["ratings"])
         has_next_page = json_data["pageInfo"]["hasNextPage"]
@@ -36,20 +33,8 @@ class RottenTomatoesRatingsParser(RatingsParser):
                 self.print_progress(movie)
 
     def print_progress(self, movie: Movie):
-        if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed {movie} \r\n"
-            )
-            sys.stdout.flush()
-        elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{len(self.movies)}] parsed"
-                f" {movie.title} ({movie.year}) \r\n"
-            )
-            sys.stdout.flush()
-        else:
-            sys.stdout.write(f"\r      Parsed {len(self.movies)} movies so far...")
-            sys.stdout.flush()
+        logging.debug(f"===== {self.site.site_name}: [{len(self.movies)}] parsed {movie.title} ({movie.year})")
+        logging.info(f"Parsed {len(self.movies)} movies so far...")
 
     @staticmethod
     def _parse_movie_json(movie_json):

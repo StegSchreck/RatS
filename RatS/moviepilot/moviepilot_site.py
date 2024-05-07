@@ -11,17 +11,13 @@ class MoviePilot(BaseSite):
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@name='password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(MoviePilot, self).__init__(args)
-        self.MY_RATINGS_URL = (
-            f"https://www.moviepilot.de/users/{self.USERNAME}/rated/movies"
-        )
+        self.MY_RATINGS_URL = f"https://www.moviepilot.de/users/{self.USERNAME}/rated/movies"
 
     def _get_login_page_url(self):
         return "https://www.moviepilot.de/login"
 
     def _handle_cookie_notice_if_present(self):
-        cookie_notice_agree_buttons = self.browser.find_elements(
-            By.ID, "didomi-notice-agree-button"
-        )
+        cookie_notice_agree_buttons = self.browser.find_elements(By.ID, "didomi-notice-agree-button")
         if len(cookie_notice_agree_buttons) == 0:
             return
         cookie_notice_agree_button = cookie_notice_agree_buttons[0]

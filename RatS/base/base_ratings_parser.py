@@ -1,7 +1,6 @@
+import logging
 import os
-import sys
 import time
-from typing import List
 
 from bs4 import BeautifulSoup
 from progressbar import ProgressBar
@@ -17,15 +16,13 @@ class RatingsParser:
         if not self.site.CREDENTIALS_VALID:
             return
 
-        self.movies: List[Movie] = []
+        self.movies: list[Movie] = []
         self.movies_count: int = 0
 
         self.site.open_url_with_521_retry(self.site.MY_RATINGS_URL)
 
         self.exports_folder: str = os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports"
-            )
+            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports")
         )
         if not os.path.exists(self.exports_folder):
             os.makedirs(self.exports_folder)
@@ -52,36 +49,14 @@ class RatingsParser:
         time.sleep(1)
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
 
-        pages_count: int = self._retrieve_pages_count_and_movies_count(
-            movie_ratings_page
+        pages_count: int = self._retrieve_pages_count_and_movies_count(movie_ratings_page)
+        logging.info(
+            f"===== {self.site.site_name}: Parsing {pages_count} pages with {self.movies_count} movies in total"
         )
-        if self.args and self.args.verbose and self.args.verbose >= 3:
-            sys.stdout.write(
-                "\r\n ================================================== \r\n"
-            )
-            sys.stdout.write(self.site.browser.current_url)
-            sys.stdout.write(
-                f"\r\n ===== {self.site.site_displayname}: getting page count: {pages_count} \r\n"
-            )
-            sys.stdout.write(
-                f"\r\n ===== {self.site.site_displayname}: getting movies count: {self.movies_count} \r\n"
-            )
-            sys.stdout.write(
-                "\r\n ================================================== \r\n"
-            )
-            sys.stdout.flush()
-
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Parsing {pages_count} pages"
-            f" with {self.movies_count} movies in total\r\n"
-        )
-        sys.stdout.flush()
 
         for page_number in range(1, pages_count + 1):
             self.site.open_url_with_521_retry(self._get_ratings_page(page_number))
-            movie_listing_page = BeautifulSoup(
-                self.site.browser.page_source, "html.parser"
-            )
+            movie_listing_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
             self._parse_movie_listing_page(movie_listing_page)
 
     def _retrieve_pages_count_and_movies_count(self, movie_ratings_page) -> int:
@@ -109,25 +84,15 @@ class RatingsParser:
             self.print_progress(movie)
 
     def print_progress(self, movie: Movie):
-        if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}] parsed {movie} \r\n"
-            )
-            sys.stdout.flush()
-        elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}]"
-                f" parsed {movie.title} ({movie.year}) \r\n"
-            )
-            sys.stdout.flush()
-        else:
-            self._print_progress_bar()
+        logging.debug(
+            f"===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}] "
+            f"parsed {movie.title} ({movie.year})"
+        )
+        self._print_progress_bar()
 
     def _print_progress_bar(self):
         if not self.progress_bar:
-            self.progress_bar = ProgressBar(
-                max_value=self.movies_count, redirect_stdout=True
-            )
+            self.progress_bar = ProgressBar(max_value=self.movies_count, redirect_stdout=True)
         if len(self.movies) >= self.movies_count:
             self.progress_bar.finish()
         else:
@@ -140,10 +105,7 @@ class RatingsParser:
     def _parse_movie_tile(self, movie_tile):
         movie = Movie(title=self._get_movie_title(movie_tile))
         movie_id = self._get_movie_id(movie_tile)
-        site_specific_movie_data = SiteSpecificMovieData(
-            id=movie_id,
-            url=self._get_movie_url(movie_tile),
-        )
+        site_specific_movie_data = SiteSpecificMovieData(id=movie_id, url=self._get_movie_url(movie_tile))
         movie.site_data[self.site.site] = site_specific_movie_data
 
         self._go_to_movie_details_page(movie)
@@ -186,15 +148,9 @@ class RatingsParser:
         for link in external_links:
             movie_link = link["href"].strip("/").replace("http://", "https://")
             if "imdb.com" in link["href"] and "find?" not in link["href"]:
-                movie.site_data[Site.IMDB] = SiteSpecificMovieData(
-                    id=movie_link.split("/")[-1],
-                    url=movie_link,
-                )
+                movie.site_data[Site.IMDB] = SiteSpecificMovieData(id=movie_link.split("/")[-1], url=movie_link)
             elif "themoviedb.org" in link["href"]:
-                movie.site_data[Site.TMDB] = SiteSpecificMovieData(
-                    id=movie_link.split("/")[-1],
-                    url=movie_link,
-                )
+                movie.site_data[Site.TMDB] = SiteSpecificMovieData(id=movie_link.split("/")[-1], url=movie_link)
 
     @staticmethod
     def _get_external_links(movie_details_page):

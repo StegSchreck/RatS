@@ -1,8 +1,7 @@
 import datetime
+import logging
 import os
-import sys
 import time
-from typing import List
 
 from progressbar import ProgressBar
 from selenium.common.exceptions import (
@@ -25,25 +24,20 @@ class RatingsInserter:
         self.site: BaseSite = site
         self.args = args
 
-        self.failed_movies: List[Movie] = []
+        self.failed_movies: list[Movie] = []
         self.failed_movies_filename = f"{TIMESTAMP}_{self.site.site_name}_failed.json"
 
         self.exports_folder = os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports"
-            )
+            os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "RatS", "exports")
         )
         if not os.path.exists(self.exports_folder):
             os.makedirs(self.exports_folder)
 
         self.progress_bar = None
 
-    def insert(self, movies: List[Movie], source: Site):
+    def insert(self, movies: list[Movie], source: Site):
         counter = 0
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: posting {len(movies)} movies                     \r\n"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: posting {len(movies)} movies")
 
         for movie in movies:
             movie_details_page_found = self._go_to_movie_details_page(movie)
@@ -59,34 +53,17 @@ class RatingsInserter:
         self.site.browser_handler.kill()
 
     def _is_id_in_parsed_data_for_this_site(self, movie: Movie):
-        return (
-            self.site.site in movie.site_data
-            and movie.site_data[self.site.site].id != ""
-        )
+        return self.site.site in movie.site_data and movie.site_data[self.site.site].id != ""
 
     def _is_url_in_parsed_data_for_this_site(self, movie: Movie):
-        return (
-            self.site.site in movie.site_data
-            and movie.site_data[self.site.site].url != ""
-        )
+        return self.site.site in movie.site_data and movie.site_data[self.site.site].url != ""
 
-    def print_progress(self, counter: int, movie: Movie, movies: List[Movie]):
+    def print_progress(self, counter: int, movie: Movie, movies: list[Movie]):
         movie_index = movies.index(movie) + 1
-        if self.args and self.args.verbose and self.args.verbose >= 2:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] posted {movie}\r\n"
-            )
-            sys.stdout.flush()
-        elif self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: [{movie_index}/{len(movies)}] "
-                f"posted {movie.title} ({movie.year})\r\n"
-            )
-            sys.stdout.flush()
-        else:
-            self._print_progress_bar(counter, movies)
+        logging.debug(f"===== {self.site.site_name}: [{movie_index}/{len(movies)}] posted {movie.title} ({movie.year})")
+        self._print_progress_bar(counter, movies)
 
-    def _print_progress_bar(self, counter: int, movies: List[Movie]):
+    def _print_progress_bar(self, counter: int, movies: list[Movie]):
         if not self.progress_bar:
             self.progress_bar = ProgressBar(max_value=len(movies), redirect_stdout=True)
         self.progress_bar.update(counter)
@@ -159,31 +136,23 @@ class RatingsInserter:
     def _click_rating(self, my_rating: int):
         raise NotImplementedError("This is not the implementation you are looking for.")
 
-    def _print_summary(self, movies: List[Movie]):
+    def _print_summary(self, movies: list[Movie]):
         success_number = len(movies) - len(self.failed_movies)
-        sys.stdout.write(
-            f"\r\n===== {self.site.site_displayname}: sucessfully posted {success_number}"
-            f" of {len(movies)} movies\r\n"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: successfully posted {success_number} of {len(movies)} movies")
 
     def _handle_failed_movies(self):
-        if self.args and self.args.verbose and self.args.verbose >= 1:
-            self._print_failed_movies()
+        self._print_failed_movies()
         if len(self.failed_movies) > 0:
             file_impex.save_movies_to_json(
                 self.failed_movies,
                 folder=self.exports_folder,
                 filename=self.failed_movies_filename,
             )
-            sys.stdout.write(
-                f"===== {self.site.site_displayname}: export data for {len(self.failed_movies)}"
-                f" failed movies to {self.exports_folder}/{self.failed_movies_filename}\r\n"
+            logging.info(
+                f"===== {self.site.site_name}: export data for {len(self.failed_movies)}"
+                f" failed movies to {self.exports_folder}/{self.failed_movies_filename}"
             )
-        sys.stdout.flush()
 
     def _print_failed_movies(self):
         for failed_movie in self.failed_movies:
-            sys.stdout.write(
-                f"FAILED TO FIND: {failed_movie.title} ({failed_movie.year})\r\n"
-            )
+            logging.warning(f"FAILED TO FIND: {failed_movie.title} ({failed_movie.year})")

@@ -32,10 +32,7 @@ class AlloCineRatingsInserter(RatingsInserter):
 
     def _check_movie_details(self, movie: Movie, search_result):
         try:
-            movie_url = (
-                "https://www.allocine.fr"
-                + search_result.find("a", class_="thumbnail-link")["href"]
-            )
+            movie_url = "https://www.allocine.fr" + search_result.find("a", class_="thumbnail-link")["href"]
         except KeyError:
             return False
 
@@ -43,9 +40,7 @@ class AlloCineRatingsInserter(RatingsInserter):
         time.sleep(1)
         self.site.handle_privacy_notice_if_present()
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        release_date_element = movie_details_page.find(
-            "div", class_="meta-body-info"
-        ).find(class_="date")
+        release_date_element = movie_details_page.find("div", class_="meta-body-info").find(class_="date")
         if release_date_element:
             release_date_text = release_date_element.get_text().strip()
             result_year_list = re.findall(r"(\d{4})", release_date_text)
@@ -56,9 +51,7 @@ class AlloCineRatingsInserter(RatingsInserter):
         return False
 
     def _click_rating(self, my_rating: int):
-        user_rating_section = self.site.browser.find_element(
-            By.CLASS_NAME, "bam-container"
-        )
+        user_rating_section = self.site.browser.find_element(By.CLASS_NAME, "bam-container")
         rating_stars = user_rating_section.find_elements(By.CLASS_NAME, "rating-star")
         stars_index = int(my_rating) - 1
         rating_stars[stars_index].click()

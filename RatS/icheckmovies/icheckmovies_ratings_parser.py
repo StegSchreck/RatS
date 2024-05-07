@@ -1,4 +1,4 @@
-import sys
+import logging
 import time
 
 from bs4 import BeautifulSoup
@@ -25,10 +25,7 @@ class ICheckMoviesRatingsParser(RatingsParser):
         movie_ratings_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
         time.sleep(1)
         self.movies_count = self._get_movies_count(movie_ratings_page)
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Parsing {self.movies_count} {category} movies\r\n"
-        )
-        sys.stdout.flush()
+        logging.info(f"===== {self.site.site_name}: Parsing {self.movies_count} {category} movies")
         self._parse_movie_listing_page(movie_ratings_page)
 
     def _parse_movie_tile(self, movie_tile):

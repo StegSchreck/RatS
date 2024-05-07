@@ -19,18 +19,14 @@ class AlloCineRatingsParser(RatingsParser):
         # Only add the number of movie on the last page
         self.site.browser.get(self._get_ratings_page(pages_count))
         last_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        last_page_count = len(
-            last_page.find_all("div", class_="userprofile-entity-card-simple")
-        )
+        last_page_count = len(last_page.find_all("div", class_="userprofile-entity-card-simple"))
         self.movies_count = (pages_count - 1) * 36 + last_page_count
         return pages_count
 
     @staticmethod
     def _get_pages_count(movie_ratings_page):
         pages_count = 1
-        pagination_holder = movie_ratings_page.find(
-            "div", class_="pagination-item-holder"
-        )
+        pagination_holder = movie_ratings_page.find("div", class_="pagination-item-holder")
         if pagination_holder:
             pages_count = max(
                 list(
@@ -45,9 +41,7 @@ class AlloCineRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_tiles(movie_listing_page):
-        return movie_listing_page.find_all(
-            "div", class_="userprofile-entity-card-simple"
-        )
+        return movie_listing_page.find_all("div", class_="userprofile-entity-card-simple")
 
     @staticmethod
     def _get_movie_title(movie_tile):
@@ -78,9 +72,7 @@ class AlloCineRatingsParser(RatingsParser):
                 # overwrite pass-by-reference variable to ignore this movie
                 movie = None
                 return
-            movie_details_page = BeautifulSoup(
-                self.site.browser.page_source, "html.parser"
-            )
+            movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
             rating = self._get_movie_my_rating(movie_details_page)
 
         movie.year = self._get_movie_year(movie_details_page)
@@ -101,9 +93,7 @@ class AlloCineRatingsParser(RatingsParser):
 
     @staticmethod
     def _get_movie_original_title(movie_details_page):
-        original_title = movie_details_page.find(
-            "span", class_="what", text=" Titre original "
-        )
+        original_title = movie_details_page.find("span", class_="what", text=" Titre original ")
         if original_title:
             return original_title.parent.find(class_="that").text
         else:
@@ -112,8 +102,4 @@ class AlloCineRatingsParser(RatingsParser):
     @staticmethod
     def _get_movie_my_rating(movie_details_page):
         # AlloCine let you rate a movie out of 5 star but you can use half stars, so we get a note out of 10
-        return len(
-            movie_details_page.find("div", class_="user-rating-holder").find_all(
-                "div", class_="active"
-            )
-        )
+        return len(movie_details_page.find("div", class_="user-rating-holder").find_all("div", class_="active"))

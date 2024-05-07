@@ -7,9 +7,7 @@ from RatS.icheckmovies.icheckmovies_misconfiguration_exception import (
 class ICheckMovies(BaseSite):
     def __init__(self, args):
         login_form_selector = "//form"
-        self.LOGIN_USERNAME_SELECTOR = (
-            login_form_selector + "//input[@id='UsernameOrEmail']"
-        )
+        self.LOGIN_USERNAME_SELECTOR = login_form_selector + "//input[@id='UsernameOrEmail']"
         self.LOGIN_PASSWORD_SELECTOR = login_form_selector + "//input[@id='Password']"
         self.LOGIN_BUTTON_SELECTOR = login_form_selector + "//button[@type='submit']"
         super(ICheckMovies, self).__init__(args)
@@ -21,18 +19,10 @@ class ICheckMovies(BaseSite):
         return "https://www.icheckmovies.com/login/"
 
     def _parse_configuration(self):
-        self.INSERT_LIKE_LOWER_BOUND = self.config[self.site_name][
-            "INSERT_LIKE_LOWER_BOUND"
-        ]
-        self.INSERT_DISLIKE_UPPER_BOUND = self.config[self.site_name][
-            "INSERT_DISLIKE_UPPER_BOUND"
-        ]
-        self.PARSE_LIKE_TRANSLATION = self.config[self.site_name][
-            "PARSE_LIKE_TRANSLATION"
-        ]
-        self.PARSE_DISLIKE_TRANSLATION = self.config[self.site_name][
-            "PARSE_DISLIKE_TRANSLATION"
-        ]
+        self.INSERT_LIKE_LOWER_BOUND = self.config[self.site_name]["INSERT_LIKE_LOWER_BOUND"]
+        self.INSERT_DISLIKE_UPPER_BOUND = self.config[self.site_name]["INSERT_DISLIKE_UPPER_BOUND"]
+        self.PARSE_LIKE_TRANSLATION = self.config[self.site_name]["PARSE_LIKE_TRANSLATION"]
+        self.PARSE_DISLIKE_TRANSLATION = self.config[self.site_name]["PARSE_DISLIKE_TRANSLATION"]
 
         if self.INSERT_LIKE_LOWER_BOUND < self.INSERT_DISLIKE_UPPER_BOUND:
             self.browser_handler.kill()

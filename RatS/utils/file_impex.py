@@ -1,18 +1,15 @@
 import csv
 import datetime
 import json
+import logging
 import os
-import sys
 import time
 import zipfile
-from typing import List, Dict
 
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 
-EXPORTS_FOLDER = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "RatS", "exports")
-)
-CSV_HEADER = "Const,Your Rating,Date Rated,Title,URL,Title Type,IMDb Rating,Runtime (mins),Year,Genres,Num Votes,Release Date,Directors\n"  # pylint: disable=line-too-long
+EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), "RatS", "exports"))
+CSV_HEADER = "Const,Your Rating,Date Rated,Title,URL,Title Type,IMDb Rating,Runtime (mins),Year,Genres,Num Votes,Release Date,Directors\n"  # noqa: E501
 
 
 def default(obj):
@@ -21,17 +18,13 @@ def default(obj):
     raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
 
-def load_movies_from_json(
-    folder: str = EXPORTS_FOLDER, filename: str = "import.json"
-) -> List[Movie]:
+def load_movies_from_json(folder: str = EXPORTS_FOLDER, filename: str = "import.json") -> list[Movie]:
     with open(os.path.join(folder, filename), encoding="UTF-8") as input_file:
-        load: Dict = json.loads(input_file.read())
+        load: dict = json.loads(input_file.read())
         return [Movie.from_json(item) for item in load]
 
 
-def save_movies_to_json(
-    movies: List[Movie], folder: str = EXPORTS_FOLDER, filename: str = "export.json"
-):
+def save_movies_to_json(movies: list[Movie], folder: str = EXPORTS_FOLDER, filename: str = "export.json"):
     if not os.path.exists(folder):
         os.makedirs(folder)
     with open(os.path.join(folder, filename), "w+", encoding="UTF-8") as output_file:
@@ -51,9 +44,8 @@ def wait_for_file_to_exist(filepath: str, seconds: int = 30):
     raise IOError(f"Could not access {filepath} after {seconds} seconds")
 
 
-def load_movies_from_csv(filepath: str, encoding: str = "UTF-8") -> List[Movie]:
-    sys.stdout.write("===== getting movies from CSV\r\n")
-    sys.stdout.flush()
+def load_movies_from_csv(filepath: str, encoding: str = "UTF-8") -> list[Movie]:
+    logging.info("===== getting movies from CSV")
     wait_for_file_to_exist(filepath)
     with open(filepath, newline="", encoding=encoding) as input_file:
         reader = csv.reader(input_file, delimiter=",")
@@ -76,13 +68,12 @@ def convert_csv_row_to_movie(headers, row) -> Movie:
 
 
 def save_movies_to_csv(
-    movies: List[Movie],
+    movies: list[Movie],
     folder: str = EXPORTS_FOLDER,
     filename: str = "export.csv",
     rating_source: Site = Site.IMDB,
 ):
-    sys.stdout.write("===== saving movies to CSV\r\n")
-    sys.stdout.flush()
+    logging.info("===== saving movies to CSV")
     if not os.path.exists(folder):
         os.makedirs(folder)
     with open(os.path.join(folder, filename), "w+", encoding="UTF-8") as output_file:
@@ -91,17 +82,9 @@ def save_movies_to_csv(
             output_file.write(convert_movie_to_csv(movies, i, rating_source))
 
 
-def convert_movie_to_csv(movies: List[Movie], index: int, rating_source: Site) -> str:
-    imdb_id = (
-        movies[index].site_data[Site.IMDB].id
-        if Site.IMDB in movies[index].site_data
-        else ""
-    )
-    imdb_url = (
-        movies[index].site_data[Site.IMDB].url
-        if Site.IMDB in movies[index].site_data
-        else ""
-    )
+def convert_movie_to_csv(movies: list[Movie], index: int, rating_source: Site) -> str:
+    imdb_id = movies[index].site_data[Site.IMDB].id if Site.IMDB in movies[index].site_data else ""
+    imdb_url = movies[index].site_data[Site.IMDB].url if Site.IMDB in movies[index].site_data else ""
     movie_csv = (
         ""
         + ""
@@ -136,9 +119,7 @@ def convert_movie_to_csv(movies: List[Movie], index: int, rating_source: Site) -
     return movie_csv
 
 
-def extract_file_from_archive(
-    path_to_zip_file: str, filename_to_extract: str, directory_to_extract_to: str
-):
+def extract_file_from_archive(path_to_zip_file: str, filename_to_extract: str, directory_to_extract_to: str):
     if not os.path.exists(directory_to_extract_to):
         os.makedirs(directory_to_extract_to)
     zip_ref = zipfile.ZipFile(path_to_zip_file, "r")

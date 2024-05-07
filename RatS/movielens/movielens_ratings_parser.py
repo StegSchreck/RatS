@@ -1,5 +1,5 @@
+import logging
 import re
-import sys
 
 from RatS.base.base_ratings_downloader import RatingsDownloader
 from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
@@ -12,25 +12,15 @@ class MovielensRatingsParser(RatingsDownloader):
         self.downloaded_file_name = "movielens-ratings.csv"
 
     def _call_download_url(self):
-        self.site.browser.get(
-            "https://movielens.org/api/users/me/movielens-ratings.csv"
-        )
+        self.site.browser.get("https://movielens.org/api/users/me/movielens-ratings.csv")
 
     def _convert_csv_row_to_movie(self, headers, row):
         if self.args and self.args.verbose and self.args.verbose >= 1:
-            sys.stdout.write(
-                f"\r===== {self.site.site_displayname}: reading movie from CSV: \r\n"
-            )
-            for r in row:
-                sys.stdout.write(r + "\r\n")
-            sys.stdout.flush()
+            logging.info(f"===== {self.site.site_name}: reading movie from CSV: {[r for r in row]}")
 
         movie_year = self.__extract_year(row[headers.index("title")])
         movie = Movie(
-            title=row[headers.index("title")]
-            .replace(str(movie_year), "")
-            .replace("()", "")
-            .strip(),
+            title=row[headers.index("title")].replace(str(movie_year), "").replace("()", "").strip(),
             year=movie_year,
         )
 
@@ -50,18 +40,13 @@ class MovielensRatingsParser(RatingsDownloader):
     def __extract_tmdb_information(movie: Movie, tmdb_id: str):
         movie.site_data[Site.TMDB] = SiteSpecificMovieData()
         movie.site_data[Site.TMDB].id = tmdb_id
-        movie.site_data[
-            Site.TMDB
-        ].url = f"https://www.themoviedb.org/movie/{movie.site_data[Site.TMDB].id}"
+        movie.site_data[Site.TMDB].url = f"https://www.themoviedb.org/movie/{movie.site_data[Site.TMDB].id}"
 
     @staticmethod
     def __extract_imdb_information(movie: Movie, imdb_id: str):
         if "tt" not in imdb_id:
             imdb_id = f"tt{imdb_id}"
-        movie.site_data[Site.IMDB] = SiteSpecificMovieData(
-            id=imdb_id,
-            url=f"https://www.imdb.com/title/{imdb_id}",
-        )
+        movie.site_data[Site.IMDB] = SiteSpecificMovieData(id=imdb_id, url=f"https://www.imdb.com/title/{imdb_id}")
 
     @staticmethod
     def __extract_year(title_field):

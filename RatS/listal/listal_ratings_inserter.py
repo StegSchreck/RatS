@@ -1,3 +1,4 @@
+import logging
 import re
 import time
 import urllib.parse
@@ -9,7 +10,6 @@ from RatS.base.base_ratings_inserter import RatingsInserter
 from RatS.base.movie_entity import Movie, Site
 from RatS.imdb.imdb_site import IMDB
 from RatS.listal.listal_site import Listal
-from RatS.utils import command_line
 
 
 class ListalRatingsInserter(RatingsInserter):
@@ -45,24 +45,20 @@ class ListalRatingsInserter(RatingsInserter):
 
         time.sleep(1)
         if Site.IMDB in movie.site_data and movie.site_data[Site.IMDB].id != "":
-            return self._compare_external_links(
-                self.site.browser.page_source, movie, "imdb.com", Site.IMDB
-            )
+            return self._compare_external_links(self.site.browser.page_source, movie, "imdb.com", Site.IMDB)
         else:
             return self._check_movie_details(movie)
 
     def _check_movie_details(self, movie: Movie):
         movie_details_page = BeautifulSoup(self.site.browser.page_source, "html.parser")
-        movie_annotation = movie_details_page.find(
-            "h1", class_="itemheadingmedium"
-        ).get_text()
+        movie_annotation = movie_details_page.find("h1", class_="itemheadingmedium").get_text()
         release_year = re.findall(r"\((\d{4})\)", movie_annotation)
         if release_year:
             movie_year = int(release_year[-1])
             return movie.year == movie_year
         else:
             if self.args and self.args.verbose and self.args.verbose >= 3:
-                command_line.info(
+                logging.warning(
                     f"{movie.title} ({movie.year}): "
                     f"No release year displayed on {self.site.site_name} movie detail page "
                     f"{self.site.browser.current_url} ... skipping "
@@ -70,20 +66,16 @@ class ListalRatingsInserter(RatingsInserter):
             return False
 
     @staticmethod
-    def _compare_external_links(
-        page_source, movie: Movie, external_url_base: str, site: Site
-    ):
+    def _compare_external_links(page_source, movie: Movie, external_url_base: str, site: Site):
         movie_details_page = BeautifulSoup(page_source, "html.parser")
         if movie_details_page.find(class_="ratingstable"):
-            external_links = movie_details_page.find(class_="ratingstable").find_all(
-                "a"
-            )
+            external_links = movie_details_page.find(class_="ratingstable").find_all("a")
             for link in external_links:
                 if external_url_base in link["href"]:
                     link_href = link["href"].strip("/")
-                    return IMDB.normalize_imdb_id(
-                        movie.site_data[site].id
-                    ) == IMDB.normalize_imdb_id(link_href.split("/")[-1])
+                    return IMDB.normalize_imdb_id(movie.site_data[site].id) == IMDB.normalize_imdb_id(
+                        link_href.split("/")[-1]
+                    )
         return False
 
     def _post_movie_rating(self, my_rating: int):

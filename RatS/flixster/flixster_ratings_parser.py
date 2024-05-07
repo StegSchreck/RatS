@@ -1,4 +1,4 @@
-import sys
+import logging
 
 from RatS.base.base_ratings_parser import RatingsParser
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
@@ -18,11 +18,9 @@ class FlixsterRatingsParser(RatingsParser):
         pages_count = json_data["pagination"]["pageCount"]
         ratings = json_data["ratings"]
 
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: Parsing {pages_count} pages"
-            f" with {self.movies_count} movies in total\r\n"
+        logging.info(
+            f"===== {self.site.site_name}: Parsing {pages_count} pages with {self.movies_count} movies in total"
         )
-        sys.stdout.flush()
 
         self._parse_ratings_json(ratings)
         for page_number in range(2, pages_count + 1):
@@ -38,9 +36,7 @@ class FlixsterRatingsParser(RatingsParser):
 
     @staticmethod
     def _parse_movie_json(movie_json):
-        movie = Movie(
-            title=movie_json["movie"]["title"], year=int(movie_json["movie"]["year"])
-        )
+        movie = Movie(title=movie_json["movie"]["title"], year=int(movie_json["movie"]["year"]))
 
         movie.site_data[Site.FLIXSTER] = SiteSpecificMovieData(
             id=str(movie_json["movie"]["id"]),

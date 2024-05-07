@@ -1,9 +1,8 @@
-import sys
+import logging
 import time
 
 import datetime
 import os
-from typing import List
 
 from selenium.webdriver.common.by import By
 
@@ -21,16 +20,11 @@ class RatingsUploader(RatingsInserter):
         super(RatingsUploader, self).__init__(site, args)
         self.csv_filename = f"{TIMESTAMP}_converted_for_{site.site_name}.csv"
 
-    def insert(self, movies: List[Movie], source: Site):
-        sys.stdout.write(
-            f"\r===== {self.site.site_displayname}: posting {len(movies)} movies\r\n"
-        )
-        sys.stdout.flush()
+    def insert(self, movies: list[Movie], source: Site):
+        logging.info(f"===== {self.site.site_name}: posting {len(movies)} movies")
 
         if self.site.site == Site.MOVIELENS:
-            movies: List[Movie] = [
-                movie for movie in movies if Site.IMDB in movie.site_data
-            ]
+            movies: list[Movie] = [movie for movie in movies if Site.IMDB in movie.site_data]
 
         if len(movies) == 0:
             self.site.browser_handler.kill()
@@ -52,13 +46,12 @@ class RatingsUploader(RatingsInserter):
         self.upload_csv_file()
         self.post_upload_action()
 
-        sys.stdout.write(
-            f"\r\n===== {self.site.site_displayname}: The file with {len(movies)} movies was uploaded "
+        logging.info(
+            f"===== {self.site.site_name}: The file with {len(movies)} movies was uploaded "
             "and will be process by the servers. "
-            f"You may check your {self.site.site_name} account later.\r\n"
-            "Note, that this might not overwrite any existing ratings.\r\n"
+            f"You may check your {self.site.site_name} account later. "
+            "Note, that this might not overwrite any existing ratings."
         )
-        sys.stdout.flush()
 
         self.site.browser_handler.kill()
 
@@ -72,11 +65,7 @@ class RatingsUploader(RatingsInserter):
         self.site.browser.get(self.url_for_csv_file_upload)
         time.sleep(1)
         filename = os.path.join(self.exports_folder, self.csv_filename)
-        self.site.browser.find_element(
-            By.ID, self.css_id_of_file_input_element
-        ).send_keys(filename)
+        self.site.browser.find_element(By.ID, self.css_id_of_file_input_element).send_keys(filename)
         time.sleep(1)
-        self.site.browser.find_element(
-            By.XPATH, self.xpath_selector_for_submit_button
-        ).click()
+        self.site.browser.find_element(By.XPATH, self.xpath_selector_for_submit_button).click()
         time.sleep(3)

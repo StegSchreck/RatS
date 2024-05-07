@@ -1,14 +1,11 @@
 import os
-from typing import List
 from unittest import TestCase
 from unittest.mock import patch
 
 from RatS.base.movie_entity import Site, Movie
 from RatS.letterboxd.letterboxd_ratings_parser import LetterboxdRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class LetterboxdParserTest(TestCase):
@@ -24,15 +21,9 @@ class LetterboxdParserTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.utils.file_impex.extract_file_from_archive")
-    @patch(
-        "RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._get_downloaded_filename"
-    )
-    @patch(
-        "RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._parse_movies_from_csv"
-    )
-    @patch(
-        "RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._rename_csv_file"
-    )
+    @patch("RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._get_downloaded_filename")
+    @patch("RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._parse_movies_from_csv")
+    @patch("RatS.letterboxd.letterboxd_ratings_parser.LetterboxdRatingsParser._rename_csv_file")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.letterboxd.letterboxd_ratings_parser.Letterboxd")
@@ -54,9 +45,7 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
         parser.csv_filename = "1234567890_letterboxd.csv"
-        parser.downloaded_file_name = os.path.join(
-            os.pardir, "letterboxd", "my_ratings.csv"
-        )
+        parser.downloaded_file_name = os.path.join(os.pardir, "letterboxd", "my_ratings.csv")
         parsed_filename_mock.return_value = ["letterboxd.zip"]
 
         parser.parse()
@@ -68,9 +57,7 @@ class LetterboxdParserTest(TestCase):
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.letterboxd.letterboxd_ratings_parser.Letterboxd")
-    def test_csv_rename(
-        self, site_mock, base_init_mock, browser_mock
-    ):  # pylint: disable=too-many-arguments
+    def test_csv_rename(self, site_mock, base_init_mock, browser_mock):  # pylint: disable=too-many-arguments
         parser = LetterboxdRatingsParser(None)
         parser.movies = []
         parser.site = site_mock
@@ -79,29 +66,17 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
         parser.csv_filename = "1234567890_letterboxd.csv"
-        parser.downloaded_file_name = os.path.join(
-            os.pardir, "letterboxd", "my_ratings.csv"
-        )
+        parser.downloaded_file_name = os.path.join(os.pardir, "letterboxd", "my_ratings.csv")
 
-        self.assertFalse(
-            os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv"))
-        )
+        self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv")))
         with open(os.path.join(TESTDATA_PATH, "exports", "ratings.csv"), "w+"):
-            self.assertTrue(
-                os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv"))
-            )
-        self.assertFalse(
-            os.path.isfile(os.path.join(TESTDATA_PATH, "exports", parser.csv_filename))
-        )
+            self.assertTrue(os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv")))
+        self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, "exports", parser.csv_filename)))
 
         parser._rename_csv_file("ratings.csv")  # pylint: disable=protected-access
 
-        self.assertFalse(
-            os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv"))
-        )
-        self.assertTrue(
-            os.path.isfile(os.path.join(TESTDATA_PATH, "exports", parser.csv_filename))
-        )
+        self.assertFalse(os.path.isfile(os.path.join(TESTDATA_PATH, "exports", "ratings.csv")))
+        self.assertTrue(os.path.isfile(os.path.join(TESTDATA_PATH, "exports", parser.csv_filename)))
         os.remove(os.path.join(TESTDATA_PATH, "exports", parser.csv_filename))
 
     @patch("RatS.utils.browser_handler.Firefox")
@@ -116,11 +91,9 @@ class LetterboxdParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.exports_folder = os.path.abspath(os.path.join(TESTDATA_PATH, "exports"))
         parser.csv_filename = "1234567890_letterboxd.csv"
-        parser.downloaded_file_name = os.path.join(
-            os.pardir, "letterboxd", "my_ratings.csv"
-        )
+        parser.downloaded_file_name = os.path.join(os.pardir, "letterboxd", "my_ratings.csv")
 
-        movies: List[Movie] = parser._parse_movies_from_csv(
+        movies: list[Movie] = parser._parse_movies_from_csv(
             os.path.join(TESTDATA_PATH, "letterboxd", "my_ratings.csv")
         )  # pylint: disable=protected-access
 
