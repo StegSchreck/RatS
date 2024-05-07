@@ -47,6 +47,7 @@ from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
 from RatS.trakt.trakt_ratings_inserter import TraktRatingsInserter
 from RatS.trakt.trakt_ratings_parser import TraktRatingsParser
 from RatS.utils import file_impex
+from RatS.utils.version_check import check_version
 
 TIMESTAMP = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 EXPORTS_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), "RatS", "exports"))
@@ -91,6 +92,7 @@ INSERTERS: Mapping[Site, RatingsInserter] = {
 def main():
     args = parse_args()
     init_logging(args)
+    check_version()
     try:
         execute(args)
     except RatSException as e:
@@ -117,7 +119,6 @@ def parse_args():
         "-D",
         "--all-destinations",
         help="Try to insert in all available destinations",
-        type=bool,
         action="store_true",
     )
     argparser.add_argument(
@@ -141,7 +142,6 @@ def parse_args():
         "-x",
         "--show_browser",
         help="show the browser doing his work",
-        type=bool,
         action="store_true",
         required=False,
     )

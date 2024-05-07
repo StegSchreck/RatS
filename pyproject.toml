@@ -19,6 +19,8 @@ configparser = "7.0.0"
 progressbar2 = "4.4.2"
 selenium = "4.16.0"
 xvfbwrapper = "0.2.9"
+requests = "^2.31.0"
+toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.3.0"
