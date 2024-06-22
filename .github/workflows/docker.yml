@@ -1,0 +1,28 @@
+name: Docker
+
+on:
+  push:
+    tags:
+      - '*'
+    # this workflow only runs after tags have been created by CI workflow
+
+jobs:
+
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Publish to GitHub Docker Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: stegschreck/rats/rats
+        username: ${{ secrets.GITHUB_DOCKER_USERNAME }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        tag_names: true
+    - name: Scan for vulnerabilities
+      uses: crazy-max/ghaction-container-scan@v3
+      with:
+        image: stegschreck/rats:latest

@@ -41,32 +41,27 @@ jobs:
         CODACY_USERNAME: ${{ github.GITHUB_REPOSITORY_OWNER }}
         CODACY_PROJECT_NAME: RatS
 
-  docker:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'master' || github.ref_type == 'tag'
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Publish to GitHub Docker Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: stegschreck/rats/rats
-        username: ${{ secrets.GITHUB_DOCKER_USERNAME }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
-        tag_names: true
-
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref_type == 'tag'
+    if: github.ref_name == 'master'
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Create Release
-      uses: softprops/action-gh-release@v0.1.14
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        fetch-depth: 0
+    - name: Python Semantic Release
+      id: release
+      uses: python-semantic-release/python-semantic-release@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish package to GitHub Release
+      uses: python-semantic-release/upload-to-gh-release@v9.8.3
+      if: steps.release.outputs.released == 'true'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.release.outputs.tag }}
