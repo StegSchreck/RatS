@@ -5,6 +5,8 @@ import datetime
 import json
 import os
 from configparser import RawConfigParser
+
+from decouple import config
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
@@ -40,14 +42,12 @@ class BaseSite:
         self.config.read(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, filename)))
 
     def _parse_credentials(self):
-        if os.environ.get(self.site_name.upper() + "_USERNAME"):
-            self.USERNAME: str = os.environ.get(self.site_name.upper() + "_USERNAME")
-        else:
-            self.USERNAME: str = self.config[self.site_name]["USERNAME"]
-        if os.environ.get(self.site_name.upper() + "_PASSWORD"):
-            self.PASSWORD: str = os.environ.get(self.site_name.upper() + "_PASSWORD")
-        else:
-            self.PASSWORD: str = self.config[self.site_name]["PASSWORD"]
+        self.USERNAME: str = config(
+            self.site_name.upper() + "_USERNAME", default=self.config[self.site_name]["USERNAME"]
+        )
+        self.PASSWORD: str = config(
+            self.site_name.upper() + "_PASSWORD", default=self.config[self.site_name]["PASSWORD"]
+        )
 
     def _validate_credentials(self):
         return (

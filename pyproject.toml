@@ -21,6 +21,7 @@ selenium = "4.22.0"
 xvfbwrapper = "0.2.9"
 requests = "^2.32.3"
 toml = "^0.10.2"
+python-decouple = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.4.2"
