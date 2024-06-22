@@ -1,6 +1,7 @@
 import json
 from enum import Enum
 from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -73,9 +74,9 @@ class Movie(BaseModel):
             return Movie(
                 title=movie_json["title"],
                 year=movie_json["year"] if "year" in movie_json else None,
-                site_data=_convert_dict_to_movie_site_date(movie_json["site_data"])
-                if "site_data" in movie_json
-                else None,
+                site_data=(
+                    _convert_dict_to_movie_site_date(movie_json["site_data"]) if "site_data" in movie_json else None
+                ),
             )
         else:
             return movie_json

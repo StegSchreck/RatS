@@ -153,7 +153,7 @@ def get_parser_from_arg(site: Site) -> RatingsParser:
     try:
         return PARSERS.get(site)
     except (KeyError, ValueError):
-        logging.error(f"No parser matching '{site.name}' found.")
+        logging.critical(f"No parser matching '{site.name}' found.")
         logging.info(f"Available parsers: {[parser for parser in PARSERS]}")
         sys.exit(1)
 
@@ -162,7 +162,7 @@ def get_inserter_from_arg(site: Site) -> RatingsInserter:
     try:
         return INSERTERS.get(site)
     except (KeyError, ValueError):
-        logging.error(f"No inserter matching '{site.name}' found.")
+        logging.critical(f"No inserter matching '{site.name}' found.")
         logging.info(f"Available inserters: {[inserter for inserter in INSERTERS]}")
         sys.exit(1)
 
