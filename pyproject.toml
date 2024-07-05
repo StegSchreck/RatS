@@ -25,7 +25,7 @@ python-decouple = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.4.2"
-pydantic = "2.7.4"
+pydantic = "2.8.2"
 pytest = "8.2.2"
 pytest-cov = "5.0.0"
 flake8 = "7.1.0"
