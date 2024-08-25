@@ -6,15 +6,10 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
+  test:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     steps:
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v2
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Set up Python
@@ -32,6 +27,16 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
+
+  dependabot:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
         env:
