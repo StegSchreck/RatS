@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
 
     steps:
     - name: Checkout code
@@ -20,15 +21,11 @@ jobs:
         poetry install --with dev
     - name: Lint with flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --extend-exclude 'venv'
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --extend-exclude 'venv'
+        poetry run pre-commit run
     - name: Test with pytest
       run: |
         poetry run pytest --cov RatS --cov-report term-missing --cov-report xml
     - name: Codacy Coverage Reporter
-      if: github.actor != 'dependabot[bot]'
       uses: codacy/codacy-coverage-reporter-action@v1.3.0
       with:
         api-token: ${{ secrets.CODACY_API_TOKEN }}
