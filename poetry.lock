@@ -915,13 +915,13 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "progressbar2"
-version = "4.4.2"
+version = "4.5.0"
 description = "A Python Progressbar library to provide visual (yet text based) progress to long running operations."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "progressbar2-4.4.2-py3-none-any.whl", hash = "sha256:ec157391635b008b8a422326fb05c27045ffbb2dc8dab5e4d90d4d412c4ffd39"},
-    {file = "progressbar2-4.4.2.tar.gz", hash = "sha256:3fda2e0c60693600a6585a784c9d3bc4e1dac57e99e133f8c0f5c8cf3df374a2"},
+    {file = "progressbar2-4.5.0-py3-none-any.whl", hash = "sha256:625c94a54e63915b3959355e6d4aacd63a00219e5f3e2b12181b76867bf6f628"},
+    {file = "progressbar2-4.5.0.tar.gz", hash = "sha256:6662cb624886ed31eb94daf61e27583b5144ebc7383a17bae076f8f4f59088fb"},
 ]
 
 [package.dependencies]
@@ -1663,4 +1663,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "34b22e06e8823915b66e04577eac7e4f85d20f28b99d3c4ae9d6b706f2752027"
+content-hash = "fb9f1bd7ea324605ec301da07b3bee1ca503208a7955fb837d5d890dc1b158d0"
