@@ -968,8 +968,8 @@ files = [
 annotated-types = ">=0.4.0"
 pydantic-core = "2.23.2"
 typing-extensions = [
-    {version = ">=4.12.2", markers = "python_version >= \"3.13\""},
     {version = ">=4.6.1", markers = "python_version < \"3.13\""},
+    {version = ">=4.12.2", markers = "python_version >= \"3.13\""},
 ]
 tzdata = {version = "*", markers = "python_version >= \"3.9\""}
 
@@ -1117,8 +1117,8 @@ files = [
 astroid = ">=3.2.4,<=3.3.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = [
-    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
     {version = ">=0.2", markers = "python_version < \"3.11\""},
+    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
     {version = ">=0.3.6", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
 ]
 isort = ">=4.2.5,<5.13.0 || >5.13.0,<6"
@@ -1215,13 +1215,13 @@ yaml = ["PyYaml (>=6.0.1)"]
 
 [[package]]
 name = "python-semantic-release"
-version = "9.8.7"
+version = "9.8.8"
 description = "Automatic Semantic Versioning for Python projects"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python_semantic_release-9.8.7-py3-none-any.whl", hash = "sha256:ed26c69878dd5439ad1dc8120e5f4251088277b1a760278b60bf7957f0e88630"},
-    {file = "python_semantic_release-9.8.7.tar.gz", hash = "sha256:0781e615c3c12583bee78c7e772f14b75078de17f81ab2527bb71a1e13706b74"},
+    {file = "python_semantic_release-9.8.8-py3-none-any.whl", hash = "sha256:df43d02234ce4be3802bceca804c3a357aebf833a97624dc74563ec69da8a3ef"},
+    {file = "python_semantic_release-9.8.8.tar.gz", hash = "sha256:19ac268bc417b2b8ea869caede307c50bc1fc2c6c70ee42e88403e321d13f494"},
 ]
 
 [package.dependencies]
@@ -1675,4 +1675,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "a7bbabe8121229951f3a50166bf261686e988c052052dd2b9a5eef2e48d6aa67"
+content-hash = "b2f770ae416b3fc35fa2ec24dabbbac653fdbb283130325349317c45ef98bd54"
