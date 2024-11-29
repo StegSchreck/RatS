@@ -1393,13 +1393,13 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "selenium"
-version = "4.26.1"
+version = "4.27.1"
 description = "Official Python bindings for Selenium WebDriver"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "selenium-4.26.1-py3-none-any.whl", hash = "sha256:1db3f3a0cd5bb07624fa8a3905a6fdde1595a42185a0617077c361dc53d104fb"},
-    {file = "selenium-4.26.1.tar.gz", hash = "sha256:7640f3f08ae7f4e450f895678e8a10a55eb4e4ca18311ed675ecc4684b96b683"},
+    {file = "selenium-4.27.1-py3-none-any.whl", hash = "sha256:b89b1f62b5cfe8025868556fe82360d6b649d464f75d2655cb966c8f8447ea18"},
+    {file = "selenium-4.27.1.tar.gz", hash = "sha256:5296c425a75ff1b44d0d5199042b36a6d1ef76c04fb775b97b40be739a9caae2"},
 ]
 
 [package.dependencies]
@@ -1678,4 +1678,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d166042ff27926c3ec71cbda519cf95de1c530fae99e68277800fafcdd27c64e"
+content-hash = "ae3211e85f5423edb19956a6dc0826eb009930eb7f12c93121220b95a8440abb"
