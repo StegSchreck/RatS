@@ -26,7 +26,7 @@ python-decouple = "^3.8"
 [tool.poetry.group.dev.dependencies]
 black = "24.10.0"
 pydantic = "2.10.3"
-pytest = "8.3.3"
+pytest = "8.3.4"
 pytest-cov = "6.0.0"
 flake8 = "7.1.1"
 pre-commit = "4.0.1"
