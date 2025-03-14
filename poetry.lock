@@ -372,19 +372,23 @@ files = [
 
 [[package]]
 name = "configparser"
-version = "7.1.0"
+version = "7.2.0"
 description = "Updated configparser from stdlib for earlier Pythons."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "configparser-7.1.0-py3-none-any.whl", hash = "sha256:98e374573c4e10e92399651e3ba1c47a438526d633c44ee96143dec26dad4299"},
-    {file = "configparser-7.1.0.tar.gz", hash = "sha256:eb82646c892dbdf773dae19c633044d163c3129971ae09b49410a303b8e0a5f7"},
+    {file = "configparser-7.2.0-py3-none-any.whl", hash = "sha256:fee5e1f3db4156dcd0ed95bc4edfa3580475537711f67a819c966b389d09ce62"},
+    {file = "configparser-7.2.0.tar.gz", hash = "sha256:b629cc8ae916e3afbd36d1b3d093f34193d851e11998920fdcfc4552218b7b70"},
 ]
 
 [package.extras]
+check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1) ; sys_platform != \"cygwin\""]
+cover = ["pytest-cov"]
 doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
-test = ["pytest (>=6,!=8.1.*)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy", "pytest-ruff (>=0.2.1) ; sys_platform != \"cygwin\"", "types-backports"]
+enabler = ["pytest-enabler (>=2.2)"]
+test = ["pytest (>=6,!=8.1.*)", "types-backports"]
+type = ["pytest-mypy"]
 
 [[package]]
 name = "coverage"
@@ -1875,4 +1879,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "c00db77f55afee1107919c6917d4323d566ea99c604b2a8adc1f8557cd8e287c"
+content-hash = "ebf902d4260b4cd536726434667fa8badbabc165d32a2f548c9ea2cd966f9e6b"
