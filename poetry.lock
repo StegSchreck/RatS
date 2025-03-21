@@ -1867,16 +1867,17 @@ h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xvfbwrapper"
-version = "0.2.9"
-description = "run headless display inside X virtual framebuffer (Xvfb)"
+version = "0.2.10"
+description = "Manage headless displays with Xvfb (X virtual framebuffer)"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "xvfbwrapper-0.2.9.tar.gz", hash = "sha256:bcf4ae571941b40254faf7a73432dfc119ad21ce688f1fdec533067037ecfc24"},
+    {file = "xvfbwrapper-0.2.10-py3-none-any.whl", hash = "sha256:8fcffe37d5f90579458341dd449b47947b6b241ae1daefc362edb2fea7bf7c79"},
+    {file = "xvfbwrapper-0.2.10.tar.gz", hash = "sha256:d662cf8f266efd3d0a1c022eebb8d2c04083d6e87fd81392fb5400d95036ed8c"},
 ]
 
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "ebf902d4260b4cd536726434667fa8badbabc165d32a2f548c9ea2cd966f9e6b"
+content-hash = "da2402bfdae5498e7455adf7cc623802625625d0944af5a065a51f636f33f175"
