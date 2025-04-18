@@ -13,7 +13,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
-beautifulsoup4 = "4.13.3"
+beautifulsoup4 = "4.13.4"
 bs4 = "0.0.2"
 configparser = "7.2.0"
 progressbar2 = "4.5.0"
