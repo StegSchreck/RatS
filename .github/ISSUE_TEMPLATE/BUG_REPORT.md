@@ -18,13 +18,13 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Desktop (please complete the following information):**
-- Version: <!-- project version or commit hash -->
+- Version: <!-- project version (`uv version`) or commit hash -->
 - Platform OS: <!-- e.g. Linux/MacOS/Windows + version -->
 - Firefox version: <!-- from the about dialogue -->
 - Geckodriver version: <!-- `geckodriver --version` -->
 - Python version: <!-- `python3 --version` -->
 - PIP version: <!-- `pip --version` -->
-- Poetry version: <!-- `poetry --version` -->
+- UN version: <!-- `uv --version` -->
 - Running in a virtualenv?: <!-- yes or no -->
 - Running in Docker?: <!-- yes or no -->
 - Executed command: <!-- e.g. `python3 transfer_ratings.py -s trakt -d imdb` -->

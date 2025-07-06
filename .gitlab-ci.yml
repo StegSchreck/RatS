@@ -8,19 +8,19 @@ lint:
   stage: test
   before_script:
     - python -m pip install --upgrade pip
-    - pip install poetry
-    - poetry install --with dev
+    - pip install uv
+    - uv sync --group dev
   script:
-    - poetry run pre-commit run
+    - uv run pre-commit run
 
 test:
   stage: test
   before_script:
     - python -m pip install --upgrade pip
-    - pip install poetry
-    - poetry install --with dev
+    - pip install uv
+    - uv sync --group dev
   script:
-    - poetry run pytest .
+    - uv run pytest .
 
 publish_docker_on_master:
   stage: release

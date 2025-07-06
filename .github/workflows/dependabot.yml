@@ -19,14 +19,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --with dev
+          pip install uv
+          uv sync --group dev
       - name: Lint
         run: |
-          poetry run pre-commit run
+          uv run pre-commit run
       - name: Test with pytest
         run: |
-          poetry run pytest
+          uv run pytest
 
   dependabot:
     runs-on: ubuntu-latest

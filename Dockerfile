@@ -8,9 +8,9 @@ RUN sudo apt-get update \
 
 RUN sudo mkdir -p /RatS/RatS
 WORKDIR /RatS
-COPY ["./pyproject.toml", "./poetry.lock", "./transfer_ratings.py", "/RatS/"]
-RUN python3 --version && pip3 --version && sudo pip3 install --no-cache-dir poetry \
-    && poetry --version && poetry install
+COPY ["./pyproject.toml", "./uv.lock", "./transfer_ratings.py", "/RatS/"]
+RUN python3 --version && pip3 --version && sudo pip3 install --no-cache-dir uv \
+    && uv --version && uv sync && uv version
 COPY ./RatS /RatS/RatS/
 RUN sudo chown -R seluser: .
 

@@ -27,8 +27,8 @@ This project is currently still under development. Please be patient, as I'm onl
     This project is designed to run on Linux.
 2. Checkout the project
     `git clone https://github.com/StegSchreck/RatS.git && cd RatS`
-3. Install the requirements with poetry
-    `poetry install`
+3. Install the requirements with uv
+    `uv sync`
 4. Install Geckodriver
     * Use your system's package manager (if it contains Geckodriver)
         * Arch Linux: `pacman -S geckodriver`
