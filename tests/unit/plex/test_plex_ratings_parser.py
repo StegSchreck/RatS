@@ -7,25 +7,17 @@ from bs4 import BeautifulSoup
 from RatS.base.movie_entity import Movie, Site
 from RatS.plex.plex_ratings_parser import PlexRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class PlexRatingsParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        with open(
-            os.path.join(TESTDATA_PATH, "plex", "my_ratings.xml"), encoding="UTF-8"
-        ) as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, "plex", "my_ratings.xml"), encoding="UTF-8") as my_ratings:
             self.my_ratings = my_ratings.read()
-        with open(
-            os.path.join(TESTDATA_PATH, "plex", "my_ratings_tile.xml"), encoding="UTF-8"
-        ) as ratings_tile:
-            self.ratings_tile = BeautifulSoup(ratings_tile.read(), "html.parser").find(
-                "video", attrs={"type": "movie"}
-            )
+        with open(os.path.join(TESTDATA_PATH, "plex", "my_ratings_tile.xml"), encoding="UTF-8") as ratings_tile:
+            self.ratings_tile = BeautifulSoup(ratings_tile.read(), "html.parser").find("video", attrs={"type": "movie"})
 
     @patch("RatS.plex.plex_ratings_inserter.Plex._determine_server_id")
     @patch("RatS.plex.plex_ratings_parser.Plex")
@@ -79,9 +71,7 @@ class PlexRatingsParserTest(TestCase):
         parser.site.SERVER_ID = "ThisIsAMockUUID"
         parser.site.browser = browser_mock
 
-        movie = parser._parse_movie_tile(
-            self.ratings_tile
-        )  # pylint: disable=protected-access
+        movie = parser._parse_movie_tile(self.ratings_tile)  # pylint: disable=protected-access
 
         self.assertEqual(Movie, type(movie))
         self.assertEqual("Fight Club", movie.title)

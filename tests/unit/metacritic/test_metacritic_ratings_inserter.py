@@ -7,9 +7,7 @@ from bs4 import BeautifulSoup
 from RatS.base.movie_entity import Site, SiteSpecificMovieData, Movie
 from RatS.metacritic.metacritic_ratings_inserter import MetacriticRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class MetacriticRatingsInserterTest(TestCase):
@@ -46,12 +44,8 @@ class MetacriticRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results"
-    )
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie")
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results")
     @patch("RatS.metacritic.metacritic_ratings_inserter.Metacritic")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -78,12 +72,8 @@ class MetacriticRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
 
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results"
-    )
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie")
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results")
     @patch("RatS.metacritic.metacritic_ratings_inserter.Metacritic")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -103,12 +93,8 @@ class MetacriticRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results"
-    )
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._is_requested_movie")
+    @patch("RatS.metacritic.metacritic_ratings_inserter.MetacriticRatingsInserter._get_search_results")
     @patch("RatS.metacritic.metacritic_ratings_inserter.Metacritic")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -133,9 +119,7 @@ class MetacriticRatingsInserterTest(TestCase):
     @patch("RatS.metacritic.metacritic_ratings_inserter.Metacritic")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_compare_movie_success(
-        self, browser_mock, base_init_mock, site_mock
-    ):  # pylint: disable=too-many-arguments
+    def test_compare_movie_success(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
         inserter = MetacriticRatingsInserter(None)
@@ -145,18 +129,14 @@ class MetacriticRatingsInserterTest(TestCase):
         inserter.args = None
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
-        result = inserter._is_requested_movie(
-            self.movie, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(self.movie, search_result)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
     @patch("RatS.metacritic.metacritic_ratings_inserter.Metacritic")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_compare_movie_fail(
-        self, browser_mock, base_init_mock, site_mock
-    ):  # pylint: disable=too-many-arguments
+    def test_compare_movie_fail(self, browser_mock, base_init_mock, site_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
         inserter = MetacriticRatingsInserter(None)
@@ -168,9 +148,7 @@ class MetacriticRatingsInserterTest(TestCase):
         movie2 = Movie(title="The Matrix", year=1995)
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
-        result = inserter._is_requested_movie(
-            movie2, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)
 
@@ -188,9 +166,7 @@ class MetacriticRatingsInserterTest(TestCase):
             ),
             encoding="UTF-8",
         ) as movie_details_page_without_release_year:
-            movie_details_page_without_release_year = (
-                movie_details_page_without_release_year.read()
-            )
+            movie_details_page_without_release_year = movie_details_page_without_release_year.read()
 
         site_mock.browser = browser_mock
         browser_mock.page_source = movie_details_page_without_release_year
@@ -201,8 +177,6 @@ class MetacriticRatingsInserterTest(TestCase):
         inserter.args = None
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
-        result = inserter._is_requested_movie(
-            self.movie, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(self.movie, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)

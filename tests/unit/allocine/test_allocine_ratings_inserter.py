@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.allocine.allocine_ratings_inserter import AlloCineRatingsInserter
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class AlloCineRatingsInserterTest(TestCase):
@@ -44,12 +42,8 @@ class AlloCineRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._get_search_results"
-    )
+    @patch("RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._is_requested_movie")
+    @patch("RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._get_search_results")
     @patch("RatS.allocine.allocine_ratings_inserter.AlloCine")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -93,12 +87,8 @@ class AlloCineRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._get_search_results"
-    )
+    @patch("RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._is_requested_movie")
+    @patch("RatS.allocine.allocine_ratings_inserter.AlloCineRatingsInserter._get_search_results")
     @patch("RatS.allocine.allocine_ratings_inserter.AlloCine")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

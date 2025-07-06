@@ -85,7 +85,7 @@ class RatingsParser:
 
     def print_progress(self, movie: Movie):
         logging.debug(
-            f"===== {self.site.site_displayname}: [{len(self.movies)}/{self.movies_count}] "
+            f"===== {self.site.site_name}: [{len(self.movies)}/{self.movies_count}] "
             f"parsed {movie.title} ({movie.year})"
         )
         self._print_progress_bar()

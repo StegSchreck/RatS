@@ -5,18 +5,14 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.criticker.criticker_ratings_parser import CritickerRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class CritickerParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        with open(
-            os.path.join(TESTDATA_PATH, "criticker", "my_ratings.xml"), encoding="UTF-8"
-        ) as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, "criticker", "my_ratings.xml"), encoding="UTF-8") as my_ratings:
             self.my_ratings = my_ratings.read()
 
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
@@ -43,9 +39,7 @@ class CritickerParserTest(TestCase):
 
         self.assertEqual(1531, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual(1999, parser.movies[0].year)
         self.assertEqual("1077", parser.movies[0].site_data[Site.CRITICKER].id)
@@ -54,9 +48,7 @@ class CritickerParserTest(TestCase):
             parser.movies[0].site_data[Site.CRITICKER].url,
         )
         self.assertEqual(10, parser.movies[0].site_data[Site.CRITICKER].my_rating)
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.CRITICKER]))
         self.assertEqual("tt0137523", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
             "https://www.imdb.com/title/tt0137523",

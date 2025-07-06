@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.movielens.movielens_ratings_inserter import MovielensRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class MovielensUploaderTest(TestCase):
@@ -32,9 +30,7 @@ class MovielensUploaderTest(TestCase):
     @patch("RatS.movielens.movielens_ratings_inserter.Movielens")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_insert(
-        self, browser_mock, base_init_mock, site_mock, impex_mock
-    ):  # pylint: disable=too-many-arguments
+    def test_insert(self, browser_mock, base_init_mock, site_mock, impex_mock):  # pylint: disable=too-many-arguments
         site_mock.browser = browser_mock
         inserter = MovielensRatingsInserter(None)
         inserter.site = site_mock

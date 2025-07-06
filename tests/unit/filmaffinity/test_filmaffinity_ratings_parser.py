@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.filmaffinity.filmaffinity_ratings_parser import FilmAffinityRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class FilmAffinityRatingsParserTest(TestCase):
@@ -48,9 +46,7 @@ class FilmAffinityRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FILMAFFINITY])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FILMAFFINITY]))
         self.assertEqual("Vollidiot", parser.movies[0].title)
         self.assertEqual("125089", parser.movies[0].site_data[Site.FILMAFFINITY].id)
         self.assertEqual(

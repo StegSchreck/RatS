@@ -35,9 +35,7 @@ class FilmtipsetRatingsParser(RatingsDownloader):
             print(FilmtipsetRatingsParser._repair_csv_row(line), end="")
 
     def _file_was_downloaded(self):
-        pattern = (
-            self.exports_folder + "/ft_betyg_2[0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv"
-        )
+        pattern = self.exports_folder + "/ft_betyg_2[0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9].csv"
         files = glob.glob(pattern)
         for filename in files:
             self.downloaded_file_name = os.path.basename(filename)

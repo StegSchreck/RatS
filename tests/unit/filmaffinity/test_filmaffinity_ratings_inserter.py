@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, SiteSpecificMovieData, Site
 from RatS.filmaffinity.filmaffinity_ratings_inserter import FilmAffinityRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class FilmAffinityRatingsInserterTest(TestCase):
@@ -44,15 +42,9 @@ class FilmAffinityRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page"
-    )
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_search_results"
-    )
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page")
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._is_requested_movie")
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_search_results")
     @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinity")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -81,15 +73,11 @@ class FilmAffinityRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
 
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page"
-    )
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page")
     @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinity")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_by_year(
-        self, browser_mock, base_init_mock, site_mock, search_result_page_location
-    ):
+    def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, search_result_page_location):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         search_result_page_location.return_value = True
@@ -104,15 +92,9 @@ class FilmAffinityRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_displayed_movie_year"
-    )
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_movie_detail_page"
-    )
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page"
-    )
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_displayed_movie_year")
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_movie_detail_page")
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._on_search_result_page")
     @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinity")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -141,12 +123,8 @@ class FilmAffinityRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_search_results"
-    )
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._is_requested_movie")
+    @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinityRatingsInserter._get_search_results")
     @patch("RatS.filmaffinity.filmaffinity_ratings_inserter.FilmAffinity")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

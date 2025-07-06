@@ -212,7 +212,7 @@ def execute_inserting(args, movies: list[Movie], parser: RatingsParser):
 def _filter_source_site_from_destinations(destinations: list[str], parser_site_name: str):
     if parser_site_name.upper() in destinations:
         destinations.remove(parser_site_name.upper())
-        logging.warning(f"Will not insert ratings to their source. Skipping {parser_site_name}.")
+        logging.info(f"Will not insert ratings to their source. Skipping {parser_site_name}.")
 
 
 def execute_parsing(args, parser: RatingsParser) -> list[Movie]:

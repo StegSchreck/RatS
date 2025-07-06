@@ -5,18 +5,14 @@ from unittest.mock import patch
 from RatS.allocine.allocine_ratings_parser import AlloCineRatingsParser
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class AlloCineRatingsParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        with open(
-            os.path.join(TESTDATA_PATH, "allocine", "my_ratings.html"), encoding="UTF-8"
-        ) as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, "allocine", "my_ratings.html"), encoding="UTF-8") as my_ratings:
             self.my_ratings = my_ratings.read()
         with open(
             os.path.join(TESTDATA_PATH, "allocine", "movie_details_page.html"),
@@ -32,9 +28,7 @@ class AlloCineRatingsParserTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_parser.RatingsParser._print_progress_bar")
-    @patch(
-        "RatS.allocine.allocine_ratings_parser.AlloCineRatingsParser.parse_movie_details_page"
-    )
+    @patch("RatS.allocine.allocine_ratings_parser.AlloCineRatingsParser.parse_movie_details_page")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.allocine.allocine_ratings_parser.AlloCine")
@@ -61,9 +55,7 @@ class AlloCineRatingsParserTest(TestCase):
         self.assertEqual(2, parse_movie_mock.call_count)
         self.assertEqual(2, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ALLOCINE])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ALLOCINE]))
         self.assertEqual("21189", parser.movies[0].site_data[Site.ALLOCINE].id)
         self.assertEqual(
             "https://www.allocine.fr/film/fichefilm_gen_cfilm=21189.html",

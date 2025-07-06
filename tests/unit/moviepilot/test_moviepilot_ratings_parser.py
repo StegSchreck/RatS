@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.moviepilot.moviepilot_ratings_parser import MoviePilotRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class MoviePilotRatingsParserTest(TestCase):
@@ -33,12 +31,8 @@ class MoviePilotRatingsParserTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_parser.RatingsParser._print_progress_bar")
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser._retrieve_pages_count_and_movies_count"
-    )
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser.parse_movie_details_page"
-    )
+    @patch("RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser._retrieve_pages_count_and_movies_count")
+    @patch("RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser.parse_movie_details_page")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.moviepilot.moviepilot_ratings_parser.MoviePilot")
@@ -68,24 +62,18 @@ class MoviePilotRatingsParserTest(TestCase):
         self.assertEqual(1, parse_movie_mock.call_count)
         self.assertEqual(1, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.MOVIEPILOT])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.MOVIEPILOT]))
         self.assertEqual("Star Trek - Der Film", parser.movies[0].title)
         self.assertEqual(
             "https://www.moviepilot.de/movies/star-trek-der-film",
             parser.movies[0].site_data[Site.MOVIEPILOT].url,
         )
 
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser._get_movie_my_rating"
-    )
+    @patch("RatS.moviepilot.moviepilot_ratings_parser.MoviePilotRatingsParser._get_movie_my_rating")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.moviepilot.moviepilot_ratings_parser.MoviePilot")
-    def test_parser_single_movie(
-        self, site_mock, base_init_mock, browser_mock, rating_mock
-    ):
+    def test_parser_single_movie(self, site_mock, base_init_mock, browser_mock, rating_mock):
         browser_mock.page_source = self.my_ratings
         parser = MoviePilotRatingsParser(None)
         parser.movies = []

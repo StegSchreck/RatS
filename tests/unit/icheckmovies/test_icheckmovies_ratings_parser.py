@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.icheckmovies.icheckmovies_ratings_parser import ICheckMoviesRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class ICheckMoviesParserTest(TestCase):
@@ -33,9 +31,7 @@ class ICheckMoviesParserTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_parser.RatingsParser._print_progress_bar")
-    @patch(
-        "RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMoviesRatingsParser._parse_movies_category"
-    )
+    @patch("RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMoviesRatingsParser._parse_movies_category")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.icheckmovies.icheckmovies_ratings_parser.ICheckMovies")
@@ -79,15 +75,11 @@ class ICheckMoviesParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.args = None
 
-        parser._parse_movies_category(
-            "mock-url", "like"
-        )  # pylint: disable=protected-access
+        parser._parse_movies_category("mock-url", "like")  # pylint: disable=protected-access
 
         self.assertEqual(240, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual("21", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
@@ -95,9 +87,7 @@ class ICheckMoviesParserTest(TestCase):
             parser.movies[0].site_data[Site.ICHECKMOVIES].url,
         )
         self.assertEqual(1999, parser.movies[0].year)
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.IMDB])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.IMDB]))
         self.assertEqual("tt0137523", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
             "https://www.imdb.com/title/tt0137523",
@@ -124,15 +114,11 @@ class ICheckMoviesParserTest(TestCase):
         parser.site.browser = browser_mock
         parser.args = None
 
-        parser._parse_movies_category(
-            "mock-url", "dislike"
-        )  # pylint: disable=protected-access
+        parser._parse_movies_category("mock-url", "dislike")  # pylint: disable=protected-access
 
         self.assertEqual(25, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
         self.assertEqual("Daniel der Zauberer", parser.movies[0].title)
         self.assertEqual("119234", parser.movies[0].site_data[Site.ICHECKMOVIES].id)
         self.assertEqual(
@@ -140,9 +126,7 @@ class ICheckMoviesParserTest(TestCase):
             parser.movies[0].site_data[Site.ICHECKMOVIES].url,
         )
         self.assertEqual(2004, parser.movies[0].year)
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ICHECKMOVIES]))
         self.assertEqual("tt0421051", parser.movies[0].site_data[Site.IMDB].id)
         self.assertEqual(
             "https://www.imdb.com/title/tt0421051",

@@ -107,7 +107,7 @@ If you don't specify any destination, the ratings are only parsed and saved loca
 
 `-f` / `--file`: read ratings from a previous run instead of parsing them
 
-`-v` / `--verbose`: increase output verbosity (i.e. print the generated predictions in the console)
+`--log`: change log output level (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`)
 
 `-x` / `--show_browser`: show the browser doing his work (this might help for debugging))
 

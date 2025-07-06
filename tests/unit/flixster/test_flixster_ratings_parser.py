@@ -6,18 +6,14 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.flixster.flixster_ratings_parser import FlixsterRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class FlixsterParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        with open(
-            os.path.join(TESTDATA_PATH, "flixster", "my_ratings.json"), encoding="UTF-8"
-        ) as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, "flixster", "my_ratings.json"), encoding="UTF-8") as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
@@ -48,9 +44,7 @@ class FlixsterParserTest(TestCase):
 
         self.assertEqual(330 - 9, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FLIXSTER])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.FLIXSTER]))
         self.assertEqual("Fight Club", parser.movies[0].title)
         self.assertEqual(1999, parser.movies[0].year)
 

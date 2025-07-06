@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.moviepilot.moviepilot_ratings_inserter import MoviePilotRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class MoviePilotRatingsInserterTest(TestCase):
@@ -44,15 +42,9 @@ class MoviePilotRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._post_movie_rating"
-    )
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._get_search_results"
-    )
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._post_movie_rating")
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._is_requested_movie")
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._get_search_results")
     @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilot")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -81,15 +73,11 @@ class MoviePilotRatingsInserterTest(TestCase):
         self.assertTrue(progress_print_mock.called)
         self.assertTrue(post_rating_mock.called)
 
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._check_movie_details"
-    )
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._check_movie_details")
     @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilot")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_by_year(
-        self, browser_mock, base_init_mock, site_mock, movie_details_mock
-    ):
+    def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, movie_details_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         inserter = MoviePilotRatingsInserter(None)
@@ -104,12 +92,8 @@ class MoviePilotRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._get_search_results"
-    )
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._is_requested_movie")
+    @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilotRatingsInserter._get_search_results")
     @patch("RatS.moviepilot.moviepilot_ratings_inserter.MoviePilot")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

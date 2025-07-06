@@ -7,9 +7,7 @@ from bs4 import BeautifulSoup
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.imdb.imdb_ratings_inserter import IMDBRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class IMDBRatingsInserterTest(TestCase):
@@ -30,9 +28,7 @@ class IMDBRatingsInserterTest(TestCase):
             id="550",
             url="https://www.themoviedb.org/movie/550",
         )
-        with open(
-            os.path.join(TESTDATA_PATH, "imdb", "search_result.html"), encoding="UTF-8"
-        ) as search_result_tile:
+        with open(os.path.join(TESTDATA_PATH, "imdb", "search_result.html"), encoding="UTF-8") as search_result_tile:
             self.search_result = search_result_tile.read()
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
@@ -73,13 +69,9 @@ class IMDBRatingsInserterTest(TestCase):
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
-        search_result = search_result_page.find(class_="findList").find_all(
-            class_="findResult"
-        )[0]
+        search_result = search_result_page.find(class_="findList").find_all(class_="findResult")[0]
 
-        result = inserter._is_requested_movie(
-            self.movie, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(self.movie, search_result)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
@@ -94,24 +86,18 @@ class IMDBRatingsInserterTest(TestCase):
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
-        search_result = search_result_page.find(class_="findList").find_all(
-            class_="findResult"
-        )[0]
+        search_result = search_result_page.find(class_="findList").find_all(class_="findResult")[0]
 
         movie2 = Movie(title="Arrival", year=2006)
 
-        result = inserter._is_requested_movie(
-            movie2, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)
 
     @patch("RatS.imdb.imdb_ratings_inserter.IMDB")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_is_requested_movie_no_movie_with_that_year(
-        self, browser_mock, base_init_mock, site_mock
-    ):
+    def test_is_requested_movie_no_movie_with_that_year(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = IMDBRatingsInserter(None)
         inserter.site = site_mock
@@ -119,15 +105,11 @@ class IMDBRatingsInserterTest(TestCase):
         inserter.site.site_name = "IMDB"
         inserter.failed_movies = []
         search_result_page = BeautifulSoup(self.search_result, "html.parser")
-        search_result = search_result_page.find(class_="findList").find_all(
-            class_="findResult"
-        )[0]
+        search_result = search_result_page.find(class_="findList").find_all(class_="findResult")[0]
 
         movie2 = Movie(title="SomeMovie", year=1995)
 
-        result = inserter._is_requested_movie(
-            movie2, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)
 

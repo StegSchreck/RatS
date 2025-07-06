@@ -7,9 +7,7 @@ from bs4 import BeautifulSoup
 from RatS.base.movie_entity import Site, Movie, SiteSpecificMovieData
 from RatS.criticker.criticker_ratings_inserter import CritickerRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class CritickerRatingsInserterTest(TestCase):
@@ -50,12 +48,8 @@ class CritickerRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._get_search_results"
-    )
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._is_requested_movie")
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._get_search_results")
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -85,9 +79,7 @@ class CritickerRatingsInserterTest(TestCase):
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_external_link_compare_imdb_success(
-        self, browser_mock, base_init_mock, site_mock
-    ):
+    def test_external_link_compare_imdb_success(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = CritickerRatingsInserter(None)
         inserter.site = site_mock
@@ -103,9 +95,7 @@ class CritickerRatingsInserterTest(TestCase):
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_external_link_compare_imdb_fail(
-        self, browser_mock, base_init_mock, site_mock
-    ):
+    def test_external_link_compare_imdb_fail(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         inserter = CritickerRatingsInserter(None)
         inserter.site = site_mock
@@ -125,15 +115,11 @@ class CritickerRatingsInserterTest(TestCase):
 
         self.assertFalse(result)
 
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links"
-    )
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links")
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_by_imdb(
-        self, browser_mock, base_init_mock, site_mock, compare_mock
-    ):
+    def test_find_movie_success_by_imdb(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         inserter = CritickerRatingsInserter(None)
@@ -146,15 +132,11 @@ class CritickerRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links"
-    )
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links")
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_by_year(
-        self, browser_mock, base_init_mock, site_mock, compare_mock
-    ):
+    def test_find_movie_success_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
         inserter = CritickerRatingsInserter(None)
@@ -166,21 +148,15 @@ class CritickerRatingsInserterTest(TestCase):
         movie2 = Movie(title="Fight Club", year=1999)
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
-        result = inserter._is_requested_movie(
-            movie2, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links"
-    )
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links")
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_fail_by_year(
-        self, browser_mock, base_init_mock, site_mock, compare_mock
-    ):
+    def test_find_movie_fail_by_year(self, browser_mock, base_init_mock, site_mock, compare_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.movie_details_page
         inserter = CritickerRatingsInserter(None)
@@ -192,21 +168,13 @@ class CritickerRatingsInserterTest(TestCase):
         movie2 = Movie(title="Fight Club", year=1998)
 
         search_result = BeautifulSoup(self.search_result_tile_list[0], "html.parser")
-        result = inserter._is_requested_movie(
-            movie2, search_result
-        )  # pylint: disable=protected-access
+        result = inserter._is_requested_movie(movie2, search_result)  # pylint: disable=protected-access
 
         self.assertFalse(result)
 
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._get_search_results"
-    )
-    @patch(
-        "RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links"
-    )
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._is_requested_movie")
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._get_search_results")
+    @patch("RatS.criticker.criticker_ratings_inserter.CritickerRatingsInserter._compare_external_links")
     @patch("RatS.criticker.criticker_ratings_inserter.Criticker")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

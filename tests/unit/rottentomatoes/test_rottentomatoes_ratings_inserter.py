@@ -8,9 +8,7 @@ from RatS.rottentomatoes.rottentomatoes_ratings_inserter import (
     RottenTomatoesRatingsInserter,
 )
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class RottenTomatoesRatingsInserterTest(TestCase):
@@ -38,9 +36,7 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         ) as result_tile:
             self.search_result_tile_list = [json.loads(result_tile.read())]
 
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_site.RottenTomatoes._user_is_not_logged_in"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_site.RottenTomatoes._user_is_not_logged_in")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
     def test_init(self, browser_mock, base_init_mock, login_check_mock):
@@ -50,12 +46,8 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._is_requested_movie")
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results")
     @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoes")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -82,9 +74,7 @@ class RottenTomatoesRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
 
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results")
     @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoes")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -103,12 +93,8 @@ class RottenTomatoesRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._is_requested_movie")
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoesRatingsInserter._get_search_results")
     @patch("RatS.rottentomatoes.rottentomatoes_ratings_inserter.RottenTomatoes")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

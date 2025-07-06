@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.flixster.flixster_ratings_inserter import FlixsterRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class FlixsterRatingsInserterTest(TestCase):
@@ -48,12 +46,8 @@ class FlixsterRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results"
-    )
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie")
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results")
     @patch("RatS.flixster.flixster_ratings_inserter.Flixster")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -92,9 +86,7 @@ class FlixsterRatingsInserterTest(TestCase):
         inserter.failed_movies = []
 
         movie2 = Movie(title="Fight Club", year=1999)
-        movie2.site_data[Site.FLIXSTER] = SiteSpecificMovieData(
-            url="https://www.flixster.com/movie/fight-club/"
-        )
+        movie2.site_data[Site.FLIXSTER] = SiteSpecificMovieData(url="https://www.flixster.com/movie/fight-club/")
 
         result = inserter._find_movie(movie2)  # pylint: disable=protected-access
 
@@ -103,9 +95,7 @@ class FlixsterRatingsInserterTest(TestCase):
     @patch("RatS.flixster.flixster_ratings_inserter.Flixster")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_by_own_url(
-        self, browser_mock, base_init_mock, site_mock
-    ):
+    def test_find_movie_success_by_own_url(self, browser_mock, base_init_mock, site_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         inserter = FlixsterRatingsInserter(None)
@@ -119,12 +109,8 @@ class FlixsterRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results"
-    )
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_requested_movie")
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._get_search_results")
     @patch("RatS.flixster.flixster_ratings_inserter.Flixster")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -151,15 +137,11 @@ class FlixsterRatingsInserterTest(TestCase):
 
         self.assertFalse(result)
 
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie"
-    )
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie")
     @patch("RatS.flixster.flixster_ratings_inserter.Flixster")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success_directly_at_search(
-        self, browser_mock, base_init_mock, site_mock, search_mock
-    ):
+    def test_find_movie_success_directly_at_search(self, browser_mock, base_init_mock, site_mock, search_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         inserter = FlixsterRatingsInserter(None)
@@ -174,12 +156,8 @@ class FlixsterRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_empty_search_result"
-    )
-    @patch(
-        "RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie"
-    )
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._is_empty_search_result")
+    @patch("RatS.flixster.flixster_ratings_inserter.FlixsterRatingsInserter._search_for_movie")
     @patch("RatS.flixster.flixster_ratings_inserter.Flixster")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

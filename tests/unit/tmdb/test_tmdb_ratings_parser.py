@@ -5,18 +5,14 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site
 from RatS.tmdb.tmdb_ratings_parser import TMDBRatingsParser
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class TMDBParserTest(TestCase):
     def setUp(self):
         if not os.path.exists(os.path.join(TESTDATA_PATH, "exports")):
             os.makedirs(os.path.join(TESTDATA_PATH, "exports"))
-        with open(
-            os.path.join(TESTDATA_PATH, "tmdb", "my_ratings.html"), encoding="UTF-8"
-        ) as my_ratings:
+        with open(os.path.join(TESTDATA_PATH, "tmdb", "my_ratings.html"), encoding="UTF-8") as my_ratings:
             self.my_ratings = my_ratings.read()
 
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")

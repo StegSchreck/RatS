@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.filmtipset.filmtipset_ratings_inserter import FilmtipsetRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class FilmtipsetRatingsInserterTest(TestCase):
@@ -42,12 +40,8 @@ class FilmtipsetRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
 
     @patch("RatS.base.base_ratings_inserter.RatingsInserter._print_progress_bar")
-    @patch(
-        "RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._get_search_results"
-    )
+    @patch("RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._is_requested_movie")
+    @patch("RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._get_search_results")
     @patch("RatS.filmtipset.filmtipset_ratings_inserter.Filmtipset")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
@@ -85,9 +79,7 @@ class FilmtipsetRatingsInserterTest(TestCase):
         inserter.site.site_name = "Filmtipset"
         inserter.failed_movies = []
 
-        result = inserter._check_movie_details(
-            self.movie
-        )  # pylint: disable=protected-access
+        result = inserter._check_movie_details(self.movie)  # pylint: disable=protected-access
 
         self.assertTrue(result)
 
@@ -108,12 +100,8 @@ class FilmtipsetRatingsInserterTest(TestCase):
 
         self.assertTrue(result)
 
-    @patch(
-        "RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._is_requested_movie"
-    )
-    @patch(
-        "RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._get_search_results"
-    )
+    @patch("RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._is_requested_movie")
+    @patch("RatS.filmtipset.filmtipset_ratings_inserter.FilmtipsetRatingsInserter._get_search_results")
     @patch("RatS.filmtipset.filmtipset_ratings_inserter.Filmtipset")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")

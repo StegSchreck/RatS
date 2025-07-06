@@ -8,9 +8,7 @@ from RatS.rottentomatoes.rottentomatoes_ratings_parser import (
     RottenTomatoesRatingsParser,
 )
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class RottenTomatoesRatingsParserTest(TestCase):
@@ -23,9 +21,7 @@ class RottenTomatoesRatingsParserTest(TestCase):
         ) as my_ratings:
             self.my_ratings = json.loads(my_ratings.read())
 
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_site.RottenTomatoes._user_is_not_logged_in"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_site.RottenTomatoes._user_is_not_logged_in")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
     def test_init(self, browser_mock, base_init_mock, login_check_mock):
@@ -34,9 +30,7 @@ class RottenTomatoesRatingsParserTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch(
-        "RatS.rottentomatoes.rottentomatoes_ratings_parser.RottenTomatoes.get_json_from_html"
-    )
+    @patch("RatS.rottentomatoes.rottentomatoes_ratings_parser.RottenTomatoes.get_json_from_html")
     @patch("RatS.utils.browser_handler.Firefox")
     @patch("RatS.base.base_ratings_parser.RatingsParser.__init__")
     @patch("RatS.rottentomatoes.rottentomatoes_ratings_parser.RottenTomatoes")
@@ -54,15 +48,11 @@ class RottenTomatoesRatingsParserTest(TestCase):
 
         self.assertEqual(20, len(parser.movies))
         self.assertEqual(Movie, type(parser.movies[0]))
-        self.assertEqual(
-            SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ROTTENTOMATOES])
-        )
+        self.assertEqual(SiteSpecificMovieData, type(parser.movies[0].site_data[Site.ROTTENTOMATOES]))
         self.assertEqual("Not My Day", parser.movies[0].title)
         self.assertEqual(2014, parser.movies[0].year)
 
-        self.assertEqual(
-            "771362331", parser.movies[0].site_data[Site.ROTTENTOMATOES].id
-        )
+        self.assertEqual("771362331", parser.movies[0].site_data[Site.ROTTENTOMATOES].id)
         self.assertEqual(
             "https://rottentomatoes.com/m/not_my_day_2014",
             parser.movies[0].site_data[Site.ROTTENTOMATOES].url,

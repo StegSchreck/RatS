@@ -5,9 +5,7 @@ from unittest.mock import patch
 
 from RatS.movielens.movielens_site import Movielens
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class MovielensSiteTest(TestCase):

@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.tmdb.tmdb_ratings_inserter import TMDBRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class TMDBRatingsInserterTest(TestCase):
@@ -21,9 +19,7 @@ class TMDBRatingsInserterTest(TestCase):
             my_rating=9,
         )
 
-    @patch(
-        "RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload"
-    )
+    @patch("RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
     def test_init(self, browser_mock, base_init_mock, url_mock):
@@ -31,9 +27,7 @@ class TMDBRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch(
-        "RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload"
-    )
+    @patch("RatS.tmdb.tmdb_ratings_inserter.TMDBRatingsInserter._get_url_for_csv_upload")
     @patch("RatS.base.base_ratings_uploader.save_movies_to_csv")
     @patch("RatS.tmdb.tmdb_ratings_inserter.TMDB")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")

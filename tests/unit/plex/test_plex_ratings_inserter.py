@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.plex.plex_ratings_inserter import PlexRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class PlexRatingsInserterTest(TestCase):
@@ -24,9 +22,7 @@ class PlexRatingsInserterTest(TestCase):
             id="550",
             url="https://www.themoviedb.org/movie/550",
         )
-        with open(
-            os.path.join(TESTDATA_PATH, "plex", "search_result.xml"), encoding="UTF-8"
-        ) as search_results:
+        with open(os.path.join(TESTDATA_PATH, "plex", "search_result.xml"), encoding="UTF-8") as search_results:
             self.search_results = search_results.read()
         with open(
             os.path.join(TESTDATA_PATH, "plex", "search_result_tile.xml"),
@@ -73,15 +69,11 @@ class PlexRatingsInserterTest(TestCase):
         self.assertTrue(base_init_mock.called)
         self.assertTrue(progress_print_mock.called)
 
-    @patch(
-        "RatS.plex.plex_ratings_inserter.PlexRatingsInserter._wait_for_movie_page_to_be_loaded"
-    )
+    @patch("RatS.plex.plex_ratings_inserter.PlexRatingsInserter._wait_for_movie_page_to_be_loaded")
     @patch("RatS.plex.plex_ratings_inserter.Plex")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
     @patch("RatS.utils.browser_handler.Firefox")
-    def test_find_movie_success(
-        self, browser_mock, base_init_mock, site_mock, page_load_wait_mock
-    ):
+    def test_find_movie_success(self, browser_mock, base_init_mock, site_mock, page_load_wait_mock):
         site_mock.browser = browser_mock
         browser_mock.page_source = self.search_results
         inserter = PlexRatingsInserter(None)

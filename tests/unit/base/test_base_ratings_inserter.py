@@ -35,9 +35,7 @@ class BaseInserterTest(TestCase):
         )
 
         movie2 = Movie(title="unreadable movie", year=1111)
-        movie2.site_data[Site.IMDB] = SiteSpecificMovieData(
-            id="xxx", url="https://www.imdb.com/title/xxx", my_rating=4
-        )
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData(id="xxx", url="https://www.imdb.com/title/xxx", my_rating=4)
 
         movies = [movie, movie, movie2]
         search_success_mock.side_effect = [True, True, False]
@@ -73,9 +71,7 @@ class BaseInserterTest(TestCase):
         )
 
         movie2 = Movie(title="unreadable movie", year=1111)
-        movie2.site_data[Site.IMDB] = SiteSpecificMovieData(
-            id="xxx", url="https://www.imdb.com/title/xxx", my_rating=4
-        )
+        movie2.site_data[Site.IMDB] = SiteSpecificMovieData(id="xxx", url="https://www.imdb.com/title/xxx", my_rating=4)
 
         movies = [movie, movie2, movie2]
         search_success_mock.side_effect = [True, False, False]

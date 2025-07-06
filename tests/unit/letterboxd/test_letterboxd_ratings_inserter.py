@@ -5,9 +5,7 @@ from unittest.mock import patch
 from RatS.base.movie_entity import Movie, Site, SiteSpecificMovieData
 from RatS.letterboxd.letterboxd_ratings_inserter import LetterboxdRatingsInserter
 
-TESTDATA_PATH = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets")
-)
+TESTDATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "assets"))
 
 
 class LetterboxdRatingsInserterTest(TestCase):
@@ -28,12 +26,8 @@ class LetterboxdRatingsInserterTest(TestCase):
 
         self.assertTrue(base_init_mock.called)
 
-    @patch(
-        "RatS.letterboxd.letterboxd_ratings_inserter.LetterboxdRatingsInserter._wait_for_import_processing"
-    )
-    @patch(
-        "RatS.letterboxd.letterboxd_ratings_inserter.LetterboxdRatingsInserter._wait_for_movie_matching"
-    )
+    @patch("RatS.letterboxd.letterboxd_ratings_inserter.LetterboxdRatingsInserter._wait_for_import_processing")
+    @patch("RatS.letterboxd.letterboxd_ratings_inserter.LetterboxdRatingsInserter._wait_for_movie_matching")
     @patch("RatS.letterboxd.letterboxd_ratings_inserter.save_movies_to_csv")
     @patch("RatS.letterboxd.letterboxd_ratings_inserter.Letterboxd")
     @patch("RatS.base.base_ratings_inserter.RatingsInserter.__init__")
