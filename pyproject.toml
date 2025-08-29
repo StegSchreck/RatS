@@ -11,7 +11,7 @@ requires-python = "~=3.10"
 readme = "README.md"
 license = "AGPL-3.0-only"
 dependencies = [
-    "beautifulsoup4==4.13.4",
+    "beautifulsoup4==4.13.5",
     "bs4==0.0.2",
     "configparser==7.2.0",
     "progressbar2==4.5.0",
