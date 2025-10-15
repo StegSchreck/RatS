@@ -15,7 +15,7 @@ dependencies = [
     "bs4==0.0.2",
     "configparser==7.2.0",
     "progressbar2==4.5.0",
-    "selenium==4.35.0",
+    "selenium==4.36.0",
     "xvfbwrapper==0.2.14",
     "requests>=2.32.4,<3",
     "toml>=0.10.2,<0.11",
@@ -25,8 +25,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff==0.13.2",
-    "pydantic==2.11.9",
+    "ruff==0.14.0",
+    "pydantic==2.12.0",
     "pytest==8.4.2",
     "pytest-cov==7.0.0",
     "pre-commit==4.3.0",
