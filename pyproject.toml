@@ -27,7 +27,7 @@ dependencies = [
 dev = [
     "ruff==0.14.9",
     "pydantic==2.12.5",
-    "pytest==8.4.2",
+    "pytest==9.0.2",
     "pytest-cov==7.0.0",
     "pre-commit==4.5.1",
     "types-beautifulsoup4==4.12.0.20250516",
