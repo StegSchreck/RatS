@@ -11,7 +11,7 @@ requires-python = "~=3.10"
 readme = "README.md"
 license = "AGPL-3.0-only"
 dependencies = [
-    "beautifulsoup4==4.14.2",
+    "beautifulsoup4==4.14.3",
     "bs4==0.0.2",
     "configparser==7.2.0",
     "progressbar2==4.5.0",
@@ -29,7 +29,7 @@ dev = [
     "pydantic==2.12.5",
     "pytest==8.4.2",
     "pytest-cov==7.0.0",
-    "pre-commit==4.5.0",
+    "pre-commit==4.5.1",
     "types-beautifulsoup4==4.12.0.20250516",
     "types-requests>=2.32.4.20250611,<3",
     "types-toml>=0.10.8.20240310,<0.11",
