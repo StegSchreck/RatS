@@ -15,7 +15,7 @@ dependencies = [
     "bs4==0.0.2",
     "configparser==7.2.0",
     "progressbar2==4.5.0",
-    "selenium==4.39.0",
+    "selenium==4.40.0",
     "xvfbwrapper==0.2.18",
     "requests>=2.32.4,<3",
     "toml>=0.10.2,<0.11",
